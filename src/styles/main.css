@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+/* ===========================
+   Tailwind v4 Custom Theme
+   =========================== */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: #1B65B9;
+  --color-primary-light: #2E7DE0;
+  --color-primary-dark: #144B8A;
+  --color-primary-50: #EBF2FC;
+  --color-primary-100: #C4D9F5;
+  --color-primary-500: #1B65B9;
+  --color-primary-600: #1557A0;
+  --color-primary-700: #144B8A;
+
+  --color-success: #00D4AA;
+  --color-success-light: #34E0C0;
+  --color-success-dark: #00A888;
+  --color-warning: #FFB020;
+  --color-warning-light: #FFC34D;
+  --color-warning-dark: #E09800;
+  --color-danger: #FF4757;
+  --color-danger-light: #FF6B7A;
+  --color-danger-dark: #E03040;
+  --color-info: #3B82F6;
+}
+
+/* ===========================
+   深色/浅色护眼模式 CSS Variables
+   =========================== */
+
+/* --- 深色模式 (默认) --- */
+:root {
+  --bg-base: #0F1923;
+  --bg-surface: #1A2736;
+  --bg-card: #213345;
+  --bg-hover: #2A3F54;
+  --bg-input: #1A2736;
+  --bg-sidebar: #0C1420;
+  --bg-topnav: #0C1420;
+
+  --text-primary: #E8EDF3;
+  --text-secondary: #8899AA;
+  --text-muted: #5A6B7C;
+  --text-inverse: #0F1923;
+
+  --border-default: #2A3F54;
+  --border-light: #1E3348;
+
+  --shadow-base: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* --- 浅色护眼模式 --- */
+:root.light {
+  --bg-base: #F0F4F8;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-hover: #E8EEF4;
+  --bg-input: #F5F7FA;
+  --bg-sidebar: #1E293B;
+  --bg-topnav: #1E293B;
+
+  --text-primary: #1E293B;
+  --text-secondary: #64748B;
+  --text-muted: #94A3B8;
+  --text-inverse: #FFFFFF;
+
+  --border-default: #E2E8F0;
+  --border-light: #F1F5F9;
+
+  --shadow-base: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ===========================
+   Tailwind v4 自定义工具类
+   =========================== */
+@utility bg-base {
+  background-color: var(--bg-base);
+}
+
+@utility bg-surface {
+  background-color: var(--bg-surface);
+}
+
+@utility bg-card {
+  background-color: var(--bg-card);
+}
+
+@utility bg-hover-themed {
+  background-color: var(--bg-hover);
+}
+
+@utility bg-input {
+  background-color: var(--bg-input);
+}
+
+@utility bg-sidebar {
+  background-color: var(--bg-sidebar);
+}
+
+@utility bg-topnav {
+  background-color: var(--bg-topnav);
+}
+
+@utility text-default {
+  color: var(--text-primary);
+}
+
+@utility text-dim {
+  color: var(--text-secondary);
+}
+
+@utility text-muted-themed {
+  color: var(--text-muted);
+}
+
+@utility border-themed {
+  border-color: var(--border-default);
+}
+
+@utility border-light-themed {
+  border-color: var(--border-light);
+}
+
+@utility shadow-themed {
+  box-shadow: var(--shadow-base);
+}
+
+@utility shadow-themed-md {
+  box-shadow: var(--shadow-md);
+}
+
+@utility shadow-themed-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+/* ===========================
+   基础全局样式
+   =========================== */
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* 滚动条 */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-surface);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-default);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
+}
+
+/* Vue transition */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
