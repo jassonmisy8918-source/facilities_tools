@@ -102,21 +102,87 @@ function createQualityChart(el: HTMLElement) {
   const chart = echarts.init(el)
   chart.setOption({
     backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'item',
+      backgroundColor: 'rgba(15,25,40,0.9)',
+      borderColor: '#2A3F54',
+      textStyle: { color: '#E8EDF3', fontSize: 11 },
+      formatter: (params: any) => {
+        const indicators = ['COD', 'pH', 'TN', 'TP', 'SS', '氨氮']
+        let html = `<b>${params.name}</b><br/>`
+        params.value.forEach((v: number, i: number) => {
+          html += `${indicators[i]}: <b>${v}</b>mg/L<br/>`
+        })
+        return html
+      }
+    },
+    legend: {
+      bottom: 0,
+      itemWidth: 12,
+      itemHeight: 8,
+      textStyle: { color: '#8899AA', fontSize: 10 },
+      data: ['进水', '出水', '达标线']
+    },
     radar: {
+      center: ['50%', '45%'],
+      radius: '60%',
       indicator: [
-        { name: 'COD', max: 100 }, { name: '氨氮', max: 100 }, { name: 'SS', max: 100 },
-        { name: 'TP', max: 100 }, { name: 'TN', max: 100 }, { name: 'pH', max: 100 },
+        { name: 'COD', max: 100 }, { name: 'pH', max: 100 }, { name: 'TN', max: 100 },
+        { name: 'TP', max: 100 }, { name: 'SS', max: 100 }, { name: '氨氮', max: 100 },
       ],
-      axisName: { color: '#8899AA', fontSize: 10 },
-      splitLine: { lineStyle: { color: '#1E3348' } },
-      splitArea: { areaStyle: { color: ['transparent'] } },
-      axisLine: { lineStyle: { color: '#2A3F54' } },
+      shape: 'polygon',
+      axisName: {
+        color: '#A0B4C8',
+        fontSize: 11,
+        fontWeight: 'bold',
+        padding: [0, 4]
+      },
+      splitNumber: 4,
+      splitLine: { lineStyle: { color: 'rgba(100,140,180,0.4)', width: 1 } },
+      splitArea: {
+        show: true,
+        areaStyle: {
+          color: ['rgba(100,140,180,0.03)', 'rgba(100,140,180,0.08)', 'rgba(100,140,180,0.03)', 'rgba(100,140,180,0.08)']
+        }
+      },
+      axisLine: { lineStyle: { color: 'rgba(100,140,180,0.35)' } },
     },
     series: [{
       type: 'radar',
+      symbolSize: 4,
       data: [
-        { value: [78, 65, 82, 70, 88, 92], name: '进水', areaStyle: { color: 'rgba(255,71,87,0.15)' }, lineStyle: { color: '#FF4757' }, itemStyle: { color: '#FF4757' } },
-        { value: [25, 18, 22, 15, 30, 95], name: '出水', areaStyle: { color: 'rgba(0,212,170,0.15)' }, lineStyle: { color: '#00D4AA' }, itemStyle: { color: '#00D4AA' } },
+        {
+          value: [78, 65, 88, 70, 82, 65],
+          name: '进水',
+          lineStyle: { color: '#FF6B6B', width: 2 },
+          itemStyle: { color: '#FF6B6B', borderWidth: 2, borderColor: '#fff' },
+          areaStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: 'rgba(255,107,107,0.35)' },
+              { offset: 1, color: 'rgba(255,107,107,0.05)' }
+            ])
+          }
+        },
+        {
+          value: [25, 95, 30, 15, 22, 18],
+          name: '出水',
+          lineStyle: { color: '#00D4AA', width: 2 },
+          itemStyle: { color: '#00D4AA', borderWidth: 2, borderColor: '#fff' },
+          areaStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: 'rgba(0,212,170,0.35)' },
+              { offset: 1, color: 'rgba(0,212,170,0.05)' }
+            ])
+          }
+        },
+        {
+          value: [50, 90, 40, 30, 40, 35],
+          name: '达标线',
+          lineStyle: { color: '#FFB020', width: 1.5, type: 'dashed' },
+          itemStyle: { color: '#FFB020', borderWidth: 0 },
+          areaStyle: { opacity: 0 },
+          symbol: 'none'
+        }
       ]
     }]
   })
@@ -215,8 +281,25 @@ function getAlarmColor(type: string) {
 
       <!-- 水质雷达 -->
       <div class="bg-card border border-themed rounded-xl p-4 shadow-themed">
-        <h3 class="text-sm font-semibold text-default mb-2">污水处理水质</h3>
-        <div ref="qualityChartRef" class="h-48"></div>
+        <div class="flex items-center justify-between mb-1">
+          <h3 class="text-sm font-semibold text-default">污水处理水质</h3>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-success/15 text-success font-medium">达标</span>
+        </div>
+        <div ref="qualityChartRef" class="h-40"></div>
+        <div class="grid grid-cols-3 gap-1.5 mt-1">
+          <div class="text-center p-1.5 rounded-lg bg-surface">
+            <p class="text-[10px] text-dim">COD去除率</p>
+            <p class="text-xs font-bold text-success">96.8%</p>
+          </div>
+          <div class="text-center p-1.5 rounded-lg bg-surface">
+            <p class="text-[10px] text-dim">氨氮去除率</p>
+            <p class="text-xs font-bold text-success">97.2%</p>
+          </div>
+          <div class="text-center p-1.5 rounded-lg bg-surface">
+            <p class="text-[10px] text-dim">SS去除率</p>
+            <p class="text-xs font-bold text-success">95.1%</p>
+          </div>
+        </div>
       </div>
 
       <!-- 泵站状态 -->

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>城市排水设施管理平台 - 系统入口</title>
+    <meta name="description" content="城市排水设施智慧管理平台统一入口">
+    <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-deep: #0a0f1e;
+            --bg-card: rgba(15, 23, 42, 0.7);
+            --border: rgba(100, 130, 180, 0.15);
+            --border-hover: rgba(100, 160, 230, 0.35);
+            --text-primary: #e2e8f0;
+            --text-muted: #64748b;
+            --glow-water: rgba(56, 150, 220, 0.25);
+            --glow-unicom: rgba(220, 50, 50, 0.25);
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ====== 动态背景 ====== */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(56, 150, 220, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 150, 220, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .bg-orb--1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(56, 150, 220, 0.06);
+            top: -10%;
+            left: -10%;
+        }
+
+        .bg-orb--2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(220, 50, 50, 0.04);
+            bottom: -10%;
+            right: -10%;
+            animation-delay: -6s;
+        }
+
+        .bg-orb--3 {
+            width: 300px;
+            height: 300px;
+            background: rgba(56, 200, 120, 0.04);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -3s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -20px) scale(1.05);
+            }
+
+            66% {
+                transform: translate(-20px, 15px) scale(0.95);
+            }
+        }
+
+        /* ====== 头部 ====== */
+        .header {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: rgba(56, 150, 220, 0.1);
+            border: 1px solid rgba(56, 150, 220, 0.2);
+            font-size: 12px;
+            color: #60a5fa;
+            letter-spacing: 0.05em;
+            margin-bottom: 20px;
+        }
+
+        .header__badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 6px #22c55e;
+        }
+
+        .header__title {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            background: linear-gradient(135deg, #e2e8f0, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header__sub {
+            margin-top: 10px;
+            font-size: 15px;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        /* ====== 卡片容器 ====== */
+        .cards {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 24px;
+        }
+
+        /* ====== 卡片 ====== */
+        .card {
+            width: 320px;
+            padding: 48px 36px 40px;
+            border-radius: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(16px);
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .card--water::before {
+            background: radial-gradient(ellipse at 50% 0%, var(--glow-water), transparent 70%);
+        }
+
+        .card--unicom::before {
+            background: radial-gradient(ellipse at 50% 0%, var(--glow-unicom), transparent 70%);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-hover);
+        }
+
+        .card--water:hover {
+            box-shadow: 0 20px 60px -15px rgba(56, 150, 220, 0.2);
+            border-color: rgba(56, 150, 220, 0.3);
+        }
+
+        .card--unicom:hover {
+            box-shadow: 0 20px 60px -15px rgba(220, 50, 50, 0.2);
+            border-color: rgba(220, 50, 50, 0.3);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        /* Logo 区域 */
+        .card__logo-wrap {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 28px;
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .card:hover .card__logo-wrap {
+            transform: scale(1.05);
+        }
+
+        .card--water:hover .card__logo-wrap {
+            box-shadow: 0 8px 30px rgba(56, 150, 220, 0.25);
+        }
+
+        .card--unicom:hover .card__logo-wrap {
+            box-shadow: 0 8px 30px rgba(220, 50, 50, 0.25);
+        }
+
+        .card__logo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card__name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 0.03em;
+        }
+
+        .card__desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .card__btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 28px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .card--water .card__btn {
+            background: linear-gradient(135deg, #2563eb, #0ea5e9);
+            color: white;
+        }
+
+        .card--water .card__btn:hover {
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .card--unicom .card__btn {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: white;
+        }
+
+        .card--unicom .card__btn:hover {
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
+        }
+
+        .card__btn-arrow {
+            transition: transform 0.3s;
+        }
+
+        .card:hover .card__btn-arrow {
+            transform: translateX(4px);
+        }
+
+        /* ====== 底部 ====== */
+        .footer {
+            position: relative;
+            z-index: 10;
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        /* ====== 入场动画 ====== */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            animation: fadeUp 0.7s ease-out;
+        }
+
+        .card:nth-child(1) {
+            animation: fadeUp 0.7s ease-out 0.15s both;
+        }
+
+        .card:nth-child(2) {
+            animation: fadeUp 0.7s ease-out 0.3s both;
+        }
+
+        .footer {
+            animation: fadeUp 0.7s ease-out 0.45s both;
+        }
+
+        /* ====== 响应式 ====== */
+        @media (max-width: 720px) {
+            .header__title {
+                font-size: 24px;
+            }
+
+            .cards {
+                gap: 24px;
+            }
+
+            .card {
+                width: 280px;
+                padding: 36px 28px 32px;
+            }
+
+            .card__logo-wrap {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 背景装饰 -->
+    <div class="bg-grid"></div>
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+
+    <!-- 头部 -->
+    <div class="header">
+        <div class="header__badge">系统运行中</div>
+        <h1 class="header__title">城市排水设施管理平台</h1>
+        <p class="header__sub">请选择系统入口</p>
+    </div>
+
+    <!-- 入口卡片 -->
+    <div class="cards">
+        <!-- 长沙水业 -->
+        <a href="https://demo.bbrji.xyz" class="card card--water">
+            <div class="card__logo-wrap">
+                <img src="images/logo.jpg" alt="长沙水业集团">
+            </div>
+            <h2 class="card__name">长沙水业集团</h2>
+            <p class="card__desc">排水设施综合管理系统<br>资产管理 · 监测预警 · 巡查运维</p>
+            <button class="card__btn">
+                进入系统
+                <svg class="card__btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                </svg>
+            </button>
+        </a>
+
+        <!-- 中国联通 -->
+        <a href="https://www.chinaunicom.com" target="_blank" rel="noopener" class="card card--unicom">
+            <div class="card__logo-wrap">
+                <img src="images/logo-unicom.jpg" alt="中国联通">
+            </div>
+            <h2 class="card__name">中国联通</h2>
+            <p class="card__desc">智慧城市运营管理平台<br>数据中心 · 网络运维 · 云服务</p>
+            <button class="card__btn">
+                进入系统
+                <svg class="card__btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                </svg>
+            </button>
+        </a>
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer">
+        &copy; 2025 城市排水设施管理平台 &middot; 技术支持
+    </div>
+</body>
+
+</html>

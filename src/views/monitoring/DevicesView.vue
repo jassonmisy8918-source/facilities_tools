@@ -1,9 +1,8 @@
 ﻿<script setup lang="ts">
 import { ref } from 'vue'
-import { Cpu, Search, Wifi, WifiOff, Battery, MapPin, Settings, Eye } from 'lucide-vue-next'
+import { Wifi, WifiOff, Battery, Eye } from 'lucide-vue-next'
 
-const searchQuery = ref('')
-const statusFilter = ref('all')
+
 
 const devices = ref([
   { id: 'DEV-001', name: '朝阳路流量计', type: '电磁流量计', location: '朝阳路DN600', status: 'online', battery: 95, signal: 'strong', lastData: '刚刚', installDate: '2023-06-15' },

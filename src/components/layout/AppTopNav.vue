@@ -4,7 +4,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { systemMenus } from '@/stores/menu'
 import { useThemeStore } from '@/stores/theme'
 import { useUserStore } from '@/stores/user'
-import { Sun, Moon, Bell, Search, LogOut, User, Droplets } from 'lucide-vue-next'
+import { Sun, Moon, Bell, Search, LogOut, User } from 'lucide-vue-next'
+import logoUrl from '@/static/logo.png'
 import { ref } from 'vue'
 
 const route = useRoute()
@@ -32,9 +33,7 @@ function handleLogout() {
   <nav class="fixed top-0 left-0 right-0 z-50 h-14 flex items-center px-4 bg-topnav border-b border-themed">
     <!-- Logo -->
     <div class="flex items-center gap-3 mr-8 shrink-0">
-      <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-        <Droplets class="w-5 h-5 text-white" />
-      </div>
+      <img :src="logoUrl" alt="Logo" class="w-8 h-8 rounded-lg object-contain" />
       <span class="text-base font-semibold text-white whitespace-nowrap">智慧排水管理平台</span>
     </div>
 

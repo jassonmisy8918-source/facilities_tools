@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
-import { MapPin, Layers, BarChart3 } from 'lucide-vue-next'
+// lucide icons removed (unused)
 
 // 排水分区
 const districts = ref([
@@ -66,7 +66,7 @@ onUnmounted(() => { chart?.dispose() })
                         <td class="px-4 py-2.5 text-xs text-default">{{ d.pipeLength }}</td>
                         <td class="px-4 py-2.5"><span class="text-[10px] px-2 py-0.5 rounded-md"
                                 :class="d.pipeType === '分流制' ? 'bg-success/15 text-success' : d.pipeType === '合流制' ? 'bg-warning/15 text-warning' : 'bg-info/15 text-info'">{{
-                                d.pipeType }}</span></td>
+                                    d.pipeType }}</span></td>
                         <td class="px-4 py-2.5 text-xs text-dim">{{ d.stormDensity }} km/km²</td>
                         <td class="px-4 py-2.5 text-xs text-default">{{ d.outlets }}</td>
                         <td class="px-4 py-2.5 text-xs text-default">{{ d.pumpStations }}</td>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { CheckCircle, AlertCircle, X, Info } from 'lucide-vue-next'
 
 interface Toast {

@@ -1,0 +1,107 @@
+﻿
+> drainage-facilities@0.0.0 build
+> vue-tsc -b && vite build
+
+src/components/common/ToastNotify.vue(2,15): error TS6133: 'computed' is declared but its value is never read.
+src/mock/user.ts(75,29): error TS18048: 'user' is possibly 'undefined'.
+src/mock/user.ts(76,35): error TS18048: 'user' is possibly 'undefined'.
+src/mock/user.ts(77,31): error TS18048: 'user' is possibly 'undefined'.
+src/mock/user.ts(78,31): error TS18048: 'user' is possibly 'undefined'.
+src/mock/user.ts(79,33): error TS18048: 'user' is possibly 'undefined'.
+src/mock/user.ts(80,38): error TS18048: 'user' is possibly 'undefined'.
+src/stores/user.ts(3,1): error TS6133: 'useRouter' is declared but its value is never read.
+src/views/assets/DataQualityView.vue(3,10): error TS6133: 'Database' is declared but its value is never read.
+src/views/assets/DataQualityView.vue(3,20): error TS6133: 'FileCheck' is declared but its value is never read.
+src/views/assets/LedgerView.vue(137,10): error TS18048: 'currentData.value' is possibly 'undefined'.
+src/views/assets/LedgerView.vue(140,45): error TS18048: 'filteredData.value' is possibly 'undefined'.
+src/views/assets/LedgerView.vue(143,10): error TS18048: 'filteredData.value' is possibly 'undefined'.
+src/views/assets/LedgerView.vue(180,3): error TS2322: Type 'any[] | undefined' is not assignable to type 'any[]'.
+  Type 'undefined' is not assignable to type 'any[]'.
+src/views/assets/LedgerView.vue(211,60): error TS18048: '__VLS_ctx.currentData' is possibly 'undefined'.
+src/views/assets/LedgerView.vue(266,16): error TS18048: '__VLS_ctx.filteredData' is possibly 'undefined'.
+src/views/assets/MapView.vue(207,36): error TS2532: Object is possibly 'undefined'.
+src/views/assets/MapView.vue(251,32): error TS2532: Object is possibly 'undefined'.
+src/views/cockpit/CockpitView.vue(4,94): error TS6133: 'Wrench' is declared but its value is never read.
+src/views/cockpit/CockpitView.vue(4,102): error TS6133: 'Zap' is declared but its value is never read.
+src/views/cockpit/CockpitView.vue(4,107): error TS6133: 'Users' is declared but its value is never read.
+src/views/cockpit/CockpitView.vue(92,10): error TS6133: 'getPriorityClass' is declared but its value is never read.
+src/views/monitoring/DataAnalysisView.vue(4,10): error TS6133: 'BarChart3' is declared but its value is never read.
+src/views/monitoring/DataAnalysisView.vue(4,39): error TS6133: 'FileText' is declared but its value is never read.
+src/views/monitoring/DevicesView.vue(3,10): error TS6133: 'Cpu' is declared but its value is never read.
+src/views/monitoring/DevicesView.vue(3,15): error TS6133: 'Search' is declared but its value is never read.
+src/views/monitoring/DevicesView.vue(3,47): error TS6133: 'MapPin' is declared but its value is never read.
+src/views/monitoring/DevicesView.vue(3,55): error TS6133: 'Settings' is declared but its value is never read.
+src/views/monitoring/DevicesView.vue(5,7): error TS6133: 'searchQuery' is declared but its value is never read.
+src/views/monitoring/DevicesView.vue(6,7): error TS6133: 'statusFilter' is declared but its value is never read.
+src/views/monitoring/RealtimeView.vue(2,49): error TS6133: 'watch' is declared but its value is never read.
+src/views/monitoring/RealtimeView.vue(60,22): error TS18048: 'selectedPoint.value' is possibly 'undefined'.
+src/views/monitoring/RealtimeView.vue(61,20): error TS18048: 'selectedPoint.value' is possibly 'undefined'.
+src/views/monitoring/RealtimeView.vue(84,37): error TS18048: 'selectedPoint.value' is possibly 'undefined'.
+src/views/monitoring/RealtimeView.vue(85,52): error TS18048: 'selectedPoint.value' is possibly 'undefined'.
+src/views/monitoring/RealtimeView.vue(164,21): error TS18048: '__VLS_ctx.selectedPoint' is possibly 'undefined'.
+src/views/monitoring/RealtimeView.vue(192,65): error TS18048: '__VLS_ctx.selectedPoint' is possibly 'undefined'.
+src/views/monitoring/RealtimeView.vue(193,64): error TS18048: '__VLS_ctx.selectedPoint' is possibly 'undefined'.
+src/views/monitoring/RealtimeView.vue(197,61): error TS18048: '__VLS_ctx.selectedPoint' is possibly 'undefined'.
+src/views/monitoring/RealtimeView.vue(198,55): error TS18048: '__VLS_ctx.selectedPoint' is possibly 'undefined'.
+src/views/monitoring/RealtimeView.vue(201,36): error TS18048: '__VLS_ctx.selectedPoint' is possibly 'undefined'.
+src/views/monitoring/RealtimeView.vue(201,74): error TS18048: '__VLS_ctx.selectedPoint' is possibly 'undefined'.
+src/views/monitoring/RealtimeView.vue(202,31): error TS18048: '__VLS_ctx.selectedPoint' is possibly 'undefined'.
+src/views/monitoring/WeatherView.vue(4,17): error TS6133: 'CloudRain' is declared but its value is never read.
+src/views/monitoring/WeatherView.vue(4,34): error TS6133: 'Thermometer' is declared but its value is never read.
+src/views/patrol/IssuesView.vue(3,23): error TS6133: 'Camera' is declared but its value is never read.
+src/views/patrol/MaintenanceView.vue(3,10): error TS6133: 'Wrench' is declared but its value is never read.
+src/views/patrol/MaintenanceView.vue(3,18): error TS6133: 'Gauge' is declared but its value is never read.
+src/views/patrol/MaintenanceView.vue(3,25): error TS6133: 'Truck' is declared but its value is never read.
+src/views/patrol/MaintenanceView.vue(3,32): error TS6133: 'DollarSign' is declared but its value is never read.
+src/views/patrol/MaintenanceView.vue(52,7): error TS6133: 'costSummary' is declared but its value is never read.
+src/views/patrol/PlanView.vue(3,10): error TS6133: 'Calendar' is declared but its value is never read.
+src/views/patrol/PlanView.vue(3,55): error TS6133: 'CheckCircle' is declared but its value is never read.
+src/views/patrol/StatisticsView.vue(4,56): error TS6133: 'TrendingUp' is declared but its value is never read.
+src/views/patrol/StatisticsView.vue(4,68): error TS6133: 'Users' is declared but its value is never read.
+src/views/patrol/WorkOrderView.vue(3,10): error TS6133: 'ClipboardList' is declared but its value is never read.
+src/views/patrol/WorkOrderView.vue(3,33): error TS6133: 'Filter' is declared but its value is never read.
+src/views/patrol/WorkOrderView.vue(3,62): error TS6133: 'ChevronRight' is declared but its value is never read.
+src/views/pump-station/AlarmView.vue(3,32): error TS6133: 'Settings' is declared but its value is never read.
+src/views/pump-station/AlarmView.vue(3,42): error TS6133: 'Plus' is declared but its value is never read.
+src/views/pump-station/EnergyView.vue(4,15): error TS6133: 'TrendingDown' is declared but its value is never read.
+src/views/pump-station/EquipmentView.vue(3,10): error TS6133: 'Settings' is declared but its value is never read.
+src/views/pump-station/EquipmentView.vue(3,20): error TS6133: 'ClipboardCheck' is declared but its value is never read.
+src/views/pump-station/EquipmentView.vue(3,36): error TS6133: 'Shield' is declared but its value is never read.
+src/views/pump-station/EquipmentView.vue(3,44): error TS6133: 'Package' is declared but its value is never read.
+src/views/pump-station/EquipmentView.vue(3,53): error TS6133: 'Wrench' is declared but its value is never read.
+src/views/pump-station/MonitorView.vue(4,54): error TS6133: 'AlertTriangle' is declared but its value is never read.
+src/views/pump-station/MonitorView.vue(4,91): error TS6133: 'Video' is declared but its value is never read.
+src/views/pump-station/MonitorView.vue(4,98): error TS6133: 'Gauge' is declared but its value is never read.
+src/views/pump-station/MonitorView.vue(97,19): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(126,23): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(126,53): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(127,18): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(133,37): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(133,65): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(134,48): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(134,76): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(137,60): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(146,62): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(151,37): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(151,66): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(152,48): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(152,77): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(155,60): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(163,57): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(172,57): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(179,64): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/MonitorView.vue(181,31): error TS18048: '__VLS_ctx.selectedStation' is possibly 'undefined'.
+src/views/pump-station/OperationView.vue(3,10): error TS6133: 'ClipboardList' is declared but its value is never read.
+src/views/pump-station/OperationView.vue(3,32): error TS6133: 'FileCheck' is declared but its value is never read.
+src/views/quality/CrossConnectionView.vue(4,1): error TS6192: All imports in import declaration are unused.
+src/views/quality/DispatchView.vue(4,16): error TS6133: 'Droplets' is declared but its value is never read.
+src/views/quality/DispatchView.vue(4,26): error TS6133: 'Zap' is declared but its value is never read.
+src/views/quality/DispatchView.vue(4,31): error TS6133: 'Clock' is declared but its value is never read.
+src/views/quality/DispatchView.vue(4,38): error TS6133: 'CheckCircle' is declared but its value is never read.
+src/views/quality/DistrictView.vue(4,1): error TS6192: All imports in import declaration are unused.
+src/views/quality/DrainageUsersView.vue(3,10): error TS6133: 'UserCheck' is declared but its value is never read.
+src/views/quality/DrainageUsersView.vue(3,21): error TS6133: 'Building2' is declared but its value is never read.
+src/views/quality/DrainageUsersView.vue(3,46): error TS6133: 'FileText' is declared but its value is never read.
+src/views/quality/DrainageUsersView.vue(3,56): error TS6133: 'Filter' is declared but its value is never read.
+src/views/quality/IntrusionView.vue(4,1): error TS6192: All imports in import declaration are unused.
+src/views/quality/PipeHealthView.vue(4,1): error TS6192: All imports in import declaration are unused.

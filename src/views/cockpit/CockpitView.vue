@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
-import { LayoutDashboard, Droplets, Gauge, AlertTriangle, CheckCircle, Activity, TrendingUp, Wrench, Zap, Users } from 'lucide-vue-next'
+import { LayoutDashboard, Droplets, Gauge, AlertTriangle, CheckCircle, Activity, TrendingUp } from 'lucide-vue-next'
 
 // 驾驶舱 KPI
 const coreKPIs = ref([
@@ -89,7 +89,6 @@ onMounted(() => {
 
 onUnmounted(() => { processChart?.dispose(); alarmChart?.dispose(); energyChart?.dispose(); healthChart?.dispose() })
 
-function getPriorityClass(p: string) { return p === 'urgent' ? 'text-danger' : p === 'high' ? 'text-warning' : 'text-dim' }
 function getPriorityDot(p: string) { return p === 'urgent' ? 'bg-danger' : p === 'high' ? 'bg-warning' : 'bg-info' }
 </script>
 
@@ -143,7 +142,7 @@ function getPriorityDot(p: string) { return p === 'urgent' ? 'bg-danger' : p ===
                     </div>
                     <div class="flex items-center gap-3 text-xs text-dim">
                         <span class="px-1.5 py-0.5 bg-primary/10 text-primary rounded text-[10px]">{{ item.module
-                            }}</span>
+                        }}</span>
                         <span>{{ item.time }}</span>
                     </div>
                 </div>

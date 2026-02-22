@@ -2,7 +2,8 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
-import { User, Lock, Eye, EyeOff, Droplets } from 'lucide-vue-next'
+import { User, Lock, Eye, EyeOff } from 'lucide-vue-next'
+import logoUrl from '@/static/logo.jpg'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -65,30 +66,34 @@ function showError(msg: string) {
             class="relative z-10 w-full max-w-4xl mx-4 bg-card border border-themed rounded-2xl shadow-themed-lg flex overflow-hidden">
             <!-- 左侧品牌区 -->
             <div
-                class="hidden lg:flex w-1/2 flex-col justify-center p-12 bg-gradient-to-br from-primary-dark to-primary relative overflow-hidden">
+                class="hidden lg:flex w-1/2 flex-col items-center justify-center p-10 bg-gradient-to-br from-primary-dark to-primary relative overflow-hidden">
                 <div class="absolute inset-0 bg-black/20"></div>
-                <div class="relative z-10">
-                    <div class="flex items-center gap-3 mb-8">
-                        <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
-                            <Droplets class="w-7 h-7 text-white" />
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">智慧排水</h1>
+                <!-- 装饰光圈 -->
+                <div
+                    class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-white/5 rounded-full blur-2xl">
+                </div>
+                <div class="relative z-10 flex flex-col items-center text-center">
+                    <!-- Logo 大尺寸展示 -->
+                    <div class="w-32 h-32 rounded-2xl bg-white p-3 shadow-lg shadow-black/30 mb-6">
+                        <img :src="logoUrl" alt="长沙水业 Logo" class="w-full h-full object-contain" />
                     </div>
-                    <h2 class="text-xl font-semibold text-white/90 mb-4">城市排水设施管理平台</h2>
-                    <p class="text-sm text-white/60 leading-relaxed mb-8">
+                    <h1 class="text-3xl font-bold text-white tracking-wide mb-2">长沙水业</h1>
+                    <h2 class="text-base font-medium text-white/80 mb-6">城市排水设施管理平台</h2>
+                    <div class="w-12 h-px bg-white/30 mb-6"></div>
+                    <p class="text-sm text-white/55 leading-relaxed mb-8 max-w-xs">
                         集排水设施资产管理、综合监测、巡查养护、泵站运维、提质增效于一体的智慧化管理平台。
                     </p>
-                    <div class="space-y-3">
+                    <div class="space-y-2.5 text-left">
                         <div class="flex items-center gap-3 text-white/70 text-sm">
-                            <div class="w-1.5 h-1.5 rounded-full bg-success"></div>
+                            <div class="w-1.5 h-1.5 rounded-full bg-success shrink-0"></div>
                             <span>GIS一张图可视化管理</span>
                         </div>
                         <div class="flex items-center gap-3 text-white/70 text-sm">
-                            <div class="w-1.5 h-1.5 rounded-full bg-success"></div>
+                            <div class="w-1.5 h-1.5 rounded-full bg-success shrink-0"></div>
                             <span>全天候实时监测预警</span>
                         </div>
                         <div class="flex items-center gap-3 text-white/70 text-sm">
-                            <div class="w-1.5 h-1.5 rounded-full bg-success"></div>
+                            <div class="w-1.5 h-1.5 rounded-full bg-success shrink-0"></div>
                             <span>智能化运维决策支持</span>
                         </div>
                     </div>
@@ -98,6 +103,10 @@ function showError(msg: string) {
             <!-- 右侧表单区 -->
             <div class="w-full lg:w-1/2 p-8 sm:p-12 flex flex-col justify-center">
                 <div class="mb-8">
+                    <div class="flex items-center gap-3 mb-4 lg:hidden">
+                        <img :src="logoUrl" alt="Logo" class="w-10 h-10 rounded-lg" />
+                        <span class="text-lg font-bold text-default">长沙水业</span>
+                    </div>
                     <h3 class="text-2xl font-bold text-default">登录</h3>
                     <p class="text-sm text-dim mt-2">请输入您的账号信息</p>
                 </div>

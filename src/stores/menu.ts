@@ -74,6 +74,7 @@ export const systemMenus: SystemMenu[] = [
             { key: 'alarm', label: '报警管理', icon: Bell, path: '/pump-station/alarm' },
             { key: 'operation', label: '运维工单', icon: Briefcase, path: '/pump-station/operation' },
             { key: 'energy', label: '能耗管理', icon: Zap, path: '/pump-station/energy' },
+            { key: 'reports', label: '报表与决策', icon: FileText, path: '/pump-station/reports' },
         ]
     },
     {
