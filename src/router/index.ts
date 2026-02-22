@@ -379,6 +379,16 @@ const routes: RouteRecordRaw[] = [
                             { path: 'monitor', name: 'QualityDrainageMonitor', component: () => import('@/views/quality/drainage-users/MonitorView.vue'), meta: { title: '水质水量' } },
                         ]
                     },
+                    {
+                        path: 'pay-for-performance',
+                        component: () => import('@/views/quality/pay-for-performance/PayLayout.vue'),
+                        meta: { system: 'quality', title: '按效付费' },
+                        children: [
+                            { path: '', name: 'QualityPayPerformance', component: () => import('@/views/quality/pay-for-performance/KpiView.vue') },
+                            { path: 'assess', name: 'QualityPayAssess', component: () => import('@/views/quality/pay-for-performance/AssessView.vue'), meta: { title: '绩效评估' } },
+                            { path: 'report', name: 'QualityPayReport', component: () => import('@/views/quality/pay-for-performance/ReportView.vue'), meta: { title: '付费报告' } },
+                        ]
+                    },
                 ]
             },
         ]

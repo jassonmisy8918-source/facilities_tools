@@ -5,7 +5,7 @@ import {
     Cloud, Radio, BarChart3, AlertTriangle, Cpu,
     ClipboardList, FileText, AlertCircle, Wrench, TrendingUp,
     Monitor, HardDrive, Bell, Briefcase, Zap,
-    HeartPulse, Waves, GitMerge, Navigation, Users
+    HeartPulse, Waves, GitMerge, Navigation, Users, Target
 } from 'lucide-vue-next'
 
 export interface SubMenuItem {
@@ -88,6 +88,7 @@ export const systemMenus: SystemMenu[] = [
             { key: 'cross-connection', label: '雨污混接', icon: GitMerge, path: '/quality/cross-connection' },
             { key: 'dispatch', label: '污水调度', icon: Navigation, path: '/quality/dispatch' },
             { key: 'drainage-users', label: '排水户管理', icon: Users, path: '/quality/drainage-users' },
+            { key: 'pay-for-performance', label: '按效付费', icon: Target, path: '/quality/pay-for-performance' },
         ]
     },
     {
