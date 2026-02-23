@@ -23,14 +23,14 @@ const queryModes = [
 const activeMode = ref('coord')
 
 // ===================== 坐标定位 =====================
-const coordForm = ref({ lng: '116.397428', lat: '39.909230' })
+const coordForm = ref({ lng: '113.032549', lat: '28.1410' })
 const coordResult = ref<{ name: string; distance: string; type: string }[]>([])
 function doCoordLocate() {
     if (!coordForm.value.lng || !coordForm.value.lat) { toast.value?.show('请输入完整坐标', 'warning'); return }
     coordResult.value = [
-        { name: '朝阳路检查井#34', distance: '25m', type: '检查井' },
+        { name: '韶山路检查井#34', distance: '25m', type: '检查井' },
         { name: 'PS-001234 管段', distance: '48m', type: '排水管网' },
-        { name: '朝阳路雨水口#12', distance: '67m', type: '雨水口' },
+        { name: '韶山路雨水口#12', distance: '67m', type: '雨水口' },
     ]
     toast.value?.show(`已定位至 (${coordForm.value.lng}, ${coordForm.value.lat})`, 'success')
 }
@@ -41,9 +41,9 @@ const placeResults = ref<{ name: string; address: string; district: string }[]>(
 function doPlaceSearch() {
     if (!placeName.value) { toast.value?.show('请输入地名', 'warning'); return }
     placeResults.value = [
-        { name: '朝阳区', address: '北京市朝阳区', district: '朝阳区' },
-        { name: '朝阳公园', address: '北京市朝阳区朝阳公园南路1号', district: '朝阳区' },
-        { name: '朝阳门', address: '北京市东城区朝阳门内大街', district: '东城区' },
+        { name: '圭塘街道', address: '长沙市圭塘街道', district: '圭塘街道' },
+        { name: '圭塘河生态公园', address: '长沙市圭塘街道圭塘河生态公园南路1号', district: '圭塘街道' },
+        { name: '雨花亭', address: '长沙市雨花亭街道雨花亭内大街', district: '雨花亭街道' },
     ]
     toast.value?.show(`找到 ${placeResults.value.length} 个结果`, 'success')
 }
@@ -60,9 +60,9 @@ const poiRadius = ref('500')
 const poiResults = ref<{ name: string; distance: string; address: string }[]>([])
 function doPoiSearch() {
     poiResults.value = [
-        { name: '朝阳外国语学校', distance: '120m', address: '朝阳区慧忠北里203号' },
-        { name: '北京八十中学', distance: '350m', address: '朝阳区白家庄西里2号' },
-        { name: '朝阳实验小学', distance: '480m', address: '朝阳区幸福一村四巷36号' },
+        { name: '雨花外国语学校', distance: '120m', address: '圭塘街道慧忠北里203号' },
+        { name: '雅礼中学雨花校区', distance: '350m', address: '圭塘街道香樟路2号' },
+        { name: '雨花实验小学', distance: '480m', address: '圭塘街道幸福一村四巷36号' },
     ]
     toast.value?.show(`半径${poiRadius.value}m内找到 ${poiResults.value.length} 个${poiTypes.find(p => p.key === selectedPoiType.value)?.label}`, 'success')
 }
@@ -73,11 +73,11 @@ const keywordResults = ref<{ code: string; name: string; type: string; status: s
 function doKeywordSearch() {
     if (!keyword.value) { toast.value?.show('请输入关键词', 'warning'); return }
     keywordResults.value = [
-        { code: 'PS-001234', name: '朝阳路DN600管段', type: '排水管网', status: '正常', district: '朝阳区' },
-        { code: 'MH-003456', name: '朝阳路检查井#34', type: '检查井', status: '正常', district: '朝阳区' },
-        { code: 'BZ-01', name: '朝阳路排水泵站', type: '泵站', status: '运行中', district: '朝阳区' },
-        { code: 'RI-000012', name: '朝阳路雨水口#12', type: '雨水口', status: '正常', district: '朝阳区' },
-        { code: 'DV-000056', name: '朝阳路流量计#03', type: '监测设备', status: '在线', district: '朝阳区' },
+        { code: 'PS-001234', name: '韶山路DN600管段', type: '排水管网', status: '正常', district: '圭塘街道' },
+        { code: 'MH-003456', name: '韶山路检查井#34', type: '检查井', status: '正常', district: '圭塘街道' },
+        { code: 'BZ-01', name: '韶山路排水泵站', type: '泵站', status: '运行中', district: '圭塘街道' },
+        { code: 'RI-000012', name: '韶山路雨水口#12', type: '雨水口', status: '正常', district: '圭塘街道' },
+        { code: 'DV-000056', name: '韶山路流量计#03', type: '监测设备', status: '在线', district: '圭塘街道' },
     ]
     toast.value?.show(`搜索到 ${keywordResults.value.length} 条结果`, 'success')
 }
@@ -101,28 +101,28 @@ function doSpatialQuery() {
 const compoundForm = ref({ type: '', status: '', district: '', yearFrom: '', yearTo: '' })
 const facilityTypes = ['排水管网', '检查井', '雨水口', '排水户', '泵站', '污水厂', '闸门', '截留设施', '溢流堰', '阀门', '排放口', '监测设备']
 const statusOptions = ['正常', '轻微缺陷', '需维修', '已停用']
-const districtOptions = ['朝阳区', '海淀区', '西城区', '东城区', '丰台区']
+const districtOptions = ['圭塘街道', '洞井街道', '侯家塘街道', '雨花亭街道', '左家塘街道']
 const compoundResults = ref<{ code: string; name: string; type: string; status: string; district: string; year: string }[]>([])
 function doCompoundQuery() {
     compoundResults.value = [
-        { code: 'PS-000045', name: '海淀区DN400管段', type: '排水管网', status: '正常', district: '海淀区', year: '2020' },
-        { code: 'PS-000078', name: '海淀区DN600管段', type: '排水管网', status: '轻微缺陷', district: '海淀区', year: '2019' },
-        { code: 'MH-001234', name: '海淀区检查井#78', type: '检查井', status: '正常', district: '海淀区', year: '2021' },
+        { code: 'PS-000045', name: '洞井街道DN400管段', type: '排水管网', status: '正常', district: '洞井街道', year: '2020' },
+        { code: 'PS-000078', name: '洞井街道DN600管段', type: '排水管网', status: '轻微缺陷', district: '洞井街道', year: '2019' },
+        { code: 'MH-001234', name: '洞井街道检查井#78', type: '检查井', status: '正常', district: '洞井街道', year: '2021' },
     ]
     toast.value?.show(`复合查询命中 ${compoundResults.value.length} 条`, 'success')
 }
 function resetCompound() { compoundForm.value = { type: '', status: '', district: '', yearFrom: '', yearTo: '' }; compoundResults.value = [] }
 
 // ===================== 地理编码批量查询 =====================
-const batchInput = ref('北京市朝阳区朝阳路10号\n北京市海淀区中关村大街1号\n北京市西城区金融街7号')
+const batchInput = ref('长沙市圭塘街道韶山路10号\n长沙市洞井街道韶山路1号\n长沙市侯家塘街道芙蓉路7号')
 const batchResults = ref<{ address: string; lng: string; lat: string; status: string }[]>([])
 function doBatchGeocode() {
     const lines = batchInput.value.trim().split('\n').filter(l => l.trim())
     if (lines.length === 0) { toast.value?.show('请输入地址', 'warning'); return }
     batchResults.value = lines.map((addr, i) => ({
         address: addr.trim(),
-        lng: (116.39 + i * 0.02).toFixed(6),
-        lat: (39.90 + i * 0.01).toFixed(6),
+        lng: (113.03 + i * 0.02).toFixed(6),
+        lat: (28.13 + i * 0.01).toFixed(6),
         status: i === 1 ? '模糊匹配' : '精确匹配',
     }))
     toast.value?.show(`批量编码完成，共 ${batchResults.value.length} 条`, 'success')
@@ -130,11 +130,11 @@ function doBatchGeocode() {
 
 // ===================== 历史轨迹回放 =====================
 const historyRecords = ref([
-    { id: 1, time: '2024-03-15 09:23', action: '坐标定位', target: '(116.397, 39.909)', user: '张三' },
+    { id: 1, time: '2024-03-15 09:23', action: '坐标定位', target: '(113.032, 28.141)', user: '张三' },
     { id: 2, time: '2024-03-15 09:35', action: '关键字搜索', target: 'PS-001234', user: '张三' },
-    { id: 3, time: '2024-03-15 10:12', action: '地名定位', target: '朝阳公园', user: '李四' },
+    { id: 3, time: '2024-03-15 10:12', action: '地名定位', target: '圭塘河生态公园', user: '李四' },
     { id: 4, time: '2024-03-15 10:45', action: '兴趣点定位', target: '学校 · 500m', user: '张三' },
-    { id: 5, time: '2024-03-15 11:20', action: '复合查询', target: '海淀区 · 排水管网', user: '王五' },
+    { id: 5, time: '2024-03-15 11:20', action: '复合查询', target: '洞井街道 · 排水管网', user: '王五' },
     { id: 6, time: '2024-03-15 14:08', action: '空间关系查询', target: 'MH-003456', user: '李四' },
 ])
 const isPlaying = ref(false)
@@ -182,12 +182,12 @@ function getStatusClass(s: string) {
                 <div class="space-y-3">
                     <div>
                         <label class="text-xs text-dim mb-1 block">经度 (Longitude)</label>
-                        <input v-model="coordForm.lng" type="text" placeholder="如 116.397428"
+                        <input v-model="coordForm.lng" type="text" placeholder="如 113.032549"
                             class="w-full bg-input border border-themed rounded-lg px-3 py-2 text-xs text-default focus:outline-none focus:border-primary" />
                     </div>
                     <div>
                         <label class="text-xs text-dim mb-1 block">纬度 (Latitude)</label>
-                        <input v-model="coordForm.lat" type="text" placeholder="如 39.909230"
+                        <input v-model="coordForm.lat" type="text" placeholder="如 28.1410"
                             class="w-full bg-input border border-themed rounded-lg px-3 py-2 text-xs text-default focus:outline-none focus:border-primary" />
                     </div>
                     <button @click="doCoordLocate"
@@ -233,7 +233,7 @@ function getStatusClass(s: string) {
                 <div class="space-y-3">
                     <div>
                         <label class="text-xs text-dim mb-1 block">地名关键词</label>
-                        <input v-model="placeName" type="text" placeholder="如 朝阳、中关村..."
+                        <input v-model="placeName" type="text" placeholder="如 雨花、中关村..."
                             class="w-full bg-input border border-themed rounded-lg px-3 py-2 text-xs text-default focus:outline-none focus:border-primary" />
                     </div>
                     <button @click="doPlaceSearch"
@@ -425,7 +425,7 @@ function getStatusClass(s: string) {
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="text-[10px] px-2 py-0.5 rounded-md bg-info/15 text-info">{{ item.relation
-                            }}</span>
+                                }}</span>
                             <span class="text-xs font-mono text-dim">{{ item.distance }}</span>
                         </div>
                     </div>
@@ -601,7 +601,7 @@ function getStatusClass(s: string) {
                             <SkipForward class="w-3.5 h-3.5 text-default" />
                         </button>
                         <span class="text-xs text-muted-themed ml-2">{{ playIndex + 1 }} / {{ historyRecords.length
-                        }}</span>
+                            }}</span>
                     </div>
                 </div>
                 <!-- 进度条 -->

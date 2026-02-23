@@ -12,9 +12,9 @@ const duration = ref(24)
 
 // ===================== 淹没结果 =====================
 const floodAreas = ref([
-    { zone: '朝阳区低洼区', area: '2.4 km²', depth: '1.2m', population: 15600, buildings: 342 },
-    { zone: '东城区河道沿线', area: '1.8 km²', depth: '0.8m', population: 8900, buildings: 186 },
-    { zone: '丰台区泵站周边', area: '0.6 km²', depth: '0.5m', population: 3200, buildings: 78 },
+    { zone: '圭塘街道低洼区', area: '2.4 km²', depth: '1.2m', population: 15600, buildings: 342 },
+    { zone: '雨花亭街道河道沿线', area: '1.8 km²', depth: '0.8m', population: 8900, buildings: 186 },
+    { zone: '左家塘街道泵站周边', area: '0.6 km²', depth: '0.5m', population: 3200, buildings: 78 },
 ])
 
 // ===================== 经济损失估算 =====================

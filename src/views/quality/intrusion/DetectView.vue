@@ -12,11 +12,11 @@ const funcTabs = [
 ]
 
 const monitorData = ref([
-    { station: '朝阳路-流量站', type: '流量', value: 125.8, unit: 'm³/h', baseline: 80, deviation: '+57.3%', status: '异常', time: '10:25' },
-    { station: '建设大道-水质站', type: '电导率', value: 420, unit: 'μS/cm', baseline: 680, deviation: '-38.2%', status: '异常', time: '10:20' },
-    { station: '西城区-流量站', type: '流量', value: 68.5, unit: 'm³/h', baseline: 65, deviation: '+5.4%', status: '正常', time: '10:30' },
-    { station: '通州运河-流量站', type: '流量', value: 210.3, unit: 'm³/h', baseline: 150, deviation: '+40.2%', status: '预警', time: '10:15' },
-    { station: '丰台南路-水位站', type: '水位', value: 1.85, unit: 'm', baseline: 1.2, deviation: '+54.2%', status: '异常', time: '10:22' },
+    { station: '韶山路-流量站', type: '流量', value: 125.8, unit: 'm³/h', baseline: 80, deviation: '+57.3%', status: '异常', time: '10:25' },
+    { station: '万家丽路-水质站', type: '电导率', value: 420, unit: 'μS/cm', baseline: 680, deviation: '-38.2%', status: '异常', time: '10:20' },
+    { station: '侯家塘街道-流量站', type: '流量', value: 68.5, unit: 'm³/h', baseline: 65, deviation: '+5.4%', status: '正常', time: '10:30' },
+    { station: '黎托街道运河-流量站', type: '流量', value: 210.3, unit: 'm³/h', baseline: 150, deviation: '+40.2%', status: '预警', time: '10:15' },
+    { station: '左家塘南路-水位站', type: '水位', value: 1.85, unit: 'm', baseline: 1.2, deviation: '+54.2%', status: '异常', time: '10:22' },
 ])
 
 const alarmRules = ref([
@@ -28,9 +28,9 @@ const alarmRules = ref([
 ])
 
 const anomalies = ref([
-    { id: 1, time: '2024-03-15 02:30', station: '朝阳路-流量站', type: '旱天高流量', duration: '4.5h', peakDeviation: '+85%', confidence: 92, suspectedSource: '地下水入侵', status: '已确认' },
-    { id: 2, time: '2024-03-14 22:15', station: '建设大道-水质站', type: '电导率突降', duration: '2h', peakDeviation: '-45%', confidence: 88, suspectedSource: '河水倒灌', status: '已确认' },
-    { id: 3, time: '2024-03-13 14:00', station: '通州运河-流量站', type: '雨后滞后峰', duration: '6h', peakDeviation: '+60%', confidence: 75, suspectedSource: '雨水入渗', status: '待核实' },
+    { id: 1, time: '2024-03-15 02:30', station: '韶山路-流量站', type: '旱天高流量', duration: '4.5h', peakDeviation: '+85%', confidence: 92, suspectedSource: '地下水入侵', status: '已确认' },
+    { id: 2, time: '2024-03-14 22:15', station: '万家丽路-水质站', type: '电导率突降', duration: '2h', peakDeviation: '-45%', confidence: 88, suspectedSource: '河水倒灌', status: '已确认' },
+    { id: 3, time: '2024-03-13 14:00', station: '黎托街道运河-流量站', type: '雨后滞后峰', duration: '6h', peakDeviation: '+60%', confidence: 75, suspectedSource: '雨水入渗', status: '待核实' },
 ])
 
 function statusClass(s: string) { return s === '异常' ? 'bg-danger/10 text-danger' : s === '预警' ? 'bg-warning/10 text-warning' : 'bg-success/10 text-success' }

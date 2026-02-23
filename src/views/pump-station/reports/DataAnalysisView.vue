@@ -22,10 +22,10 @@ const faultTypes = ref([
 ])
 
 const faultFreq = ref([
-    { device: '1号水泵(朝阳)', faults: 3, freq: '1.5次/年', mtbf: '2920h', level: '一般' },
-    { device: '格栅机(丰台)', faults: 4, freq: '2.0次/年', mtbf: '2190h', level: '关注' },
-    { device: '主电机(西城)', faults: 2, freq: '1.0次/年', mtbf: '4380h', level: '良好' },
-    { device: '配电柜B(通州)', faults: 3, freq: '1.5次/年', mtbf: '2920h', level: '一般' },
+    { device: '1号水泵(雨花)', faults: 3, freq: '1.5次/年', mtbf: '2920h', level: '一般' },
+    { device: '格栅机(左家塘)', faults: 4, freq: '2.0次/年', mtbf: '2190h', level: '关注' },
+    { device: '主电机(侯家塘)', faults: 2, freq: '1.0次/年', mtbf: '4380h', level: '良好' },
+    { device: '配电柜B(黎托街道)', faults: 3, freq: '1.5次/年', mtbf: '2920h', level: '一般' },
 ])
 
 const mttrData = ref([
@@ -44,19 +44,19 @@ const energyPredict = ref([
 ])
 
 const optimizeSuggestions = ref([
-    { id: 1, area: '运行策略', suggestion: '通州泵站采用变频调速，减少空转', saving: '12%', priority: '高' },
-    { id: 2, area: '设备升级', suggestion: '海淀泵站更换高效节能泵组', saving: '18%', priority: '高' },
-    { id: 3, area: '管理优化', suggestion: '丰台格栅机改用变频控制', saving: '25%', priority: '中' },
+    { id: 1, area: '运行策略', suggestion: '黎托泵站采用变频调速，减少空转', saving: '12%', priority: '高' },
+    { id: 2, area: '设备升级', suggestion: '洞井泵站更换高效节能泵组', saving: '18%', priority: '高' },
+    { id: 3, area: '管理优化', suggestion: '左家塘格栅机改用变频控制', saving: '25%', priority: '中' },
     { id: 4, area: '调度优化', suggestion: '非高峰期降低运行台数', saving: '8%', priority: '中' },
 ])
 
 function levelClass(l: string) { return l === '良好' ? 'bg-success/10 text-success' : l === '关注' ? 'bg-danger/10 text-danger' : 'bg-warning/10 text-warning' }
 
 const faultMarkers = [
-    { lng: 116.468, lat: 39.932, title: '朝阳泵站', label: '朝阳 · 机械故障3次' },
-    { lng: 116.32, lat: 39.98, title: '海淀泵站', label: '海淀 · 电机故障2次' },
-    { lng: 116.655, lat: 39.905, title: '通州泵站', label: '通州 · 配电故障3次', color: 'red' },
-    { lng: 116.35, lat: 39.86, title: '丰台泵站', label: '丰台 · 格栅故障4次', color: 'red' },
+    { lng: 113.050, lat: 28.150, title: '雨花泵站', label: '雨花 · 机械故障3次' },
+    { lng: 113.02, lat: 28.17, title: '洞井泵站', label: '洞井 · 电机故障2次' },
+    { lng: 113.07, lat: 28.135, title: '黎托泵站', label: '黎托街道 · 配电故障3次', color: 'red' },
+    { lng: 113.03, lat: 28.10, title: '左家塘泵站', label: '左家塘 · 格栅故障4次', color: 'red' },
 ]
 </script>
 

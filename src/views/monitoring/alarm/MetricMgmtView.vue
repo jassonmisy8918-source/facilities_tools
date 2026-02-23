@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { BarChart3, Plus, Pencil, Trash2, Bell, FolderTree, Database } from 'lucide-vue-next'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
 
 const toast = ref<InstanceType<typeof ToastNotify>>()
@@ -44,6 +45,13 @@ function toggleStrategy(s: typeof alarmStrategies.value[0]) {
     s.enabled = !s.enabled
     toast.value?.show(`"${s.metric}" 报警策略已${s.enabled ? '启用' : '停用'}`, s.enabled ? 'success' : 'warning')
 }
+
+// 新增弹窗
+const showAddModal = ref(false)
+const addForm = ref({ name: '', desc: '' })
+
+function openAdd() { addForm.value = { name: '', desc: '' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
 </script>
 
 <template>
@@ -57,7 +65,7 @@ function toggleStrategy(s: typeof alarmStrategies.value[0]) {
                 </button>
             </div>
             <button v-if="activeFunc === 'groups'"
-                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
+                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer" @click="openAdd()">
                 <Plus class="w-3.5 h-3.5" />新增分组
             </button>
             <button v-if="activeFunc === 'alarm'"
@@ -171,6 +179,22 @@ function toggleStrategy(s: typeof alarmStrategies.value[0]) {
                 </div>
             </div>
         </div>
+    <!-- 新增弹窗 -->
+    <ModalDialog :show="showAddModal" title="新增指标分组" @close="showAddModal = false" @confirm="doAdd">
+        <div class="space-y-3">
+            <div>
+                <label class="text-[10px] text-dim block mb-1">分组名称</label>
+                <input v-model="addForm.name" type="text" placeholder="请输入分组名称"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">描述</label>
+                <input v-model="addForm.desc" type="text" placeholder="请输入描述"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+        </div>
+    </ModalDialog>
+    
         <ToastNotify ref="toast" />
     </div>
 </template>

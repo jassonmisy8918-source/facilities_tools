@@ -23,20 +23,20 @@ function getRainfallLevel(v: number) {
 interface MonitorPoint { id: number; name: string; type: string; value: number; unit: string; status: string; trend: number[] }
 
 const monitorPoints: MonitorPoint[] = [
-    { id: 1, name: '朝阳路DN600', type: 'flow', value: 342, unit: 'm³/h', status: 'normal', trend: [310, 320, 335, 342, 338, 345, 342] },
+    { id: 1, name: '雨花路DN600', type: 'flow', value: 342, unit: 'm³/h', status: 'normal', trend: [310, 320, 335, 342, 338, 345, 342] },
     { id: 2, name: '民生路DN400', type: 'level', value: 1.85, unit: 'm', status: 'warning', trend: [1.2, 1.4, 1.5, 1.7, 1.8, 1.85, 1.85] },
     { id: 3, name: '和平路雨量站', type: 'rainfall', value: 3.2, unit: 'mm/h', status: 'normal', trend: [0, 0.5, 1.2, 2.1, 2.8, 3.0, 3.2] },
     { id: 4, name: '新华街DN800', type: 'quality', value: 28, unit: 'mg/L(COD)', status: 'normal', trend: [25, 26, 27, 28, 27, 28, 28] },
     { id: 5, name: '东湖泵站进水', type: 'flow', value: 518, unit: 'm³/h', status: 'normal', trend: [490, 500, 510, 515, 520, 518, 518] },
     { id: 6, name: '建设大道DN300', type: 'level', value: 2.35, unit: 'm', status: 'danger', trend: [1.5, 1.7, 1.9, 2.1, 2.2, 2.3, 2.35] },
-    { id: 7, name: '西城区进水口', type: 'quality', value: 45, unit: 'mg/L(COD)', status: 'warning', trend: [30, 33, 36, 39, 42, 44, 45] },
+    { id: 7, name: '侯家塘区进水口', type: 'quality', value: 45, unit: 'mg/L(COD)', status: 'warning', trend: [30, 33, 36, 39, 42, 44, 45] },
     { id: 8, name: '丰台路DN500', type: 'flow', value: 267, unit: 'm³/h', status: 'normal', trend: [250, 255, 260, 265, 267, 267, 267] },
     { id: 9, name: '丰台区雨量站', type: 'rainfall', value: 8.5, unit: 'mm/h', status: 'warning', trend: [2, 3, 4.5, 5.8, 7.0, 8.0, 8.5] },
     { id: 10, name: '海淀路DN600', type: 'level', value: 1.52, unit: 'm', status: 'normal', trend: [1.3, 1.35, 1.4, 1.42, 1.48, 1.5, 1.52] },
 ];
 
 const cameras = [
-    { id: 1, name: '朝阳路泵站', online: true },
+    { id: 1, name: '雨花路泵站', online: true },
     { id: 2, name: '东湖排放口', online: true },
     { id: 3, name: '和平路节点', online: false },
     { id: 4, name: '民生路截流井', online: true },

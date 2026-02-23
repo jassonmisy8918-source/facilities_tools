@@ -13,11 +13,11 @@ const funcTabs = [
 ]
 
 const issues = ref([
-    { id: 'ISS-2024-001', title: '建设大道MH-05井盖松动', type: '井盖问题', level: 'medium', location: '建设大道200号', facility: 'DN400雨水检查井', reporter: '张伟', reportTime: '2024-03-15 09:15', status: 'processing', photos: 2, desc: '井盖翘动，行人通过有安全隐患，需紧急处理' },
-    { id: 'ISS-2024-002', title: '西城区OUT-03排口堵塞', type: '排口问题', level: 'high', location: '西城区清河段', facility: 'DN800排口', reporter: '李明', reportTime: '2024-03-14 10:30', status: 'pending', photos: 3, desc: '排口被大量垃圾堵塞，水流受阻，有溢流风险' },
-    { id: 'ISS-2024-003', title: '民生路路面沉降', type: '管道问题', level: 'high', location: '民生路150号', facility: 'DN600污水管', reporter: '王强', reportTime: '2024-03-13 14:00', status: 'resolved', photos: 4, desc: '管线上方路面出现明显沉降约3cm，疑似管道破损' },
-    { id: 'ISS-2024-004', title: '和平路泵站格栅堵塞', type: '泵站问题', level: 'medium', location: '和平路200号', facility: '和平路泵站', reporter: '赵刚', reportTime: '2024-03-12 16:00', status: 'resolved', photos: 1, desc: '进水格栅被树枝杂物堵塞，已清理' },
-    { id: 'ISS-2024-005', title: '通州区雨污混接疑似点', type: '混接问题', level: 'critical', location: '通州区运河大道', facility: 'DN400雨水管', reporter: '刘芳', reportTime: '2024-03-11 11:00', status: 'processing', photos: 5, desc: '雨水管内发现异味污水，疑似存在雨污混接' },
+    { id: 'ISS-2024-001', title: '万家丽路MH-05井盖松动', type: '井盖问题', level: 'medium', location: '万家丽路200号', facility: 'DN400雨水检查井', reporter: '张伟', reportTime: '2024-03-15 09:15', status: 'processing', photos: 2, desc: '井盖翘动，行人通过有安全隐患，需紧急处理' },
+    { id: 'ISS-2024-002', title: '侯家塘街道OUT-03排口堵塞', type: '排口问题', level: 'high', location: '侯家塘街道浏阳河段', facility: 'DN800排口', reporter: '李明', reportTime: '2024-03-14 10:30', status: 'pending', photos: 3, desc: '排口被大量垃圾堵塞，水流受阻，有溢流风险' },
+    { id: 'ISS-2024-003', title: '劳动路路面沉降', type: '管道问题', level: 'high', location: '劳动路150号', facility: 'DN600污水管', reporter: '王强', reportTime: '2024-03-13 14:00', status: 'resolved', photos: 4, desc: '管线上方路面出现明显沉降约3cm，疑似管道破损' },
+    { id: 'ISS-2024-004', title: '芙蓉路泵站格栅堵塞', type: '泵站问题', level: 'medium', location: '芙蓉路200号', facility: '芙蓉路泵站', reporter: '赵刚', reportTime: '2024-03-12 16:00', status: 'resolved', photos: 1, desc: '进水格栅被树枝杂物堵塞，已清理' },
+    { id: 'ISS-2024-005', title: '黎托街道雨污混接疑似点', type: '混接问题', level: 'critical', location: '黎托街道花侯路', facility: 'DN400雨水管', reporter: '刘芳', reportTime: '2024-03-11 11:00', status: 'processing', photos: 5, desc: '雨水管内发现异味污水，疑似存在雨污混接' },
 ])
 
 // 提交表单

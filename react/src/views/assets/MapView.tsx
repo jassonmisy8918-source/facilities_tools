@@ -44,9 +44,9 @@ const baseMapTypes = [
 ];
 
 const mockSearchResults = [
-    { id: 1, name: 'PS-001234 朝阳路DN600-P05', type: '污水管', status: '正常', coord: [116.397, 39.909] as [number, number] },
-    { id: 2, name: 'MH-003456 朝阳路检查井#34', type: '检查井', status: '轻微缺陷', coord: [116.401, 39.912] as [number, number] },
-    { id: 3, name: 'BZ-01 朝阳路泵站', type: '泵站', status: '运行中', coord: [116.394, 39.907] as [number, number] },
+    { id: 1, name: 'PS-001234 雨花路DN600-P05', type: '污水管', status: '正常', coord: [116.397, 39.909] as [number, number] },
+    { id: 2, name: 'MH-003456 雨花路检查井#34', type: '检查井', status: '轻微缺陷', coord: [116.401, 39.912] as [number, number] },
+    { id: 3, name: 'BZ-01 雨花路泵站', type: '泵站', status: '运行中', coord: [116.394, 39.907] as [number, number] },
     { id: 4, name: 'JC-012 民生路流量计', type: '监测设备', status: '在线', coord: [116.410, 39.915] as [number, number] },
     { id: 5, name: 'PF-003 东湖排放口', type: '排放口', status: '正常排放', coord: [116.385, 39.920] as [number, number] },
 ];
@@ -169,7 +169,7 @@ export default function MapView() {
     // info popup
     const [showInfoPopup, setShowInfoPopup] = useState(true);
     const [popupInfo] = useState({
-        name: '朝阳路DN600 P05-P06段', code: 'PS-001234', type: '污水管',
+        name: '雨花路DN600 P05-P06段', code: 'PS-001234', type: '污水管',
         material: 'HDPE', diameter: 'DN600', length: '128.5m', status: '正常', buildYear: '2018',
     });
 
@@ -209,7 +209,7 @@ export default function MapView() {
     };
 
     const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([
-        { id: 1, name: '朝阳路泵站区域', center: [116.397, 39.909], zoom: 16, time: '03-15 14:20' },
+        { id: 1, name: '雨花路泵站区域', center: [116.397, 39.909], zoom: 16, time: '03-15 14:20' },
         { id: 2, name: '东湖排放口', center: [116.385, 39.920], zoom: 17, time: '03-14 09:10' },
     ]);
     const [newBookmarkName, setNewBookmarkName] = useState('');

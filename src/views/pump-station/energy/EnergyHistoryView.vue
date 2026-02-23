@@ -17,21 +17,21 @@ const trendData = ref([
 ])
 
 const unitData = ref([
-    { station: '朝阳泵站', water: 45000, energy: 24500, unit: 0.544, benchmark: 0.55, status: '达标' },
-    { station: '西城泵站', water: 32000, energy: 16800, unit: 0.525, benchmark: 0.55, status: '优秀' },
-    { station: '通州泵站', water: 48000, energy: 28200, unit: 0.588, benchmark: 0.55, status: '偏高' },
-    { station: '丰台泵站', water: 8000, energy: 5200, unit: 0.650, benchmark: 0.55, status: '偏高' },
-    { station: '海淀泵站', water: 5000, energy: 3800, unit: 0.760, benchmark: 0.55, status: '超标' },
+    { station: '雨花泵站', water: 45000, energy: 24500, unit: 0.544, benchmark: 0.55, status: '达标' },
+    { station: '侯家塘泵站', water: 32000, energy: 16800, unit: 0.525, benchmark: 0.55, status: '优秀' },
+    { station: '黎托泵站', water: 48000, energy: 28200, unit: 0.588, benchmark: 0.55, status: '偏高' },
+    { station: '左家塘泵站', water: 8000, energy: 5200, unit: 0.650, benchmark: 0.55, status: '偏高' },
+    { station: '洞井泵站', water: 5000, energy: 3800, unit: 0.760, benchmark: 0.55, status: '超标' },
 ])
 
 const highEnergy = ref([
-    { device: '1号泵(通州)', actual: 0.588, benchmark: 0.55, excess: '+6.9%', age: 5, suggestion: '更换为高效节能泵，预计节能12%', model: 'QW-HE200-300' },
-    { device: '格栅机(丰台)', actual: 8.5, benchmark: 6.0, excess: '+41.7%', age: 3, suggestion: '更换变频控制，预计节能25%', model: 'VFD-GS800' },
-    { device: '全站(海淀)', actual: 0.760, benchmark: 0.55, excess: '+38.2%', age: 8, suggestion: '整站改造评估，泵组+电气全面升级', model: '-' },
+    { device: '1号泵(黎托街道)', actual: 0.588, benchmark: 0.55, excess: '+6.9%', age: 5, suggestion: '更换为高效节能泵，预计节能12%', model: 'QW-HE200-300' },
+    { device: '格栅机(左家塘)', actual: 8.5, benchmark: 6.0, excess: '+41.7%', age: 3, suggestion: '更换变频控制，预计节能25%', model: 'VFD-GS800' },
+    { device: '全站(洞井)', actual: 0.760, benchmark: 0.55, excess: '+38.2%', age: 8, suggestion: '整站改造评估，泵组+电气全面升级', model: '-' },
 ])
 
 const savingReports = ref([
-    { id: 1, period: '2024年Q1', potential: '15.2%', saving: '约3.6万kWh/季', cost: '约2.5万元/季', items: ['通州泵站运行策略优化', '丰台格栅改造', '海淀整站评估'] },
+    { id: 1, period: '2024年Q1', potential: '15.2%', saving: '约3.6万kWh/季', cost: '约2.5万元/季', items: ['黎托泵站运行策略优化', '左家塘格栅改造', '洞井整站评估'] },
 ])
 
 function unitClass(s: string) { return s === '优秀' ? 'bg-success/10 text-success' : s === '达标' ? 'bg-info/10 text-info' : s === '偏高' ? 'bg-warning/10 text-warning' : 'bg-danger/10 text-danger' }
@@ -43,7 +43,7 @@ function unitClass(s: string) { return s === '优秀' ? 'bg-success/10 text-succ
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <template v-if="activeFunc === 'trend'">
@@ -89,7 +89,7 @@ function unitClass(s: string) { return s === '优秀' ? 'bg-success/10 text-succ
             <div v-for="r in savingReports" :key="r.id"
                 class="bg-card border border-themed rounded-xl shadow-themed p-4">
                 <div class="flex items-center justify-between mb-3"><span class="text-xs font-bold text-default">{{
-                        r.period }}</span><span class="text-xs text-success font-bold">节能潜力: {{ r.potential }}</span>
+                    r.period }}</span><span class="text-xs text-success font-bold">节能潜力: {{ r.potential }}</span>
                 </div>
                 <div class="grid grid-cols-2 gap-3 mb-3">
                     <div class="bg-surface rounded-lg p-3 text-center">

@@ -12,15 +12,15 @@ const funcTabs = [
 ]
 
 const repairs = ref([
-    { id: 1, device: '2号水泵', station: '朝阳泵站', fault: '轴承异响/振动增大', reporter: '张伟', channel: 'PC', time: '2024-03-15 14:00', photos: 2, status: '待审核' },
-    { id: 2, device: '格栅机', station: '丰台泵站', fault: '链条断裂/停机', reporter: '李明', channel: 'APP', time: '2024-03-14 10:30', photos: 3, status: '已派发' },
-    { id: 3, device: '配电柜B', station: '通州泵站', fault: '接触器打火', reporter: '赵刚', channel: 'PC', time: '2024-03-13 16:20', photos: 1, status: '处理中' },
-    { id: 4, device: '流量计FL-03', station: '西城泵站', fault: '读数偏差大', reporter: '刘芳', channel: 'APP', time: '2024-03-12 09:15', photos: 0, status: '已完成' },
+    { id: 1, device: '2号水泵', station: '雨花泵站', fault: '轴承异响/振动增大', reporter: '张伟', channel: 'PC', time: '2024-03-15 14:00', photos: 2, status: '待审核' },
+    { id: 2, device: '格栅机', station: '左家塘泵站', fault: '链条断裂/停机', reporter: '李明', channel: 'APP', time: '2024-03-14 10:30', photos: 3, status: '已派发' },
+    { id: 3, device: '配电柜B', station: '黎托泵站', fault: '接触器打火', reporter: '赵刚', channel: 'PC', time: '2024-03-13 16:20', photos: 1, status: '处理中' },
+    { id: 4, device: '流量计FL-03', station: '侯家塘泵站', fault: '读数偏差大', reporter: '刘芳', channel: 'APP', time: '2024-03-12 09:15', photos: 0, status: '已完成' },
 ])
 
 const drafts = ref([
-    { id: 1, device: '阀门DN200', station: '通州泵站', fault: '开关卡顿(待补充)', savedTime: '2024-03-15 11:00', reporter: '赵刚' },
-    { id: 2, device: '液位计LV-05', station: '朝阳泵站', fault: '(未填写)', savedTime: '2024-03-14 16:30', reporter: '张伟' },
+    { id: 1, device: '阀门DN200', station: '黎托泵站', fault: '开关卡顿(待补充)', savedTime: '2024-03-15 11:00', reporter: '赵刚' },
+    { id: 2, device: '液位计LV-05', station: '雨花泵站', fault: '(未填写)', savedTime: '2024-03-14 16:30', reporter: '张伟' },
 ])
 
 function statusClass(s: string) {
@@ -36,7 +36,7 @@ function statusClass(s: string) {
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <template v-if="activeFunc === 'list'">
@@ -90,8 +90,8 @@ function statusClass(s: string) {
                     <div><label class="text-[10px] text-dim block mb-1">所属泵站</label><select
                             class="w-full px-3 py-2 bg-surface border border-themed rounded-lg text-xs text-default outline-none">
                             <option>请选择泵站</option>
-                            <option>朝阳泵站</option>
-                            <option>西城泵站</option>
+                            <option>雨花泵站</option>
+                            <option>侯家塘泵站</option>
                         </select></div>
                     <div class="col-span-2"><label class="text-[10px] text-dim block mb-1">故障描述</label><textarea
                             rows="3"

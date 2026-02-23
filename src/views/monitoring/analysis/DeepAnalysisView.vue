@@ -18,26 +18,26 @@ const timeRange = ref('30d')
 
 // 极值统计
 const extremes = ref([
-    { station: '朝阳路DN600', metric: '流量', max: 380, maxTime: '2024-03-12 15:30', min: 210, minTime: '2024-03-03 04:00', range: 170 },
-    { station: '东湖泵站进水', metric: '流量', max: 560, maxTime: '2024-03-10 14:00', min: 420, minTime: '2024-03-07 03:00', range: 140 },
-    { station: '民生路DN400', metric: '水位', max: 2.15, maxTime: '2024-03-12 16:00', min: 0.85, minTime: '2024-03-01 05:00', range: 1.30 },
-    { station: '建设大道DN300', metric: '水位', max: 2.45, maxTime: '2024-03-15 12:45', min: 1.10, minTime: '2024-03-02 06:00', range: 1.35 },
+    { station: '韶山路DN600', metric: '流量', max: 380, maxTime: '2024-03-12 15:30', min: 210, minTime: '2024-03-03 04:00', range: 170 },
+    { station: '圭塘河泵站进水', metric: '流量', max: 560, maxTime: '2024-03-10 14:00', min: 420, minTime: '2024-03-07 03:00', range: 140 },
+    { station: '劳动路DN400', metric: '水位', max: 2.15, maxTime: '2024-03-12 16:00', min: 0.85, minTime: '2024-03-01 05:00', range: 1.30 },
+    { station: '万家丽路DN300', metric: '水位', max: 2.45, maxTime: '2024-03-15 12:45', min: 1.10, minTime: '2024-03-02 06:00', range: 1.35 },
 ])
 
 // 统计结果
 const statsResults = ref([
-    { station: '朝阳路DN600', avg: 335.2, median: 338.0, stdDev: 28.5, samples: 720 },
-    { station: '东湖泵站进水', avg: 510.8, median: 515.0, stdDev: 22.3, samples: 720 },
-    { station: '民生路DN400', avg: 1.62, median: 1.65, stdDev: 0.25, samples: 720 },
-    { station: '建设大道DN300', avg: 1.95, median: 1.90, stdDev: 0.35, samples: 720 },
+    { station: '韶山路DN600', avg: 335.2, median: 338.0, stdDev: 28.5, samples: 720 },
+    { station: '圭塘河泵站进水', avg: 510.8, median: 515.0, stdDev: 22.3, samples: 720 },
+    { station: '劳动路DN400', avg: 1.62, median: 1.65, stdDev: 0.25, samples: 720 },
+    { station: '万家丽路DN300', avg: 1.95, median: 1.90, stdDev: 0.35, samples: 720 },
 ])
 
 // 异常数据
 const anomalies = ref([
-    { id: 'AN001', station: '东湖泵站进水', metric: '流量', value: 560, threshold: '500m³/h', time: '2024-03-10 14:00', type: '突增异常', confidence: 95, severity: 'high' },
-    { id: 'AN002', station: '建设大道DN300', metric: '水位', value: 2.45, threshold: '2.0m', time: '2024-03-15 12:45', type: '超阈值', confidence: 100, severity: 'high' },
-    { id: 'AN003', station: '西城区进水口', metric: 'COD', value: 52, threshold: '40mg/L', time: '2024-03-14 22:00', type: '超标', confidence: 100, severity: 'medium' },
-    { id: 'AN004', station: '朝阳路DN600', metric: '流量', value: 210, threshold: '均值±2σ', time: '2024-03-03 04:00', type: '偏低异常', confidence: 88, severity: 'low' },
+    { id: 'AN001', station: '圭塘河泵站进水', metric: '流量', value: 560, threshold: '500m³/h', time: '2024-03-10 14:00', type: '突增异常', confidence: 95, severity: 'high' },
+    { id: 'AN002', station: '万家丽路DN300', metric: '水位', value: 2.45, threshold: '2.0m', time: '2024-03-15 12:45', type: '超阈值', confidence: 100, severity: 'high' },
+    { id: 'AN003', station: '侯家塘街道进水口', metric: 'COD', value: 52, threshold: '40mg/L', time: '2024-03-14 22:00', type: '超标', confidence: 100, severity: 'medium' },
+    { id: 'AN004', station: '韶山路DN600', metric: '流量', value: 210, threshold: '均值±2σ', time: '2024-03-03 04:00', type: '偏低异常', confidence: 88, severity: 'low' },
 ])
 
 function getSeverityColor(s: string) { return s === 'high' ? 'text-danger' : s === 'medium' ? 'text-warning' : 'text-info' }

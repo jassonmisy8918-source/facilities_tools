@@ -6,25 +6,25 @@ import { FlaskConical, Search, RefreshCw } from 'lucide-vue-next'
 const activeFunc = ref('realtime')
 const funcTabs = [{ key: 'realtime', label: '实时数据' }, { key: 'history', label: '历史数据' }, { key: 'chart', label: '图表展示' }]
 const selectedStation = ref('all')
-const stations = ['全部站点', '新华街DN800', '西城区进水口', '朝阳区排口', '丰台区污水厂', '通州区河道']
+const stations = ['全部站点', '香樟路DN800', '侯家塘街道进水口', '圭塘街道排口', '左家塘街道污水厂', '黎托街道河道']
 const selectedMetric = ref('cod')
 const metrics = [{ key: 'cod', label: 'COD' }, { key: 'ph', label: 'pH' }, { key: 'ss', label: 'SS' }, { key: 'nh3', label: '氨氮' }]
 const startDate = ref('2024-03-01')
 const endDate = ref('2024-03-15')
 
 const realtimeData = ref([
-    { station: '新华街DN800', cod: 28, ph: 7.2, ss: 35, nh3: 5.8, status: 'normal', time: '14:30' },
-    { station: '西城区进水口', cod: 45, ph: 6.8, ss: 58, nh3: 12.5, status: 'warning', time: '14:30' },
-    { station: '朝阳区排口', cod: 22, ph: 7.1, ss: 30, nh3: 4.2, status: 'normal', time: '14:29' },
-    { station: '丰台区污水厂', cod: 18, ph: 7.0, ss: 25, nh3: 3.5, status: 'normal', time: '14:30' },
-    { station: '通州区河道', cod: 0, ph: 0, ss: 0, nh3: 0, status: 'offline', time: '—' },
+    { station: '香樟路DN800', cod: 28, ph: 7.2, ss: 35, nh3: 5.8, status: 'normal', time: '14:30' },
+    { station: '侯家塘街道进水口', cod: 45, ph: 6.8, ss: 58, nh3: 12.5, status: 'warning', time: '14:30' },
+    { station: '圭塘街道排口', cod: 22, ph: 7.1, ss: 30, nh3: 4.2, status: 'normal', time: '14:29' },
+    { station: '左家塘街道污水厂', cod: 18, ph: 7.0, ss: 25, nh3: 3.5, status: 'normal', time: '14:30' },
+    { station: '黎托街道河道', cod: 0, ph: 0, ss: 0, nh3: 0, status: 'offline', time: '—' },
 ])
 
 const historyData = ref([
-    { date: '2024-03-15', station: '新华街DN800', cod: 28, ph: 7.2, ss: 35, nh3: 5.8 },
-    { date: '2024-03-14', station: '西城区进水口', cod: 42, ph: 6.9, ss: 55, nh3: 11.8 },
-    { date: '2024-03-13', station: '朝阳区排口', cod: 25, ph: 7.0, ss: 32, nh3: 4.8 },
-    { date: '2024-03-12', station: '丰台区污水厂', cod: 20, ph: 7.1, ss: 28, nh3: 3.9 },
+    { date: '2024-03-15', station: '香樟路DN800', cod: 28, ph: 7.2, ss: 35, nh3: 5.8 },
+    { date: '2024-03-14', station: '侯家塘街道进水口', cod: 42, ph: 6.9, ss: 55, nh3: 11.8 },
+    { date: '2024-03-13', station: '圭塘街道排口', cod: 25, ph: 7.0, ss: 32, nh3: 4.8 },
+    { date: '2024-03-12', station: '左家塘街道污水厂', cod: 20, ph: 7.1, ss: 28, nh3: 3.9 },
 ])
 
 const chartRef = ref<HTMLElement>()

@@ -9,7 +9,7 @@ const subView = ref<'compare' | 'stats'>('compare')
 const compareChartRef = ref<HTMLElement>()
 let compareChart: echarts.ECharts | null = null
 
-const districts = ['朝阳区', '海淀区', '西城区', '东城区', '丰台区']
+const districts = ['圭塘街道', '洞井街道', '侯家塘街道', '雨花亭街道', '左家塘街道']
 const compareMetrics = {
     density: { label: '管网密度(km/km²)', data: [38.9, 33.4, 37.2, 41.3, 25.4] },
     wells: { label: '检查井密度(个/km²)', data: [124.8, 102.5, 120.3, 132.3, 88.6] },
@@ -22,11 +22,11 @@ const statsChartRef = ref<HTMLElement>()
 let statsChart: echarts.ECharts | null = null
 
 const facilityStats = ref([
-    { district: '朝阳区', pipes: 12560, wells: 8340, rainInlets: 4560, pumps: 12, outlets: 23, monitors: 45 },
-    { district: '海淀区', pipes: 11200, wells: 7450, rainInlets: 3890, pumps: 10, outlets: 18, monitors: 38 },
-    { district: '西城区', pipes: 4560, wells: 3040, rainInlets: 1650, pumps: 5, outlets: 8, monitors: 22 },
-    { district: '东城区', pipes: 3890, wells: 2590, rainInlets: 1380, pumps: 4, outlets: 6, monitors: 18 },
-    { district: '丰台区', pipes: 9800, wells: 6530, rainInlets: 3450, pumps: 8, outlets: 15, monitors: 32 },
+    { district: '圭塘街道', pipes: 12560, wells: 8340, rainInlets: 4560, pumps: 12, outlets: 23, monitors: 45 },
+    { district: '洞井街道', pipes: 11200, wells: 7450, rainInlets: 3890, pumps: 10, outlets: 18, monitors: 38 },
+    { district: '侯家塘街道', pipes: 4560, wells: 3040, rainInlets: 1650, pumps: 5, outlets: 8, monitors: 22 },
+    { district: '雨花亭街道', pipes: 3890, wells: 2590, rainInlets: 1380, pumps: 4, outlets: 6, monitors: 18 },
+    { district: '左家塘街道', pipes: 9800, wells: 6530, rainInlets: 3450, pumps: 8, outlets: 15, monitors: 32 },
 ])
 
 function initCompareChart() {

@@ -11,7 +11,7 @@ const toast = ref<InstanceType<typeof ToastNotify>>()
 
 // ===================== 维度控制 =====================
 const dimensionOptions = {
-  district: ['全部', '朝阳区', '海淀区', '西城区', '东城区', '丰台区'],
+  district: ['全部', '圭塘街道', '洞井街道', '侯家塘街道', '雨花亭街道', '左家塘街道'],
   period: ['近7天', '近30天', '近90天', '近1年', '近3年'],
   type: ['全部类型', '排水管网', '检查井', '雨水口', '泵站', '排放口', '监测设备'],
 }
@@ -151,16 +151,16 @@ function initMultiChart() {
   multiChart.setOption({
     backgroundColor: 'transparent',
     tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
-    legend: { data: ['朝阳区', '海淀区', '西城区', '东城区', '丰台区'], textStyle: baseTextStyle, top: 0, itemWidth: 12, itemHeight: 8 },
+    legend: { data: ['圭塘街道', '洞井街道', '侯家塘街道', '雨花亭街道', '左家塘街道'], textStyle: baseTextStyle, top: 0, itemWidth: 12, itemHeight: 8 },
     grid: { top: 35, right: 20, bottom: 30, left: 50 },
     xAxis: { type: 'category', data: ['管网', '检查井', '雨水口', '泵站', '排放口', '监测设备'], axisLabel: baseTextStyle, axisLine: { lineStyle: { color: 'var(--border-themed)' } } },
     yAxis: { type: 'value', axisLabel: baseTextStyle, splitLine: splitLineStyle },
     series: [
-      { name: '朝阳区', type: 'bar', stack: 'total', data: [3200, 2100, 1500, 5, 22, 40], itemStyle: { color: '#3B82F6' } },
-      { name: '海淀区', type: 'bar', stack: 'total', data: [2800, 1900, 1300, 4, 18, 35], itemStyle: { color: '#00D4AA' } },
-      { name: '西城区', type: 'bar', stack: 'total', data: [2400, 1600, 1200, 3, 15, 30], itemStyle: { color: '#FFB020' } },
-      { name: '东城区', type: 'bar', stack: 'total', data: [2100, 1400, 1100, 3, 17, 28], itemStyle: { color: '#8B5CF6' } },
-      { name: '丰台区', type: 'bar', stack: 'total', data: [1956, 1234, 1020, 3, 17, 23], itemStyle: { color: '#F97316' } },
+      { name: '圭塘街道', type: 'bar', stack: 'total', data: [3200, 2100, 1500, 5, 22, 40], itemStyle: { color: '#3B82F6' } },
+      { name: '洞井街道', type: 'bar', stack: 'total', data: [2800, 1900, 1300, 4, 18, 35], itemStyle: { color: '#00D4AA' } },
+      { name: '侯家塘街道', type: 'bar', stack: 'total', data: [2400, 1600, 1200, 3, 15, 30], itemStyle: { color: '#FFB020' } },
+      { name: '雨花亭街道', type: 'bar', stack: 'total', data: [2100, 1400, 1100, 3, 17, 28], itemStyle: { color: '#8B5CF6' } },
+      { name: '左家塘街道', type: 'bar', stack: 'total', data: [1956, 1234, 1020, 3, 17, 23], itemStyle: { color: '#F97316' } },
     ],
   })
 }

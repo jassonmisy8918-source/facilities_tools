@@ -96,6 +96,17 @@ export const systemMenus: SystemMenu[] = [
         label: '运行驾驶舱',
         icon: LayoutDashboard,
         basePath: '/dashboard',
-        children: []
+        children: [
+            { key: 'layers', label: '专题图层', icon: Map, path: '/dashboard/layers' },
+            { key: 'intro', label: '情况介绍', icon: ClipboardList, path: '/dashboard/intro' },
+            { key: 'facilities', label: '设施信息', icon: Database, path: '/dashboard/facilities' },
+            { key: 'weather', label: '降雨预报', icon: Cloud, path: '/dashboard/weather' },
+            { key: 'devices', label: '监测设备', icon: Radio, path: '/dashboard/devices' },
+            { key: 'defects', label: '缺陷信息', icon: AlertTriangle, path: '/dashboard/defects' },
+            { key: 'patrol', label: '巡查养护', icon: Wrench, path: '/dashboard/patrol' },
+            { key: 'pump-ops', label: '泵站运维', icon: Settings, path: '/dashboard/pump-ops' },
+            { key: 'efficiency', label: '提质增效', icon: TrendingUp, path: '/dashboard/efficiency' },
+            { key: 'alarms', label: '信息报警', icon: Bell, path: '/dashboard/alarms' },
+        ]
     }
 ]

@@ -17,14 +17,14 @@ const funcTabs = [
 ]
 
 const levelCalibrations = ref([
-    { id: 'LC-001', instrument: '液位计-YW-001', location: '和平路泵站', calibDate: '2024-03-01', nextCalib: '2024-06-01', param: '量程0-5m/精度±0.5%', result: '合格', operator: '张工' },
-    { id: 'LC-002', instrument: '液位计-YW-002', location: '建设大道MH-15', calibDate: '2024-02-15', nextCalib: '2024-05-15', param: '量程0-3m/精度±1%', result: '合格', operator: '李工' },
-    { id: 'LC-003', instrument: '液位计-YW-003', location: '西城区泵站', calibDate: '2023-12-01', nextCalib: '2024-03-01', param: '量程0-5m/精度±0.5%', result: '偏差超标', operator: '王工' },
+    { id: 'LC-001', instrument: '液位计-YW-001', location: '芙蓉路泵站', calibDate: '2024-03-01', nextCalib: '2024-06-01', param: '量程0-5m/精度±0.5%', result: '合格', operator: '张工' },
+    { id: 'LC-002', instrument: '液位计-YW-002', location: '万家丽路MH-15', calibDate: '2024-02-15', nextCalib: '2024-05-15', param: '量程0-3m/精度±1%', result: '合格', operator: '李工' },
+    { id: 'LC-003', instrument: '液位计-YW-003', location: '侯家塘街道泵站', calibDate: '2023-12-01', nextCalib: '2024-03-01', param: '量程0-5m/精度±0.5%', result: '偏差超标', operator: '王工' },
 ])
 
 const flowCalibrations = ref([
-    { id: 'FC-001', instrument: '流量计-LL-001', location: '建设大道DN400', calibDate: '2024-02-20', nextCalib: '2024-08-20', param: '量程0-500L/s/精度±2%', result: '合格', operator: '张工' },
-    { id: 'FC-002', instrument: '流量计-LL-002', location: '民生路DN600', calibDate: '2024-01-15', nextCalib: '2024-07-15', param: '量程0-800L/s/精度±1.5%', result: '合格', operator: '李工' },
+    { id: 'FC-001', instrument: '流量计-LL-001', location: '万家丽路DN400', calibDate: '2024-02-20', nextCalib: '2024-08-20', param: '量程0-500L/s/精度±2%', result: '合格', operator: '张工' },
+    { id: 'FC-002', instrument: '流量计-LL-002', location: '劳动路DN600', calibDate: '2024-01-15', nextCalib: '2024-07-15', param: '量程0-800L/s/精度±1.5%', result: '合格', operator: '李工' },
 ])
 
 const instrumentIssues = ref([

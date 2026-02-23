@@ -26,20 +26,20 @@ const maintContent = ref([
 ])
 
 const trajectories = ref([
-    { worker: '张伟', order: 'MO-001', date: '2024-03-15', route: '建设大道清淤段', distance: '2.8km', duration: '4.5h', deviation: 0, status: 'completed' },
-    { worker: '李明', order: 'MO-003', date: '2024-03-14', route: '西城区排口段', distance: '1.5km', duration: '3h', deviation: 0, status: 'completed' },
+    { worker: '张伟', order: 'MO-001', date: '2024-03-15', route: '万家丽路清淤段', distance: '2.8km', duration: '4.5h', deviation: 0, status: 'completed' },
+    { worker: '李明', order: 'MO-003', date: '2024-03-14', route: '侯家塘街道排口段', distance: '1.5km', duration: '3h', deviation: 0, status: 'completed' },
 ])
 
 const progressByArea = ref([
-    { area: '朝阳区', total: 8, done: 5, rate: 62 },
-    { area: '西城区', total: 5, done: 4, rate: 80 },
-    { area: '丰台区', total: 6, done: 2, rate: 33 },
-    { area: '通州区', total: 4, done: 1, rate: 25 },
+    { area: '圭塘街道', total: 8, done: 5, rate: 62 },
+    { area: '侯家塘街道', total: 5, done: 4, rate: 80 },
+    { area: '左家塘街道', total: 6, done: 2, rate: 33 },
+    { area: '黎托街道', total: 4, done: 1, rate: 25 },
 ])
 
 const overdueOrders = ref([
-    { id: 'MO-010', title: '通州区管道年检', deadline: '2024-03-10', overdueDays: 5, assignee: '赵刚', reason: '人员请假' },
-    { id: 'MO-011', title: '丰台区排口季度保养', deadline: '2024-03-12', overdueDays: 3, assignee: '—', reason: '未分配人员' },
+    { id: 'MO-010', title: '黎托街道管道年检', deadline: '2024-03-10', overdueDays: 5, assignee: '赵刚', reason: '人员请假' },
+    { id: 'MO-011', title: '左家塘街道排口季度保养', deadline: '2024-03-12', overdueDays: 3, assignee: '—', reason: '未分配人员' },
 ])
 
 const playingId = ref('')

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Plus, Pencil, Trash2, Eye, CheckCircle, XCircle, Search, Package, Download } from 'lucide-vue-next'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
 
 const toast = ref<InstanceType<typeof ToastNotify>>()
@@ -14,9 +15,9 @@ const funcTabs = [
 ]
 
 const plans = ref([
-    { id: 'MP-2024-001', name: '朝阳区主干管网春季清淤', type: '清淤', area: '朝阳区', cycle: '季度', scope: 'DN400+ 主干管', assignee: '张伟', startDate: '2024-03-01', endDate: '2024-03-31', status: 'active', progress: 45 },
-    { id: 'MP-2024-002', name: '西城区老旧管段修复', type: '修复', area: '西城区', cycle: '专项', scope: '2005年前管段', assignee: '赵刚', startDate: '2024-03-15', endDate: '2024-04-30', status: 'pending', progress: 0 },
-    { id: 'MP-2024-003', name: '丰台区检查井维护保养', type: '保养', area: '丰台区', cycle: '年度', scope: '全区检查井', assignee: '王强', startDate: '2024-01-01', endDate: '2024-06-30', status: 'active', progress: 60 },
+    { id: 'MP-2024-001', name: '圭塘街道主干管网春季清淤', type: '清淤', area: '圭塘街道', cycle: '季度', scope: 'DN400+ 主干管', assignee: '张伟', startDate: '2024-03-01', endDate: '2024-03-31', status: 'active', progress: 45 },
+    { id: 'MP-2024-002', name: '侯家塘街道老旧管段修复', type: '修复', area: '侯家塘街道', cycle: '专项', scope: '2005年前管段', assignee: '赵刚', startDate: '2024-03-15', endDate: '2024-04-30', status: 'pending', progress: 0 },
+    { id: 'MP-2024-003', name: '左家塘街道检查井维护保养', type: '保养', area: '左家塘街道', cycle: '年度', scope: '全区检查井', assignee: '王强', startDate: '2024-01-01', endDate: '2024-06-30', status: 'active', progress: 60 },
 ])
 
 const adjustments = ref([
@@ -25,27 +26,34 @@ const adjustments = ref([
 ])
 
 const materials = ref([
-    { id: 'MAT-001', name: 'DN400 PVC管材', spec: 'DN400×6m', unit: '根', stock: 25, minStock: 10, location: '朝阳区仓库', lastIn: '2024-03-01', lastOut: '2024-03-12' },
+    { id: 'MAT-001', name: 'DN400 PVC管材', spec: 'DN400×6m', unit: '根', stock: 25, minStock: 10, location: '圭塘街道仓库', lastIn: '2024-03-01', lastOut: '2024-03-12' },
     { id: 'MAT-002', name: 'HDPE修复内衬', spec: 'DN200-600', unit: '米', stock: 120, minStock: 50, location: '中心仓库', lastIn: '2024-02-15', lastOut: '2024-03-08' },
-    { id: 'MAT-003', name: '井盖(球墨铸铁)', spec: '700×700', unit: '个', stock: 8, minStock: 5, location: '朝阳区仓库', lastIn: '2024-01-20', lastOut: '2024-03-14' },
+    { id: 'MAT-003', name: '井盖(球墨铸铁)', spec: '700×700', unit: '个', stock: 8, minStock: 5, location: '圭塘街道仓库', lastIn: '2024-01-20', lastOut: '2024-03-14' },
     { id: 'MAT-004', name: '密封胶圈', spec: 'DN200-800', unit: '套', stock: 200, minStock: 100, location: '中心仓库', lastIn: '2024-03-05', lastOut: '2024-03-10' },
-    { id: 'MAT-005', name: '水泥砂浆', spec: 'C30', unit: '吨', stock: 3, minStock: 2, location: '丰台区仓库', lastIn: '2024-02-20', lastOut: '2024-03-06' },
+    { id: 'MAT-005', name: '水泥砂浆', spec: 'C30', unit: '吨', stock: 3, minStock: 2, location: '左家塘街道仓库', lastIn: '2024-02-20', lastOut: '2024-03-06' },
 ])
 
 const approvals = ref([
-    { id: 'APR-M01', plan: 'MP-2024-002', planName: '西城区老旧管段修复', applicant: '赵刚', time: '2024-03-10 09:00', approver: '张主任', status: 'pending' },
+    { id: 'APR-M01', plan: 'MP-2024-002', planName: '侯家塘街道老旧管段修复', applicant: '赵刚', time: '2024-03-10 09:00', approver: '张主任', status: 'pending' },
 ])
 
 const historyRecords = ref([
-    { id: 'MH-001', facility: '建设大道DN400', type: '清淤', date: '2024-02-15', worker: '张伟', duration: '3小时', result: '清淤完成，管内积泥约0.8m³' },
-    { id: 'MH-002', facility: '民生路MH-05', type: '井盖更换', date: '2024-02-20', worker: '王强', duration: '1.5小时', result: '更换球墨铸铁井盖，恢复通行' },
-    { id: 'MH-003', facility: '西城区OUT-03', type: '排口清理', date: '2024-03-01', worker: '李明', duration: '2小时', result: '清理垃圾杂物约50kg' },
+    { id: 'MH-001', facility: '万家丽路DN400', type: '清淤', date: '2024-02-15', worker: '张伟', duration: '3小时', result: '清淤完成，管内积泥约0.8m³' },
+    { id: 'MH-002', facility: '劳动路MH-05', type: '井盖更换', date: '2024-02-20', worker: '王强', duration: '1.5小时', result: '更换球墨铸铁井盖，恢复通行' },
+    { id: 'MH-003', facility: '侯家塘街道OUT-03', type: '排口清理', date: '2024-03-01', worker: '李明', duration: '2小时', result: '清理垃圾杂物约50kg' },
 ])
 
 function getStatusColor(s: string) { return s === 'active' ? 'text-success bg-success/10' : s === 'pending' ? 'text-warning bg-warning/10' : 'text-info bg-info/10' }
 function getStatusText(s: string) { return s === 'active' ? '执行中' : s === 'pending' ? '待审批' : '已完成' }
 function approve(a: typeof approvals.value[0]) { a.status = 'approved'; toast.value?.show('审批通过', 'success') }
 function reject(a: typeof approvals.value[0]) { a.status = 'rejected'; toast.value?.show('已驳回', 'warning') }
+
+// 新增弹窗
+const showAddModal = ref(false)
+const addForm = ref({ name: '', type: '', area: '', assignee: '' })
+
+function openAdd() { addForm.value = { name: '', type: '', area: '', assignee: '' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
 </script>
 
 <template>
@@ -58,7 +66,7 @@ function reject(a: typeof approvals.value[0]) { a.status = 'rejected'; toast.val
                     ft.label }}</button>
             </div>
             <button v-if="activeFunc === 'plans'"
-                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
+                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer" @click="openAdd()">
                 <Plus class="w-3.5 h-3.5" />新增计划
             </button>
         </div>
@@ -240,6 +248,32 @@ function reject(a: typeof approvals.value[0]) { a.status = 'rejected'; toast.val
                 </table>
             </div>
         </template>
+    <!-- 新增弹窗 -->
+    <ModalDialog :show="showAddModal" title="新增养护计划" @close="showAddModal = false" @confirm="doAdd">
+        <div class="space-y-3">
+            <div>
+                <label class="text-[10px] text-dim block mb-1">计划名称</label>
+                <input v-model="addForm.name" type="text" placeholder="请输入计划名称"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">养护类型</label>
+                <input v-model="addForm.type" type="text" placeholder="日常/专项/应急"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">区域</label>
+                <input v-model="addForm.area" type="text" placeholder="请选择区域"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">责任人</label>
+                <input v-model="addForm.assignee" type="text" placeholder="请输入负责人"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+        </div>
+    </ModalDialog>
+    
         <ToastNotify ref="toast" />
     </div>
 </template>

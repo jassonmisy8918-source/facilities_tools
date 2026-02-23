@@ -14,7 +14,7 @@ const kpiCards = [
 ];
 
 const alarmList = [
-    { id: 1, type: 'danger', title: '朝阳路泵站#2水泵异常停机', time: '2分钟前', location: '朝阳路泵站' },
+    { id: 1, type: 'danger', title: '雨花路泵站#2水泵异常停机', time: '2分钟前', location: '雨花路泵站' },
     { id: 2, type: 'warning', title: '民生路管段水位超警戒', time: '15分钟前', location: '民生路D300管段' },
     { id: 3, type: 'warning', title: '和平路雨量超阈值', time: '32分钟前', location: '和平路监测站' },
     { id: 4, type: 'info', title: '新华街管段流量异常波动', time: '1小时前', location: '新华街DN600管段' },
@@ -22,7 +22,7 @@ const alarmList = [
 ];
 
 const pumpStations = [
-    { name: '朝阳路泵站', status: 'running', flow: 342, power: 78 },
+    { name: '雨花路泵站', status: 'running', flow: 342, power: 78 },
     { name: '东湖泵站', status: 'running', flow: 518, power: 92 },
     { name: '民生路泵站', status: 'running', flow: 267, power: 65 },
     { name: '和平路泵站', status: 'warning', flow: 189, power: 45 },
@@ -62,7 +62,7 @@ function getWaterLevelOption() {
         xAxis: { type: 'category', data: hours, axisLabel: { color: '#5A6B7C', fontSize: 10 }, axisLine: { lineStyle: { color: '#2A3F54' } }, interval: 3 },
         yAxis: { type: 'value', name: 'm', nameTextStyle: { color: '#5A6B7C' }, axisLabel: { color: '#5A6B7C', fontSize: 10 }, splitLine: { lineStyle: { color: '#1E3348' } } },
         series: [
-            { name: '朝阳路', type: 'line', smooth: true, data: [1.2, 1.1, 1.0, 0.9, 0.8, 0.8, 0.9, 1.2, 1.5, 1.8, 2.1, 2.3, 2.5, 2.4, 2.2, 2.0, 1.8, 1.6, 1.5, 1.4, 1.3, 1.2, 1.2, 1.1], lineStyle: { color: '#3B82F6' }, itemStyle: { color: '#3B82F6' }, areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: 'rgba(59,130,246,0.3)' }, { offset: 1, color: 'rgba(59,130,246,0)' }]) } },
+            { name: '雨花路', type: 'line', smooth: true, data: [1.2, 1.1, 1.0, 0.9, 0.8, 0.8, 0.9, 1.2, 1.5, 1.8, 2.1, 2.3, 2.5, 2.4, 2.2, 2.0, 1.8, 1.6, 1.5, 1.4, 1.3, 1.2, 1.2, 1.1], lineStyle: { color: '#3B82F6' }, itemStyle: { color: '#3B82F6' }, areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: 'rgba(59,130,246,0.3)' }, { offset: 1, color: 'rgba(59,130,246,0)' }]) } },
             { name: '民生路', type: 'line', smooth: true, data: [0.8, 0.7, 0.7, 0.6, 0.6, 0.5, 0.6, 0.8, 1.1, 1.4, 1.6, 1.8, 1.9, 1.8, 1.7, 1.5, 1.3, 1.2, 1.1, 1.0, 0.9, 0.9, 0.8, 0.8], lineStyle: { color: '#00D4AA' }, itemStyle: { color: '#00D4AA' }, areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: 'rgba(0,212,170,0.3)' }, { offset: 1, color: 'rgba(0,212,170,0)' }]) } },
         ]
     };

@@ -36,8 +36,8 @@ const kpiResults = ref([
 ])
 
 const scrapList = ref([
-    { id: 1, device: '旧格栅机', category: '辅助设备', station: '丰台泵站', reason: '超期/锈蚀', apply: '2024-02-10', status: '已归档' },
-    { id: 2, device: '液位计LV-02', category: '仪表', station: '海淀泵站', reason: '精度不达标', apply: '2024-03-01', status: '已审批' },
+    { id: 1, device: '旧格栅机', category: '辅助设备', station: '左家塘泵站', reason: '超期/锈蚀', apply: '2024-02-10', status: '已归档' },
+    { id: 2, device: '液位计LV-02', category: '仪表', station: '洞井泵站', reason: '精度不达标', apply: '2024-03-01', status: '已审批' },
 ])
 
 const spareData = ref([

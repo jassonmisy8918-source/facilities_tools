@@ -8,7 +8,7 @@ const kpis = [
 ];
 
 const initRecords = [
-    { id: 'CC-001', location: '朝阳路28号', type: '雨接污', source: '餐饮排水', pipeSpec: 'DN150→DN300 污水管', method: 'CCTV', status: 'completed' },
+    { id: 'CC-001', location: '雨花路28号', type: '雨接污', source: '餐饮排水', pipeSpec: 'DN150→DN300 污水管', method: 'CCTV', status: 'completed' },
     { id: 'CC-002', location: '新华街56号', type: '污接雨', source: '生活排水', pipeSpec: 'DN100→DN400 雨水管', method: '水质检测', status: 'rectifying' },
     { id: 'CC-003', location: '和平路商业中心', type: '雨接污', source: '屋面雨水', pipeSpec: 'DN200→DN600 污水管', method: '现场巡查', status: 'confirmed' },
     { id: 'CC-004', location: '民生路12号', type: '污接雨', source: '洗车废水', pipeSpec: 'DN75→DN300 雨水管', method: '水质检测', status: 'completed' },
@@ -19,7 +19,7 @@ function tyCls(t: string) { return t === '雨接污' ? 'bg-danger/15 text-danger
 function stCls(s: string) { return s === 'completed' ? 'bg-success/15 text-success' : s === 'rectifying' ? 'bg-info/15 text-info' : 'bg-warning/15 text-warning'; }
 function stTxt(s: string) { return s === 'completed' ? '已整改' : s === 'rectifying' ? '整改中' : '已确认'; }
 
-const chartOption = { backgroundColor: 'transparent', tooltip: { trigger: 'axis' as const }, legend: { top: 0, textStyle: { color: '#8899AA', fontSize: 10 } }, grid: { top: 30, right: 15, bottom: 30, left: 45 }, xAxis: { type: 'category' as const, data: ['朝阳区', '海淀区', '西城区', '东城区', '丰台区'], axisLabel: { color: '#5A6B7C', fontSize: 10 }, axisLine: { lineStyle: { color: '#2A3F54' } } }, yAxis: { type: 'value' as const, axisLabel: { color: '#5A6B7C', fontSize: 10 }, splitLine: { lineStyle: { color: '#1E3348' } } }, series: [{ name: '雨接污', type: 'bar' as const, stack: 'total', data: [5, 3, 4, 2, 6], itemStyle: { color: '#FF4757' } }, { name: '污接雨', type: 'bar' as const, stack: 'total', data: [3, 2, 3, 1, 5], itemStyle: { color: '#FFB020' } }] };
+const chartOption = { backgroundColor: 'transparent', tooltip: { trigger: 'axis' as const }, legend: { top: 0, textStyle: { color: '#8899AA', fontSize: 10 } }, grid: { top: 30, right: 15, bottom: 30, left: 45 }, xAxis: { type: 'category' as const, data: ['雨花区', '海淀区', '侯家塘区', '东城区', '丰台区'], axisLabel: { color: '#5A6B7C', fontSize: 10 }, axisLine: { lineStyle: { color: '#2A3F54' } } }, yAxis: { type: 'value' as const, axisLabel: { color: '#5A6B7C', fontSize: 10 }, splitLine: { lineStyle: { color: '#1E3348' } } }, series: [{ name: '雨接污', type: 'bar' as const, stack: 'total', data: [5, 3, 4, 2, 6], itemStyle: { color: '#FF4757' } }, { name: '污接雨', type: 'bar' as const, stack: 'total', data: [3, 2, 3, 1, 5], itemStyle: { color: '#FFB020' } }] };
 
 export default function CrossConnectionView() {
     const [records, setRecords] = useState(initRecords);

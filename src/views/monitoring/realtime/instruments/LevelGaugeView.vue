@@ -11,24 +11,24 @@ const funcTabs = [
 ]
 
 const devices = ref([
-    { id: 'LG-4001', name: '民生路DN400', location: '海淀区', value: 1.85, battery: 78, online: true, lastUpdate: '2024-03-15 14:30' },
-    { id: 'LG-4002', name: '建设大道DN300', location: '丰台区', value: 2.35, battery: 65, online: true, lastUpdate: '2024-03-15 14:30' },
-    { id: 'LG-4003', name: '朝阳路DN600', location: '朝阳区', value: 1.52, battery: 90, online: true, lastUpdate: '2024-03-15 14:29' },
-    { id: 'LG-4004', name: '通州区主干', location: '通州区', value: 2.10, battery: 40, online: true, lastUpdate: '2024-03-15 14:30' },
-    { id: 'LG-4005', name: '西城区截流井', location: '西城区', value: 0, battery: 10, online: false, lastUpdate: '2024-03-15 06:20' },
+    { id: 'LG-4001', name: '劳动路DN400', location: '洞井街道', value: 1.85, battery: 78, online: true, lastUpdate: '2024-03-15 14:30' },
+    { id: 'LG-4002', name: '万家丽路DN300', location: '左家塘街道', value: 2.35, battery: 65, online: true, lastUpdate: '2024-03-15 14:30' },
+    { id: 'LG-4003', name: '韶山路DN600', location: '圭塘街道', value: 1.52, battery: 90, online: true, lastUpdate: '2024-03-15 14:29' },
+    { id: 'LG-4004', name: '黎托街道主干', location: '黎托街道', value: 2.10, battery: 40, online: true, lastUpdate: '2024-03-15 14:30' },
+    { id: 'LG-4005', name: '侯家塘街道截流井', location: '侯家塘街道', value: 0, battery: 10, online: false, lastUpdate: '2024-03-15 06:20' },
 ])
 
 const faults = ref([
-    { id: 'F201', device: 'LG-4005', name: '西城区截流井', type: '设备断电', time: '2024-03-15 06:20', status: '未修复', desc: '设备电源异常断电' },
+    { id: 'F201', device: 'LG-4005', name: '侯家塘街道截流井', type: '设备断电', time: '2024-03-15 06:20', status: '未修复', desc: '设备电源异常断电' },
 ])
 
 const alarms = ref([
-    { id: 'A201', device: 'LG-4002', name: '建设大道DN300', type: '水位超限', value: '2.35m', threshold: '2.0m', time: '2024-03-15 12:45', level: 'high' },
-    { id: 'A202', device: 'LG-4005', name: '西城区截流井', type: '设备离线', value: '-', threshold: '-', time: '2024-03-15 06:20', level: 'high' },
+    { id: 'A201', device: 'LG-4002', name: '万家丽路DN300', type: '水位超限', value: '2.35m', threshold: '2.0m', time: '2024-03-15 12:45', level: 'high' },
+    { id: 'A202', device: 'LG-4005', name: '侯家塘街道截流井', type: '设备离线', value: '-', threshold: '-', time: '2024-03-15 06:20', level: 'high' },
 ])
 
 const maintenances = ref([
-    { id: 'M201', device: 'LG-4001', name: '民生路DN400', type: '定期校准', date: '2024-03-08', operator: '刘工', result: '合格', next: '2024-06-08' },
+    { id: 'M201', device: 'LG-4001', name: '劳动路DN400', type: '定期校准', date: '2024-03-08', operator: '刘工', result: '合格', next: '2024-06-08' },
 ])
 
 function getAlarmColor(l: string) { return l === 'high' ? 'text-danger' : l === 'medium' ? 'text-warning' : 'text-info' }

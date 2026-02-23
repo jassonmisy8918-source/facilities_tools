@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
 import { Clock, AlertTriangle, DollarSign, Users, Download, Printer, BarChart3 } from 'lucide-vue-next'
+import * as echarts from 'echarts'
 
 const activeFunc = ref('workload')
 const funcTabs = [
@@ -56,6 +57,77 @@ const reports = ref([
     { name: '2024年Q1养护季报', period: '2024-Q1', generated: true, date: '2024-04-05' },
     { name: '2024年3月成本分析', period: '2024-03', generated: false, date: '' },
 ])
+
+// ECharts
+const barChartRef = ref<HTMLDivElement>()
+const lineChartRef = ref<HTMLDivElement>()
+const pieChartRef = ref<HTMLDivElement>()
+let barChart: echarts.ECharts | null = null
+let lineChart: echarts.ECharts | null = null
+let pieChart: echarts.ECharts | null = null
+
+const baseTextStyle = { color: '#94a3b8', fontSize: 10 }
+
+function initCharts() {
+    // 柱状图 - 个人工时
+    if (barChartRef.value) {
+        barChart = echarts.init(barChartRef.value)
+        barChart.setOption({
+            tooltip: { trigger: 'axis' },
+            grid: { left: 50, right: 20, top: 30, bottom: 30 },
+            xAxis: { type: 'category', data: workloadData.value.byPerson.map(p => p.name), axisLabel: baseTextStyle, axisLine: { lineStyle: { color: '#334155' } } },
+            yAxis: { type: 'value', name: '工时(h)', nameTextStyle: baseTextStyle, axisLabel: baseTextStyle, splitLine: { lineStyle: { color: '#1e293b' } } },
+            series: [
+                { name: '工时', type: 'bar', data: workloadData.value.byPerson.map(p => p.hours), barWidth: 28, itemStyle: { borderRadius: [4, 4, 0, 0], color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: '#60A5FA' }, { offset: 1, color: '#3B82F6' }]) } },
+                { name: '工单数', type: 'bar', data: workloadData.value.byPerson.map(p => p.tasks), barWidth: 28, itemStyle: { borderRadius: [4, 4, 0, 0], color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: '#34D399' }, { offset: 1, color: '#10B981' }]) } },
+            ],
+            legend: { data: ['工时', '工单数'], textStyle: baseTextStyle, top: 0, itemWidth: 12, itemHeight: 3 },
+        })
+    }
+    // 折线图 - 月度趋势
+    if (lineChartRef.value) {
+        lineChart = echarts.init(lineChartRef.value)
+        lineChart.setOption({
+            tooltip: { trigger: 'axis' },
+            grid: { left: 50, right: 20, top: 30, bottom: 30 },
+            xAxis: { type: 'category', data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'], axisLabel: baseTextStyle, axisLine: { lineStyle: { color: '#334155' } } },
+            yAxis: [{ type: 'value', name: '工单数', nameTextStyle: baseTextStyle, axisLabel: baseTextStyle, splitLine: { lineStyle: { color: '#1e293b' } } }, { type: 'value', name: '工时(h)', nameTextStyle: baseTextStyle, axisLabel: baseTextStyle, splitLine: { show: false } }],
+            series: [
+                { name: '工单数', type: 'line', smooth: true, data: [8, 12, 15, 10, 18, 14, 20, 16, 22, 19, 24, 21], lineStyle: { width: 2, color: '#3B82F6' }, areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: 'rgba(59,130,246,0.3)' }, { offset: 1, color: 'rgba(59,130,246,0)' }]) }, itemStyle: { color: '#3B82F6' } },
+                { name: '工时', type: 'line', smooth: true, yAxisIndex: 1, data: [35, 52, 68, 45, 78, 62, 88, 72, 95, 82, 105, 90], lineStyle: { width: 2, color: '#F59E0B' }, itemStyle: { color: '#F59E0B' } },
+            ],
+            legend: { data: ['工单数', '工时'], textStyle: baseTextStyle, top: 0, itemWidth: 12, itemHeight: 3 },
+        })
+    }
+    // 饼图 - 成本构成
+    if (pieChartRef.value) {
+        pieChart = echarts.init(pieChartRef.value)
+        pieChart.setOption({
+            tooltip: { trigger: 'item', formatter: '{b}: ¥{c} ({d}%)' },
+            legend: { orient: 'vertical', right: 10, top: 'center', textStyle: baseTextStyle, itemWidth: 10, itemHeight: 10 },
+            series: [{
+                type: 'pie', radius: ['40%', '70%'], center: ['35%', '50%'], avoidLabelOverlap: false,
+                label: { show: false }, emphasis: { label: { show: true, fontSize: 12, fontWeight: 'bold' } },
+                itemStyle: { borderRadius: 6, borderColor: '#1e293b', borderWidth: 2 },
+                data: [
+                    { value: costData.value.material.total, name: '材料费', itemStyle: { color: '#3B82F6' } },
+                    { value: costData.value.labor.total, name: '人工费', itemStyle: { color: '#10B981' } },
+                    { value: costData.value.equipment.total, name: '设备费', itemStyle: { color: '#F59E0B' } },
+                ],
+            }],
+        })
+    }
+}
+
+function resizeCharts() { barChart?.resize(); lineChart?.resize(); pieChart?.resize() }
+
+watch(activeFunc, (v) => { if (v === 'report') nextTick(() => { initCharts() }) })
+
+onMounted(() => { window.addEventListener('resize', resizeCharts) })
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', resizeCharts)
+    barChart?.dispose(); lineChart?.dispose(); pieChart?.dispose()
+})
 </script>
 
 <template>
@@ -196,7 +268,7 @@ const reports = ref([
                     <div class="space-y-1.5">
                         <div v-for="t in costData.time.byType" :key="t.type" class="flex justify-between text-[10px]">
                             <span class="text-default">{{ t.type }}</span><span class="text-default font-bold">{{ t.avg
-                            }}</span>
+                                }}</span>
                         </div>
                     </div>
                 </div>
@@ -230,10 +302,19 @@ const reports = ref([
                             r.generated ? '已生成' : '待生成' }}</span>
                 </div>
             </div>
-            <div class="bg-card border border-themed rounded-xl shadow-themed p-4">
-                <span class="text-xs font-bold text-default mb-2 block">📊 统计图表预览</span>
-                <div class="h-32 bg-surface rounded-lg flex items-center justify-center text-xs text-dim">柱状图 / 折线图 /
-                    饼图（需接入 ECharts）</div>
+            <div class="grid grid-cols-3 gap-3">
+                <div class="bg-card border border-themed rounded-xl shadow-themed p-4">
+                    <span class="text-xs font-bold text-default mb-2 block">个人工时柱状图</span>
+                    <div ref="barChartRef" class="h-48"></div>
+                </div>
+                <div class="bg-card border border-themed rounded-xl shadow-themed p-4">
+                    <span class="text-xs font-bold text-default mb-2 block">月度趋势折线图</span>
+                    <div ref="lineChartRef" class="h-48"></div>
+                </div>
+                <div class="bg-card border border-themed rounded-xl shadow-themed p-4">
+                    <span class="text-xs font-bold text-default mb-2 block">成本构成饼图</span>
+                    <div ref="pieChartRef" class="h-48"></div>
+                </div>
             </div>
         </template>
     </div>

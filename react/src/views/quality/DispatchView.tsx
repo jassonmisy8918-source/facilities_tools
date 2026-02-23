@@ -12,9 +12,9 @@ const kpis = [
 
 const initCommands = [
     { id: 'DC-001', title: '东湖泵站 3号泵 启动', reason: '进水水位达预警值', issuer: '调度中心', time: '2024-03-15 14:20', target: '东湖泵站', status: 'executed', type: 'auto' },
-    { id: 'DC-002', title: '朝阳路泵站 调度比例调整为85%', reason: '下游管网满载', issuer: '张调度', time: '2024-03-15 12:30', target: '朝阳路泵站', status: 'executed', type: 'manual' },
+    { id: 'DC-002', title: '雨花路泵站 调度比例调整为85%', reason: '下游管网满载', issuer: '张调度', time: '2024-03-15 12:30', target: '雨花路泵站', status: 'executed', type: 'manual' },
     { id: 'DC-003', title: '和平路闸门 开度调至60%', reason: '上游来水量减少', issuer: '调度中心', time: '2024-03-15 11:00', target: '和平路闸站', status: 'executed', type: 'auto' },
-    { id: 'DC-004', title: '西城排放口 限流50%', reason: '水质超标，限制排放', issuer: '李调度', time: '2024-03-15 10:15', target: '西城排放口', status: 'pending', type: 'manual' },
+    { id: 'DC-004', title: '侯家塘排放口 限流50%', reason: '水质超标，限制排放', issuer: '李调度', time: '2024-03-15 10:15', target: '侯家塘排放口', status: 'pending', type: 'manual' },
 ];
 
 const hours = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
@@ -59,7 +59,7 @@ export default function DispatchView() {
 
             <ModalDialog show={showModal} title="下发调度指令" onClose={() => setShowModal(false)} onConfirm={doSend}>
                 <div className="space-y-3">
-                    <div><label className="text-xs text-dim mb-1 block">目标设施 <span className="text-danger">*</span></label><select value={form.target} onChange={e => setForm(f => ({ ...f, target: e.target.value }))} className="w-full bg-input border border-themed rounded-md px-3 py-2 text-xs text-default focus:outline-none focus:border-primary"><option value="">请选择</option><option>东湖泵站</option><option>朝阳路泵站</option><option>和平路闸站</option><option>西城排放口</option></select></div>
+                    <div><label className="text-xs text-dim mb-1 block">目标设施 <span className="text-danger">*</span></label><select value={form.target} onChange={e => setForm(f => ({ ...f, target: e.target.value }))} className="w-full bg-input border border-themed rounded-md px-3 py-2 text-xs text-default focus:outline-none focus:border-primary"><option value="">请选择</option><option>东湖泵站</option><option>雨花路泵站</option><option>和平路闸站</option><option>侯家塘排放口</option></select></div>
                     <div><label className="text-xs text-dim mb-1 block">指令内容 <span className="text-danger">*</span></label><input value={form.content} onChange={e => setForm(f => ({ ...f, content: e.target.value }))} className="w-full bg-input border border-themed rounded-md px-3 py-2 text-xs text-default focus:outline-none focus:border-primary" placeholder="例如：3号泵 启动" /></div>
                     <div><label className="text-xs text-dim mb-1 block">原因</label><textarea value={form.reason} onChange={e => setForm(f => ({ ...f, reason: e.target.value }))} rows={2} className="w-full bg-input border border-themed rounded-md px-3 py-2 text-xs text-default focus:outline-none focus:border-primary resize-none" placeholder="调度原因" /></div>
                 </div>

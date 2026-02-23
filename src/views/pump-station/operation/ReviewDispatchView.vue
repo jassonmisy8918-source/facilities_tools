@@ -12,24 +12,24 @@ const funcTabs = [
 ]
 
 const reviewItems = ref([
-    { id: 1, device: '2号水泵', station: '朝阳泵站', fault: '轴承异响', reporter: '张伟', time: '2024-03-15', history: 2, status: '待审核' },
-    { id: 2, device: '阀门DN300', station: '通州泵站', fault: '关闭不严', reporter: '赵刚', time: '2024-03-14', history: 0, status: '待审核' },
-    { id: 3, device: '格栅机', station: '丰台泵站', fault: '链条断裂', reporter: '李明', time: '2024-03-14', history: 3, status: '已通过' },
-    { id: 4, device: '仪表FL-02', station: '西城泵站', fault: '信号丢失', reporter: '刘芳', time: '2024-03-13', history: 1, status: '已退回' },
+    { id: 1, device: '2号水泵', station: '雨花泵站', fault: '轴承异响', reporter: '张伟', time: '2024-03-15', history: 2, status: '待审核' },
+    { id: 2, device: '阀门DN300', station: '黎托泵站', fault: '关闭不严', reporter: '赵刚', time: '2024-03-14', history: 0, status: '待审核' },
+    { id: 3, device: '格栅机', station: '左家塘泵站', fault: '链条断裂', reporter: '李明', time: '2024-03-14', history: 3, status: '已通过' },
+    { id: 4, device: '仪表FL-02', station: '侯家塘泵站', fault: '信号丢失', reporter: '刘芳', time: '2024-03-13', history: 1, status: '已退回' },
 ])
 
 const dispatchItems = ref([
-    { id: 1, order: 'WO-0315-01', device: '2号水泵', station: '朝阳泵站', assignee: '王强', skill: '机电维修', workload: 2, method: '智能', status: '已派发' },
-    { id: 2, order: 'WO-0314-01', device: '格栅机', station: '丰台泵站', assignee: '赵刚', skill: '机械维修', workload: 3, method: '人工', status: '已派发' },
-    { id: 3, order: 'WO-0313-01', device: '配电柜B', station: '通州泵站', assignee: '李明', skill: '电气维修', workload: 1, method: '智能', status: '处理中' },
+    { id: 1, order: 'WO-0315-01', device: '2号水泵', station: '雨花泵站', assignee: '王强', skill: '机电维修', workload: 2, method: '智能', status: '已派发' },
+    { id: 2, order: 'WO-0314-01', device: '格栅机', station: '左家塘泵站', assignee: '赵刚', skill: '机械维修', workload: 3, method: '人工', status: '已派发' },
+    { id: 3, order: 'WO-0313-01', device: '配电柜B', station: '黎托泵站', assignee: '李明', skill: '电气维修', workload: 1, method: '智能', status: '处理中' },
 ])
 
 const orderStatus = ref([
-    { id: 'WO-0315-01', device: '2号水泵', station: '朝阳泵站', assignee: '王强', created: '2024-03-15', status: '待处理', progress: 0 },
-    { id: 'WO-0314-01', device: '格栅机', station: '丰台泵站', assignee: '赵刚', created: '2024-03-14', status: '处理中', progress: 60 },
-    { id: 'WO-0313-01', device: '配电柜B', station: '通州泵站', assignee: '李明', created: '2024-03-13', status: '处理中', progress: 85 },
-    { id: 'WO-0312-01', device: '流量计FL-03', station: '西城泵站', assignee: '刘芳', created: '2024-03-12', status: '已完成', progress: 100 },
-    { id: 'WO-0310-01', device: '进水阀', station: '朝阳泵站', assignee: '赵刚', created: '2024-03-10', status: '已驳回', progress: 0 },
+    { id: 'WO-0315-01', device: '2号水泵', station: '雨花泵站', assignee: '王强', created: '2024-03-15', status: '待处理', progress: 0 },
+    { id: 'WO-0314-01', device: '格栅机', station: '左家塘泵站', assignee: '赵刚', created: '2024-03-14', status: '处理中', progress: 60 },
+    { id: 'WO-0313-01', device: '配电柜B', station: '黎托泵站', assignee: '李明', created: '2024-03-13', status: '处理中', progress: 85 },
+    { id: 'WO-0312-01', device: '流量计FL-03', station: '侯家塘泵站', assignee: '刘芳', created: '2024-03-12', status: '已完成', progress: 100 },
+    { id: 'WO-0310-01', device: '进水阀', station: '雨花泵站', assignee: '赵刚', created: '2024-03-10', status: '已驳回', progress: 0 },
 ])
 
 function reviewStatusClass(s: string) { return s === '已通过' ? 'bg-success/10 text-success' : s === '已退回' ? 'bg-danger/10 text-danger' : 'bg-warning/10 text-warning' }
@@ -43,7 +43,7 @@ function orderStatusClass(s: string) { return s === '已完成' ? 'bg-success/10
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <template v-if="activeFunc === 'review'">
@@ -121,7 +121,7 @@ function orderStatusClass(s: string) { return s === '已完成' ? 'bg-success/10
                             <td class="text-center px-2 py-2.5 text-warning">{{ d.workload }}</td>
                             <td class="text-center px-2 py-2.5"><span class="text-[10px] px-1.5 py-0.5 rounded"
                                     :class="d.method === '智能' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'">{{
-                                    d.method }}</span></td>
+                                        d.method }}</span></td>
                             <td class="text-center px-2 py-2.5"><button @click="toast?.show('人工调整', 'info')"
                                     class="text-[10px] text-primary hover:underline cursor-pointer">调整</button></td>
                         </tr>

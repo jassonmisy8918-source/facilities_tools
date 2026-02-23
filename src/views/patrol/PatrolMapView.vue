@@ -20,9 +20,9 @@ const layers = ref([
 
 // 轨迹
 const trajectories = ref([
-    { id: 'TRJ-001', worker: '张伟', order: 'WO-2024-001', date: '2024-03-15', route: '朝阳区A线', startTime: '08:05', endTime: '12:30', distance: '7.2km', points: 320, deviation: 0, status: 'completed' },
-    { id: 'TRJ-002', worker: '李明', order: 'WO-2024-002', date: '2024-03-15', route: '西城区排口线', startTime: '08:00', endTime: '', distance: '3.1km', points: 185, deviation: 1, status: 'active' },
-    { id: 'TRJ-003', worker: '王强', order: 'WO-2024-005', date: '2024-03-10', route: '朝阳区B线', startTime: '09:00', endTime: '11:00', distance: '4.5km', points: 210, deviation: 0, status: 'completed' },
+    { id: 'TRJ-001', worker: '张伟', order: 'WO-2024-001', date: '2024-03-15', route: '圭塘街道A线', startTime: '08:05', endTime: '12:30', distance: '7.2km', points: 320, deviation: 0, status: 'completed' },
+    { id: 'TRJ-002', worker: '李明', order: 'WO-2024-002', date: '2024-03-15', route: '侯家塘街道排口线', startTime: '08:00', endTime: '', distance: '3.1km', points: 185, deviation: 1, status: 'active' },
+    { id: 'TRJ-003', worker: '王强', order: 'WO-2024-005', date: '2024-03-10', route: '圭塘街道B线', startTime: '09:00', endTime: '11:00', distance: '4.5km', points: 210, deviation: 0, status: 'completed' },
 ])
 
 const playingId = ref('')

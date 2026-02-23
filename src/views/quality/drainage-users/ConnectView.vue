@@ -11,24 +11,24 @@ const funcTabs = [
 ]
 
 const connections = ref([
-    { user: '朝阳工业园A厂', pipe: 'P-CD-001', point: 'MH-12', diameter: 'DN300→DN600', flowDir: '东→西', coordinate: '116.468,39.932', method: '压力接驳', status: '正常' },
-    { user: '海淀科技大厦', pipe: 'P-HD-003', point: 'MH-08', diameter: 'DN150→DN500', flowDir: '北→南', coordinate: '116.32,39.98', method: '重力接驳', status: '正常' },
-    { user: '通州化工厂', pipe: 'P-TZ-002', point: 'MH-22', diameter: 'DN400→DN800', flowDir: '南→北', coordinate: '116.655,39.905', method: '压力接驳', status: '关注' },
-    { user: '丰台医院', pipe: 'P-FT-005', point: 'MH-15', diameter: 'DN200→DN400', flowDir: '西→东', coordinate: '116.35,39.86', method: '重力接驳', status: '正常' },
+    { user: '雨花工业园A厂', pipe: 'P-CD-001', point: 'MH-12', diameter: 'DN300→DN600', flowDir: '东→西', coordinate: '113.050,28.150', method: '压力接驳', status: '正常' },
+    { user: '雨花科技大厦', pipe: 'P-HD-003', point: 'MH-08', diameter: 'DN150→DN500', flowDir: '北→南', coordinate: '113.02,28.17', method: '重力接驳', status: '正常' },
+    { user: '黎托化工厂', pipe: 'P-TZ-002', point: 'MH-22', diameter: 'DN400→DN800', flowDir: '南→北', coordinate: '113.07,28.135', method: '压力接驳', status: '关注' },
+    { user: '左家塘医院', pipe: 'P-FT-005', point: 'MH-15', diameter: 'DN200→DN400', flowDir: '西→东', coordinate: '113.03,28.10', method: '重力接驳', status: '正常' },
 ])
 
 const connectionMarkers = ref([
-    { lng: 116.468, lat: 39.932, title: '朝阳工业园', label: '朝阳工业园 · 800m³/日' },
-    { lng: 116.32, lat: 39.98, title: '海淀科技大厦', label: '科技大厦 · 120m³/日' },
-    { lng: 116.655, lat: 39.905, title: '通州化工厂', label: '通州化工 · 1500m³/日', color: 'red' },
-    { lng: 116.35, lat: 39.86, title: '丰台医院', label: '丰台医院 · 300m³/日' },
+    { lng: 113.050, lat: 28.150, title: '雨花工业园', label: '雨花工业园 · 800m³/日' },
+    { lng: 113.02, lat: 28.17, title: '雨花科技大厦', label: '科技大厦 · 120m³/日' },
+    { lng: 113.07, lat: 28.135, title: '黎托化工厂', label: '黎托化工 · 1500m³/日', color: 'red' },
+    { lng: 113.03, lat: 28.10, title: '左家塘医院', label: '左家塘医院 · 300m³/日' },
 ])
 
 const loadImpact = ref([
-    { user: '朝阳工业园A厂', volume: 800, pipeCap: 15000, contribution: 5.3, peakImpact: '高峰叠加', risk: '中' },
-    { user: '通州化工厂', volume: 1500, pipeCap: 8000, contribution: 18.8, peakImpact: '显著增负', risk: '高' },
-    { user: '丰台医院', volume: 300, pipeCap: 10000, contribution: 3.0, peakImpact: '影响较小', risk: '低' },
-    { user: '海淀科技大厦', volume: 120, pipeCap: 12000, contribution: 1.0, peakImpact: '可忽略', risk: '低' },
+    { user: '雨花工业园A厂', volume: 800, pipeCap: 15000, contribution: 5.3, peakImpact: '高峰叠加', risk: '中' },
+    { user: '黎托化工厂', volume: 1500, pipeCap: 8000, contribution: 18.8, peakImpact: '显著增负', risk: '高' },
+    { user: '左家塘医院', volume: 300, pipeCap: 10000, contribution: 3.0, peakImpact: '影响较小', risk: '低' },
+    { user: '雨花科技大厦', volume: 120, pipeCap: 12000, contribution: 1.0, peakImpact: '可忽略', risk: '低' },
 ])
 </script>
 

@@ -11,25 +11,25 @@ const funcTabs = [
 ]
 
 const devices = ref([
-    { id: 'WQ-5001', name: '新华街DN800', location: '东城区', cod: 28, ph: 7.2, ss: 35, online: true, lastUpdate: '2024-03-15 14:30' },
-    { id: 'WQ-5002', name: '西城区进水口', location: '西城区', cod: 45, ph: 6.8, ss: 58, online: true, lastUpdate: '2024-03-15 14:30' },
-    { id: 'WQ-5003', name: '朝阳区排口', location: '朝阳区', cod: 22, ph: 7.1, ss: 30, online: true, lastUpdate: '2024-03-15 14:29' },
-    { id: 'WQ-5004', name: '丰台区污水厂', location: '丰台区', cod: 18, ph: 7.0, ss: 25, online: true, lastUpdate: '2024-03-15 14:30' },
-    { id: 'WQ-5005', name: '通州区河道', location: '通州区', cod: 0, ph: 0, ss: 0, online: false, lastUpdate: '2024-03-14 18:00' },
+    { id: 'WQ-5001', name: '香樟路DN800', location: '雨花亭街道', cod: 28, ph: 7.2, ss: 35, online: true, lastUpdate: '2024-03-15 14:30' },
+    { id: 'WQ-5002', name: '侯家塘街道进水口', location: '侯家塘街道', cod: 45, ph: 6.8, ss: 58, online: true, lastUpdate: '2024-03-15 14:30' },
+    { id: 'WQ-5003', name: '圭塘街道排口', location: '圭塘街道', cod: 22, ph: 7.1, ss: 30, online: true, lastUpdate: '2024-03-15 14:29' },
+    { id: 'WQ-5004', name: '左家塘街道污水厂', location: '左家塘街道', cod: 18, ph: 7.0, ss: 25, online: true, lastUpdate: '2024-03-15 14:30' },
+    { id: 'WQ-5005', name: '黎托街道河道', location: '黎托街道', cod: 0, ph: 0, ss: 0, online: false, lastUpdate: '2024-03-14 18:00' },
 ])
 
 const faults = ref([
-    { id: 'F301', device: 'WQ-5005', name: '通州区河道', type: '传感器损坏', time: '2024-03-14 18:00', status: '未修复', desc: 'COD传感器读数异常' },
+    { id: 'F301', device: 'WQ-5005', name: '黎托街道河道', type: '传感器损坏', time: '2024-03-14 18:00', status: '未修复', desc: 'COD传感器读数异常' },
 ])
 
 const alarms = ref([
-    { id: 'A301', device: 'WQ-5002', name: '西城区进水口', type: 'COD超标', value: '45mg/L', threshold: '40mg/L', time: '2024-03-15 13:30', level: 'medium' },
-    { id: 'A302', device: 'WQ-5005', name: '通州区河道', type: '设备离线', value: '-', threshold: '-', time: '2024-03-14 18:00', level: 'high' },
+    { id: 'A301', device: 'WQ-5002', name: '侯家塘街道进水口', type: 'COD超标', value: '45mg/L', threshold: '40mg/L', time: '2024-03-15 13:30', level: 'medium' },
+    { id: 'A302', device: 'WQ-5005', name: '黎托街道河道', type: '设备离线', value: '-', threshold: '-', time: '2024-03-14 18:00', level: 'high' },
 ])
 
 const maintenances = ref([
-    { id: 'M301', device: 'WQ-5001', name: '新华街DN800', type: '试剂更换', date: '2024-03-10', operator: '陈工', result: '完成', next: '2024-04-10' },
-    { id: 'M302', device: 'WQ-5003', name: '朝阳区排口', type: '校准', date: '2024-03-05', operator: '张工', result: '合格', next: '2024-06-05' },
+    { id: 'M301', device: 'WQ-5001', name: '香樟路DN800', type: '试剂更换', date: '2024-03-10', operator: '陈工', result: '完成', next: '2024-04-10' },
+    { id: 'M302', device: 'WQ-5003', name: '圭塘街道排口', type: '校准', date: '2024-03-05', operator: '张工', result: '合格', next: '2024-06-05' },
 ])
 
 function alarmColor(l: string) { return l === 'high' ? 'text-danger' : l === 'medium' ? 'text-warning' : 'text-info' }

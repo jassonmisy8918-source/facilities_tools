@@ -14,7 +14,7 @@ const includeFields = ref({
     time: true, station: true, instantaneous: true, level: true, cumulative: true, duration: true,
 })
 
-const stations = ['全部站点', '和平路雨量站', '丰台区雨量站', '朝阳区雨量站', '海淀区雨量站', '通州区雨量站', '大兴区雨量站']
+const stations = ['全部站点', '芙蓉路雨量站', '左家塘街道雨量站', '圭塘街道雨量站', '洞井街道雨量站', '黎托街道雨量站', '侯家塘区雨量站']
 const formats = [
     { key: 'xlsx', label: 'Excel (.xlsx)', icon: FileSpreadsheet },
     { key: 'csv', label: 'CSV (.csv)', icon: FileSpreadsheet },
@@ -32,7 +32,7 @@ const fields = [
 // ===================== 导出历史 =====================
 const exportHistory = ref([
     { id: 1, date: '2024-03-15 14:30', range: '2024-03-01 ~ 2024-03-15', station: '全部站点', format: 'xlsx', records: 1280, size: '256KB', status: 'done' },
-    { id: 2, date: '2024-03-10 09:15', range: '2024-02-01 ~ 2024-02-28', station: '和平路雨量站', format: 'csv', records: 672, size: '128KB', status: 'done' },
+    { id: 2, date: '2024-03-10 09:15', range: '2024-02-01 ~ 2024-02-28', station: '芙蓉路雨量站', format: 'csv', records: 672, size: '128KB', status: 'done' },
     { id: 3, date: '2024-03-05 16:45', range: '2024-01-01 ~ 2024-01-31', station: '全部站点', format: 'xlsx', records: 2560, size: '512KB', status: 'done' },
 ])
 
@@ -125,13 +125,13 @@ function handleExport() {
                             <div><span class="text-dim">数据范围: </span><span class="text-default">{{ h.range }}</span>
                             </div>
                             <div><span class="text-dim">记录数: </span><span class="text-default">{{
-                                    h.records.toLocaleString() }}条</span></div>
+                                h.records.toLocaleString() }}条</span></div>
                             <div><span class="text-dim">文件大小: </span><span class="text-default">{{ h.size }}</span>
                             </div>
                         </div>
                         <div class="mt-2">
                             <button class="text-[10px] text-primary hover:underline cursor-pointer">重新下载 (.{{ h.format
-                                }})</button>
+                            }})</button>
                         </div>
                     </div>
                 </div>

@@ -43,8 +43,8 @@ const progressItems = ref([
 ])
 
 const records = ref([
-    { id: 1, pipe: 'P-HD-003', scheme: '紫外光固化', location: '海淀区清河路92.1m', date: '2024-03-10', owner: '李明', duration: '6h', cost: 32800, before: '树根侵入/管径20%', after: '修复完成/畅通', photos: 5, archived: true },
-    { id: 2, pipe: 'P-CD-001', scheme: '管道清淤', location: '朝阳区建设大道78.5m', date: '2024-02-28', owner: '张伟', duration: '3h', cost: 8500, before: '沉积物/管径30%', after: '清淤完成/畅通', photos: 3, archived: true },
+    { id: 1, pipe: 'P-HD-003', scheme: '紫外光固化', location: '洞井街道浏阳河路92.1m', date: '2024-03-10', owner: '李明', duration: '6h', cost: 32800, before: '树根侵入/管径20%', after: '修复完成/畅通', photos: 5, archived: true },
+    { id: 2, pipe: 'P-CD-001', scheme: '管道清淤', location: '圭塘街道万家丽路78.5m', date: '2024-02-28', owner: '张伟', duration: '3h', cost: 8500, before: '沉积物/管径30%', after: '清淤完成/畅通', photos: 3, archived: true },
 ])
 
 function urgencyClass(u: string) { return u === '紧急' ? 'bg-danger/10 text-danger' : u === '高' ? 'bg-warning/10 text-warning' : u === '中' ? 'bg-info/10 text-info' : 'bg-surface text-dim' }

@@ -16,11 +16,11 @@ const funcTabs = [
 
 // ── 设备列表 ──
 const devices = ref([
-    { id: 1, name: '1号水泵', type: '离心泵', station: '朝阳泵站', model: 'QW200-300-15', power: '15kW', installDate: '2020-03-15', status: '运行', location: '泵房A区' },
-    { id: 2, name: '2号水泵', type: '离心泵', station: '朝阳泵站', model: 'QW200-300-15', power: '15kW', installDate: '2020-03-15', status: '备用', location: '泵房A区' },
-    { id: 3, name: '主电机', type: '电机', station: '西城泵站', model: 'YE3-160M', power: '11kW', installDate: '2021-06-20', status: '运行', location: '配电室' },
-    { id: 4, name: '进水阀门', type: '阀门', station: '通州泵站', model: 'DN300', power: '-', installDate: '2019-08-10', status: '运行', location: '进水口' },
-    { id: 5, name: '格栅除污机', type: '辅助设备', station: '丰台泵站', model: 'GS-800', power: '3kW', installDate: '2022-01-05', status: '检修', location: '进水渠' },
+    { id: 1, name: '1号水泵', type: '离心泵', station: '雨花泵站', model: 'QW200-300-15', power: '15kW', installDate: '2020-03-15', status: '运行', location: '泵房A区' },
+    { id: 2, name: '2号水泵', type: '离心泵', station: '雨花泵站', model: 'QW200-300-15', power: '15kW', installDate: '2020-03-15', status: '备用', location: '泵房A区' },
+    { id: 3, name: '主电机', type: '电机', station: '侯家塘泵站', model: 'YE3-160M', power: '11kW', installDate: '2021-06-20', status: '运行', location: '配电室' },
+    { id: 4, name: '进水阀门', type: '阀门', station: '黎托泵站', model: 'DN300', power: '-', installDate: '2019-08-10', status: '运行', location: '进水口' },
+    { id: 5, name: '格栅除污机', type: '辅助设备', station: '左家塘泵站', model: 'GS-800', power: '3kW', installDate: '2022-01-05', status: '检修', location: '进水渠' },
 ])
 
 const showDetail = ref(false)
@@ -38,22 +38,22 @@ const categories = ref([
 
 // ── 报废 ──
 const scrapRecords = ref([
-    { id: 1, device: '旧格栅机', station: '丰台泵站', reason: '超期服役/严重锈蚀', applyDate: '2024-02-10', status: '已审批', handler: '王强' },
-    { id: 2, device: '3号水泵', station: '海淀泵站', reason: '电机烧毁/无维修价值', applyDate: '2024-03-01', status: '待审批', handler: '张伟' },
+    { id: 1, device: '旧格栅机', station: '左家塘泵站', reason: '超期服役/严重锈蚀', applyDate: '2024-02-10', status: '已审批', handler: '王强' },
+    { id: 2, device: '3号水泵', station: '洞井泵站', reason: '电机烧毁/无维修价值', applyDate: '2024-03-01', status: '待审批', handler: '张伟' },
 ])
 
 // ── 变动 ──
 const changeRecords = ref([
-    { id: 1, device: '1号水泵', station: '朝阳泵站', type: '参数变更', content: '更换叶轮，流量参数更新', date: '2024-02-20', operator: '李明' },
-    { id: 2, device: '进水阀门', station: '通州泵站', type: '位置变更', content: '由进水口A移至进水口B', date: '2024-01-15', operator: '赵刚' },
-    { id: 3, device: '主电机', station: '西城泵站', type: '配件更换', content: '更换轴承及密封件', date: '2024-03-05', operator: '王强' },
+    { id: 1, device: '1号水泵', station: '雨花泵站', type: '参数变更', content: '更换叶轮，流量参数更新', date: '2024-02-20', operator: '李明' },
+    { id: 2, device: '进水阀门', station: '黎托泵站', type: '位置变更', content: '由进水口A移至进水口B', date: '2024-01-15', operator: '赵刚' },
+    { id: 3, device: '主电机', station: '侯家塘泵站', type: '配件更换', content: '更换轴承及密封件', date: '2024-03-05', operator: '王强' },
 ])
 
 // ── 调拨 ──
 const transferRecords = ref([
-    { id: 1, device: '备用水泵', from: '朝阳泵站', to: '丰台泵站', reason: '应急调配', date: '2024-03-10', status: '已完成', tracker: '张伟' },
-    { id: 2, device: '流量计 FL-05', from: '西城泵站', to: '通州泵站', reason: '设备升级替换', date: '2024-03-12', status: '运输中', tracker: '李明' },
-    { id: 3, device: '高压冲洗泵', from: '通州泵站', to: '海淀泵站', reason: '计划调拨', date: '2024-03-08', status: '待出库', tracker: '赵刚' },
+    { id: 1, device: '备用水泵', from: '雨花泵站', to: '左家塘泵站', reason: '应急调配', date: '2024-03-10', status: '已完成', tracker: '张伟' },
+    { id: 2, device: '流量计 FL-05', from: '侯家塘泵站', to: '黎托泵站', reason: '设备升级替换', date: '2024-03-12', status: '运输中', tracker: '李明' },
+    { id: 3, device: '高压冲洗泵', from: '黎托泵站', to: '洞井泵站', reason: '计划调拨', date: '2024-03-08', status: '待出库', tracker: '赵刚' },
 ])
 
 function statusClass(s: string) {
@@ -79,7 +79,7 @@ function statusClass(s: string) {
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <!-- 设备信息 -->

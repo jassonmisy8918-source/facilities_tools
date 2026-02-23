@@ -9,7 +9,7 @@ const tabs = [
 ];
 
 const initRecords = [
-    { id: 'MN-001', type: '管道清淤', target: '朝阳路DN600 P01-P10段', team: '养护一队', startDate: '2024-03-14', endDate: '2024-03-16', status: 'processing', progress: 60, cost: 12500 },
+    { id: 'MN-001', type: '管道清淤', target: '雨花路DN600 P01-P10段', team: '养护一队', startDate: '2024-03-14', endDate: '2024-03-16', status: 'processing', progress: 60, cost: 12500 },
     { id: 'MN-002', type: 'CCTV检测', target: '民生路DN400 全段', team: '检测组', startDate: '2024-03-13', endDate: '2024-03-18', status: 'processing', progress: 35, cost: 28000 },
     { id: 'MN-003', type: '管道修复', target: '和平路DN300 P05-P06段', team: '养护二队', startDate: '2024-03-12', endDate: '2024-03-13', status: 'completed', progress: 100, cost: 45000 },
     { id: 'MN-004', type: '检查井维修', target: '新华街 检查井#45~#50', team: '养护三队', startDate: '2024-03-15', endDate: '2024-03-17', status: 'pending', progress: 0, cost: 8000 },
@@ -18,12 +18,12 @@ const initRecords = [
 
 const plans = [
     { id: 'MP-001', name: '2024年Q1管道清淤计划', scope: '全市主干管', progress: 66, budget: 580000, spent: 382000, status: 'active' },
-    { id: 'MP-002', name: '2024年检查井普查养护', scope: '朝阳区+海淀区', progress: 58, budget: 150000, spent: 86000, status: 'active' },
+    { id: 'MP-002', name: '2024年检查井普查养护', scope: '雨花区+海淀区', progress: 58, budget: 150000, spent: 86000, status: 'active' },
     { id: 'MP-003', name: '排放口季度维护', scope: '全市排放口', progress: 0, budget: 45000, spent: 0, status: 'pending' },
 ];
 
 const instruments = [
-    { id: 'IC-001', device: '朝阳路流量计 FM-201', type: '流量计校准', calibDate: '2024-03-10', nextCalib: '2024-06-10', result: '合格', deviation: '±0.5%' },
+    { id: 'IC-001', device: '雨花路流量计 FM-201', type: '流量计校准', calibDate: '2024-03-10', nextCalib: '2024-06-10', result: '合格', deviation: '±0.5%' },
     { id: 'IC-002', device: '民生路液位计 LS-105', type: '液位计校准', calibDate: '2024-03-08', nextCalib: '2024-06-08', result: '合格', deviation: '±1mm' },
     { id: 'IC-003', device: '和平路水质分析仪 WQ-302', type: '水质仪校准', calibDate: '2024-02-25', nextCalib: '2024-05-25', result: '合格', deviation: '±2%' },
     { id: 'IC-004', device: '东湖雨量计 RG-051', type: '雨量计校准', calibDate: '2024-01-15', nextCalib: '2024-04-15', result: '需复检', deviation: '±5%' },
@@ -130,7 +130,7 @@ export default function MaintenanceView() {
             <ModalDialog show={showAdd} title="新增养护记录" onClose={() => setShowAdd(false)} onConfirm={doAdd}>
                 <div className="space-y-3">
                     <div><label className="text-xs text-dim mb-1 block">养护类型</label><select value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))} className="w-full bg-input border border-themed rounded-md px-3 py-2 text-xs text-default focus:outline-none focus:border-primary"><option>管道清淤</option><option>CCTV检测</option><option>管道修复</option><option>检查井维修</option><option>雨水口清掘</option></select></div>
-                    <div><label className="text-xs text-dim mb-1 block">养护对象 <span className="text-danger">*</span></label><input value={form.target} onChange={e => setForm(f => ({ ...f, target: e.target.value }))} className="w-full bg-input border border-themed rounded-md px-3 py-2 text-xs text-default focus:outline-none focus:border-primary" placeholder="例如：朝阳路 DN600 P01-P10段" /></div>
+                    <div><label className="text-xs text-dim mb-1 block">养护对象 <span className="text-danger">*</span></label><input value={form.target} onChange={e => setForm(f => ({ ...f, target: e.target.value }))} className="w-full bg-input border border-themed rounded-md px-3 py-2 text-xs text-default focus:outline-none focus:border-primary" placeholder="例如：雨花路 DN600 P01-P10段" /></div>
                     <div><label className="text-xs text-dim mb-1 block">执行团队</label><select value={form.team} onChange={e => setForm(f => ({ ...f, team: e.target.value }))} className="w-full bg-input border border-themed rounded-md px-3 py-2 text-xs text-default focus:outline-none focus:border-primary"><option>养护一队</option><option>养护二队</option><option>养护三队</option><option>检测组</option></select></div>
                 </div>
             </ModalDialog>

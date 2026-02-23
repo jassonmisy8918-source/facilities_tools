@@ -24,7 +24,7 @@ const bufferResults = ref([
 ])
 
 const detailItems = ref([
-    { type: '建筑物', name: '朝阳大厦', distance: '12m', impact: '高' },
+    { type: '建筑物', name: '雨花大厦', distance: '12m', impact: '高' },
     { type: '建筑物', name: '国贸公寓', distance: '35m', impact: '中' },
     { type: '道路', name: '建国路', distance: '8m', impact: '高' },
     { type: '道路', name: '光华路', distance: '42m', impact: '低' },
@@ -53,7 +53,7 @@ function runBufferAnalysis() {
                         <button v-for="t in targetTypes" :key="t.key" @click="targetType = t.key"
                             class="flex-1 py-1.5 rounded-md text-[10px] font-medium transition-colors cursor-pointer"
                             :class="targetType === t.key ? 'bg-primary text-white' : 'bg-surface text-dim hover:bg-hover-themed'">{{
-                            t.label }}</button>
+                                t.label }}</button>
                     </div>
                 </div>
                 <div>
@@ -91,13 +91,13 @@ function runBufferAnalysis() {
                         </div>
                         <div class="grid grid-cols-4 gap-2 text-[10px]">
                             <div><span class="text-dim block">建筑</span><span class="text-default font-bold">{{
-                                    r.buildings }}</span></div>
+                                r.buildings }}</span></div>
                             <div><span class="text-dim block">道路</span><span class="text-default font-bold">{{ r.roads
-                                    }}</span></div>
+                            }}</span></div>
                             <div><span class="text-dim block">设施</span><span class="text-default font-bold">{{
-                                    r.facilities }}</span></div>
+                                r.facilities }}</span></div>
                             <div><span class="text-dim block">面积</span><span class="text-default font-bold">{{ r.area
-                                    }}</span></div>
+                            }}</span></div>
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@ function runBufferAnalysis() {
                             <td class="px-3 py-2">
                                 <span class="text-[10px] px-1.5 py-0.5 rounded"
                                     :class="item.impact === '高' ? 'bg-danger/15 text-danger' : item.impact === '中' ? 'bg-warning/15 text-warning' : 'bg-info/15 text-info'">{{
-                                    item.impact }}</span>
+                                        item.impact }}</span>
                             </td>
                         </tr>
                     </tbody>

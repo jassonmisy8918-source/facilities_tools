@@ -13,13 +13,13 @@ const funcTabs = [
 ]
 
 const realtimeData = ref([
-    { user: '朝阳工业园A厂', flow: 35.2, cod: 420, ss: 180, ph: 7.5, nh3n: 28, temp: 25.3, time: '10:30', status: '正常' },
-    { user: '通州化工厂', flow: 68.5, cod: 750, ss: 320, ph: 6.2, nh3n: 45, temp: 28.1, time: '10:28', status: '预警' },
-    { user: '丰台医院', flow: 12.8, cod: 200, ss: 85, ph: 7.1, nh3n: 15, temp: 22.5, time: '10:32', status: '正常' },
-    { user: '海淀科技大厦', flow: 5.2, cod: 180, ss: 60, ph: 7.3, nh3n: 12, temp: 21.8, time: '10:25', status: '正常' },
+    { user: '雨花工业园A厂', flow: 35.2, cod: 420, ss: 180, ph: 7.5, nh3n: 28, temp: 25.3, time: '10:30', status: '正常' },
+    { user: '黎托化工厂', flow: 68.5, cod: 750, ss: 320, ph: 6.2, nh3n: 45, temp: 28.1, time: '10:28', status: '预警' },
+    { user: '左家塘医院', flow: 12.8, cod: 200, ss: 85, ph: 7.1, nh3n: 15, temp: 22.5, time: '10:32', status: '正常' },
+    { user: '雨花科技大厦', flow: 5.2, cod: 180, ss: 60, ph: 7.3, nh3n: 12, temp: 21.8, time: '10:25', status: '正常' },
 ])
 
-const historyQuery = ref({ user: '朝阳工业园A厂', period: '近30天' })
+const historyQuery = ref({ user: '雨花工业园A厂', period: '近30天' })
 const historyData = ref([
     { date: '2024-03-15', avgFlow: 33.5, avgCod: 415, maxCod: 480, avgPh: 7.5, compliance: '达标' },
     { date: '2024-03-14', avgFlow: 34.2, avgCod: 430, maxCod: 520, avgPh: 7.4, compliance: '超标1次' },
@@ -29,10 +29,10 @@ const historyData = ref([
 ])
 
 const alarms = ref([
-    { id: 1, user: '通州化工厂', time: '2024-03-15 10:28', indicator: 'COD', value: 750, limit: 800, threshold: '93.8%', level: '黄色', status: '已通知' },
-    { id: 2, user: '通州化工厂', time: '2024-03-14 14:15', indicator: 'COD', value: 850, limit: 800, threshold: '超标6.3%', level: '红色', status: '已处理' },
-    { id: 3, user: '朝阳工业园A厂', time: '2024-03-12 22:00', indicator: 'COD', value: 520, limit: 500, threshold: '超标4%', level: '红色', status: '已处理' },
-    { id: 4, user: '通州化工厂', time: '2024-03-10 08:30', indicator: 'pH', value: 5.8, limit: 6, threshold: '低于下限', level: '橙色', status: '已处理' },
+    { id: 1, user: '黎托化工厂', time: '2024-03-15 10:28', indicator: 'COD', value: 750, limit: 800, threshold: '93.8%', level: '黄色', status: '已通知' },
+    { id: 2, user: '黎托化工厂', time: '2024-03-14 14:15', indicator: 'COD', value: 850, limit: 800, threshold: '超标6.3%', level: '红色', status: '已处理' },
+    { id: 3, user: '雨花工业园A厂', time: '2024-03-12 22:00', indicator: 'COD', value: 520, limit: 500, threshold: '超标4%', level: '红色', status: '已处理' },
+    { id: 4, user: '黎托化工厂', time: '2024-03-10 08:30', indicator: 'pH', value: 5.8, limit: 6, threshold: '低于下限', level: '橙色', status: '已处理' },
 ])
 </script>
 

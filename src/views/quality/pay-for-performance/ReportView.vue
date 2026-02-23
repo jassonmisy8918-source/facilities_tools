@@ -12,9 +12,9 @@ const funcTabs = [
 ]
 
 const generatedReports = ref([
-    { id: 1, title: '朝阳污水厂2024年3月按效付费评估报告', period: '2024-03', plant: '朝阳污水厂', score: 96.67, level: '优秀', payRate: '105%', amount: '325.5万', generated: '2024-04-01 09:00', status: '已生成' },
-    { id: 2, title: '通州污水厂2024年3月按效付费评估报告', period: '2024-03', plant: '通州污水厂', score: 82.5, level: '良好', payRate: '100%', amount: '280.0万', generated: '2024-04-01 09:15', status: '已生成' },
-    { id: 3, title: '海淀污水厂2024年3月按效付费评估报告', period: '2024-03', plant: '海淀污水厂', score: 91.3, level: '优秀', payRate: '105%', amount: '350.0万', generated: '2024-04-01 09:30', status: '待审核' },
+    { id: 1, title: '雨花污水厂2024年3月按效付费评估报告', period: '2024-03', plant: '雨花污水厂', score: 96.67, level: '优秀', payRate: '105%', amount: '325.5万', generated: '2024-04-01 09:00', status: '已生成' },
+    { id: 2, title: '黎托街道污水厂2024年3月按效付费评估报告', period: '2024-03', plant: '黎托街道污水厂', score: 82.5, level: '良好', payRate: '100%', amount: '280.0万', generated: '2024-04-01 09:15', status: '已生成' },
+    { id: 3, title: '洞井污水厂2024年3月按效付费评估报告', period: '2024-03', plant: '洞井污水厂', score: 91.3, level: '优秀', payRate: '105%', amount: '350.0万', generated: '2024-04-01 09:30', status: '待审核' },
 ])
 
 const templates = ref([
@@ -24,10 +24,10 @@ const templates = ref([
 ])
 
 const historyReports = ref([
-    { period: '2024年3月', count: 3, avgScore: 90.2, totalPay: '955.5万', highestPlant: '朝阳污水厂(96.67)', lowestPlant: '通州污水厂(82.5)' },
-    { period: '2024年2月', count: 4, avgScore: 85.3, totalPay: '1180.0万', highestPlant: '海淀污水厂(92.1)', lowestPlant: '丰台污水厂(76.5)' },
-    { period: '2024年1月', count: 4, avgScore: 82.1, totalPay: '1120.0万', highestPlant: '朝阳污水厂(88.5)', lowestPlant: '通州污水厂(72.3)' },
-    { period: '2023年12月', count: 4, avgScore: 84.8, totalPay: '1150.0万', highestPlant: '海淀污水厂(90.2)', lowestPlant: '丰台污水厂(78.1)' },
+    { period: '2024年3月', count: 3, avgScore: 90.2, totalPay: '955.5万', highestPlant: '雨花污水厂(96.67)', lowestPlant: '黎托街道污水厂(82.5)' },
+    { period: '2024年2月', count: 4, avgScore: 85.3, totalPay: '1180.0万', highestPlant: '洞井污水厂(92.1)', lowestPlant: '左家塘污水厂(76.5)' },
+    { period: '2024年1月', count: 4, avgScore: 82.1, totalPay: '1120.0万', highestPlant: '雨花污水厂(88.5)', lowestPlant: '黎托街道污水厂(72.3)' },
+    { period: '2023年12月', count: 4, avgScore: 84.8, totalPay: '1150.0万', highestPlant: '洞井污水厂(90.2)', lowestPlant: '左家塘污水厂(78.1)' },
 ])
 
 function levelClass(l: string) { return l === '优秀' ? 'bg-success/10 text-success' : l === '良好' ? 'bg-primary/10 text-primary' : 'bg-warning/10 text-warning' }
@@ -40,7 +40,7 @@ function levelClass(l: string) { return l === '优秀' ? 'bg-success/10 text-suc
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <template v-if="activeFunc === 'generate'">
@@ -55,7 +55,7 @@ function levelClass(l: string) { return l === '优秀' ? 'bg-success/10 text-suc
                 <div v-for="r in generatedReports" :key="r.id"
                     class="bg-card border border-themed rounded-xl shadow-themed p-4">
                     <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-default">{{
-                            r.title }}</span>
+                        r.title }}</span>
                         <div class="flex items-center gap-2"><span class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                 :class="levelClass(r.level)">{{ r.level }}</span><button
                                 @click="toast?.show('报告已下载', 'success')"
@@ -65,11 +65,11 @@ function levelClass(l: string) { return l === '优秀' ? 'bg-success/10 text-suc
                     </div>
                     <div class="grid grid-cols-5 gap-2 text-[10px]">
                         <div><span class="text-dim">综合分: </span><span class="text-default font-bold">{{ r.score
-                                }}</span></div>
+                        }}</span></div>
                         <div><span class="text-dim">付费率: </span><span class="text-primary font-bold">{{ r.payRate
-                                }}</span></div>
+                        }}</span></div>
                         <div><span class="text-dim">付费额: </span><span class="text-success font-bold">{{ r.amount
-                                }}</span></div>
+                        }}</span></div>
                         <div><span class="text-dim">生成: </span><span class="text-dim">{{ r.generated }}</span></div>
                         <div><span class="text-dim">状态: </span><span
                                 :class="r.status === '已生成' ? 'text-success' : 'text-warning'">{{ r.status }}</span>
@@ -107,7 +107,7 @@ function levelClass(l: string) { return l === '优秀' ? 'bg-success/10 text-suc
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                     :class="t.status === '默认' ? 'bg-primary/10 text-primary' : 'bg-success/10 text-success'">{{
-                                    t.status }}</span></td>
+                                        t.status }}</span></td>
                         </tr>
                     </tbody>
                 </table>

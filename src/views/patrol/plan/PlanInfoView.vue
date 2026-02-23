@@ -14,17 +14,17 @@ const funcTabs = [
 
 // 计划列表
 const plans = ref([
-    { id: 'PL-2024-001', name: '朝阳区主干管网季度巡查', area: '朝阳区', cycle: '季度', scope: '主干管网 DN400以上', assignee: '张伟', status: 'active', startDate: '2024-01-01', endDate: '2024-03-31', points: 45, progress: 78 },
-    { id: 'PL-2024-002', name: '西城区排口日常巡查', area: '西城区', cycle: '月度', scope: '排口及检查井', assignee: '李明', status: 'active', startDate: '2024-03-01', endDate: '2024-03-31', points: 28, progress: 55 },
-    { id: 'PL-2024-003', name: '丰台区暴雨应急巡查', area: '丰台区', cycle: '临时', scope: '低洼点、泵站进出口', assignee: '王强', status: 'pending', startDate: '2024-03-15', endDate: '2024-03-16', points: 15, progress: 0 },
-    { id: 'PL-2024-004', name: '通州区管网年度普查', area: '通州区', cycle: '年度', scope: '全覆盖', assignee: '赵刚', status: 'completed', startDate: '2024-01-01', endDate: '2024-12-31', points: 120, progress: 100 },
+    { id: 'PL-2024-001', name: '圭塘街道主干管网季度巡查', area: '圭塘街道', cycle: '季度', scope: '主干管网 DN400以上', assignee: '张伟', status: 'active', startDate: '2024-01-01', endDate: '2024-03-31', points: 45, progress: 78 },
+    { id: 'PL-2024-002', name: '侯家塘街道排口日常巡查', area: '侯家塘街道', cycle: '月度', scope: '排口及检查井', assignee: '李明', status: 'active', startDate: '2024-03-01', endDate: '2024-03-31', points: 28, progress: 55 },
+    { id: 'PL-2024-003', name: '左家塘街道暴雨应急巡查', area: '左家塘街道', cycle: '临时', scope: '低洼点、泵站进出口', assignee: '王强', status: 'pending', startDate: '2024-03-15', endDate: '2024-03-16', points: 15, progress: 0 },
+    { id: 'PL-2024-004', name: '黎托街道管网年度普查', area: '黎托街道', cycle: '年度', scope: '全覆盖', assignee: '赵刚', status: 'completed', startDate: '2024-01-01', endDate: '2024-12-31', points: 120, progress: 100 },
 ])
 
 // 审批
 const approvals = ref([
-    { id: 'APR-001', plan: 'PL-2024-003', planName: '丰台区暴雨应急巡查', applicant: '王强', applyTime: '2024-03-14 09:00', level: 1, approver: '李主管', status: 'pending', remark: '暴雨预警，需紧急巡查' },
-    { id: 'APR-002', plan: 'PL-2024-002', planName: '西城区排口日常巡查', applicant: '李明', applyTime: '2024-02-28 14:00', level: 2, approver: '张主任', status: 'approved', remark: '3月例行巡查', approveTime: '2024-02-28 16:30' },
-    { id: 'APR-003', plan: 'PL-2024-001', planName: '朝阳区主干管网季度巡查', applicant: '张伟', applyTime: '2023-12-25 10:00', level: 2, approver: '张主任', status: 'approved', remark: 'Q1巡查计划', approveTime: '2023-12-26 09:00' },
+    { id: 'APR-001', plan: 'PL-2024-003', planName: '左家塘街道暴雨应急巡查', applicant: '王强', applyTime: '2024-03-14 09:00', level: 1, approver: '李主管', status: 'pending', remark: '暴雨预警，需紧急巡查' },
+    { id: 'APR-002', plan: 'PL-2024-002', planName: '侯家塘街道排口日常巡查', applicant: '李明', applyTime: '2024-02-28 14:00', level: 2, approver: '张主任', status: 'approved', remark: '3月例行巡查', approveTime: '2024-02-28 16:30' },
+    { id: 'APR-003', plan: 'PL-2024-001', planName: '圭塘街道主干管网季度巡查', applicant: '张伟', applyTime: '2023-12-25 10:00', level: 2, approver: '张主任', status: 'approved', remark: 'Q1巡查计划', approveTime: '2023-12-26 09:00' },
 ])
 
 // 模板
@@ -45,6 +45,13 @@ function getStatusText(s: string) { return s === 'active' ? '执行中' : s === 
 
 function approvePlan(a: typeof approvals.value[0]) { a.status = 'approved'; toast.value?.show(`"${a.planName}" 已审批通过`, 'success') }
 function rejectPlan(a: typeof approvals.value[0]) { a.status = 'rejected'; toast.value?.show(`"${a.planName}" 已驳回`, 'warning') }
+
+// 新增弹窗
+const showAddModal = ref(false)
+const addForm = ref({ name: '', area: '', cycle: '', scope: '', assignee: '' })
+
+function openAdd() { addForm.value = { name: '', area: '', cycle: '', scope: '', assignee: '' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
 </script>
 
 <template>
@@ -57,7 +64,7 @@ function rejectPlan(a: typeof approvals.value[0]) { a.status = 'rejected'; toast
                         ft.label }}</button>
             </div>
             <button v-if="activeFunc === 'plans'"
-                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
+                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer" @click="openAdd()">
                 <Plus class="w-3.5 h-3.5" />新增计划
             </button>
         </div>
@@ -243,6 +250,37 @@ function rejectPlan(a: typeof approvals.value[0]) { a.status = 'rejected'; toast
                 </div>
             </div>
         </ModalDialog>
+    <!-- 新增弹窗 -->
+    <ModalDialog :show="showAddModal" title="新增巡查计划" @close="showAddModal = false" @confirm="doAdd">
+        <div class="space-y-3">
+            <div>
+                <label class="text-[10px] text-dim block mb-1">计划名称</label>
+                <input v-model="addForm.name" type="text" placeholder="请输入计划名称"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">区域</label>
+                <input v-model="addForm.area" type="text" placeholder="请选择区域"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">周期</label>
+                <input v-model="addForm.cycle" type="text" placeholder="季度/月度/临时/年度"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">巡查范围</label>
+                <input v-model="addForm.scope" type="text" placeholder="请输入巡查范围"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">责任人</label>
+                <input v-model="addForm.assignee" type="text" placeholder="请输入负责人姓名"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+        </div>
+    </ModalDialog>
+    
         <ToastNotify ref="toast" />
     </div>
 </template>

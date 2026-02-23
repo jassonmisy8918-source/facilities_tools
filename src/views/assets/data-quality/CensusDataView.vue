@@ -22,7 +22,7 @@ const censusDatasets = ref([
     { id: 1, name: '2024年排水管网普查', area: '全域', type: '管网数据', total: 15680, status: '已入库', date: '2024-03-01', source: '第三方普查' },
     { id: 2, name: '2024年检查井普查', area: '全域', type: '设施数据', total: 12456, status: '已入库', date: '2024-02-20', source: '第三方普查' },
     { id: 3, name: '2024年泵站普查', area: '全域', type: '设施数据', total: 18, status: '已入库', date: '2024-02-15', source: '自查' },
-    { id: 4, name: '2023年补充普查', area: '朝阳区', type: '补充数据', total: 2340, status: '待审核', date: '2024-01-10', source: '补充采集' },
+    { id: 4, name: '2023年补充普查', area: '圭塘街道', type: '补充数据', total: 2340, status: '待审核', date: '2024-01-10', source: '补充采集' },
     { id: 5, name: '2023年排水户调查', area: '全域', type: '用户数据', total: 3420, status: '已入库', date: '2023-12-20', source: '入户调查' },
 ])
 
@@ -49,7 +49,7 @@ onMounted(() => {
             tooltip: { trigger: 'axis' },
             legend: { data: ['管网', '检查井', '雨水口', '其他'], textStyle: { color: 'var(--text-dim)', fontSize: 10 }, top: 0 },
             grid: { top: 35, right: 20, bottom: 30, left: 50 },
-            xAxis: { type: 'category', data: ['朝阳', '海淀', '西城', '东城', '丰台'], axisLabel: { color: 'var(--text-dim)', fontSize: 10 } },
+            xAxis: { type: 'category', data: ['雨花', '洞井', '侯家塘', '东城', '左家塘'], axisLabel: { color: 'var(--text-dim)', fontSize: 10 } },
             yAxis: { type: 'value', axisLabel: { color: 'var(--text-dim)', fontSize: 10 }, splitLine: { lineStyle: { color: 'var(--border-themed)', type: 'dashed' } } },
             series: [
                 { name: '管网', type: 'bar', data: [3200, 2800, 2400, 2100, 1956], itemStyle: { color: '#3B82F6', borderRadius: [3, 3, 0, 0] } },

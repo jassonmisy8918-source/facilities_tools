@@ -13,11 +13,11 @@ const funcTabs = [
 ]
 
 const orders = ref([
-    { id: 'WO-2024-001', title: '建设大道主干管网季度巡查', plan: 'PL-2024-001', type: '例行', priority: 'B', area: '朝阳区', assignee: '张伟', createTime: '2024-03-01 08:00', deadline: '2024-03-07', status: 'in_progress', progress: 65, points: 15 },
-    { id: 'WO-2024-002', title: '西城区排口月度巡查', plan: 'PL-2024-002', type: '例行', priority: 'B', area: '西城区', assignee: '李明', createTime: '2024-03-01 08:30', deadline: '2024-03-05', status: 'in_progress', progress: 40, points: 10 },
-    { id: 'WO-2024-003', title: '丰台区暴雨应急巡查', plan: 'PL-2024-003', type: '应急', priority: 'S', area: '丰台区', assignee: '', createTime: '2024-03-15 06:00', deadline: '2024-03-15', status: 'pending_review', progress: 0, points: 8 },
-    { id: 'WO-2024-004', title: '通州区运河段异常排查', plan: '', type: '临时', priority: 'A', area: '通州区', assignee: '赵刚', createTime: '2024-03-14 14:00', deadline: '2024-03-15', status: 'pending_dispatch', progress: 0, points: 5 },
-    { id: 'WO-2024-005', title: '朝阳区民生路管段复查', plan: 'PL-2024-001', type: '复查', priority: 'A', area: '朝阳区', assignee: '王强', createTime: '2024-03-10 09:00', deadline: '2024-03-12', status: 'completed', progress: 100, points: 3 },
+    { id: 'WO-2024-001', title: '万家丽路主干管网季度巡查', plan: 'PL-2024-001', type: '例行', priority: 'B', area: '圭塘街道', assignee: '张伟', createTime: '2024-03-01 08:00', deadline: '2024-03-07', status: 'in_progress', progress: 65, points: 15 },
+    { id: 'WO-2024-002', title: '侯家塘街道排口月度巡查', plan: 'PL-2024-002', type: '例行', priority: 'B', area: '侯家塘街道', assignee: '李明', createTime: '2024-03-01 08:30', deadline: '2024-03-05', status: 'in_progress', progress: 40, points: 10 },
+    { id: 'WO-2024-003', title: '左家塘街道暴雨应急巡查', plan: 'PL-2024-003', type: '应急', priority: 'S', area: '左家塘街道', assignee: '', createTime: '2024-03-15 06:00', deadline: '2024-03-15', status: 'pending_review', progress: 0, points: 8 },
+    { id: 'WO-2024-004', title: '黎托街道浏阳河段异常排查', plan: '', type: '临时', priority: 'A', area: '黎托街道', assignee: '赵刚', createTime: '2024-03-14 14:00', deadline: '2024-03-15', status: 'pending_dispatch', progress: 0, points: 5 },
+    { id: 'WO-2024-005', title: '圭塘街道劳动路管段复查', plan: 'PL-2024-001', type: '复查', priority: 'A', area: '圭塘街道', assignee: '王强', createTime: '2024-03-10 09:00', deadline: '2024-03-12', status: 'completed', progress: 100, points: 3 },
 ])
 
 const showDetail = ref(false)
@@ -25,12 +25,12 @@ const detailOrder = ref<typeof orders.value[0] | null>(null)
 function viewOrder(o: typeof orders.value[0]) { detailOrder.value = o; showDetail.value = true }
 
 const reviewOrders = ref([
-    { id: 'WO-2024-003', title: '丰台区暴雨应急巡查', type: '应急', applicant: '王强', time: '2024-03-15 06:00', points: 8, items: 6, remark: '暴雨橙色预警，需紧急巡查低洼区域', status: 'pending' },
-    { id: 'WO-2024-006', title: '海淀区清河排口专项', type: '专项', applicant: '刘芳', time: '2024-03-14 10:00', points: 6, items: 4, remark: '水质异常疑似混接，需排查', status: 'pending' },
+    { id: 'WO-2024-003', title: '左家塘街道暴雨应急巡查', type: '应急', applicant: '王强', time: '2024-03-15 06:00', points: 8, items: 6, remark: '暴雨橙色预警，需紧急巡查低洼区域', status: 'pending' },
+    { id: 'WO-2024-006', title: '洞井街道浏阳河排口专项', type: '专项', applicant: '刘芳', time: '2024-03-14 10:00', points: 6, items: 4, remark: '水质异常疑似混接，需排查', status: 'pending' },
 ])
 
 const dispatchOrders = ref([
-    { id: 'WO-2024-004', title: '通州区运河段异常排查', type: '临时', priority: 'A', area: '通州区', points: 5, deadline: '2024-03-15', candidates: ['赵刚', '陈亮', '王强'], selected: '' },
+    { id: 'WO-2024-004', title: '黎托街道浏阳河段异常排查', type: '临时', priority: 'A', area: '黎托街道', points: 5, deadline: '2024-03-15', candidates: ['赵刚', '陈亮', '王强'], selected: '' },
 ])
 
 function approveOrder(o: typeof reviewOrders.value[0]) { o.status = 'approved'; toast.value?.show(`工单 "${o.id}" 审核通过`, 'success') }

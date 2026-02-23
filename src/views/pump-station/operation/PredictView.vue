@@ -11,10 +11,10 @@ const funcTabs = [
 ]
 
 const predictions = ref([
-    { id: 1, device: '1号水泵', station: '朝阳泵站', metric: '轴承振动', current: '6.2mm/s', trend: '上升', predict: '30天内可能故障', level: '预警', confidence: 82 },
-    { id: 2, device: '主电机', station: '西城泵站', metric: '绝缘电阻', current: '15MΩ', trend: '下降', predict: '60天内需保养', level: '提示', confidence: 75 },
-    { id: 3, device: '3号水泵', station: '通州泵站', metric: '效率衰减', current: '效率降至82%', trend: '下降', predict: '需检查叶轮', level: '预警', confidence: 88 },
-    { id: 4, device: '格栅机', station: '丰台泵站', metric: '电流偏大', current: '链条磨损征兆', trend: '上升', predict: '15天内需更换', level: '告警', confidence: 91 },
+    { id: 1, device: '1号水泵', station: '雨花泵站', metric: '轴承振动', current: '6.2mm/s', trend: '上升', predict: '30天内可能故障', level: '预警', confidence: 82 },
+    { id: 2, device: '主电机', station: '侯家塘泵站', metric: '绝缘电阻', current: '15MΩ', trend: '下降', predict: '60天内需保养', level: '提示', confidence: 75 },
+    { id: 3, device: '3号水泵', station: '黎托泵站', metric: '效率衰减', current: '效率降至82%', trend: '下降', predict: '需检查叶轮', level: '预警', confidence: 88 },
+    { id: 4, device: '格栅机', station: '左家塘泵站', metric: '电流偏大', current: '链条磨损征兆', trend: '上升', predict: '15天内需更换', level: '告警', confidence: 91 },
 ])
 
 const analysisData = ref([
@@ -24,9 +24,9 @@ const analysisData = ref([
 ])
 
 const suggestions = ref([
-    { id: 1, device: '格栅机', station: '丰台泵站', level: '告警', suggestion: '建议15天内更换链条，同步检查齿耙磨损', plan: '计划性停机更换', urgency: '高' },
-    { id: 2, device: '1号水泵', station: '朝阳泵站', level: '预警', suggestion: '建议30天内更换轴承，检查对中情况', plan: '安排保养工单', urgency: '中' },
-    { id: 3, device: '3号水泵', station: '通州泵站', level: '预警', suggestion: '检查叶轮磨损及管道淤积，清洗后评估', plan: '安排巡检', urgency: '中' },
+    { id: 1, device: '格栅机', station: '左家塘泵站', level: '告警', suggestion: '建议15天内更换链条，同步检查齿耙磨损', plan: '计划性停机更换', urgency: '高' },
+    { id: 2, device: '1号水泵', station: '雨花泵站', level: '预警', suggestion: '建议30天内更换轴承，检查对中情况', plan: '安排保养工单', urgency: '中' },
+    { id: 3, device: '3号水泵', station: '黎托泵站', level: '预警', suggestion: '检查叶轮磨损及管道淤积，清洗后评估', plan: '安排巡检', urgency: '中' },
 ])
 
 const optimizations = ref([
@@ -44,7 +44,7 @@ function levelClass(l: string) { return l === '告警' ? 'bg-danger/10 text-dang
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <template v-if="activeFunc === 'predict'">
@@ -74,7 +74,7 @@ function levelClass(l: string) { return l === '告警' ? 'bg-danger/10 text-dang
                             <td class="text-center px-2 py-2.5 text-primary font-bold">{{ p.current }}</td>
                             <td class="text-center px-2 py-2.5"><span class="text-[10px] px-1.5 py-0.5 rounded"
                                     :class="p.trend === '上升' ? 'bg-warning/10 text-warning' : 'bg-info/10 text-info'">{{
-                                    p.trend === '上升' ? '↑' : '↓' }} {{ p.trend }}</span></td>
+                                        p.trend === '上升' ? '↑' : '↓' }} {{ p.trend }}</span></td>
                             <td class="px-2 py-2.5 text-default">{{ p.predict }}</td>
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
@@ -96,7 +96,7 @@ function levelClass(l: string) { return l === '告警' ? 'bg-danger/10 text-dang
                 <div v-for="a in analysisData" :key="a.device + a.metric"
                     class="bg-card border border-themed rounded-xl shadow-themed p-4">
                     <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-default">{{
-                            a.device }} — {{ a.metric }}</span><span
+                        a.device }} — {{ a.metric }}</span><span
                             class="text-[10px] px-1.5 py-0.5 rounded bg-warning/10 text-warning">{{ a.trend }}</span>
                     </div>
                     <div class="flex items-center gap-2 mb-2">

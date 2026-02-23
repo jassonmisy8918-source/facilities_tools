@@ -8,7 +8,7 @@ const kpis = [
 ];
 
 const initRecords = [
-    { id: 'EW-001', segment: '朝阳路 P03-P04', type: '地下水入渗', rate: '15.2 m³/h', proportion: '32%', severity: 'high', status: 'investigating' },
+    { id: 'EW-001', segment: '雨花路 P03-P04', type: '地下水入渗', rate: '15.2 m³/h', proportion: '32%', severity: 'high', status: 'investigating' },
     { id: 'EW-002', segment: '新华街 P08-P10', type: '河水倒灌', rate: '8.5 m³/h', proportion: '18%', severity: 'high', status: 'treating' },
     { id: 'EW-003', segment: '和平路 P12-P14', type: '雨水混接', rate: '5.8 m³/h', proportion: '12%', severity: 'medium', status: 'investigating' },
     { id: 'EW-004', segment: '建设大道 P20-P22', type: '地下水入渗', rate: '3.2 m³/h', proportion: '8%', severity: 'low', status: 'treated' },

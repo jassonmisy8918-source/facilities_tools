@@ -9,7 +9,7 @@ const analysisTabs = [
     { key: 'report', label: '报表管理' },
 ];
 
-const monitorPointOptions = ['朝阳路DN600', '民生路DN400', '和平路雨量站', '新华街DN800', '东湖泵站进水', '建设大道DN300'];
+const monitorPointOptions = ['雨花路DN600', '民生路DN400', '和平路雨量站', '新华街DN800', '东湖泵站进水', '建设大道DN300'];
 const timeRangeOptions = [{ key: '24h', label: '24小时' }, { key: '7d', label: '7天' }, { key: '30d', label: '30天' }, { key: '90d', label: '90天' }];
 const metricOptions = [{ key: 'flow', label: '流量' }, { key: 'level', label: '水位' }, { key: 'rainfall', label: '雨量' }, { key: 'quality', label: '水质' }];
 
@@ -48,7 +48,7 @@ function getCompareOption() {
         xAxis: { type: 'category', data: days, axisLabel: { color: '#5A6B7C', fontSize: 10 }, axisLine: { lineStyle: { color: '#2A3F54' } } },
         yAxis: { type: 'value', name: 'm³/h', nameTextStyle: { color: '#5A6B7C' }, axisLabel: { color: '#5A6B7C', fontSize: 10 }, splitLine: { lineStyle: { color: '#1E3348' } } },
         series: [
-            { name: '朝阳路DN600', type: 'line', smooth: true, data: [320, 335, 340, 345, 338, 342, 340], lineStyle: { color: '#3B82F6' }, itemStyle: { color: '#3B82F6' } },
+            { name: '雨花路DN600', type: 'line', smooth: true, data: [320, 335, 340, 345, 338, 342, 340], lineStyle: { color: '#3B82F6' }, itemStyle: { color: '#3B82F6' } },
             { name: '民生路DN400', type: 'line', smooth: true, data: [180, 185, 192, 188, 195, 190, 187], lineStyle: { color: '#00D4AA' }, itemStyle: { color: '#00D4AA' } },
             { name: '东湖泵站进水', type: 'line', smooth: true, data: [500, 510, 518, 525, 520, 515, 518], lineStyle: { color: '#FFB020' }, itemStyle: { color: '#FFB020' } },
         ]

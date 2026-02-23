@@ -1,21 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Video, Search, Plus, MapPin, Pencil, Trash2 } from 'lucide-vue-next'
+import ModalDialog from '@/components/common/ModalDialog.vue'
+import ToastNotify from '@/components/common/ToastNotify.vue'
 
 const searchText = ref('')
 
 const cameras = ref([
-    { id: 1, name: '朝阳路泵站', ip: '192.168.1.101', location: '朝阳路泵站入口', region: '朝阳区', type: '球机', resolution: '1080P', online: true, installDate: '2023-06-15' },
-    { id: 2, name: '东湖排放口', ip: '192.168.1.102', location: '东湖排放口周边', region: '东城区', type: '枪机', resolution: '4K', online: true, installDate: '2023-08-20' },
-    { id: 3, name: '和平路节点', ip: '192.168.1.103', location: '和平路管网节点', region: '西城区', type: '球机', resolution: '1080P', online: false, installDate: '2023-05-10' },
-    { id: 4, name: '民生路截流井', ip: '192.168.1.104', location: '民生路截流井', region: '海淀区', type: '枪机', resolution: '1080P', online: true, installDate: '2023-09-01' },
-    { id: 5, name: '丰台区泵站', ip: '192.168.1.105', location: '丰台区主泵站', region: '丰台区', type: '球机', resolution: '4K', online: true, installDate: '2024-01-12' },
-    { id: 6, name: '通州区排口', ip: '192.168.1.106', location: '通州河道排口', region: '通州区', type: '枪机', resolution: '1080P', online: false, installDate: '2023-07-25' },
+    { id: 1, name: '韶山路泵站', ip: '192.168.1.101', location: '韶山路泵站入口', region: '圭塘街道', type: '球机', resolution: '1080P', online: true, installDate: '2023-06-15' },
+    { id: 2, name: '圭塘河排放口', ip: '192.168.1.102', location: '圭塘河排放口周边', region: '雨花亭街道', type: '枪机', resolution: '4K', online: true, installDate: '2023-08-20' },
+    { id: 3, name: '芙蓉路节点', ip: '192.168.1.103', location: '芙蓉路管网节点', region: '侯家塘街道', type: '球机', resolution: '1080P', online: false, installDate: '2023-05-10' },
+    { id: 4, name: '劳动路截流井', ip: '192.168.1.104', location: '劳动路截流井', region: '洞井街道', type: '枪机', resolution: '1080P', online: true, installDate: '2023-09-01' },
+    { id: 5, name: '左家塘街道泵站', ip: '192.168.1.105', location: '左家塘街道主泵站', region: '左家塘街道', type: '球机', resolution: '4K', online: true, installDate: '2024-01-12' },
+    { id: 6, name: '黎托街道排口', ip: '192.168.1.106', location: '黎托街道河道排口', region: '黎托街道', type: '枪机', resolution: '1080P', online: false, installDate: '2023-07-25' },
 ])
 
 const stats = {
     total: 6, online: 4, offline: 2, regions: 5,
 }
+
+const toast = ref<InstanceType<typeof ToastNotify>>()
+const showAddModal = ref(false)
+const addForm = ref({ name: '', ip: '', location: '', region: '', type: '球机', resolution: '1080P' })
+function openAdd() { addForm.value = { name: '', ip: '', location: '', region: '', type: '球机', resolution: '1080P' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('摄像头添加成功', 'success') }
 </script>
 
 <template>
@@ -66,7 +74,7 @@ const stats = {
                             class="bg-input border border-themed rounded-lg pl-8 pr-3 py-1.5 text-xs text-default placeholder:text-muted-themed focus:outline-none focus:border-primary w-56" />
                     </div>
                 </div>
-                <button
+                <button @click="openAdd()"
                     class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
                     <Plus class="w-3.5 h-3.5" /> 添加摄像头
                 </button>
@@ -118,4 +126,51 @@ const stats = {
             </div>
         </div>
     </div>
+
+    <!-- 添加摄像头弹窗 -->
+    <ModalDialog :show="showAddModal" title="添加摄像头" @close="showAddModal = false" @confirm="doAdd">
+        <div class="space-y-3">
+            <div>
+                <label class="text-[10px] text-dim block mb-1">摄像头名称</label>
+                <input v-model="addForm.name" type="text" placeholder="请输入名称"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">IP地址</label>
+                <input v-model="addForm.ip" type="text" placeholder="如 192.168.1.107"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">安装位置</label>
+                <input v-model="addForm.location" type="text" placeholder="请输入安装位置"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">区域</label>
+                    <input v-model="addForm.region" type="text" placeholder="区域"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">类型</label>
+                    <select v-model="addForm.type"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary">
+                        <option>球机</option>
+                        <option>枪机</option>
+                        <option>半球</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">分辨率</label>
+                    <select v-model="addForm.resolution"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary">
+                        <option>1080P</option>
+                        <option>4K</option>
+                        <option>720P</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </ModalDialog>
+    <ToastNotify ref="toast" />
 </template>

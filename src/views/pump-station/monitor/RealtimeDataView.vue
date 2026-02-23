@@ -15,11 +15,11 @@ const funcTabs = [
 
 // ── 泵站运行状态 ──
 const stations = ref([
-    { id: 1, name: '朝阳泵站', status: '运行中', pumps: 4, running: 3, power: 120, inFlow: 850, outFlow: 830, frontLevel: 2.8, backLevel: 1.2 },
-    { id: 2, name: '西城泵站', status: '运行中', pumps: 3, running: 2, power: 85, inFlow: 620, outFlow: 610, frontLevel: 2.5, backLevel: 1.0 },
-    { id: 3, name: '丰台泵站', status: '待机', pumps: 3, running: 0, power: 5, inFlow: 0, outFlow: 0, frontLevel: 1.2, backLevel: 0.8 },
-    { id: 4, name: '通州泵站', status: '运行中', pumps: 5, running: 4, power: 180, inFlow: 1200, outFlow: 1180, frontLevel: 3.1, backLevel: 1.5 },
-    { id: 5, name: '海淀泵站', status: '检修', pumps: 2, running: 0, power: 0, inFlow: 0, outFlow: 0, frontLevel: 0.8, backLevel: 0.5 },
+    { id: 1, name: '雨花泵站', status: '运行中', pumps: 4, running: 3, power: 120, inFlow: 850, outFlow: 830, frontLevel: 2.8, backLevel: 1.2 },
+    { id: 2, name: '侯家塘泵站', status: '运行中', pumps: 3, running: 2, power: 85, inFlow: 620, outFlow: 610, frontLevel: 2.5, backLevel: 1.0 },
+    { id: 3, name: '左家塘泵站', status: '待机', pumps: 3, running: 0, power: 5, inFlow: 0, outFlow: 0, frontLevel: 1.2, backLevel: 0.8 },
+    { id: 4, name: '黎托泵站', status: '运行中', pumps: 5, running: 4, power: 180, inFlow: 1200, outFlow: 1180, frontLevel: 3.1, backLevel: 1.5 },
+    { id: 5, name: '洞井泵站', status: '检修', pumps: 2, running: 0, power: 0, inFlow: 0, outFlow: 0, frontLevel: 0.8, backLevel: 0.5 },
 ])
 
 function statusColor(s: string) { return s === '运行中' ? 'text-success' : s === '待机' ? 'text-warning' : 'text-danger' }
@@ -34,18 +34,18 @@ const classifyOptions = [
 ]
 const classifyData = ref({
     type: [
-        { group: '雨水泵站', count: 3, stations: ['朝阳泵站', '通州泵站', '海淀泵站'] },
-        { group: '污水泵站', count: 2, stations: ['西城泵站', '丰台泵站'] },
+        { group: '雨水泵站', count: 3, stations: ['雨花泵站', '黎托泵站', '洞井泵站'] },
+        { group: '污水泵站', count: 2, stations: ['侯家塘泵站', '左家塘泵站'] },
     ],
     area: [
-        { group: '城东', count: 2, stations: ['朝阳泵站', '通州泵站'] },
-        { group: '城西', count: 2, stations: ['西城泵站', '海淀泵站'] },
-        { group: '城南', count: 1, stations: ['丰台泵站'] },
+        { group: '城东', count: 2, stations: ['雨花泵站', '黎托泵站'] },
+        { group: '城西', count: 2, stations: ['侯家塘泵站', '洞井泵站'] },
+        { group: '城南', count: 1, stations: ['左家塘泵站'] },
     ],
     scale: [
-        { group: '大型 (≥4台泵)', count: 2, stations: ['朝阳泵站', '通州泵站'] },
-        { group: '中型 (2-3台泵)', count: 2, stations: ['西城泵站', '丰台泵站'] },
-        { group: '小型 (<2台泵)', count: 1, stations: ['海淀泵站'] },
+        { group: '大型 (≥4台泵)', count: 2, stations: ['雨花泵站', '黎托泵站'] },
+        { group: '中型 (2-3台泵)', count: 2, stations: ['侯家塘泵站', '左家塘泵站'] },
+        { group: '小型 (<2台泵)', count: 1, stations: ['洞井泵站'] },
     ],
 })
 
@@ -53,29 +53,29 @@ const classifyData = ref({
 const historyPeriods = ref(['近7天', '近30天', '近3月'])
 const selectedPeriod = ref('近7天')
 const historyMetrics = ref([
-    { metric: '进水流量(m³/h)', station: '朝阳泵站', values: [820, 850, 830, 860, 840, 850, 870] },
-    { metric: '出水流量(m³/h)', station: '朝阳泵站', values: [810, 830, 820, 850, 830, 840, 860] },
-    { metric: '前池水位(m)', station: '朝阳泵站', values: [2.6, 2.8, 2.7, 2.9, 2.8, 2.8, 3.0] },
+    { metric: '进水流量(m³/h)', station: '雨花泵站', values: [820, 850, 830, 860, 840, 850, 870] },
+    { metric: '出水流量(m³/h)', station: '雨花泵站', values: [810, 830, 820, 850, 830, 840, 860] },
+    { metric: '前池水位(m)', station: '雨花泵站', values: [2.6, 2.8, 2.7, 2.9, 2.8, 2.8, 3.0] },
 ])
 
 // ── 水位 ──
 const waterLevelData = ref([
-    { station: '朝阳泵站', front: 2.8, frontWarn: 3.5, frontAlarm: 4.0, back: 1.2, backWarn: 2.0, backAlarm: 2.5, trend: '平稳' },
-    { station: '西城泵站', front: 2.5, frontWarn: 3.2, frontAlarm: 3.8, back: 1.0, backWarn: 1.8, backAlarm: 2.2, trend: '上升' },
-    { station: '通州泵站', front: 3.1, frontWarn: 3.5, frontAlarm: 4.0, back: 1.5, backWarn: 2.0, backAlarm: 2.5, trend: '上升' },
-    { station: '丰台泵站', front: 1.2, frontWarn: 3.0, frontAlarm: 3.5, back: 0.8, backWarn: 1.5, backAlarm: 2.0, trend: '平稳' },
-    { station: '海淀泵站', front: 0.8, frontWarn: 2.8, frontAlarm: 3.2, back: 0.5, backWarn: 1.2, backAlarm: 1.8, trend: '下降' },
+    { station: '雨花泵站', front: 2.8, frontWarn: 3.5, frontAlarm: 4.0, back: 1.2, backWarn: 2.0, backAlarm: 2.5, trend: '平稳' },
+    { station: '侯家塘泵站', front: 2.5, frontWarn: 3.2, frontAlarm: 3.8, back: 1.0, backWarn: 1.8, backAlarm: 2.2, trend: '上升' },
+    { station: '黎托泵站', front: 3.1, frontWarn: 3.5, frontAlarm: 4.0, back: 1.5, backWarn: 2.0, backAlarm: 2.5, trend: '上升' },
+    { station: '左家塘泵站', front: 1.2, frontWarn: 3.0, frontAlarm: 3.5, back: 0.8, backWarn: 1.5, backAlarm: 2.0, trend: '平稳' },
+    { station: '洞井泵站', front: 0.8, frontWarn: 2.8, frontAlarm: 3.2, back: 0.5, backWarn: 1.2, backAlarm: 1.8, trend: '下降' },
 ])
 
 function levelStatus(val: number, warn: number) { return val >= warn ? 'text-danger' : val >= warn * 0.8 ? 'text-warning' : 'text-success' }
 
 // ── 流量 ──
 const flowData = ref([
-    { station: '朝阳泵站', inFlow: 850, outFlow: 830, diff: 20, diffPct: 2.4, status: '正常' },
-    { station: '西城泵站', inFlow: 620, outFlow: 610, diff: 10, diffPct: 1.6, status: '正常' },
-    { station: '通州泵站', inFlow: 1200, outFlow: 1180, diff: 20, diffPct: 1.7, status: '正常' },
-    { station: '丰台泵站', inFlow: 0, outFlow: 0, diff: 0, diffPct: 0, status: '停机' },
-    { station: '海淀泵站', inFlow: 0, outFlow: 0, diff: 0, diffPct: 0, status: '检修' },
+    { station: '雨花泵站', inFlow: 850, outFlow: 830, diff: 20, diffPct: 2.4, status: '正常' },
+    { station: '侯家塘泵站', inFlow: 620, outFlow: 610, diff: 10, diffPct: 1.6, status: '正常' },
+    { station: '黎托泵站', inFlow: 1200, outFlow: 1180, diff: 20, diffPct: 1.7, status: '正常' },
+    { station: '左家塘泵站', inFlow: 0, outFlow: 0, diff: 0, diffPct: 0, status: '停机' },
+    { station: '洞井泵站', inFlow: 0, outFlow: 0, diff: 0, diffPct: 0, status: '检修' },
 ])
 
 // ── 数据汇总 ──
@@ -84,18 +84,18 @@ const summaryData = ref({
     totalInFlow: 2670, totalOutFlow: 2620,
     totalPower: 390, avgPower: 78,
     items: [
-        { station: '朝阳泵站', hours: 22, inFlow: 18700, outFlow: 18260, power: 2640, efficiency: 97.6 },
-        { station: '西城泵站', hours: 20, inFlow: 12400, outFlow: 12200, power: 1700, efficiency: 98.4 },
-        { station: '通州泵站', hours: 23, inFlow: 27600, outFlow: 27140, power: 4140, efficiency: 98.3 },
+        { station: '雨花泵站', hours: 22, inFlow: 18700, outFlow: 18260, power: 2640, efficiency: 97.6 },
+        { station: '侯家塘泵站', hours: 20, inFlow: 12400, outFlow: 12200, power: 1700, efficiency: 98.4 },
+        { station: '黎托泵站', hours: 23, inFlow: 27600, outFlow: 27140, power: 4140, efficiency: 98.3 },
     ]
 })
 
 // ── 异常分析 ──
 const anomalyAlerts = ref([
-    { id: 1, station: '通州泵站', type: '流量异常', level: '预警', desc: '进水流量突增15%', time: '2024-03-15 14:30', status: '已处理', threshold: '±10%' },
-    { id: 2, station: '朝阳泵站', type: '水位异常', level: '告警', desc: '前池水位接近预警线', time: '2024-03-15 16:20', status: '处理中', threshold: '3.5m' },
-    { id: 3, station: '西城泵站', type: '流量异常', level: '预警', desc: '出水流量波动剧烈', time: '2024-03-14 09:15', status: '已处理', threshold: '±10%' },
-    { id: 4, station: '通州泵站', type: '流量异常', level: '严重', desc: '进出水流量差异>5%', time: '2024-03-13 22:00', status: '待处理', threshold: '5%' },
+    { id: 1, station: '黎托泵站', type: '流量异常', level: '预警', desc: '进水流量突增15%', time: '2024-03-15 14:30', status: '已处理', threshold: '±10%' },
+    { id: 2, station: '雨花泵站', type: '水位异常', level: '告警', desc: '前池水位接近预警线', time: '2024-03-15 16:20', status: '处理中', threshold: '3.5m' },
+    { id: 3, station: '侯家塘泵站', type: '流量异常', level: '预警', desc: '出水流量波动剧烈', time: '2024-03-14 09:15', status: '已处理', threshold: '±10%' },
+    { id: 4, station: '黎托泵站', type: '流量异常', level: '严重', desc: '进出水流量差异>5%', time: '2024-03-13 22:00', status: '待处理', threshold: '5%' },
 ])
 
 function alertLevelClass(l: string) { return l === '严重' ? 'bg-danger/10 text-danger' : l === '告警' ? 'bg-warning/10 text-warning' : 'bg-info/10 text-info' }

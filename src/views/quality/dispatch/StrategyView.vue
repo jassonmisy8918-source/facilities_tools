@@ -20,16 +20,16 @@ const historyData = ref([
 ])
 
 const loadData = ref([
-    { pipe: '主干管A(朝阳)', capacity: 15000, current: 12500, utilization: 83.3, status: '高负荷' },
-    { pipe: '主干管B(海淀)', capacity: 12000, current: 6800, utilization: 56.7, status: '正常' },
-    { pipe: '分支管C(通州)', capacity: 8000, current: 7200, utilization: 90.0, status: '超负荷' },
-    { pipe: '主干管D(丰台)', capacity: 10000, current: 5500, utilization: 55.0, status: '正常' },
-    { pipe: '分支管E(西城)', capacity: 6000, current: 4800, utilization: 80.0, status: '高负荷' },
+    { pipe: '主干管A(雨花)', capacity: 15000, current: 12500, utilization: 83.3, status: '高负荷' },
+    { pipe: '主干管B(洞井)', capacity: 12000, current: 6800, utilization: 56.7, status: '正常' },
+    { pipe: '分支管C(黎托街道)', capacity: 8000, current: 7200, utilization: 90.0, status: '超负荷' },
+    { pipe: '主干管D(左家塘)', capacity: 10000, current: 5500, utilization: 55.0, status: '正常' },
+    { pipe: '分支管E(侯家塘)', capacity: 6000, current: 4800, utilization: 80.0, status: '高负荷' },
 ])
 
 const simulations = ref([
-    { id: 1, name: '方案A-均衡分流', desc: '将朝阳40%流量分流至海淀', loadBalance: 72, overflow: 0, energy: 85, score: 88 },
-    { id: 2, name: '方案B-优先通州', desc: '增加通州管段排水能力', loadBalance: 65, overflow: 0, energy: 78, score: 75 },
+    { id: 1, name: '方案A-均衡分流', desc: '将雨花40%流量分流至洞井', loadBalance: 72, overflow: 0, energy: 85, score: 88 },
+    { id: 2, name: '方案B-优先黎托街道', desc: '增加黎托街道管段排水能力', loadBalance: 65, overflow: 0, energy: 78, score: 75 },
     { id: 3, name: '方案C-晚高峰调蓄', desc: '18-22时启用调蓄设施', loadBalance: 80, overflow: 0, energy: 90, score: 92 },
 ])
 
@@ -49,7 +49,7 @@ const versions = ref([
     { ver: 'V3.2', date: '2024-03-05', author: '王工', changes: '新增雨天增量策略', status: '当前版本' },
     { ver: 'V3.1', date: '2024-02-20', author: '赵工', changes: '优化暴雨应急参数', status: '历史版本' },
     { ver: 'V3.0', date: '2024-01-15', author: '王工', changes: '策略体系重构', status: '历史版本' },
-    { ver: 'V2.5', date: '2023-12-01', author: '李工', changes: '增加通州分支调度', status: '已归档' },
+    { ver: 'V2.5', date: '2023-12-01', author: '李工', changes: '增加黎托街道分支调度', status: '已归档' },
 ])
 
 function loadClass(u: number) { return u >= 90 ? 'text-danger' : u >= 75 ? 'text-warning' : 'text-success' }

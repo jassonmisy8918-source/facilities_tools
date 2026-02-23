@@ -6,23 +6,23 @@ import { Activity, Search, RefreshCw } from 'lucide-vue-next'
 const activeFunc = ref('realtime')
 const funcTabs = [{ key: 'realtime', label: '实时数据' }, { key: 'history', label: '历史数据' }, { key: 'chart', label: '图表展示' }]
 const selectedStation = ref('all')
-const stations = ['全部站点', '朝阳路DN600', '东湖泵站进水', '丰台路DN500', '海淀路DN400', '西城区DN300']
+const stations = ['全部站点', '韶山路DN600', '圭塘河泵站进水', '左家塘路DN500', '洞井路DN400', '侯家塘街道DN300']
 const startDate = ref('2024-03-01')
 const endDate = ref('2024-03-15')
 
 const realtimeData = ref([
-    { station: '朝阳路DN600', value: 342, unit: 'm³/h', velocity: 1.8, status: 'normal', time: '14:30:05' },
-    { station: '东湖泵站进水', value: 518, unit: 'm³/h', velocity: 2.5, status: 'warning', time: '14:30:02' },
-    { station: '丰台路DN500', value: 267, unit: 'm³/h', velocity: 1.5, status: 'normal', time: '14:29:58' },
-    { station: '海淀路DN400', value: 198, unit: 'm³/h', velocity: 1.2, status: 'normal', time: '14:30:01' },
-    { station: '西城区DN300', value: 0, unit: 'm³/h', velocity: 0, status: 'danger', time: '14:30:03' },
+    { station: '韶山路DN600', value: 342, unit: 'm³/h', velocity: 1.8, status: 'normal', time: '14:30:05' },
+    { station: '圭塘河泵站进水', value: 518, unit: 'm³/h', velocity: 2.5, status: 'warning', time: '14:30:02' },
+    { station: '左家塘路DN500', value: 267, unit: 'm³/h', velocity: 1.5, status: 'normal', time: '14:29:58' },
+    { station: '洞井路DN400', value: 198, unit: 'm³/h', velocity: 1.2, status: 'normal', time: '14:30:01' },
+    { station: '侯家塘街道DN300', value: 0, unit: 'm³/h', velocity: 0, status: 'danger', time: '14:30:03' },
 ])
 
 const historyData = ref([
-    { date: '2024-03-15 14:00', station: '朝阳路DN600', value: 342, max: 380, min: 290, avg: 335 },
-    { date: '2024-03-15 13:00', station: '东湖泵站进水', value: 518, max: 550, min: 480, avg: 510 },
-    { date: '2024-03-14 20:00', station: '丰台路DN500', value: 267, max: 300, min: 230, avg: 260 },
-    { date: '2024-03-14 16:00', station: '海淀路DN400', value: 198, max: 220, min: 170, avg: 195 },
+    { date: '2024-03-15 14:00', station: '韶山路DN600', value: 342, max: 380, min: 290, avg: 335 },
+    { date: '2024-03-15 13:00', station: '圭塘河泵站进水', value: 518, max: 550, min: 480, avg: 510 },
+    { date: '2024-03-14 20:00', station: '左家塘路DN500', value: 267, max: 300, min: 230, avg: 260 },
+    { date: '2024-03-14 16:00', station: '洞井路DN400', value: 198, max: 220, min: 170, avg: 195 },
 ])
 
 const chartRef = ref<HTMLElement>()
@@ -39,8 +39,8 @@ function initChart() {
         xAxis: { type: 'category', data: hours, axisLabel: { color: '#5A6B7C', fontSize: 10 }, axisLine: { lineStyle: { color: '#2A3F54' } } },
         yAxis: { type: 'value', name: 'm³/h', nameTextStyle: { color: '#5A6B7C' }, axisLabel: { color: '#5A6B7C', fontSize: 10 }, splitLine: { lineStyle: { color: '#1E3348' } } },
         series: [
-            { name: '朝阳路DN600', type: 'line', smooth: true, data: hours.map(() => +(300 + Math.random() * 80).toFixed(0)), lineStyle: { width: 2 }, symbol: 'none' },
-            { name: '东湖泵站进水', type: 'line', smooth: true, data: hours.map(() => +(480 + Math.random() * 80).toFixed(0)), lineStyle: { width: 2 }, symbol: 'none' },
+            { name: '韶山路DN600', type: 'line', smooth: true, data: hours.map(() => +(300 + Math.random() * 80).toFixed(0)), lineStyle: { width: 2 }, symbol: 'none' },
+            { name: '圭塘河泵站进水', type: 'line', smooth: true, data: hours.map(() => +(480 + Math.random() * 80).toFixed(0)), lineStyle: { width: 2 }, symbol: 'none' },
         ],
     })
     window.addEventListener('resize', handleResize)

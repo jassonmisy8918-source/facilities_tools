@@ -5,14 +5,14 @@ import { Wifi, WifiOff, Battery, Eye } from 'lucide-vue-next'
 
 
 const devices = ref([
-  { id: 'DEV-001', name: '朝阳路流量计', type: '电磁流量计', location: '朝阳路DN600', status: 'online', battery: 95, signal: 'strong', lastData: '刚刚', installDate: '2023-06-15' },
-  { id: 'DEV-002', name: '民生路液位计', type: '超声波液位计', location: '民生路DN400', status: 'online', battery: 82, signal: 'medium', lastData: '2分钟前', installDate: '2023-07-20' },
-  { id: 'DEV-003', name: '和平路雨量计', type: '翻斗式雨量计', location: '和平路雨量站', status: 'online', battery: 67, signal: 'strong', lastData: '5分钟前', installDate: '2023-05-01' },
-  { id: 'DEV-004', name: '新华街流量计', type: '电磁流量计', location: '新华街DN800', status: 'warning', battery: 23, signal: 'weak', lastData: '30分钟前', installDate: '2022-12-10' },
-  { id: 'DEV-005', name: '东湖泵站传感器组', type: '多参数传感器', location: '东湖泵站', status: 'online', battery: 100, signal: 'strong', lastData: '刚刚', installDate: '2024-01-05' },
-  { id: 'DEV-006', name: '西城区水质仪', type: '在线水质分析仪', location: '西城区进水口', status: 'offline', battery: 0, signal: 'none', lastData: '3天前', installDate: '2023-03-18' },
-  { id: 'DEV-007', name: '丰台路液位计', type: '压力式液位计', location: '丰台路DN500', status: 'online', battery: 88, signal: 'strong', lastData: '1分钟前', installDate: '2023-09-12' },
-  { id: 'DEV-008', name: '建设大道视频', type: '智能摄像头', location: '建设大道排放口', status: 'online', battery: 100, signal: 'medium', lastData: '刚刚', installDate: '2024-02-20' },
+  { id: 'DEV-001', name: '韶山路流量计', type: '电磁流量计', location: '韶山路DN600', status: 'online', battery: 95, signal: 'strong', lastData: '刚刚', installDate: '2023-06-15' },
+  { id: 'DEV-002', name: '劳动路液位计', type: '超声波液位计', location: '劳动路DN400', status: 'online', battery: 82, signal: 'medium', lastData: '2分钟前', installDate: '2023-07-20' },
+  { id: 'DEV-003', name: '芙蓉路雨量计', type: '翻斗式雨量计', location: '芙蓉路雨量站', status: 'online', battery: 67, signal: 'strong', lastData: '5分钟前', installDate: '2023-05-01' },
+  { id: 'DEV-004', name: '香樟路流量计', type: '电磁流量计', location: '香樟路DN800', status: 'warning', battery: 23, signal: 'weak', lastData: '30分钟前', installDate: '2022-12-10' },
+  { id: 'DEV-005', name: '圭塘河泵站传感器组', type: '多参数传感器', location: '圭塘河泵站', status: 'online', battery: 100, signal: 'strong', lastData: '刚刚', installDate: '2024-01-05' },
+  { id: 'DEV-006', name: '侯家塘街道水质仪', type: '在线水质分析仪', location: '侯家塘街道进水口', status: 'offline', battery: 0, signal: 'none', lastData: '3天前', installDate: '2023-03-18' },
+  { id: 'DEV-007', name: '左家塘路液位计', type: '压力式液位计', location: '左家塘路DN500', status: 'online', battery: 88, signal: 'strong', lastData: '1分钟前', installDate: '2023-09-12' },
+  { id: 'DEV-008', name: '万家丽路视频', type: '智能摄像头', location: '万家丽路排放口', status: 'online', battery: 100, signal: 'medium', lastData: '刚刚', installDate: '2024-02-20' },
 ])
 
 function getStatusColor(s: string) { return s === 'online' ? 'bg-success' : s === 'warning' ? 'bg-warning' : 'bg-danger' }

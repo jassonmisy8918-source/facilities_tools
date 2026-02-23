@@ -50,10 +50,10 @@ const evalReports = ref([
 
 // 设备故障
 const faultStats = ref([
-    { device: '管道检测机器人', type: '检测设备', area: '朝阳区', runHours: 1200, faults: 5, frequency: '4.2次/千时', trend: '上升' },
+    { device: '管道检测机器人', type: '检测设备', area: '圭塘街道', runHours: 1200, faults: 5, frequency: '4.2次/千时', trend: '上升' },
     { device: '高压冲洗车 A', type: '车辆', area: '全区', runHours: 2800, faults: 3, frequency: '1.1次/千时', trend: '稳定' },
-    { device: '流量计 FL-03', type: '仪表', area: '西城区', runHours: 8760, faults: 8, frequency: '0.9次/千时', trend: '下降' },
-    { device: '液位计 LV-12', type: '仪表', area: '丰台区', runHours: 8760, faults: 12, frequency: '1.4次/千时', trend: '上升' },
+    { device: '流量计 FL-03', type: '仪表', area: '侯家塘街道', runHours: 8760, faults: 8, frequency: '0.9次/千时', trend: '下降' },
+    { device: '液位计 LV-12', type: '仪表', area: '左家塘街道', runHours: 8760, faults: 12, frequency: '1.4次/千时', trend: '上升' },
     { device: 'CCTV 检测车', type: '车辆', area: '全区', runHours: 1500, faults: 2, frequency: '1.3次/千时', trend: '稳定' },
 ])
 

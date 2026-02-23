@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Navigation, AlertTriangle, Plus, Pencil, Trash2, Eye } from 'lucide-vue-next'
+import ToastNotify from '@/components/common/ToastNotify.vue'
+import ModalDialog from '@/components/common/ModalDialog.vue'
+import AMapView from '@/components/common/AMapView.vue'
 
 const activeFunc = ref('route')
 const funcTabs = [
@@ -11,32 +14,43 @@ const funcTabs = [
 
 // 路线
 const routes = ref([
-    { id: 'RT-001', name: '朝阳区主干管网A线', area: '朝阳区', distance: '8.5km', points: 15, keyPoints: 3, estimateTime: '3.5小时', status: 'active' },
-    { id: 'RT-002', name: '朝阳区主干管网B线', area: '朝阳区', distance: '6.2km', points: 12, keyPoints: 2, estimateTime: '2.5小时', status: 'active' },
-    { id: 'RT-003', name: '西城区排口巡查线', area: '西城区', distance: '4.8km', points: 10, keyPoints: 4, estimateTime: '2小时', status: 'active' },
-    { id: 'RT-004', name: '丰台区暴雨应急线', area: '丰台区', distance: '12km', points: 8, keyPoints: 6, estimateTime: '1.5小时(车巡)', status: 'standby' },
+    { id: 'RT-001', name: '圭塘街道主干管网A线', area: '圭塘街道', distance: '8.5km', points: 15, keyPoints: 3, estimateTime: '3.5小时', status: 'active', color: '#3B82F6', path: [[113.025, 28.135], [113.030, 28.138], [113.035, 28.142], [113.040, 28.145], [113.045, 28.148], [113.050, 28.150]] as [number, number][] },
+    { id: 'RT-002', name: '圭塘街道主干管网B线', area: '圭塘街道', distance: '6.2km', points: 12, keyPoints: 2, estimateTime: '2.5小时', status: 'active', color: '#00D4AA', path: [[113.032, 28.130], [113.036, 28.134], [113.040, 28.138], [113.044, 28.141], [113.048, 28.144]] as [number, number][] },
+    { id: 'RT-003', name: '侯家塘街道排口巡查线', area: '侯家塘街道', distance: '4.8km', points: 10, keyPoints: 4, estimateTime: '2小时', status: 'active', color: '#FFB020', path: [[113.015, 28.140], [113.018, 28.143], [113.022, 28.146], [113.025, 28.148], [113.028, 28.150]] as [number, number][] },
+    { id: 'RT-004', name: '左家塘街道暴雨应急线', area: '左家塘街道', distance: '12km', points: 8, keyPoints: 6, estimateTime: '1.5小时(车巡)', status: 'standby', color: '#F97316', path: [[113.010, 28.125], [113.018, 28.130], [113.025, 28.135], [113.032, 28.140], [113.040, 28.145], [113.048, 28.150], [113.055, 28.155]] as [number, number][] },
 ])
+
+function getRoutePolyline(r: typeof routes.value[0]) {
+    return [{ path: r.path, color: r.color, label: r.name.slice(-3) }]
+}
 
 // 关键检查点
 const keyCheckPoints = ref([
-    { id: 'KP-001', name: '建设大道低洼段', type: '易涝点', risk: 'high', lat: 39.932, lng: 116.468, requirement: '检查排水口、集水井淤积、周边环境排水能力', lastIssue: '2024-02-20 轻度积水' },
-    { id: 'KP-002', name: '民生路老旧管段', type: '老旧管段', risk: 'medium', lat: 39.928, lng: 116.455, requirement: '检查管壁裂缝、接缝渗漏、结构变形', lastIssue: '2024-01-15 轻微渗漏' },
-    { id: 'KP-003', name: '西城区雨污混接点', type: '混接点', risk: 'high', lat: 39.925, lng: 116.352, requirement: '水质取样、检查混接管道、标记排查', lastIssue: '2024-03-01 混接确认' },
-    { id: 'KP-004', name: '和平路泵站前池', type: '泵站前池', risk: 'medium', lat: 39.940, lng: 116.480, requirement: '检查格栅、水位、淤积深度、设备状态', lastIssue: '无异常' },
-    { id: 'KP-005', name: '通州运河排口', type: '排口', risk: 'low', lat: 39.908, lng: 116.658, requirement: '外观检查、水质目测、淤积程度', lastIssue: '无异常' },
+    { id: 'KP-001', name: '万家丽路低洼段', type: '易涝点', risk: 'high', lat: 28.150, lng: 113.050, requirement: '检查排水口、集水井淤积、周边环境排水能力', lastIssue: '2024-02-20 轻度积水' },
+    { id: 'KP-002', name: '劳动路老旧管段', type: '老旧管段', risk: 'medium', lat: 28.148, lng: 113.04, requirement: '检查管壁裂缝、接缝渗漏、结构变形', lastIssue: '2024-01-15 轻微渗漏' },
+    { id: 'KP-003', name: '侯家塘街道雨污混接点', type: '混接点', risk: 'high', lat: 28.140, lng: 113.020, requirement: '水质取样、检查混接管道、标记排查', lastIssue: '2024-03-01 混接确认' },
+    { id: 'KP-004', name: '芙蓉路泵站前池', type: '泵站前池', risk: 'medium', lat: 28.160, lng: 113.060, requirement: '检查格栅、水位、淤积深度、设备状态', lastIssue: '无异常' },
+    { id: 'KP-005', name: '浏阳河排口', type: '排口', risk: 'low', lat: 28.138, lng: 113.07, requirement: '外观检查、水质目测、淤积程度', lastIssue: '无异常' },
 ])
 
 // 巡查点
 const patrolPoints = ref([
-    { id: 'PP-001', name: '建设大道MH-01', type: '检查井', facility: 'DN400雨水管', address: '建设大道100号', content: '井盖完好性/井内淤积/管壁状况', route: 'RT-001' },
-    { id: 'PP-002', name: '建设大道MH-02', type: '检查井', facility: 'DN400雨水管', address: '建设大道200号', content: '井盖完好性/井内淤积/管壁状况', route: 'RT-001' },
-    { id: 'PP-003', name: '民生路OUT-01', type: '排口', facility: 'DN600排口', address: '民生路河道段', content: '排口畅通/水质外观/周边环境', route: 'RT-001' },
-    { id: 'PP-004', name: '西城区OUT-03', type: '排口', facility: 'DN800排口', address: '西城区清河段', content: '排口畅通/水质目测/淤积深度', route: 'RT-003' },
-    { id: 'PP-005', name: '和平路PS-01', type: '泵站', facility: '和平路泵站', address: '和平路200号', content: '设备运行/水位/格栅/周边环境', route: 'RT-001' },
+    { id: 'PP-001', name: '万家丽路MH-01', type: '检查井', facility: 'DN400雨水管', address: '万家丽路100号', content: '井盖完好性/井内淤积/管壁状况', route: 'RT-001' },
+    { id: 'PP-002', name: '万家丽路MH-02', type: '检查井', facility: 'DN400雨水管', address: '万家丽路200号', content: '井盖完好性/井内淤积/管壁状况', route: 'RT-001' },
+    { id: 'PP-003', name: '劳动路OUT-01', type: '排口', facility: 'DN600排口', address: '劳动路河道段', content: '排口畅通/水质外观/周边环境', route: 'RT-001' },
+    { id: 'PP-004', name: '侯家塘街道OUT-03', type: '排口', facility: 'DN800排口', address: '侯家塘街道浏阳河段', content: '排口畅通/水质目测/淤积深度', route: 'RT-003' },
+    { id: 'PP-005', name: '芙蓉路PS-01', type: '泵站', facility: '芙蓉路泵站', address: '芙蓉路200号', content: '设备运行/水位/格栅/周边环境', route: 'RT-001' },
 ])
 
 function getRiskColor(r: string) { return r === 'high' ? 'text-danger bg-danger/10' : r === 'medium' ? 'text-warning bg-warning/10' : 'text-info bg-info/10' }
 function getRiskText(r: string) { return r === 'high' ? '高风险' : r === 'medium' ? '中风险' : '低风险' }
+
+// 新增弹窗
+const showAddModal = ref(false)
+const addForm = ref({ name: '', area: '', distance: '', estimateTime: '' })
+const toast = ref<InstanceType<typeof ToastNotify>>()
+function openAdd() { addForm.value = { name: '', area: '', distance: '', estimateTime: '' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
 </script>
 
 <template>
@@ -49,7 +63,7 @@ function getRiskText(r: string) { return r === 'high' ? '高风险' : r === 'med
                         ft.label }}</button>
             </div>
             <button
-                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
+                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer" @click="openAdd()">
                 <Plus class="w-3.5 h-3.5" />新增
             </button>
         </div>
@@ -76,8 +90,8 @@ function getRiskText(r: string) { return r === 'high' ? '高风险' : r === 'med
                     <div class="col-span-2"><span class="text-dim">预计耗时: </span><span class="text-default">{{
                         r.estimateTime }}</span></div>
                 </div>
-                <div class="h-24 bg-surface rounded-lg flex items-center justify-center text-[10px] text-dim">📍 GIS
-                    路线地图预览（需接入地图 SDK）</div>
+                <AMapView :polylines="getRoutePolyline(r)" height="120px" :zoom="14"
+                    :center="[r.path[Math.floor(r.path.length / 2)]![0], r.path[Math.floor(r.path.length / 2)]![1]]" />
                 <div class="flex items-center gap-1 mt-3 pt-2 border-t border-themed/30">
                     <button class="p-1 rounded hover:bg-hover-themed cursor-pointer">
                         <Eye class="w-3 h-3 text-primary" />
@@ -160,5 +174,31 @@ function getRiskText(r: string) { return r === 'high' ? '高风险' : r === 'med
                 </tbody>
             </table>
         </div>
+    <!-- 新增弹窗 -->
+    <ModalDialog :show="showAddModal" title="新增巡查路线" @close="showAddModal = false" @confirm="doAdd">
+        <div class="space-y-3">
+            <div>
+                <label class="text-[10px] text-dim block mb-1">路线名称</label>
+                <input v-model="addForm.name" type="text" placeholder="请输入路线名称"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">区域</label>
+                <input v-model="addForm.area" type="text" placeholder="请选择区域"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">里程</label>
+                <input v-model="addForm.distance" type="text" placeholder="如 8.5km"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">预计耗时</label>
+                <input v-model="addForm.estimateTime" type="text" placeholder="如 3.5小时"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+        </div>
+    </ModalDialog>
+        <ToastNotify ref="toast" />
     </div>
 </template>

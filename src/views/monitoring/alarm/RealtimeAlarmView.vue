@@ -7,13 +7,16 @@ import ToastNotify from '@/components/common/ToastNotify.vue'
 const toast = ref<InstanceType<typeof ToastNotify>>()
 
 const alarms = ref([
-    { id: 1, level: 'critical', title: '建设大道DN300水位超限', location: '建设大道DN300 监测点#06', time: '2024-03-15 14:23', value: '2.35m (阈值: 2.0m)', status: 'active', type: '水位超限' },
-    { id: 2, level: 'warning', title: '西城区进水口COD超标', location: '西城区进水口 WQ-302', time: '2024-03-15 13:45', value: '45mg/L (阈值: 40mg/L)', status: 'active', type: '水质超标' },
-    { id: 3, level: 'warning', title: '民生路DN400水位预警', location: '民生路DN400 监测点#02', time: '2024-03-15 12:30', value: '1.85m (阈值: 1.8m)', status: 'acknowledged', type: '水位超限' },
-    { id: 4, level: 'info', title: '丰台区降雨量增加', location: '丰台区雨量站 RG-051', time: '2024-03-15 11:20', value: '8.5mm/h', status: 'acknowledged', type: '雨量预警' },
-    { id: 5, level: 'notice', title: '朝阳路流量波动提醒', location: '朝阳路DN600 FM-201', time: '2024-03-15 10:15', value: '波动幅度: ±15%', status: 'resolved', type: '流量异常' },
-    { id: 6, level: 'critical', title: '和平路泵站进水位超高', location: '和平路泵站 前池', time: '2024-03-15 09:30', value: '4.1m (阈值: 3.8m)', status: 'active', type: '水位超限' },
-    { id: 7, level: 'warning', title: '通州区雨量站降雨超限', location: '通州区雨量站 RG-2003', time: '2024-03-15 08:45', value: '12.6mm/h (阈值: 10mm/h)', status: 'active', type: '雨量预警' },
+    { id: 1, level: 'critical', title: '万家丽路DN300水位超限', location: '万家丽路DN300 监测点#06', time: '2024-03-15 14:23', value: '2.35m (阈值: 2.0m)', status: 'active', type: '水位超限' },
+    { id: 2, level: 'warning', title: '侯家塘街道进水口COD超标', location: '侯家塘街道进水口 WQ-302', time: '2024-03-15 13:45', value: '45mg/L (阈值: 40mg/L)', status: 'active', type: '水质超标' },
+    { id: 3, level: 'warning', title: '劳动路DN400水位预警', location: '劳动路DN400 监测点#02', time: '2024-03-15 12:30', value: '1.85m (阈值: 1.8m)', status: 'acknowledged', type: '水位超限' },
+    { id: 4, level: 'info', title: '左家塘街道降雨量增加', location: '左家塘街道雨量站 RG-051', time: '2024-03-15 11:20', value: '8.5mm/h', status: 'acknowledged', type: '雨量预警' },
+    { id: 5, level: 'notice', title: '韶山路流量波动提醒', location: '韶山路DN600 FM-201', time: '2024-03-15 10:15', value: '波动幅度: ±15%', status: 'resolved', type: '流量异常' },
+    { id: 6, level: 'critical', title: '芙蓉路泵站进水位超高', location: '芙蓉路泵站 前池', time: '2024-03-15 09:30', value: '4.1m (阈值: 3.8m)', status: 'active', type: '水位超限' },
+    { id: 7, level: 'warning', title: '黎托街道雨量站降雨超限', location: '黎托街道雨量站 RG-2003', time: '2024-03-15 08:45', value: '12.6mm/h (阈值: 10mm/h)', status: 'active', type: '雨量预警' },
+    { id: 8, level: 'critical', title: '侯家塘街道水质仪设备离线', location: '侯家塘街道进水口 WQ-302', time: '2024-03-15 07:10', value: '离线时长: 3小时', status: 'active', type: '仪表故障' },
+    { id: 9, level: 'warning', title: '左家塘路液位计传感器异常', location: '左家塘路DN500 LG-4003', time: '2024-03-15 06:30', value: '读数漂移: ±0.5m', status: 'active', type: '仪表故障' },
+    { id: 10, level: 'warning', title: '万家丽路流量计通信中断', location: '万家丽路DN300 FM-3005', time: '2024-03-14 22:00', value: '中断时长: 12小时', status: 'acknowledged', type: '仪表故障' },
 ])
 
 const levelFilter = ref('all')
@@ -66,7 +69,7 @@ function getStatusText(s: string) { return s === 'active' ? '报警中' : s === 
             <div class="flex-1 overflow-hidden">
                 <marquee class="text-xs text-danger font-medium" scrollamount="3">
                     <span v-for="a in alarms.filter(x => x.status === 'active')" :key="a.id" class="mr-8">🚨 {{ a.title
-                    }} — {{ a.location }} — {{ a.time }}</span>
+                        }} — {{ a.location }} — {{ a.time }}</span>
                 </marquee>
             </div>
         </div>

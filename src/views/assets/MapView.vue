@@ -1,14 +1,21 @@
 ﻿<script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import Map from 'ol/Map'
 import View from 'ol/View'
 import TileLayer from 'ol/layer/Tile'
+import VectorLayer from 'ol/layer/Vector'
 import XYZ from 'ol/source/XYZ'
+import VectorSource from 'ol/source/Vector'
 import { fromLonLat, toLonLat } from 'ol/proj'
 import ScaleLine from 'ol/control/ScaleLine'
+import Draw from 'ol/interaction/Draw'
+import { getLength, getArea } from 'ol/sphere'
+import { Style, Stroke, Fill, Circle as CircleStyle } from 'ol/style'
+import Overlay from 'ol/Overlay'
+import type { Geometry } from 'ol/geom'
 import {
   Layers, MapPin, Maximize2, Minus as MinusIcon, Plus, Ruler, Search, X, Info,
-  Crosshair, Camera, Bookmark, ChevronDown, ChevronRight,
+  Crosshair, Camera, Bookmark, ChevronDown, ChevronRight, Box,
   Map as MapIcon, Satellite, Moon, Flame, SlidersHorizontal, Database,
   Navigation, BookmarkPlus, Trash2, SquareSplitHorizontal
 } from 'lucide-vue-next'
@@ -95,11 +102,11 @@ function openPanel(panel: 'layers' | 'manage') {
 const searchQuery = ref('')
 const showSearchResults = ref(false)
 const mockSearchResults = [
-  { id: 1, name: 'PS-001234 朝阳路DN600-P05', type: '污水管', status: '正常', coord: [116.397, 39.909] },
-  { id: 2, name: 'MH-003456 朝阳路检查井#34', type: '检查井', status: '轻微缺陷', coord: [116.401, 39.912] },
-  { id: 3, name: 'BZ-01 朝阳路泵站', type: '泵站', status: '运行中', coord: [116.394, 39.907] },
-  { id: 4, name: 'JC-012 民生路流量计', type: '监测设备', status: '在线', coord: [116.410, 39.915] },
-  { id: 5, name: 'PF-003 东湖排放口', type: '排放口', status: '正常排放', coord: [116.385, 39.920] },
+  { id: 1, name: 'PS-001234 韶山路DN600-P05', type: '污水管', status: '正常', coord: [113.032, 28.141] },
+  { id: 2, name: 'MH-003456 韶山路检查井#34', type: '检查井', status: '轻微缺陷', coord: [113.040, 28.140] },
+  { id: 3, name: 'BZ-01 韶山路泵站', type: '泵站', status: '运行中', coord: [113.030, 28.130] },
+  { id: 4, name: 'JC-012 劳动路流量计', type: '监测设备', status: '在线', coord: [113.050, 28.150] },
+  { id: 5, name: 'PF-003 圭塘河排放口', type: '排放口', status: '正常排放', coord: [113.020, 28.160] },
 ]
 const filteredResults = computed(() => {
   if (!searchQuery.value) return []
@@ -122,22 +129,123 @@ function locateResult(r: typeof mockSearchResults[0]) {
 // ===================== 点选弹窗 =====================
 const showInfoPopup = ref(true)
 const popupInfo = ref({
-  name: '朝阳路DN600 P05-P06段', code: 'PS-001234', type: '污水管',
+  name: '韶山路DN600 P05-P06段', code: 'PS-001234', type: '污水管',
   material: 'HDPE', diameter: 'DN600', length: '128.5m', status: '正常', buildYear: '2018',
 })
 
 // ===================== 工具栏 =====================
 const activeTool = ref('')
-function toggleTool(tool: string) {
-  activeTool.value = activeTool.value === tool ? '' : tool
-  if (activeTool.value) {
-    const labels: Record<string, string> = {
-      measure: '测量模式已开启，点击地图测距', area: '面积测量模式',
-      flow: '管网流向动态展示已开启', '3d': '三维视图需加载三维地形数据'
-    }
-    toast.value?.show(labels[activeTool.value] || '', 'info')
+
+// ===================== 测量功能 =====================
+const measureType = ref<'distance' | 'area'>('distance')
+const measureResult = ref('')
+let measureSource: VectorSource | null = null
+let measureLayer: VectorLayer | null = null
+let drawInteraction: Draw | null = null
+const measureOverlays: Overlay[] = []
+
+function initMeasureLayer() {
+  if (measureLayer || !map) return
+  measureSource = new VectorSource()
+  measureLayer = new VectorLayer({
+    source: measureSource,
+    style: new Style({
+      stroke: new Stroke({ color: '#3B82F6', width: 2.5, lineDash: [8, 4] }),
+      fill: new Fill({ color: 'rgba(59,130,246,0.08)' }),
+      image: new CircleStyle({ radius: 4, fill: new Fill({ color: '#3B82F6' }), stroke: new Stroke({ color: '#fff', width: 1.5 }) }),
+    }),
+  })
+  map.addLayer(measureLayer)
+}
+
+function formatLength(line: Geometry): string {
+  const len = getLength(line, { projection: 'EPSG:3857' })
+  return len > 1000 ? (len / 1000).toFixed(2) + ' km' : len.toFixed(1) + ' m'
+}
+function formatArea(polygon: Geometry): string {
+  const a = getArea(polygon, { projection: 'EPSG:3857' })
+  return a > 1e6 ? (a / 1e6).toFixed(3) + ' km²' : a.toFixed(1) + ' m²'
+}
+
+function addMeasureInteraction() {
+  if (!map || !measureSource) return
+  removeMeasureInteraction()
+  const type = measureType.value === 'distance' ? 'LineString' : 'Polygon'
+  drawInteraction = new Draw({ source: measureSource, type: type as any })
+
+  drawInteraction.on('drawstart', (evt) => {
+    measureResult.value = '绘制中...'
+    evt.feature.getGeometry()?.on('change', (e) => {
+      const geom = e.target as Geometry
+      measureResult.value = measureType.value === 'distance' ? formatLength(geom) : formatArea(geom)
+    })
+  })
+
+  drawInteraction.on('drawend', (evt) => {
+    const geom = evt.feature.getGeometry()
+    if (!geom) return
+    const result = measureType.value === 'distance' ? formatLength(geom) : formatArea(geom)
+    measureResult.value = result
+    // 在终点放一个标签
+    const el = document.createElement('div')
+    el.className = 'measure-tooltip'
+    el.textContent = result
+    const overlay = new Overlay({ element: el, offset: [0, -15], positioning: 'bottom-center' })
+    const coords = measureType.value === 'distance'
+      ? (geom as any).getLastCoordinate()
+      : (geom as any).getInteriorPoint().getCoordinates()
+    overlay.setPosition(coords)
+    map!.addOverlay(overlay)
+    measureOverlays.push(overlay)
+  })
+
+  map.addInteraction(drawInteraction)
+}
+
+function removeMeasureInteraction() {
+  if (drawInteraction && map) {
+    map.removeInteraction(drawInteraction)
+    drawInteraction = null
   }
 }
+
+function clearMeasure() {
+  measureSource?.clear()
+  measureOverlays.forEach(o => map?.removeOverlay(o))
+  measureOverlays.length = 0
+  measureResult.value = ''
+}
+
+function toggleTool(tool: string) {
+  const prev = activeTool.value
+  activeTool.value = activeTool.value === tool ? '' : tool
+
+  // 退出测量
+  if (prev === 'measure' || prev === 'area') removeMeasureInteraction()
+
+  // 进入测量
+  if (activeTool.value === 'measure') {
+    measureType.value = 'distance'
+    initMeasureLayer()
+    addMeasureInteraction()
+    toast.value?.show('距离测量：单击画点，双击结束', 'info')
+  } else if (activeTool.value === 'area') {
+    measureType.value = 'area'
+    initMeasureLayer()
+    addMeasureInteraction()
+    toast.value?.show('面积测量：单击画点，双击结束', 'info')
+  } else if (activeTool.value === 'flow') {
+    toast.value?.show('管网流向动态展示已开启', 'info')
+  } else if (activeTool.value === '3d') {
+    toast.value?.show('三维视图需加载三维地形数据', 'info')
+  }
+}
+
+watch(measureType, () => {
+  if (activeTool.value === 'measure' || activeTool.value === 'area') {
+    addMeasureInteraction()
+  }
+})
 
 // 放大
 function zoomIn() { map?.getView().animate({ zoom: (map.getView().getZoom() || 13) + 1, duration: 250 }) }
@@ -145,7 +253,7 @@ function zoomIn() { map?.getView().animate({ zoom: (map.getView().getZoom() || 1
 function zoomOut() { map?.getView().animate({ zoom: (map.getView().getZoom() || 13) - 1, duration: 250 }) }
 // 全局视图
 function resetView() {
-  map?.getView().animate({ center: fromLonLat([116.397428, 39.90923]), zoom: 13, duration: 500 })
+  map?.getView().animate({ center: fromLonLat([113.032549, 28.141]), zoom: 13, duration: 500 })
   toast.value?.show('已恢复全局视图', 'info')
 }
 // 截图导出
@@ -167,8 +275,8 @@ function exportScreenshot() {
 // ===================== 书签管理 =====================
 interface Bookmark { id: number; name: string; center: number[]; zoom: number; time: string }
 const bookmarks = ref<Bookmark[]>([
-  { id: 1, name: '朝阳路泵站区域', center: [116.397, 39.909], zoom: 16, time: '03-15 14:20' },
-  { id: 2, name: '东湖排放口', center: [116.385, 39.920], zoom: 17, time: '03-14 09:10' },
+  { id: 1, name: '韶山路泵站区域', center: [113.032, 28.141], zoom: 16, time: '03-15 14:20' },
+  { id: 2, name: '圭塘河排放口', center: [113.020, 28.160], zoom: 17, time: '03-14 09:10' },
 ])
 const newBookmarkName = ref('')
 
@@ -205,7 +313,7 @@ function toggleDualView() {
         map2 = new Map({
           target: mapContainer2.value,
           layers: [createTileLayer(baseMapTypes[1]!.url)],
-          view: new View({ center: fromLonLat([116.397428, 39.90923]), zoom: 15 })
+          view: new View({ center: fromLonLat([113.032549, 28.141]), zoom: 15 })
         })
       }
       map?.updateSize()
@@ -225,6 +333,42 @@ function openMetadata(layer: typeof allLayers.value[0]) {
   metadataLayer.value = layer
   showMetadata.value = true
 }
+
+// ===================== 三维视图 =====================
+const show3DView = ref(false)
+const tiltAngle = ref(45)
+const buildingHeight = ref(true)
+
+function apply3DTransform() {
+  if (!mapContainer.value) return
+  const wrapper = mapContainer.value.parentElement
+  if (!wrapper) return
+  if (show3DView.value) {
+    wrapper.style.perspective = '1200px'
+    wrapper.style.perspectiveOrigin = '50% 50%'
+    mapContainer.value.style.transition = 'transform 0.5s ease'
+    mapContainer.value.style.transform = `rotateX(${tiltAngle.value}deg) scale(${1 + tiltAngle.value / 200})`
+    mapContainer.value.style.transformOrigin = 'center bottom'
+  } else {
+    mapContainer.value.style.transition = 'transform 0.5s ease'
+    mapContainer.value.style.transform = 'none'
+    setTimeout(() => {
+      if (wrapper) { wrapper.style.perspective = ''; wrapper.style.perspectiveOrigin = '' }
+    }, 500)
+  }
+  nextTick(() => map?.updateSize())
+}
+
+function toggle3DView() {
+  show3DView.value = !show3DView.value
+  apply3DTransform()
+  if (show3DView.value) toast.value?.show('三维视图已开启，可调节倾斜角度', 'info')
+  else toast.value?.show('已恢复平面视图', 'info')
+}
+
+watch(tiltAngle, () => {
+  if (show3DView.value) apply3DTransform()
+})
 
 // ===================== 热力图 =====================
 const heatmapOn = ref(false)
@@ -249,7 +393,7 @@ onMounted(() => {
     map = new Map({
       target: mapContainer.value,
       layers: [createTileLayer(baseMapTypes[0]!.url)],
-      view: new View({ center: fromLonLat([116.397428, 39.90923]), zoom: 13 }),
+      view: new View({ center: fromLonLat([113.032549, 28.141]), zoom: 13 }),
       controls: []
     })
     map.addControl(new ScaleLine({ units: 'metric' }))
@@ -540,14 +684,20 @@ onUnmounted(() => {
           :class="dualView ? 'border-primary bg-primary/10' : 'border-themed hover:bg-hover-themed'">
           <SquareSplitHorizontal class="w-4 h-4" :class="dualView ? 'text-primary' : 'text-default'" />
         </button>
+        <!-- 三维视图 -->
+        <button @click="toggle3DView" title="三维视图"
+          class="p-2 bg-card border rounded-lg shadow-themed transition-colors cursor-pointer"
+          :class="show3DView ? 'border-primary bg-primary/10' : 'border-themed hover:bg-hover-themed'">
+          <Box class="w-4 h-4" :class="show3DView ? 'text-primary' : 'text-default'" />
+        </button>
         <!-- 流向 -->
         <button @click="toggleTool('flow')" title="管网流向"
           class="p-2 bg-card border rounded-lg shadow-themed transition-colors cursor-pointer"
           :class="activeTool === 'flow' ? 'border-primary bg-primary/10' : 'border-themed hover:bg-hover-themed'">
           <Navigation class="w-4 h-4" :class="activeTool === 'flow' ? 'text-primary' : 'text-default'" />
         </button>
-        <!-- 测量 -->
-        <button @click="toggleTool('measure')" title="测量标注"
+        <!-- 测量距离 -->
+        <button @click="toggleTool('measure')" title="距离测量"
           class="p-2 bg-card border rounded-lg shadow-themed transition-colors cursor-pointer"
           :class="activeTool === 'measure' ? 'border-primary bg-primary/10' : 'border-themed hover:bg-hover-themed'">
           <Ruler class="w-4 h-4" :class="activeTool === 'measure' ? 'text-primary' : 'text-default'" />
@@ -610,7 +760,88 @@ onUnmounted(() => {
         </div>
       </ModalDialog>
 
+      <!-- 三维视图面板 -->
+      <div v-if="show3DView"
+        class="absolute top-3 left-80 z-10 w-60 bg-card border border-themed rounded-xl shadow-themed p-3">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-1.5">
+            <Box class="w-4 h-4 text-primary" /><span class="text-xs font-semibold text-default">三维视图</span>
+          </div>
+          <button @click="show3DView = false" class="text-muted-themed hover:text-default cursor-pointer">
+            <X class="w-3.5 h-3.5" />
+          </button>
+        </div>
+        <div class="space-y-3">
+          <div><label class="text-[10px] text-dim block mb-1">倾斜角度: {{ tiltAngle }}°</label><input type="range" min="0"
+              max="80" v-model="tiltAngle" class="w-full h-1 accent-primary cursor-pointer" /></div>
+          <div class="flex items-center justify-between p-2 rounded-lg bg-surface">
+            <span class="text-[10px] text-default">建筑物高度渲染</span>
+            <button @click="buildingHeight = !buildingHeight"
+              class="w-8 h-4.5 rounded-full transition-colors cursor-pointer relative"
+              :class="buildingHeight ? 'bg-primary' : 'bg-surface border border-themed'">
+              <span class="absolute top-0.5 w-3.5 h-3.5 rounded-full bg-white shadow transition-all"
+                :class="buildingHeight ? 'left-4' : 'left-0.5'"></span>
+            </button>
+          </div>
+          <div class="text-[10px] text-dim bg-surface rounded-lg p-2">提示: 三维模式下可通过 Ctrl+拖拽 旋转视角，滚轮缩放高程</div>
+        </div>
+      </div>
+
+      <!-- 测量提示条 -->
+      <div v-if="activeTool === 'measure' || activeTool === 'area'"
+        class="absolute bottom-14 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 px-4 py-2 bg-card/95 backdrop-blur-md border border-themed rounded-xl shadow-themed">
+        <div class="flex items-center gap-1 bg-surface rounded-lg p-0.5">
+          <button @click="measureType = 'distance'; addMeasureInteraction()"
+            class="px-2.5 py-1 rounded-md text-[10px] font-medium transition-colors cursor-pointer"
+            :class="measureType === 'distance' ? 'bg-primary text-white' : 'text-dim hover:text-default'">距离</button>
+          <button @click="measureType = 'area'; addMeasureInteraction()"
+            class="px-2.5 py-1 rounded-md text-[10px] font-medium transition-colors cursor-pointer"
+            :class="measureType === 'area' ? 'bg-primary text-white' : 'text-dim hover:text-default'">面积</button>
+        </div>
+        <span v-if="measureResult" class="text-xs font-bold text-primary font-mono">{{ measureResult }}</span>
+        <span v-else class="text-[10px] text-dim">单击画点，双击结束</span>
+        <button @click="clearMeasure" class="text-[10px] text-danger hover:underline cursor-pointer">清除</button>
+        <button @click="toggleTool('')" class="text-[10px] text-dim hover:text-default cursor-pointer">关闭</button>
+      </div>
+
       <ToastNotify ref="toast" />
     </div>
   </div>
 </template>
+
+<style>
+.measure-tooltip {
+  background: rgba(59, 130, 246, 0.9);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.measure-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(59, 130, 246, 0.9);
+}
+
+.ol-scale-line {
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ol-scale-line-inner {
+  border-color: var(--text-default, #333) !important;
+  color: var(--text-default, #333) !important;
+  font-size: 10px !important;
+}
+</style>

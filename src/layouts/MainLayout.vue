@@ -24,7 +24,7 @@ const hasSubMenu = computed(() => {
 const isDashboard = computed(() => currentSystem.value === 'dashboard')
 
 const contentMarginLeft = computed(() => {
-    if (!hasSubMenu.value || isDashboard.value) return '0px'
+    if (!hasSubMenu.value) return '0px'
     return appStore.sidebarCollapsed ? '64px' : '208px'
 })
 

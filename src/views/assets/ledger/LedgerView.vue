@@ -1,6 +1,6 @@
 ﻿<script setup lang="ts">
 import { ref, computed } from 'vue'
-import { Search, Download, Plus, ChevronLeft, ChevronRight, Eye, Database, Trash2 } from 'lucide-vue-next'
+import { Search, Download, Plus, ChevronLeft, ChevronRight, Eye, Database, Trash2, Edit3, Settings, History, Filter } from 'lucide-vue-next'
 import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
 
@@ -79,7 +79,11 @@ const tabColumns: Record<string, { key: string; label: string }[]> = {
   ],
 }
 
-const columns = computed(() => tabColumns[activeTab.value] || tabColumns.pipe)
+const allColumns = computed(() => tabColumns[activeTab.value] || tabColumns.pipe)
+const columns = computed(() => {
+  if (Object.keys(fieldVisibility.value).length === 0) return allColumns.value
+  return allColumns.value?.filter(c => fieldVisibility.value[c.key] !== false) ?? []
+})
 
 const searchQuery = ref('')
 const currentPage = ref(1)
@@ -87,7 +91,7 @@ const pageSize = 15
 
 // 生成 mock 数据
 function generateData(tab: string) {
-  const districts = ['朝阳区', '海淀区', '西城区', '东城区', '丰台区']
+  const districts = ['圭塘街道', '洞井街道', '侯家塘街道', '雨花亭街道', '左家塘街道']
   const statuses = ['正常', '正常', '正常', '轻微缺陷', '需维修']
   const prefix: Record<string, string> = {
     pipe: 'PS', well: 'MH', rainInlet: 'RI', user: 'DU', pump: 'BZ', sewagePlant: 'SP',
@@ -109,7 +113,7 @@ function generateData(tab: string) {
     }
     if (tab === 'pipe') Object.assign(base, { type: ['雨水管', '污水管', '合流管'][i % 3], material: ['PE', 'HDPE', '钢筋混凝土'][i % 3], diameter: `DN${[300, 400, 600][i % 3]}`, length: (Math.random() * 500 + 10).toFixed(1) })
     if (tab === 'well') Object.assign(base, { wellType: ['圆形检查井', '矩形检查井', '跌水井'][i % 3], depth: (1.5 + Math.random() * 4).toFixed(1), material: ['球墨铸铁', '复合材料', '混凝土'][i % 3] })
-    if (tab === 'rainInlet') Object.assign(base, { inletType: ['平箅式', '立箅式', '联合式'][i % 3], size: ['680×380', '750×450', '900×500'][i % 3], road: ['朝阳路', '民生路', '和平街'][i % 3] })
+    if (tab === 'rainInlet') Object.assign(base, { inletType: ['平箅式', '立箅式', '联合式'][i % 3], size: ['680×380', '750×450', '900×500'][i % 3], road: ['韶山路', '劳动路', '和平街'][i % 3] })
     if (tab === 'user') Object.assign(base, { userType: ['工业', '商业', '餐饮', '医疗'][i % 4], permit: `PWP-2024-${String(i + 1).padStart(4, '0')}`, dailyVolume: (50 + Math.random() * 500).toFixed(0) })
     if (tab === 'pump') Object.assign(base, { capacity: [200, 350, 500][i % 3], pumpCount: [2, 3, 4][i % 3], power: [30, 55, 110][i % 3] })
     if (tab === 'sewagePlant') Object.assign(base, { capacity: [5, 10, 20][i % 3], process: ['AAO', 'MBR', 'SBR'][i % 3] })
@@ -117,7 +121,7 @@ function generateData(tab: string) {
     if (tab === 'interceptor') Object.assign(base, { intType: ['截流井', '截流闸', '调蓄池'][i % 3], capacity: [100, 200, 500][i % 3] })
     if (tab === 'weir') Object.assign(base, { weirType: ['矩形堰', '三角堰', 'V型堰'][i % 3], elevation: (2 + Math.random() * 3).toFixed(2) })
     if (tab === 'valve') Object.assign(base, { valveType: ['蝶阀', '闸阀', '止回阀'][i % 3], diameter: `DN${[100, 200, 300][i % 3]}` })
-    if (tab === 'outlet') Object.assign(base, { outletType: ['雨水排放口', '溢流排放口', '合流排放口'][i % 3], receiver: ['东湖', '北河', '南溪'][i % 3] })
+    if (tab === 'outlet') Object.assign(base, { outletType: ['雨水排放口', '溢流排放口', '合流排放口'][i % 3], receiver: ['圭塘河', '北河', '南溪'][i % 3] })
     if (tab === 'device') Object.assign(base, { devType: ['流量计', '液位计', '雨量计', '水质分析仪'][i % 4], model: ['FM-200', 'LS-100', 'RG-50', 'WQ-300'][i % 4], installDate: `202${i % 4}-0${(i % 9) + 1}-${10 + (i % 20)}` })
     return base
   })
@@ -132,9 +136,12 @@ const currentData = computed(() => {
 })
 
 const filteredData = computed(() => {
+  let list = currentData.value
   const q = searchQuery.value.toLowerCase()
-  if (!q) return currentData.value
-  return currentData.value.filter(f => f.name.toLowerCase().includes(q) || f.code.toLowerCase().includes(q))
+  if (q) list = list.filter(f => f.name.toLowerCase().includes(q) || f.code.toLowerCase().includes(q))
+  if (filterDistrict.value) list = list.filter(f => f.district === filterDistrict.value)
+  if (filterStatus.value) list = list.filter(f => f.status === filterStatus.value)
+  return list
 })
 
 const totalPages = computed(() => Math.ceil(filteredData.value.length / pageSize))
@@ -160,11 +167,21 @@ const toast = ref<InstanceType<typeof ToastNotify>>()
 
 // 新增弹窗
 const showAddModal = ref(false)
-const addForm = ref<Record<string, string>>({ name: '', code: '' })
-function openAdd() { addForm.value = { name: '', code: '' }; showAddModal.value = true }
+const addForm = ref<Record<string, string>>({})
+function openAdd() {
+  const form: Record<string, string> = {}
+  allColumns.value?.forEach(c => { form[c.key] = '' })
+  addForm.value = form
+  showAddModal.value = true
+}
 function doAdd() {
   if (!addForm.value.name) { toast.value?.show('请输入名称', 'warning'); return }
-  toast.value?.show('新增成功', 'success'); showAddModal.value = false
+  const newItem: Record<string, any> = { id: Date.now(), ...addForm.value }
+  if (!newItem.status) newItem.status = '正常'
+  if (!tabDataCache.value[activeTab.value]) tabDataCache.value[activeTab.value] = generateData(activeTab.value)
+  tabDataCache.value[activeTab.value]!.unshift(newItem)
+  showAddModal.value = false
+  toast.value?.show('新增成功', 'success')
 }
 
 // 查看弹窗
@@ -180,6 +197,82 @@ function doDelete() {
   tabDataCache.value[activeTab.value] = (tabDataCache.value[activeTab.value] ?? []).filter(i => i.id !== deletingId.value)
   showDeleteModal.value = false
   toast.value?.show('删除成功', 'success')
+}
+
+// 编辑弹窗
+const showEditModal = ref(false)
+const editForm = ref<Record<string, any>>({})
+function openEdit(item: Record<string, any>) { editForm.value = { ...item }; showEditModal.value = true }
+function doEdit() {
+  const list = tabDataCache.value[activeTab.value]
+  if (list) {
+    const idx = list.findIndex(i => i.id === editForm.value.id)
+    if (idx >= 0) list[idx] = { ...editForm.value }
+  }
+  showEditModal.value = false
+  toast.value?.show('编辑保存成功', 'success')
+}
+
+// 生命周期管理
+const showLifecycleModal = ref(false)
+const lifecycleItem = ref<Record<string, any>>({})
+const lifecycleEvents = ref([
+  { date: '2018-03-15', event: '建档', operator: '张工', desc: '设施竣工建档录入' },
+  { date: '2020-06-20', event: '例行检测', operator: '李工', desc: '年度检测合格' },
+  { date: '2022-09-10', event: '维修', operator: '王工', desc: '密封更换' },
+  { date: '2023-11-05', event: '复检', operator: '赵工', desc: '维修后复检合格' },
+])
+function openLifecycle(item: Record<string, any>) { lifecycleItem.value = item; showLifecycleModal.value = true }
+
+// 字段配置
+const showFieldConfig = ref(false)
+const fieldVisibility = ref<Record<string, boolean>>({})
+function openFieldConfig() {
+  if (Object.keys(fieldVisibility.value).length === 0) {
+    allColumns.value?.forEach(c => { fieldVisibility.value[c.key] = true })
+  }
+  showFieldConfig.value = true
+}
+function applyFieldConfig() {
+  showFieldConfig.value = false
+  toast.value?.show('字段配置已应用，表格已更新', 'success')
+}
+function resetFieldConfig() {
+  allColumns.value?.forEach(c => { fieldVisibility.value[c.key] = true })
+  toast.value?.show('已恢复默认配置', 'info')
+}
+
+// 高级查询
+const showAdvFilter = ref(false)
+const filterDistrict = ref('')
+const filterStatus = ref('')
+
+// 生命周期状态变更
+const lifecycleStages = ['建档', '运行', '检修', '维修', '改造', '停用', '报废']
+const newLifecycleStage = ref('')
+const newLifecycleDesc = ref('')
+function changeLifecycleStatus() {
+  if (!newLifecycleStage.value) { toast.value?.show('请选择目标状态', 'warning'); return }
+  lifecycleEvents.value.push({
+    date: new Date().toISOString().slice(0, 10),
+    event: newLifecycleStage.value,
+    operator: '当前用户',
+    desc: newLifecycleDesc.value || `状态变更为${newLifecycleStage.value}`
+  })
+  // 同步更新数据源状态
+  const list = tabDataCache.value[activeTab.value]
+  if (list) {
+    const item = list.find(i => i.id === lifecycleItem.value.id)
+    if (item) {
+      if (newLifecycleStage.value === '报废') item.status = '已报废'
+      else if (newLifecycleStage.value === '停用') item.status = '已停用'
+      else if (newLifecycleStage.value === '维修') item.status = '维修中'
+      else item.status = '正常'
+    }
+  }
+  newLifecycleStage.value = ''
+  newLifecycleDesc.value = ''
+  toast.value?.show('生命周期状态已更新', 'success')
 }
 
 // 导出
@@ -214,11 +307,41 @@ function handleExport() { toast.value?.show('数据导出中，请稍候...', 'i
           class="flex items-center gap-1.5 px-3 py-2 bg-card border border-themed rounded-lg text-xs text-dim hover:text-default hover:bg-hover-themed transition-colors cursor-pointer">
           <Download class="w-3.5 h-3.5" /> 导出
         </button>
+        <button @click="showAdvFilter = !showAdvFilter"
+          class="flex items-center gap-1.5 px-3 py-2 bg-card border border-themed rounded-lg text-xs text-dim hover:text-default hover:bg-hover-themed transition-colors cursor-pointer">
+          <Filter class="w-3.5 h-3.5" /> 高级筛选
+        </button>
+        <button @click="openFieldConfig"
+          class="flex items-center gap-1.5 px-3 py-2 bg-card border border-themed rounded-lg text-xs text-dim hover:text-default hover:bg-hover-themed transition-colors cursor-pointer">
+          <Settings class="w-3.5 h-3.5" /> 字段配置
+        </button>
         <button @click="openAdd"
           class="flex items-center gap-1.5 px-3 py-2 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
           <Plus class="w-3.5 h-3.5" /> 新增
         </button>
       </div>
+    </div>
+
+    <!-- 高级筛选面板 -->
+    <div v-if="showAdvFilter" class="bg-card border border-themed rounded-xl shadow-themed p-3 flex items-center gap-3">
+      <div><label class="text-[10px] text-dim block mb-1">区域</label><select v-model="filterDistrict"
+          class="bg-input border border-themed rounded-md px-2 py-1.5 text-xs text-default">
+          <option value="">全部</option>
+          <option>圭塘街道</option>
+          <option>洞井街道</option>
+          <option>侯家塘街道</option>
+          <option>雨花亭街道</option>
+          <option>左家塘街道</option>
+        </select></div>
+      <div><label class="text-[10px] text-dim block mb-1">状态</label><select v-model="filterStatus"
+          class="bg-input border border-themed rounded-md px-2 py-1.5 text-xs text-default">
+          <option value="">全部</option>
+          <option>正常</option>
+          <option>轻微缺陷</option>
+          <option>需维修</option>
+        </select></div>
+      <button @click="showAdvFilter = false"
+        class="mt-4 px-3 py-1.5 bg-primary text-white rounded-md text-xs cursor-pointer">应用筛选</button>
     </div>
 
     <!-- 数据表格 -->
@@ -248,6 +371,14 @@ function handleExport() { toast.value?.show('数据导出中，请稍候...', 'i
                   <button @click="viewDetail(item)"
                     class="p-1 rounded hover:bg-primary/10 text-primary transition-colors cursor-pointer" title="查看">
                     <Eye class="w-3.5 h-3.5" />
+                  </button>
+                  <button @click="openEdit(item)"
+                    class="p-1 rounded hover:bg-info/10 text-info transition-colors cursor-pointer" title="编辑">
+                    <Edit3 class="w-3.5 h-3.5" />
+                  </button>
+                  <button @click="openLifecycle(item)"
+                    class="p-1 rounded hover:bg-success/10 text-success transition-colors cursor-pointer" title="生命周期">
+                    <History class="w-3.5 h-3.5" />
                   </button>
                   <button @click="confirmDelete(item.id)"
                     class="p-1 rounded hover:bg-danger/10 text-dim hover:text-danger transition-colors cursor-pointer"
@@ -280,24 +411,28 @@ function handleExport() { toast.value?.show('数据导出中，请稍候...', 'i
 
     <!-- 新增弹窗 -->
     <ModalDialog :show="showAddModal" :title="'新增' + (ledgerTabs.find(t => t.key === activeTab)?.label || '')"
-      @close="showAddModal = false" @confirm="doAdd">
-      <div class="space-y-3">
-        <div>
-          <label class="text-xs text-dim mb-1 block">名称 <span class="text-danger">*</span></label>
-          <input v-model="addForm.name" type="text"
-            class="w-full bg-input border border-themed rounded-md px-3 py-2 text-xs text-default focus:outline-none focus:border-primary"
-            placeholder="请输入名称" />
-        </div>
-        <div>
-          <label class="text-xs text-dim mb-1 block">区域</label>
-          <select v-model="addForm.district"
+      width="600px" @close="showAddModal = false" @confirm="doAdd">
+      <div class="grid grid-cols-2 gap-3">
+        <div v-for="col in allColumns" :key="col.key">
+          <label class="text-[10px] text-dim mb-1 block">{{ col.label }} <span v-if="col.key === 'name'"
+              class="text-danger">*</span></label>
+          <select v-if="col.key === 'status'" v-model="addForm[col.key]"
             class="w-full bg-input border border-themed rounded-md px-3 py-2 text-xs text-default focus:outline-none focus:border-primary">
-            <option>朝阳区</option>
-            <option>海淀区</option>
-            <option>西城区</option>
-            <option>东城区</option>
-            <option>丰台区</option>
+            <option>正常</option>
+            <option>轻微缺陷</option>
+            <option>需维修</option>
           </select>
+          <select v-else-if="col.key === 'district'" v-model="addForm[col.key]"
+            class="w-full bg-input border border-themed rounded-md px-3 py-2 text-xs text-default focus:outline-none focus:border-primary">
+            <option>圭塘街道</option>
+            <option>洞井街道</option>
+            <option>侯家塘街道</option>
+            <option>雨花亭街道</option>
+            <option>左家塘街道</option>
+          </select>
+          <input v-else v-model="addForm[col.key]" type="text"
+            class="w-full bg-input border border-themed rounded-md px-3 py-2 text-xs text-default focus:outline-none focus:border-primary"
+            :placeholder="'请输入' + col.label" />
         </div>
       </div>
     </ModalDialog>
@@ -316,6 +451,82 @@ function handleExport() { toast.value?.show('数据导出中，请稍候...', 'i
     <!-- 删除确认 -->
     <ModalDialog :show="showDeleteModal" title="确认删除" @close="showDeleteModal = false" @confirm="doDelete">
       <p class="text-xs text-dim">确定要删除该记录吗？此操作不可撤销。</p>
+    </ModalDialog>
+
+    <!-- 编辑弹窗 -->
+    <ModalDialog :show="showEditModal" :title="'编辑 ' + (editForm.name || '')" width="560px"
+      @close="showEditModal = false" @confirm="doEdit">
+      <div class="grid grid-cols-2 gap-3">
+        <div v-for="col in columns" :key="col.key">
+          <label class="text-[10px] text-dim mb-1 block">{{ col.label }}</label>
+          <input v-model="editForm[col.key]" type="text"
+            class="w-full bg-input border border-themed rounded-md px-2 py-1.5 text-xs text-default focus:outline-none focus:border-primary" />
+        </div>
+      </div>
+    </ModalDialog>
+
+    <!-- 生命周期弹窗 -->
+    <ModalDialog :show="showLifecycleModal" :title="'生命周期 · ' + (lifecycleItem.name || '')" width="560px"
+      @close="showLifecycleModal = false" @confirm="showLifecycleModal = false">
+      <div class="space-y-3">
+        <div class="flex items-center gap-2 text-xs mb-1"><span class="text-dim">编号:</span><span
+            class="text-primary font-mono">{{ lifecycleItem.code }}</span><span class="text-dim ml-2">当前状态:</span><span
+            class="text-success font-medium">{{ lifecycleItem.status }}</span></div>
+
+        <!-- 时间线 -->
+        <div class="border border-themed rounded-lg p-3 max-h-48 overflow-y-auto">
+          <div v-for="(evt, idx) in lifecycleEvents" :key="idx" class="flex gap-3 relative">
+            <div class="flex flex-col items-center">
+              <div class="w-2.5 h-2.5 rounded-full z-10"
+                :class="idx === lifecycleEvents.length - 1 ? 'bg-primary' : 'bg-primary/40'"></div>
+              <div v-if="idx < lifecycleEvents.length - 1" class="w-0.5 flex-1 bg-primary/20"></div>
+            </div>
+            <div class="pb-3 flex-1">
+              <div class="flex items-center gap-2"><span class="text-xs font-bold text-default">{{ evt.event
+                  }}</span><span class="text-[10px] text-dim">{{ evt.date }}</span></div>
+              <p class="text-[10px] text-dim">{{ evt.operator }} · {{ evt.desc }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 状态变更操作 -->
+        <div class="border border-themed rounded-lg p-3 bg-surface">
+          <span class="text-[10px] font-bold text-default block mb-2">操作: 变更生命周期状态</span>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="text-[10px] text-dim block mb-1">目标状态</label>
+              <select v-model="newLifecycleStage"
+                class="w-full bg-input border border-themed rounded-md px-2 py-1.5 text-xs text-default">
+                <option value="">请选择</option>
+                <option v-for="s in lifecycleStages" :key="s">{{ s }}</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-[10px] text-dim block mb-1">备注说明</label>
+              <input v-model="newLifecycleDesc" type="text"
+                class="w-full bg-input border border-themed rounded-md px-2 py-1.5 text-xs text-default"
+                placeholder="可选" />
+            </div>
+          </div>
+          <button @click="changeLifecycleStatus"
+            class="mt-2 px-3 py-1.5 bg-primary text-white rounded-md text-xs cursor-pointer hover:bg-primary-light transition-colors">确认变更</button>
+        </div>
+      </div>
+    </ModalDialog>
+
+    <!-- 字段配置弹窗 -->
+    <ModalDialog :show="showFieldConfig" title="属性字段自定义配置" @close="showFieldConfig = false" @confirm="applyFieldConfig">
+      <p class="text-[10px] text-dim mb-3">勾选需要在台账列表中显示的字段，取消勾选将隐藏对应列</p>
+      <div class="space-y-1.5">
+        <label v-for="col in allColumns" :key="col.key"
+          class="flex items-center gap-2 p-1.5 rounded-md hover:bg-hover-themed cursor-pointer">
+          <input type="checkbox" v-model="fieldVisibility[col.key]" class="w-3.5 h-3.5 accent-primary cursor-pointer" />
+          <span class="text-xs text-default">{{ col.label }}</span>
+          <span class="text-[10px] text-dim ml-auto">{{ col.key }}</span>
+        </label>
+      </div>
+      <button @click="resetFieldConfig"
+        class="mt-3 text-[10px] text-primary cursor-pointer hover:underline">恢复默认配置</button>
     </ModalDialog>
 
     <ToastNotify ref="toast" />

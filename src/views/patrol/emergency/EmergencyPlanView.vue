@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Play, Plus, Pencil, Download, Eye } from 'lucide-vue-next'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
 
 const toast = ref<InstanceType<typeof ToastNotify>>()
@@ -24,6 +25,13 @@ const drills = ref([
 ])
 
 function startDrill(d: typeof drills.value[0]) { toast.value?.show(`演练 "${d.name}" 已启动`, 'success') }
+
+// 新增弹窗
+const showAddModal = ref(false)
+const addForm = ref({ name: '', level: '', type: '', scope: '' })
+
+function openAdd() { addForm.value = { name: '', level: '', type: '', scope: '' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
 </script>
 
 <template>
@@ -36,7 +44,7 @@ function startDrill(d: typeof drills.value[0]) { toast.value?.show(`演练 "${d.
                         ft.label }}</button>
             </div>
             <button v-if="activeFunc === 'plans'"
-                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
+                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer" @click="openAdd()">
                 <Plus class="w-3.5 h-3.5" />新增预案
             </button>
             <button v-if="activeFunc === 'drill'"
@@ -108,6 +116,32 @@ function startDrill(d: typeof drills.value[0]) { toast.value?.show(`演练 "${d.
                 </div>
             </div>
         </template>
+    <!-- 新增弹窗 -->
+    <ModalDialog :show="showAddModal" title="新增应急预案" @close="showAddModal = false" @confirm="doAdd">
+        <div class="space-y-3">
+            <div>
+                <label class="text-[10px] text-dim block mb-1">预案名称</label>
+                <input v-model="addForm.name" type="text" placeholder="请输入预案名称"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">响应级别</label>
+                <input v-model="addForm.level" type="text" placeholder="Ⅰ级/Ⅱ级/Ⅲ级/Ⅳ级"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">事件类型</label>
+                <input v-model="addForm.type" type="text" placeholder="暴雨内涝/管道破裂"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">适用范围</label>
+                <input v-model="addForm.scope" type="text" placeholder="请输入适用范围"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+        </div>
+    </ModalDialog>
+    
         <ToastNotify ref="toast" />
     </div>
 </template>

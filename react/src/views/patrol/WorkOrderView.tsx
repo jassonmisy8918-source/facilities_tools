@@ -4,14 +4,14 @@ import { Search, Clock, User, MapPin } from 'lucide-react';
 const statusTabs = [{ key: 'all', label: '全部', count: 24 }, { key: 'pending', label: '待处理', count: 5 }, { key: 'processing', label: '进行中', count: 8 }, { key: 'completed', label: '已完成', count: 11 }];
 
 const workOrders = [
-    { id: 'WO-2024001', title: '朝阳路管段日常巡查', type: '日常巡查', assignee: '张伟', location: '朝阳路 A01-A15段', status: 'processing', priority: 'normal', deadline: '2024-03-15 18:00', progress: 60 },
+    { id: 'WO-2024001', title: '雨花路管段日常巡查', type: '日常巡查', assignee: '张伟', location: '雨花路 A01-A15段', status: 'processing', priority: 'normal', deadline: '2024-03-15 18:00', progress: 60 },
     { id: 'WO-2024002', title: '民生路管道渗漏处理', type: '紧急维修', assignee: '李明', location: '民生路 DN400 检查井#23', status: 'pending', priority: 'high', deadline: '2024-03-15 14:00', progress: 0 },
     { id: 'WO-2024003', title: '新华街排水口清理', type: '养护作业', assignee: '王强', location: '新华街排放口 OUT-018', status: 'processing', priority: 'normal', deadline: '2024-03-16 18:00', progress: 35 },
     { id: 'WO-2024004', title: '和平路检查井盖更换', type: '维修作业', assignee: '赵刚', location: '和平路 检查井#56', status: 'completed', priority: 'normal', deadline: '2024-03-14 18:00', progress: 100 },
     { id: 'WO-2024005', title: '东湖泵站周边管道巡检', type: '日常巡查', assignee: '陈静', location: '东湖泵站上游 500m范围', status: 'completed', priority: 'low', deadline: '2024-03-12 17:00', progress: 100 },
     { id: 'WO-2024006', title: '建设大道雨水口疏通', type: '养护作业', assignee: '周磊', location: '建设大道 雨水口 SW-032~SW-040', status: 'pending', priority: 'normal', deadline: '2024-03-17 18:00', progress: 0 },
     { id: 'WO-2024007', title: '丰台路管道CCTV检测', type: '检测作业', assignee: '吴涛', location: '丰台路 DN600 P03-P08段', status: 'processing', priority: 'normal', deadline: '2024-03-18 18:00', progress: 45 },
-    { id: 'WO-2024008', title: '西城区污水冒溢紧急处理', type: '紧急维修', assignee: '张伟', location: '西城区 检查井#89', status: 'pending', priority: 'urgent', deadline: '2024-03-15 15:00', progress: 0 },
+    { id: 'WO-2024008', title: '侯家塘区污水冒溢紧急处理', type: '紧急维修', assignee: '张伟', location: '侯家塘区 检查井#89', status: 'pending', priority: 'urgent', deadline: '2024-03-15 15:00', progress: 0 },
 ];
 
 function getStatusClass(s: string) { return s === 'completed' ? 'bg-success/15 text-success' : s === 'processing' ? 'bg-info/15 text-info' : 'bg-warning/15 text-warning'; }

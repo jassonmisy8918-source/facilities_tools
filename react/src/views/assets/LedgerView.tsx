@@ -81,7 +81,7 @@ const PAGE_SIZE = 15;
 
 // 生成 mock 数据
 function generateData(tab: string): Record<string, unknown>[] {
-    const districts = ['朝阳区', '海淀区', '西城区', '东城区', '丰台区'];
+    const districts = ['雨花区', '海淀区', '侯家塘区', '东城区', '丰台区'];
     const statuses = ['正常', '正常', '正常', '轻微缺陷', '需维修'];
     const prefix: Record<string, string> = {
         pipe: 'PS', well: 'MH', rainInlet: 'RI', user: 'DU', pump: 'BZ', sewagePlant: 'SP',
@@ -103,7 +103,7 @@ function generateData(tab: string): Record<string, unknown>[] {
         };
         if (tab === 'pipe') Object.assign(base, { type: ['雨水管', '污水管', '合流管'][i % 3], material: ['PE', 'HDPE', '钢筋混凝土'][i % 3], diameter: `DN${[300, 400, 600][i % 3]}`, length: (Math.random() * 500 + 10).toFixed(1) });
         if (tab === 'well') Object.assign(base, { wellType: ['圆形检查井', '矩形检查井', '跌水井'][i % 3], depth: (1.5 + Math.random() * 4).toFixed(1), material: ['球墨铸铁', '复合材料', '混凝土'][i % 3] });
-        if (tab === 'rainInlet') Object.assign(base, { inletType: ['平箅式', '立箅式', '联合式'][i % 3], size: ['680×380', '750×450', '900×500'][i % 3], road: ['朝阳路', '民生路', '和平街'][i % 3] });
+        if (tab === 'rainInlet') Object.assign(base, { inletType: ['平箅式', '立箅式', '联合式'][i % 3], size: ['680×380', '750×450', '900×500'][i % 3], road: ['雨花路', '民生路', '和平街'][i % 3] });
         if (tab === 'user') Object.assign(base, { userType: ['工业', '商业', '餐饮', '医疗'][i % 4], permit: `PWP-2024-${String(i + 1).padStart(4, '0')}`, dailyVolume: (50 + Math.random() * 500).toFixed(0) });
         if (tab === 'pump') Object.assign(base, { capacity: [200, 350, 500][i % 3], pumpCount: [2, 3, 4][i % 3], power: [30, 55, 110][i % 3] });
         if (tab === 'sewagePlant') Object.assign(base, { capacity: [5, 10, 20][i % 3], process: ['AAO', 'MBR', 'SBR'][i % 3] });
@@ -160,8 +160,8 @@ export default function LedgerView() {
 
     // 新增弹窗
     const [showAddModal, setShowAddModal] = useState(false);
-    const [addForm, setAddForm] = useState<Record<string, string>>({ name: '', district: '朝阳区' });
-    function openAdd() { setAddForm({ name: '', district: '朝阳区' }); setShowAddModal(true); }
+    const [addForm, setAddForm] = useState<Record<string, string>>({ name: '', district: '雨花区' });
+    function openAdd() { setAddForm({ name: '', district: '雨花区' }); setShowAddModal(true); }
     function doAdd() {
         if (!addForm.name) { toast.warning('请输入名称'); return; }
         toast.success('新增成功');
@@ -314,9 +314,9 @@ export default function LedgerView() {
                             onChange={(e) => setAddForm(f => ({ ...f, district: e.target.value }))}
                             className="w-full bg-input border border-themed rounded-md px-3 py-2 text-xs text-default focus:outline-none focus:border-primary"
                         >
-                            <option>朝阳区</option>
+                            <option>雨花区</option>
                             <option>海淀区</option>
-                            <option>西城区</option>
+                            <option>侯家塘区</option>
                             <option>东城区</option>
                             <option>丰台区</option>
                         </select>

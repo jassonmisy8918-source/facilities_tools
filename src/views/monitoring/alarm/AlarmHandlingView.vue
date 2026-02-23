@@ -15,29 +15,29 @@ const funcTabs = [
 
 // 事件单
 const events = ref([
-    { id: 'EVT-001', alarm: '建设大道水位超限', level: 'critical', createTime: '2024-03-15 14:25', assignee: '张伟', status: 'handling', priority: '高' },
-    { id: 'EVT-002', alarm: '西城区COD超标', level: 'warning', createTime: '2024-03-15 13:50', assignee: '李明', status: 'handling', priority: '高' },
-    { id: 'EVT-003', alarm: '民生路水位预警', level: 'warning', createTime: '2024-03-15 12:35', assignee: '王强', status: 'completed', priority: '中' },
-    { id: 'EVT-004', alarm: '丰台区降雨增大', level: 'info', createTime: '2024-03-15 11:25', assignee: '系统', status: 'closed', priority: '低' },
+    { id: 'EVT-001', alarm: '万家丽路水位超限', level: 'critical', createTime: '2024-03-15 14:25', assignee: '张伟', status: 'handling', priority: '高' },
+    { id: 'EVT-002', alarm: '侯家塘街道COD超标', level: 'warning', createTime: '2024-03-15 13:50', assignee: '李明', status: 'handling', priority: '高' },
+    { id: 'EVT-003', alarm: '劳动路水位预警', level: 'warning', createTime: '2024-03-15 12:35', assignee: '王强', status: 'completed', priority: '中' },
+    { id: 'EVT-004', alarm: '左家塘街道降雨增大', level: 'info', createTime: '2024-03-15 11:25', assignee: '系统', status: 'closed', priority: '低' },
 ])
 
 // 归并记录
 const mergeRecords = ref([
-    { id: 'MRG-001', count: 3, alarms: '建设大道#06、民生路#02、朝阳路#01 水位超限', reason: '同一降雨事件导致多点位水位超限', time: '2024-03-15 14:30', operator: '系统' },
-    { id: 'MRG-002', count: 2, alarms: '通州区、丰台区雨量站降雨超限', reason: '同一气象系统影响区域', time: '2024-03-15 08:50', operator: '系统' },
+    { id: 'MRG-001', count: 3, alarms: '万家丽路#06、劳动路#02、韶山路#01 水位超限', reason: '同一降雨事件导致多点位水位超限', time: '2024-03-15 14:30', operator: '系统' },
+    { id: 'MRG-002', count: 2, alarms: '黎托街道、左家塘街道雨量站降雨超限', reason: '同一气象系统影响区域', time: '2024-03-15 08:50', operator: '系统' },
 ])
 
 // 通知记录
 const notifications = ref([
-    { id: 'NTF-001', event: 'EVT-001', content: '【紧急】建设大道水位超限，请立即处理', receiver: '张伟、运维组', channel: '短信+APP', time: '2024-03-15 14:26', status: 'sent' },
-    { id: 'NTF-002', event: 'EVT-002', content: '【严重】西城区进水口COD超标，需关注', receiver: '李明、水质组', channel: 'APP', time: '2024-03-15 13:51', status: 'sent' },
-    { id: 'NTF-003', event: 'EVT-003', content: '【预警】民生路水位接近警戒值', receiver: '王强', channel: 'APP', time: '2024-03-15 12:36', status: 'read' },
+    { id: 'NTF-001', event: 'EVT-001', content: '【紧急】万家丽路水位超限，请立即处理', receiver: '张伟、运维组', channel: '短信+APP', time: '2024-03-15 14:26', status: 'sent' },
+    { id: 'NTF-002', event: 'EVT-002', content: '【严重】侯家塘街道进水口COD超标，需关注', receiver: '李明、水质组', channel: 'APP', time: '2024-03-15 13:51', status: 'sent' },
+    { id: 'NTF-003', event: 'EVT-003', content: '【预警】劳动路水位接近警戒值', receiver: '王强', channel: 'APP', time: '2024-03-15 12:36', status: 'read' },
 ])
 
 // 流程处置
 const processes = ref([
     {
-        id: 'EVT-001', alarm: '建设大道水位超限', steps: [
+        id: 'EVT-001', alarm: '万家丽路水位超限', steps: [
             { step: '报警触发', time: '14:23', status: 'done', desc: '水位2.35m超限' },
             { step: '自动创建事件单', time: '14:25', status: 'done', desc: '系统自动创建' },
             { step: '通知责任人', time: '14:26', status: 'done', desc: '短信+APP推送至张伟' },
@@ -47,7 +47,7 @@ const processes = ref([
         ]
     },
     {
-        id: 'EVT-003', alarm: '民生路水位预警', steps: [
+        id: 'EVT-003', alarm: '劳动路水位预警', steps: [
             { step: '报警触发', time: '12:30', status: 'done', desc: '水位1.85m达预警值' },
             { step: '创建事件单', time: '12:35', status: 'done', desc: '人工创建' },
             { step: '通知责任人', time: '12:36', status: 'done', desc: 'APP推送至王强' },

@@ -10,21 +10,21 @@ const funcTabs = [{ key: 'daily', label: '运行日报' }, { key: 'monthly', lab
 const dailyReport = ref({
     date: '2024-03-15', totalInFlow: 2670, totalOutFlow: 2620, totalPower: 390,
     stations: [
-        { name: '朝阳泵站', status: '正常', pumps: '3/4', inFlow: 850, outFlow: 830, power: 120, faults: 0 },
-        { name: '西城泵站', status: '正常', pumps: '2/3', inFlow: 620, outFlow: 610, power: 85, faults: 0 },
-        { name: '通州泵站', status: '预警', pumps: '4/5', inFlow: 1200, outFlow: 1180, power: 180, faults: 1 },
-        { name: '丰台泵站', status: '待机', pumps: '0/3', inFlow: 0, outFlow: 0, power: 5, faults: 0 },
+        { name: '雨花泵站', status: '正常', pumps: '3/4', inFlow: 850, outFlow: 830, power: 120, faults: 0 },
+        { name: '侯家塘泵站', status: '正常', pumps: '2/3', inFlow: 620, outFlow: 610, power: 85, faults: 0 },
+        { name: '黎托泵站', status: '预警', pumps: '4/5', inFlow: 1200, outFlow: 1180, power: 180, faults: 1 },
+        { name: '左家塘泵站', status: '待机', pumps: '0/3', inFlow: 0, outFlow: 0, power: 5, faults: 0 },
     ]
 })
 
 const monthlyReport = ref({
     month: '2024-03', totalEnergy: 78500, totalWater: 138000, unitEnergy: 0.569, faults: 8, repairHours: 42,
     stations: [
-        { name: '朝阳泵站', energy: 24500, water: 45000, unit: 0.544, faults: 2, uptime: 98.5 },
-        { name: '西城泵站', energy: 16800, water: 32000, unit: 0.525, faults: 1, uptime: 99.2 },
-        { name: '通州泵站', energy: 28200, water: 48000, unit: 0.588, faults: 3, uptime: 97.8 },
-        { name: '丰台泵站', energy: 5200, water: 8000, unit: 0.650, faults: 1, uptime: 95.0 },
-        { name: '海淀泵站', energy: 3800, water: 5000, unit: 0.760, faults: 1, uptime: 90.5 },
+        { name: '雨花泵站', energy: 24500, water: 45000, unit: 0.544, faults: 2, uptime: 98.5 },
+        { name: '侯家塘泵站', energy: 16800, water: 32000, unit: 0.525, faults: 1, uptime: 99.2 },
+        { name: '黎托泵站', energy: 28200, water: 48000, unit: 0.588, faults: 3, uptime: 97.8 },
+        { name: '左家塘泵站', energy: 5200, water: 8000, unit: 0.650, faults: 1, uptime: 95.0 },
+        { name: '洞井泵站', energy: 3800, water: 5000, unit: 0.760, faults: 1, uptime: 90.5 },
     ]
 })
 </script>
@@ -36,7 +36,7 @@ const monthlyReport = ref({
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <template v-if="activeFunc === 'daily'">
@@ -86,7 +86,7 @@ const monthlyReport = ref({
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                     :class="s.status === '正常' ? 'bg-success/10 text-success' : s.status === '预警' ? 'bg-warning/10 text-warning' : 'bg-surface text-dim'">{{
-                                    s.status }}</span></td>
+                                        s.status }}</span></td>
                             <td class="text-center px-2 py-2.5 text-default">{{ s.pumps }}</td>
                             <td class="text-center px-2 py-2.5 text-info font-bold">{{ s.inFlow }}</td>
                             <td class="text-center px-2 py-2.5 text-success">{{ s.outFlow }}</td>

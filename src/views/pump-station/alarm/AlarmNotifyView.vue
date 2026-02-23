@@ -8,18 +8,18 @@ const funcTabs = [
 ]
 
 const notifyConfigs = ref([
-    { id: 1, person: '张伟', role: '站长', station: '朝阳泵站', sms: true, app: true, email: false, phone: false, levels: ['告警', '严重'] },
-    { id: 2, person: '李明', role: '值班员', station: '西城泵站', sms: true, app: true, email: true, phone: false, levels: ['预警', '告警', '严重'] },
+    { id: 1, person: '张伟', role: '站长', station: '雨花泵站', sms: true, app: true, email: false, phone: false, levels: ['告警', '严重'] },
+    { id: 2, person: '李明', role: '值班员', station: '侯家塘泵站', sms: true, app: true, email: true, phone: false, levels: ['预警', '告警', '严重'] },
     { id: 3, person: '王强', role: '维修主管', station: '全部', sms: true, app: true, email: false, phone: true, levels: ['严重'] },
-    { id: 4, person: '赵刚', role: '值班员', station: '通州泵站', sms: false, app: true, email: false, phone: false, levels: ['预警', '告警'] },
+    { id: 4, person: '赵刚', role: '值班员', station: '黎托泵站', sms: false, app: true, email: false, phone: false, levels: ['预警', '告警'] },
 ])
 
 const sendRecords = ref([
-    { id: 1, alarm: '前池水位超高', station: '通州泵站', receiver: '赵刚', method: 'APP', time: '2024-03-15 16:20:05', ack: true, ackTime: '2024-03-15 16:22:30' },
-    { id: 2, alarm: '前池水位超高', station: '通州泵站', receiver: '王强', method: '短信', time: '2024-03-15 16:20:08', ack: true, ackTime: '2024-03-15 16:25:00' },
-    { id: 3, alarm: '进水流量异常', station: '朝阳泵站', receiver: '张伟', method: 'APP', time: '2024-03-15 14:30:02', ack: true, ackTime: '2024-03-15 14:32:15' },
-    { id: 4, alarm: '格栅过载', station: '丰台泵站', receiver: '李明', method: '短信', time: '2024-03-13 11:20:10', ack: false, ackTime: '' },
-    { id: 5, alarm: '水泵故障', station: '海淀泵站', receiver: '王强', method: '电话', time: '2024-03-14 22:15:03', ack: true, ackTime: '2024-03-14 22:16:00' },
+    { id: 1, alarm: '前池水位超高', station: '黎托泵站', receiver: '赵刚', method: 'APP', time: '2024-03-15 16:20:05', ack: true, ackTime: '2024-03-15 16:22:30' },
+    { id: 2, alarm: '前池水位超高', station: '黎托泵站', receiver: '王强', method: '短信', time: '2024-03-15 16:20:08', ack: true, ackTime: '2024-03-15 16:25:00' },
+    { id: 3, alarm: '进水流量异常', station: '雨花泵站', receiver: '张伟', method: 'APP', time: '2024-03-15 14:30:02', ack: true, ackTime: '2024-03-15 14:32:15' },
+    { id: 4, alarm: '格栅过载', station: '左家塘泵站', receiver: '李明', method: '短信', time: '2024-03-13 11:20:10', ack: false, ackTime: '' },
+    { id: 5, alarm: '水泵故障', station: '洞井泵站', receiver: '王强', method: '电话', time: '2024-03-14 22:15:03', ack: true, ackTime: '2024-03-14 22:16:00' },
 ])
 </script>
 

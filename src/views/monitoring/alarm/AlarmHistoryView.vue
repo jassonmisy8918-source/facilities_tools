@@ -9,14 +9,14 @@ const endDate = ref('2024-03-15')
 const searchKeyword = ref('')
 
 const historyAlarms = ref([
-    { id: 'ALM-20240315-001', level: 'critical', title: '建设大道DN300水位超限', location: '监测点#06', type: '水位超限', time: '2024-03-15 14:23', resolveTime: '2024-03-15 15:10', status: 'resolved', handler: '张工', duration: '47min' },
-    { id: 'ALM-20240315-002', level: 'warning', title: '西城区进水口COD超标', location: 'WQ-302', type: '水质超标', time: '2024-03-15 13:45', resolveTime: '2024-03-15 14:30', status: 'resolved', handler: '李工', duration: '45min' },
-    { id: 'ALM-20240315-003', level: 'warning', title: '民生路DN400水位预警', location: '监测点#02', type: '水位超限', time: '2024-03-15 12:30', resolveTime: '2024-03-15 13:05', status: 'resolved', handler: '王工', duration: '35min' },
-    { id: 'ALM-20240315-004', level: 'info', title: '丰台区降雨量增加', location: 'RG-051', type: '雨量预警', time: '2024-03-15 11:20', resolveTime: '2024-03-15 11:30', status: 'false_alarm', handler: '李工', duration: '10min' },
-    { id: 'ALM-20240314-001', level: 'critical', title: '通州区主干水位超限', location: '监测点#08', type: '水位超限', time: '2024-03-14 20:15', resolveTime: '2024-03-14 21:30', status: 'resolved', handler: '赵工', duration: '1h15min' },
-    { id: 'ALM-20240314-002', level: 'warning', title: '海淀区雨量超限', location: 'RG-2005', type: '雨量预警', time: '2024-03-14 18:00', resolveTime: '2024-03-14 19:20', status: 'resolved', handler: '张工', duration: '1h20min' },
-    { id: 'ALM-20240313-001', level: 'info', title: '东湖泵站流量波动', location: 'FM-3002', type: '流量异常', time: '2024-03-13 16:30', resolveTime: '2024-03-13 16:45', status: 'false_alarm', handler: '系统', duration: '15min' },
-    { id: 'ALM-20240312-001', level: 'warning', title: '朝阳路流量超限', location: 'FM-201', type: '流量异常', time: '2024-03-12 14:20', resolveTime: '2024-03-12 15:50', status: 'resolved', handler: '王工', duration: '1h30min' },
+    { id: 'ALM-20240315-001', level: 'critical', title: '万家丽路DN300水位超限', location: '监测点#06', type: '水位超限', time: '2024-03-15 14:23', resolveTime: '2024-03-15 15:10', status: 'resolved', handler: '张工', duration: '47min' },
+    { id: 'ALM-20240315-002', level: 'warning', title: '侯家塘街道进水口COD超标', location: 'WQ-302', type: '水质超标', time: '2024-03-15 13:45', resolveTime: '2024-03-15 14:30', status: 'resolved', handler: '李工', duration: '45min' },
+    { id: 'ALM-20240315-003', level: 'warning', title: '劳动路DN400水位预警', location: '监测点#02', type: '水位超限', time: '2024-03-15 12:30', resolveTime: '2024-03-15 13:05', status: 'resolved', handler: '王工', duration: '35min' },
+    { id: 'ALM-20240315-004', level: 'info', title: '左家塘街道降雨量增加', location: 'RG-051', type: '雨量预警', time: '2024-03-15 11:20', resolveTime: '2024-03-15 11:30', status: 'false_alarm', handler: '李工', duration: '10min' },
+    { id: 'ALM-20240314-001', level: 'critical', title: '黎托街道主干水位超限', location: '监测点#08', type: '水位超限', time: '2024-03-14 20:15', resolveTime: '2024-03-14 21:30', status: 'resolved', handler: '赵工', duration: '1h15min' },
+    { id: 'ALM-20240314-002', level: 'warning', title: '洞井街道雨量超限', location: 'RG-2005', type: '雨量预警', time: '2024-03-14 18:00', resolveTime: '2024-03-14 19:20', status: 'resolved', handler: '张工', duration: '1h20min' },
+    { id: 'ALM-20240313-001', level: 'info', title: '圭塘河泵站流量波动', location: 'FM-3002', type: '流量异常', time: '2024-03-13 16:30', resolveTime: '2024-03-13 16:45', status: 'false_alarm', handler: '系统', duration: '15min' },
+    { id: 'ALM-20240312-001', level: 'warning', title: '韶山路流量超限', location: 'FM-201', type: '流量异常', time: '2024-03-12 14:20', resolveTime: '2024-03-12 15:50', status: 'resolved', handler: '王工', duration: '1h30min' },
 ])
 
 const filteredAlarms = computed(() => historyAlarms.value.filter(a => {

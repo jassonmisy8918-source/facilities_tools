@@ -7,9 +7,9 @@ const toast = ref<InstanceType<typeof ToastNotify>>()
 
 const templates = ref([
     { id: 1, name: '日常雨量巡检', type: 'rainfall', stations: '全部雨量站', timeRange: '24小时', metrics: '瞬时/累计', creator: '张工', createDate: '2024-03-10' },
-    { id: 2, name: '汛期流量监控', type: 'flow', stations: '朝阳路、东湖泵站', timeRange: '7天', metrics: '流量/流速', creator: '李工', createDate: '2024-03-08' },
+    { id: 2, name: '汛期流量监控', type: 'flow', stations: '韶山路、圭塘河泵站', timeRange: '7天', metrics: '流量/流速', creator: '李工', createDate: '2024-03-08' },
     { id: 3, name: '水质超标排查', type: 'quality', stations: '全部水质站', timeRange: '30天', metrics: 'COD/pH/SS', creator: '系统', createDate: '2024-03-05' },
-    { id: 4, name: '重点点位水位监控', type: 'level', stations: '民生路、建设大道', timeRange: '实时', metrics: '水位', creator: '王工', createDate: '2024-03-01' },
+    { id: 4, name: '重点点位水位监控', type: 'level', stations: '劳动路、万家丽路', timeRange: '实时', metrics: '水位', creator: '王工', createDate: '2024-03-01' },
     { id: 5, name: '月度综合报表', type: 'all', stations: '全部站点', timeRange: '30天', metrics: '全部指标', creator: '系统', createDate: '2024-02-28' },
 ])
 

@@ -11,23 +11,23 @@ const funcTabs = [
 ]
 
 const sourceEvents = ref([
-    { id: 1, time: '2024-03-15 02:30', pipe: 'P-CD-001', location: '朝阳区建设大道45.2m', type: '地下水入侵', flowAnomaly: '+85%', conductivity: '-38%', confidence: 92, status: '已确认' },
-    { id: 2, time: '2024-03-14 22:15', pipe: 'P-CD-003', location: '朝阳区建设大道河段', type: '河水倒灌', flowAnomaly: '+40%', conductivity: '-45%', confidence: 88, status: '已确认' },
-    { id: 3, time: '2024-03-13 14:00', pipe: 'P-TZ-002', location: '通州区运河段120m', type: '雨水入渗', flowAnomaly: '+60%', conductivity: '-15%', confidence: 75, status: '待核实' },
+    { id: 1, time: '2024-03-15 02:30', pipe: 'P-CD-001', location: '圭塘街道万家丽路45.2m', type: '地下水入侵', flowAnomaly: '+85%', conductivity: '-38%', confidence: 92, status: '已确认' },
+    { id: 2, time: '2024-03-14 22:15', pipe: 'P-CD-003', location: '圭塘街道万家丽路河段', type: '河水倒灌', flowAnomaly: '+40%', conductivity: '-45%', confidence: 88, status: '已确认' },
+    { id: 3, time: '2024-03-13 14:00', pipe: 'P-TZ-002', location: '黎托街道浏阳河段120m', type: '雨水入渗', flowAnomaly: '+60%', conductivity: '-15%', confidence: 75, status: '待核实' },
 ])
 
 const locatedPoints = ref([
-    { id: 1, pipe: 'P-CD-001', position: '45.2m', gps: '39.932°N,116.468°E', type: '地下水', method: '流量平衡法', severity: '严重', events: 5, firstDetect: '2024-01-15' },
-    { id: 2, pipe: 'P-CD-003', position: '河段接口', gps: '39.928°N,116.472°E', type: '河水', method: '水质比对法', severity: '中等', events: 3, firstDetect: '2024-02-20' },
-    { id: 3, pipe: 'P-TZ-002', position: '120m接口', gps: '39.905°N,116.655°E', type: '雨水', method: '流量分析法', severity: '轻微', events: 2, firstDetect: '2024-03-01' },
+    { id: 1, pipe: 'P-CD-001', position: '45.2m', gps: '28.150°N,113.050°E', type: '地下水', method: '流量平衡法', severity: '严重', events: 5, firstDetect: '2024-01-15' },
+    { id: 2, pipe: 'P-CD-003', position: '河段接口', gps: '28.148°N,113.05°E', type: '河水', method: '水质比对法', severity: '中等', events: 3, firstDetect: '2024-02-20' },
+    { id: 3, pipe: 'P-TZ-002', position: '120m接口', gps: '28.135°N,113.07°E', type: '雨水', method: '流量分析法', severity: '轻微', events: 2, firstDetect: '2024-03-01' },
 ])
 
 const sourceStats = ref({
     byArea: [
-        { area: '朝阳区', events: 8, volume: 1250, pct: 45.5, mainType: '地下水' },
-        { area: '通州区', events: 5, volume: 820, pct: 29.8, mainType: '雨水' },
-        { area: '西城区', events: 2, volume: 350, pct: 12.7, mainType: '地下水' },
-        { area: '丰台区', events: 2, volume: 330, pct: 12.0, mainType: '河水' },
+        { area: '圭塘街道', events: 8, volume: 1250, pct: 45.5, mainType: '地下水' },
+        { area: '黎托街道', events: 5, volume: 820, pct: 29.8, mainType: '雨水' },
+        { area: '侯家塘街道', events: 2, volume: 350, pct: 12.7, mainType: '地下水' },
+        { area: '左家塘街道', events: 2, volume: 330, pct: 12.0, mainType: '河水' },
     ],
     byType: [
         { type: '地下水入侵', count: 10, pct: 58.8, color: 'bg-primary' },

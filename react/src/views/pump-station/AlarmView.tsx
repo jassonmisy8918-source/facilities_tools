@@ -11,7 +11,7 @@ const alarmStats = [
 ];
 
 const initAlarms = [
-    { id: 1, level: 'critical', title: '#2水泵异常停机 - 过载保护触发', station: '朝阳路泵站', time: '2024-03-15 14:23', duration: '2分钟', status: 'active', workOrder: '' },
+    { id: 1, level: 'critical', title: '#2水泵异常停机 - 过载保护触发', station: '雨花路泵站', time: '2024-03-15 14:23', duration: '2分钟', status: 'active', workOrder: '' },
     { id: 2, level: 'warning', title: '#1水泵轴承温度过高 (65°C)', station: '和平路泵站', time: '2024-03-15 13:15', duration: '1小时8分', status: 'active', workOrder: '' },
     { id: 3, level: 'warning', title: '进水流量突增 (+35%)', station: '东湖泵站', time: '2024-03-15 11:30', duration: '2小时53分', status: 'acknowledged', workOrder: 'WO-0312' },
     { id: 4, level: 'info', title: '前池水位达到预警线', station: '和平路泵站', time: '2024-03-15 10:45', duration: '3小时38分', status: 'acknowledged', workOrder: '' },

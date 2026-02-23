@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Users, Calendar, Plus, Pencil, Trash2 } from 'lucide-vue-next'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
 const activeFunc = ref('personnel')
 const funcTabs = [
@@ -34,6 +35,14 @@ const adjustments = ref([
 
 function getStatusColor(s: string) { return s === 'active' ? 'text-success' : s === 'on_leave' ? 'text-warning' : 'text-dim' }
 function getStatusText(s: string) { return s === 'active' ? '在岗' : s === 'on_leave' ? '请假' : '离岗' }
+
+// 新增弹窗
+const toast = ref<InstanceType<typeof ToastNotify>>()
+const showAddModal = ref(false)
+const addForm = ref({ name: '', team: '', role: '', phone: '', cert: '', skills: '' })
+
+function openAdd() { addForm.value = { name: '', team: '', role: '', phone: '', cert: '', skills: '' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
 </script>
 
 <template>
@@ -46,7 +55,8 @@ function getStatusText(s: string) { return s === 'active' ? '在岗' : s === 'on
                         ft.label }}</button>
             </div>
             <button v-if="activeFunc === 'personnel'"
-                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
+                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer"
+                @click="openAdd()">
                 <Plus class="w-3.5 h-3.5" />新增人员
             </button>
         </div>
@@ -106,7 +116,7 @@ function getStatusText(s: string) { return s === 'active' ? '在岗' : s === 'on
                             <th class="text-left px-4 py-2.5 text-dim font-medium">班组</th>
                             <th class="text-left px-4 py-2.5 text-dim font-medium">成员</th>
                             <th v-for="d in weekDays" :key="d" class="text-center px-2 py-2.5 text-dim font-medium">{{ d
-                            }}</th>
+                                }}</th>
                             <th class="text-left px-4 py-2.5 text-dim font-medium">班次</th>
                         </tr>
                     </thead>
@@ -141,6 +151,42 @@ function getStatusText(s: string) { return s === 'active' ? '在岗' : s === 'on
                 </div>
             </div>
         </template>
+        <!-- 新增弹窗 -->
+        <ModalDialog :show="showAddModal" title="新增巡查人员" @close="showAddModal = false" @confirm="doAdd">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">姓名</label>
+                    <input v-model="addForm.name" type="text" placeholder="请输入姓名"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">班组</label>
+                    <input v-model="addForm.team" type="text" placeholder="A班/B班/C班"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">岗位</label>
+                    <input v-model="addForm.role" type="text" placeholder="巡查组长/巡查员"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">联系电话</label>
+                    <input v-model="addForm.phone" type="text" placeholder="请输入手机号"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">资质</label>
+                    <input v-model="addForm.cert" type="text" placeholder="管道工/初级"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">技能</label>
+                    <input v-model="addForm.skills" type="text" placeholder="管网巡检/CCTV操作"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+            </div>
+        </ModalDialog>
+
         <ToastNotify ref="toast" />
     </div>
 </template>

@@ -14,7 +14,7 @@ const energyKPIs = [
 ];
 
 const stationEnergy = [
-    { name: '朝阳路泵站', daily: 1250, monthly: 32800, unitCost: 0.38, load: 78 },
+    { name: '雨花路泵站', daily: 1250, monthly: 32800, unitCost: 0.38, load: 78 },
     { name: '东湖泵站', daily: 1450, monthly: 38200, unitCost: 0.45, load: 92 },
     { name: '和平路泵站', daily: 380, monthly: 8650, unitCost: 0.52, load: 45 },
     { name: '民生路泵站', daily: 168, monthly: 2800, unitCost: 0.35, load: 35 },
@@ -23,7 +23,7 @@ const stationEnergy = [
 const suggestions = [
     { id: 1, title: '东湖泵站运行优化', content: '建议在23:00-6:00低谷时段增加运行台数，利用峰谷电价差降低成本。', savings: '预计月节省 ¥3,200', priority: 'high' },
     { id: 2, title: '和平路泵站变频调速', content: '2号泵长期在低负载运行，建议加装变频器实现按需调节。', savings: '预计月节省 ¥1,800', priority: 'medium' },
-    { id: 3, title: '老旧电机更换计划', content: '朝阳路泵站1号泵电机效率偏低(86%)，建议更换为高效电机(IE3级)。', savings: '预计年节省 ¥12,000', priority: 'low' },
+    { id: 3, title: '老旧电机更换计划', content: '雨花路泵站1号泵电机效率偏低(86%)，建议更换为高效电机(IE3级)。', savings: '预计年节省 ¥12,000', priority: 'low' },
 ];
 
 const days = Array.from({ length: 30 }, (_, i) => `${(i + 1).toString().padStart(2, '0')}日`);
@@ -42,13 +42,13 @@ const trendOption = {
 const pieOption = {
     backgroundColor: 'transparent', tooltip: { trigger: 'item' as const },
     color: ['#3B82F6', '#00D4AA', '#FFB020', '#8B5CF6'],
-    series: [{ type: 'pie' as const, radius: ['45%', '70%'], center: ['50%', '50%'], label: { color: '#8899AA', fontSize: 10 }, data: [{ value: 32800, name: '朝阳路泵站' }, { value: 38200, name: '东湖泵站' }, { value: 8650, name: '和平路泵站' }, { value: 2800, name: '民生路泵站' }] }]
+    series: [{ type: 'pie' as const, radius: ['45%', '70%'], center: ['50%', '50%'], label: { color: '#8899AA', fontSize: 10 }, data: [{ value: 32800, name: '雨花路泵站' }, { value: 38200, name: '东湖泵站' }, { value: 8650, name: '和平路泵站' }, { value: 2800, name: '民生路泵站' }] }]
 };
 
 const pumpOption = {
     backgroundColor: 'transparent', tooltip: { trigger: 'axis' as const },
     grid: { top: 15, right: 15, bottom: 30, left: 50 },
-    xAxis: { type: 'category' as const, data: ['朝阳P1', '朝阳P2', '朝阳P3', '东湖P1', '东湖P2', '东湖P3', '和平P1', '和平P3', '民生P1'], axisLabel: { color: '#5A6B7C', fontSize: 9, rotate: 30 }, axisLine: { lineStyle: { color: '#2A3F54' } } },
+    xAxis: { type: 'category' as const, data: ['雨花P1', '雨花P2', '雨花P3', '东湖P1', '东湖P2', '东湖P3', '和平P1', '和平P3', '民生P1'], axisLabel: { color: '#5A6B7C', fontSize: 9, rotate: 30 }, axisLine: { lineStyle: { color: '#2A3F54' } } },
     yAxis: { type: 'value' as const, name: 'kWh/h', nameTextStyle: { color: '#5A6B7C', fontSize: 10 }, axisLabel: { color: '#5A6B7C', fontSize: 10 }, splitLine: { lineStyle: { color: '#1E3348' } } },
     series: [{ type: 'bar' as const, data: [12.5, 11.8, 10.2, 18.5, 17.6, 16.8, 8.5, 8.2, 5.6], itemStyle: { color: (params: { value: number }) => params.value > 15 ? '#FF4757' : params.value > 10 ? '#FFB020' : '#00D4AA', borderRadius: [3, 3, 0, 0] } }]
 };

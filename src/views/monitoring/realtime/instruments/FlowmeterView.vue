@@ -11,26 +11,26 @@ const funcTabs = [
 ]
 
 const devices = ref([
-    { id: 'FM-3001', name: '朝阳路DN600', location: '朝阳区', value: 342, unit: 'm³/h', battery: 92, signal: '良好', online: true, lastUpdate: '2024-03-15 14:30' },
-    { id: 'FM-3002', name: '东湖泵站进水', location: '东城区', value: 518, unit: 'm³/h', battery: 88, signal: '良好', online: true, lastUpdate: '2024-03-15 14:30' },
-    { id: 'FM-3003', name: '丰台路DN500', location: '丰台区', value: 267, unit: 'm³/h', battery: 76, signal: '良好', online: true, lastUpdate: '2024-03-15 14:29' },
-    { id: 'FM-3004', name: '海淀路DN400', location: '海淀区', value: 198, unit: 'm³/h', battery: 55, signal: '一般', online: true, lastUpdate: '2024-03-15 14:30' },
-    { id: 'FM-3005', name: '西城区DN300', location: '西城区', value: 0, unit: 'm³/h', battery: 20, signal: '差', online: false, lastUpdate: '2024-03-15 08:45' },
+    { id: 'FM-3001', name: '韶山路DN600', location: '圭塘街道', value: 342, unit: 'm³/h', battery: 92, signal: '良好', online: true, lastUpdate: '2024-03-15 14:30' },
+    { id: 'FM-3002', name: '圭塘河泵站进水', location: '雨花亭街道', value: 518, unit: 'm³/h', battery: 88, signal: '良好', online: true, lastUpdate: '2024-03-15 14:30' },
+    { id: 'FM-3003', name: '左家塘路DN500', location: '左家塘街道', value: 267, unit: 'm³/h', battery: 76, signal: '良好', online: true, lastUpdate: '2024-03-15 14:29' },
+    { id: 'FM-3004', name: '洞井路DN400', location: '洞井街道', value: 198, unit: 'm³/h', battery: 55, signal: '一般', online: true, lastUpdate: '2024-03-15 14:30' },
+    { id: 'FM-3005', name: '侯家塘街道DN300', location: '侯家塘街道', value: 0, unit: 'm³/h', battery: 20, signal: '差', online: false, lastUpdate: '2024-03-15 08:45' },
 ])
 
 const faults = ref([
-    { id: 'F101', device: 'FM-3005', name: '西城区DN300', type: '传感器故障', time: '2024-03-15 08:45', status: '未修复', desc: '流量传感器数据异常' },
-    { id: 'F102', device: 'FM-3004', name: '海淀路DN400', type: '信号弱', time: '2024-03-14 16:20', status: '处理中', desc: '通信信号持续偏弱' },
+    { id: 'F101', device: 'FM-3005', name: '侯家塘街道DN300', type: '传感器故障', time: '2024-03-15 08:45', status: '未修复', desc: '流量传感器数据异常' },
+    { id: 'F102', device: 'FM-3004', name: '洞井路DN400', type: '信号弱', time: '2024-03-14 16:20', status: '处理中', desc: '通信信号持续偏弱' },
 ])
 
 const alarms = ref([
-    { id: 'A101', device: 'FM-3002', name: '东湖泵站进水', type: '流量超限', value: '518m³/h', threshold: '500m³/h', time: '2024-03-15 13:00', level: 'medium' },
-    { id: 'A102', device: 'FM-3005', name: '西城区DN300', type: '设备离线', value: '-', threshold: '-', time: '2024-03-15 08:45', level: 'high' },
+    { id: 'A101', device: 'FM-3002', name: '圭塘河泵站进水', type: '流量超限', value: '518m³/h', threshold: '500m³/h', time: '2024-03-15 13:00', level: 'medium' },
+    { id: 'A102', device: 'FM-3005', name: '侯家塘街道DN300', type: '设备离线', value: '-', threshold: '-', time: '2024-03-15 08:45', level: 'high' },
 ])
 
 const maintenances = ref([
-    { id: 'M101', device: 'FM-3001', name: '朝阳路DN600', type: '定期校准', date: '2024-03-12', operator: '赵工', result: '合格', next: '2024-06-12' },
-    { id: 'M102', device: 'FM-3003', name: '丰台路DN500', type: '巡检', date: '2024-03-05', operator: '张工', result: '正常', next: '2024-04-05' },
+    { id: 'M101', device: 'FM-3001', name: '韶山路DN600', type: '定期校准', date: '2024-03-12', operator: '赵工', result: '合格', next: '2024-06-12' },
+    { id: 'M102', device: 'FM-3003', name: '左家塘路DN500', type: '巡检', date: '2024-03-05', operator: '张工', result: '正常', next: '2024-04-05' },
 ])
 
 function getAlarmLevelColor(l: string) { return l === 'high' ? 'text-danger' : l === 'medium' ? 'text-warning' : 'text-info' }

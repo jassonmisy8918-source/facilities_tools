@@ -6,7 +6,7 @@ import { toast } from '@/components/common/ToastNotify.store';
 const planTabs = [{ key: 'plan', label: '巡查计划' }, { key: 'route', label: '巡查路线' }, { key: 'schedule', label: '人员排班' }];
 
 const initialPlans = [
-    { id: 1, name: '朝阳区日常巡查计划', frequency: '每日', assignee: '张伟、李明', area: '朝阳区全域', points: 45, nextRun: '2024-03-16 08:00', status: 'active', approval: 'approved' },
+    { id: 1, name: '雨花区日常巡查计划', frequency: '每日', assignee: '张伟、李明', area: '雨花区全域', points: 45, nextRun: '2024-03-16 08:00', status: 'active', approval: 'approved' },
     { id: 2, name: '海淀区管网巡检', frequency: '每周', assignee: '王强', area: '海淀区主干管', points: 28, nextRun: '2024-03-18 09:00', status: 'active', approval: 'approved' },
     { id: 3, name: '泵站周边专项巡查', frequency: '每周', assignee: '赵刚、陈静', area: '全市泵站周边500m', points: 18, nextRun: '2024-03-19 08:30', status: 'active', approval: 'approved' },
     { id: 4, name: '排放口季度巡检', frequency: '每季', assignee: '周磊', area: '全市排放口', points: 89, nextRun: '2024-04-01 09:00', status: 'paused', approval: 'approved' },
@@ -14,7 +14,7 @@ const initialPlans = [
 ];
 
 const routes = [
-    { id: 1, name: '朝阳路-民生路主线', length: '12.5km', points: 18, frequency: '每日', team: '一组', status: 'active' },
+    { id: 1, name: '雨花路-民生路主线', length: '12.5km', points: 18, frequency: '每日', team: '一组', status: 'active' },
     { id: 2, name: '泵站环线巡检路线', length: '25.3km', points: 12, frequency: '每周', team: '二组', status: 'active' },
     { id: 3, name: '排放口巡查路线', length: '35.8km', points: 32, frequency: '每月', team: '三组', status: 'active' },
     { id: 4, name: '易涝点专项路线', length: '8.2km', points: 15, frequency: '汛期每日', team: '全员', status: 'pending' },

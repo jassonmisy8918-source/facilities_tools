@@ -10,11 +10,11 @@ const mapLayers = [
 ]
 
 const plants = ref([
-    { name: '第一污水处理厂', capacity: 12.5, actualLoad: 10.8, loadRate: 86, codOut: 18, region: '朝阳区', level: 'A' },
-    { name: '第二污水处理厂', capacity: 10.0, actualLoad: 8.2, loadRate: 82, codOut: 15, region: '海淀区', level: 'A' },
-    { name: '第三污水处理厂', capacity: 20.0, actualLoad: 15.8, loadRate: 79, codOut: 22, region: '丰台区', level: 'B' },
-    { name: '开发区处理厂', capacity: 8.0, actualLoad: 6.5, loadRate: 81, codOut: 12, region: '通州区', level: 'A' },
-    { name: '城南处理厂', capacity: 15.0, actualLoad: 14.2, loadRate: 95, codOut: 20, region: '大兴区', level: 'B' },
+    { name: '第一污水处理厂', capacity: 12.5, actualLoad: 10.8, loadRate: 86, codOut: 18, region: '圭塘街道', level: 'A' },
+    { name: '第二污水处理厂', capacity: 10.0, actualLoad: 8.2, loadRate: 82, codOut: 15, region: '洞井街道', level: 'A' },
+    { name: '第三污水处理厂', capacity: 20.0, actualLoad: 15.8, loadRate: 79, codOut: 22, region: '左家塘街道', level: 'B' },
+    { name: '开发区处理厂', capacity: 8.0, actualLoad: 6.5, loadRate: 81, codOut: 12, region: '黎托街道', level: 'A' },
+    { name: '城南处理厂', capacity: 15.0, actualLoad: 14.2, loadRate: 95, codOut: 20, region: '侯家塘区', level: 'B' },
 ])
 
 function getLoadColor(rate: number) { return rate >= 90 ? 'text-danger' : rate >= 80 ? 'text-warning' : 'text-success' }
@@ -34,7 +34,7 @@ function getLoadBg(rate: number) { return rate >= 90 ? 'bg-danger' : rate >= 80 
                             <button v-for="l in mapLayers" :key="l.key" @click="mapLayer = l.key"
                                 class="px-2 py-1 rounded text-[10px] font-medium transition-colors cursor-pointer"
                                 :class="mapLayer === l.key ? 'bg-primary text-white' : 'text-dim hover:text-default'">{{
-                                l.label }}</button>
+                                    l.label }}</button>
                         </div>
                         <button class="p-1 rounded hover:bg-hover-themed transition-colors cursor-pointer">
                             <RefreshCw class="w-3.5 h-3.5 text-dim" />
@@ -76,11 +76,11 @@ function getLoadBg(rate: number) { return rate >= 90 ? 'bg-danger' : rate >= 80 
                         </div>
                         <div class="grid grid-cols-2 gap-y-1 text-[10px] mb-2">
                             <div><span class="text-dim">设计能力: </span><span class="text-default">{{ p.capacity
-                                    }}万m³/日</span></div>
+                            }}万m³/日</span></div>
                             <div><span class="text-dim">实际负荷: </span><span class="text-default">{{ p.actualLoad
-                                    }}万m³/日</span></div>
+                            }}万m³/日</span></div>
                             <div><span class="text-dim">出水COD: </span><span class="text-default">{{ p.codOut
-                                    }}mg/L</span></div>
+                            }}mg/L</span></div>
                             <div><span class="text-dim">区域: </span><span class="text-default">{{ p.region }}</span>
                             </div>
                         </div>
@@ -90,7 +90,7 @@ function getLoadBg(rate: number) { return rate >= 90 ? 'bg-danger' : rate >= 80 
                                     :style="{ width: p.loadRate + '%' }"></div>
                             </div>
                             <span class="text-[10px] font-bold" :class="getLoadColor(p.loadRate)">{{ p.loadRate
-                                }}%</span>
+                            }}%</span>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 import { AlertCircle, MapPin, Clock, User, Image } from 'lucide-react';
 
 const issues = [
-    { id: 'IS-001', title: '管道破裂渗水', location: '朝阳路DN600 P05-P06段', reporter: '张伟', time: '2024-03-15 10:23', severity: 'high', category: '结构缺陷', photos: 3, status: 'pending' },
+    { id: 'IS-001', title: '管道破裂渗水', location: '雨花路DN600 P05-P06段', reporter: '张伟', time: '2024-03-15 10:23', severity: 'high', category: '结构缺陷', photos: 3, status: 'pending' },
     { id: 'IS-002', title: '检查井盖缺失', location: '民生路 检查井#34', reporter: '李明', time: '2024-03-15 09:45', severity: 'urgent', category: '安全隐患', photos: 2, status: 'processing' },
     { id: 'IS-003', title: '雨水口堵塞', location: '和平路 SW-028', reporter: '王强', time: '2024-03-14 16:30', severity: 'medium', category: '功能缺陷', photos: 1, status: 'resolved' },
     { id: 'IS-004', title: '管道沉积严重', location: '新华街DN800 P12-P15段', reporter: '赵刚', time: '2024-03-14 14:15', severity: 'medium', category: '功能缺陷', photos: 4, status: 'pending' },

@@ -5,15 +5,15 @@ import { Video, Maximize2, Grid3x3, Grid2x2 } from 'lucide-vue-next'
 const layout = ref<'2x2' | '3x3'>('2x2')
 
 const cameras = ref([
-    { id: 1, name: '朝阳路泵站', online: true, region: '朝阳区' },
-    { id: 2, name: '东湖排放口', online: true, region: '东城区' },
-    { id: 3, name: '和平路节点', online: false, region: '西城区' },
-    { id: 4, name: '民生路截流井', online: true, region: '海淀区' },
-    { id: 5, name: '丰台区泵站', online: true, region: '丰台区' },
-    { id: 6, name: '通州区排口', online: false, region: '通州区' },
-    { id: 7, name: '大兴区监测站', online: true, region: '大兴区' },
-    { id: 8, name: '昌平区泵站', online: true, region: '昌平区' },
-    { id: 9, name: '顺义区排口', online: true, region: '顺义区' },
+    { id: 1, name: '韶山路泵站', online: true, region: '圭塘街道' },
+    { id: 2, name: '圭塘河排放口', online: true, region: '雨花亭街道' },
+    { id: 3, name: '芙蓉路节点', online: false, region: '侯家塘街道' },
+    { id: 4, name: '劳动路截流井', online: true, region: '洞井街道' },
+    { id: 5, name: '左家塘街道泵站', online: true, region: '左家塘街道' },
+    { id: 6, name: '黎托街道排口', online: false, region: '黎托街道' },
+    { id: 7, name: '侯家塘区监测站', online: true, region: '侯家塘区' },
+    { id: 8, name: '侯家塘区泵站', online: true, region: '侯家塘区' },
+    { id: 9, name: '侯家塘区排口', online: true, region: '侯家塘区' },
 ])
 
 const displayCams = ref(cameras.value.slice(0, 4))

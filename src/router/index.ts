@@ -17,9 +17,21 @@ const routes: RouteRecordRaw[] = [
             // 运行驾驶舱
             {
                 path: 'dashboard',
-                name: 'Dashboard',
-                component: () => import('@/views/dashboard/DashboardView.vue'),
-                meta: { system: 'dashboard', title: '运行驾驶舱' }
+                component: () => import('@/views/dashboard/DashboardLayout.vue'),
+                meta: { system: 'dashboard', title: '运行驾驶舱' },
+                children: [
+                    { path: '', name: 'Dashboard', component: () => import('@/views/dashboard/DashboardView.vue') },
+                    { path: 'layers', name: 'DashboardLayers', component: () => import('@/views/dashboard/LayersView.vue'), meta: { title: '专题图层' } },
+                    { path: 'intro', name: 'DashboardIntro', component: () => import('@/views/dashboard/IntroView.vue'), meta: { title: '情况介绍' } },
+                    { path: 'facilities', name: 'DashboardFacilities', component: () => import('@/views/dashboard/FacilitiesView.vue'), meta: { title: '设施信息' } },
+                    { path: 'weather', name: 'DashboardWeather', component: () => import('@/views/dashboard/WeatherView.vue'), meta: { title: '降雨预报' } },
+                    { path: 'devices', name: 'DashboardDevices', component: () => import('@/views/dashboard/DevicesView.vue'), meta: { title: '监测设备' } },
+                    { path: 'defects', name: 'DashboardDefects', component: () => import('@/views/dashboard/DefectsView.vue'), meta: { title: '缺陷信息' } },
+                    { path: 'patrol', name: 'DashboardPatrol', component: () => import('@/views/dashboard/PatrolView.vue'), meta: { title: '巡查养护' } },
+                    { path: 'pump-ops', name: 'DashboardPumpOps', component: () => import('@/views/dashboard/PumpOpsView.vue'), meta: { title: '泵站运维' } },
+                    { path: 'efficiency', name: 'DashboardEfficiency', component: () => import('@/views/dashboard/EfficiencyView.vue'), meta: { title: '提质增效' } },
+                    { path: 'alarms', name: 'DashboardAlarms', component: () => import('@/views/dashboard/AlarmsView.vue'), meta: { title: '信息报警' } },
+                ]
             },
             // 排水设施资产管理
             {

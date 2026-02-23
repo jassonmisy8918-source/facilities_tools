@@ -11,17 +11,17 @@ const funcTabs = [
 ]
 
 const qualityImpact = ref([
-    { area: '朝阳区民生路', indicator: 'COD', baseline: 30, actual: 185, increase: '517%', impact: '严重超标排入雨水管', risk: '高' },
-    { area: '朝阳区民生路', indicator: 'SS', baseline: 20, actual: 120, increase: '500%', impact: '悬浮物严重超标', risk: '高' },
-    { area: '海淀区清河路', indicator: 'COD', baseline: 250, actual: 95, increase: '-62%', impact: '污水厂进水浓度降低', risk: '中' },
-    { area: '通州区运河段', indicator: 'NH₃-N', baseline: 35, actual: 15, increase: '-57%', impact: '氮负荷波动', risk: '中' },
+    { area: '圭塘街道劳动路', indicator: 'COD', baseline: 30, actual: 185, increase: '517%', impact: '严重超标排入雨水管', risk: '高' },
+    { area: '圭塘街道劳动路', indicator: 'SS', baseline: 20, actual: 120, increase: '500%', impact: '悬浮物严重超标', risk: '高' },
+    { area: '洞井街道浏阳河路', indicator: 'COD', baseline: 250, actual: 95, increase: '-62%', impact: '污水厂进水浓度降低', risk: '中' },
+    { area: '黎托街道浏阳河段', indicator: 'NH₃-N', baseline: 35, actual: 15, increase: '-57%', impact: '氮负荷波动', risk: '中' },
 ])
 
 const volumeImpact = ref([
-    { area: '朝阳区民生路', dryMix: 450, wetMix: 1200, annualMix: 164250, pctOfTotal: 8.5, costImpact: '约12.3万元/年' },
-    { area: '海淀区清河路', dryMix: 180, wetMix: 650, annualMix: 65700, pctOfTotal: 3.4, costImpact: '约4.9万元/年' },
-    { area: '通州区运河段', dryMix: 620, wetMix: 1800, annualMix: 226300, pctOfTotal: 11.7, costImpact: '约17.0万元/年' },
-    { area: '西城区西单路', dryMix: 35, wetMix: 120, annualMix: 12775, pctOfTotal: 0.7, costImpact: '约1.0万元/年' },
+    { area: '圭塘街道劳动路', dryMix: 450, wetMix: 1200, annualMix: 164250, pctOfTotal: 8.5, costImpact: '约12.3万元/年' },
+    { area: '洞井街道浏阳河路', dryMix: 180, wetMix: 650, annualMix: 65700, pctOfTotal: 3.4, costImpact: '约4.9万元/年' },
+    { area: '黎托街道浏阳河段', dryMix: 620, wetMix: 1800, annualMix: 226300, pctOfTotal: 11.7, costImpact: '约17.0万元/年' },
+    { area: '侯家塘街道东塘路', dryMix: 35, wetMix: 120, annualMix: 12775, pctOfTotal: 0.7, costImpact: '约1.0万元/年' },
 ])
 
 const plantImpact = ref([
@@ -32,9 +32,9 @@ const plantImpact = ref([
 ])
 
 const envImpact = ref([
-    { waterBody: '朝阳护城河', mixType: '污水入雨水管', pollution: 'COD/SS超标排放', currentClass: 'Ⅴ类', targetClass: 'Ⅳ类', gap: '未达标', recommendation: '截污改造' },
-    { waterBody: '清河(海淀段)', mixType: '雨水入污水管', pollution: '间接导致溢流', currentClass: 'Ⅳ类', targetClass: 'Ⅲ类', gap: '基本达标', recommendation: '分流改造' },
-    { waterBody: '运河(通州段)', mixType: '双向混接', pollution: '旱天排污+雨天溢流', currentClass: 'Ⅴ类', targetClass: 'Ⅳ类', gap: '未达标', recommendation: '系统改造' },
+    { waterBody: '雨花护城河', mixType: '污水入雨水管', pollution: 'COD/SS超标排放', currentClass: 'Ⅴ类', targetClass: 'Ⅳ类', gap: '未达标', recommendation: '截污改造' },
+    { waterBody: '浏阳河(洞井段)', mixType: '雨水入污水管', pollution: '间接导致溢流', currentClass: 'Ⅳ类', targetClass: 'Ⅲ类', gap: '基本达标', recommendation: '分流改造' },
+    { waterBody: '运河(黎托街道段)', mixType: '双向混接', pollution: '旱天排污+雨天溢流', currentClass: 'Ⅴ类', targetClass: 'Ⅳ类', gap: '未达标', recommendation: '系统改造' },
 ])
 
 function riskClass(r: string) { return r === '高' || r === '严重' ? 'bg-danger/10 text-danger' : r === '中' || r === '中等' ? 'bg-warning/10 text-warning' : 'bg-info/10 text-info' }
@@ -46,7 +46,7 @@ function riskClass(r: string) { return r === '高' || r === '严重' ? 'bg-dange
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <template v-if="activeFunc === 'quality'">
@@ -78,7 +78,7 @@ function riskClass(r: string) { return r === '高' || r === '严重' ? 'bg-dange
                             <td class="px-2 py-2.5 text-dim text-[10px]">{{ q.impact }}</td>
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium" :class="riskClass(q.risk)">{{
-                                    q.risk }}</span></td>
+                                        q.risk }}</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -127,7 +127,7 @@ function riskClass(r: string) { return r === '高' || r === '严重' ? 'bg-dange
                 <div v-for="p in plantImpact" :key="p.item"
                     class="bg-card border border-themed rounded-xl shadow-themed p-4">
                     <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-default">{{
-                            p.item }}</span><span class="text-[10px] px-1.5 py-0.5 rounded font-medium"
+                        p.item }}</span><span class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                             :class="riskClass(p.severity)">{{ p.severity }}</span></div>
                     <div class="grid grid-cols-3 gap-3 text-center mb-2">
                         <div class="bg-surface rounded-lg p-2">
@@ -177,7 +177,7 @@ function riskClass(r: string) { return r === '高' || r === '严重' ? 'bg-dange
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                     :class="e.gap === '未达标' ? 'bg-danger/10 text-danger' : 'bg-success/10 text-success'">{{
-                                    e.gap }}</span></td>
+                                        e.gap }}</span></td>
                             <td class="text-center px-2 py-2.5 text-primary text-[10px]">{{ e.recommendation }}</td>
                         </tr>
                     </tbody>

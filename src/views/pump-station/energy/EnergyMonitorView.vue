@@ -12,22 +12,22 @@ const funcTabs = [
 const totalEnergy = ref({
     today: 2850, yesterday: 2720, thisMonth: 78500, lastMonth: 75200,
     stations: [
-        { name: '朝阳泵站', today: 860, month: 24500, trend: '+3.2%' },
-        { name: '西城泵站', today: 580, month: 16800, trend: '-1.5%' },
-        { name: '通州泵站', today: 1020, month: 28200, trend: '+5.1%' },
-        { name: '丰台泵站', today: 180, month: 5200, trend: '-8.3%' },
-        { name: '海淀泵站', today: 210, month: 3800, trend: '0%' },
+        { name: '雨花泵站', today: 860, month: 24500, trend: '+3.2%' },
+        { name: '侯家塘泵站', today: 580, month: 16800, trend: '-1.5%' },
+        { name: '黎托泵站', today: 1020, month: 28200, trend: '+5.1%' },
+        { name: '左家塘泵站', today: 180, month: 5200, trend: '-8.3%' },
+        { name: '洞井泵站', today: 210, month: 3800, trend: '0%' },
     ]
 })
 
 const pumpEnergy = ref([
-    { station: '朝阳泵站', pump: '1号泵', power: 15, hours: 22, energy: 330, efficiency: 88.5 },
-    { station: '朝阳泵站', pump: '2号泵', power: 15, hours: 18, energy: 270, efficiency: 86.2 },
-    { station: '朝阳泵站', pump: '3号泵', power: 15, hours: 20, energy: 300, efficiency: 87.8 },
-    { station: '西城泵站', pump: '1号泵', power: 11, hours: 21, energy: 231, efficiency: 90.1 },
-    { station: '西城泵站', pump: '2号泵', power: 11, hours: 16, energy: 176, efficiency: 89.5 },
-    { station: '通州泵站', pump: '1号泵', power: 22, hours: 23, energy: 506, efficiency: 85.3 },
-    { station: '通州泵站', pump: '2号泵', power: 22, hours: 22, energy: 484, efficiency: 84.9 },
+    { station: '雨花泵站', pump: '1号泵', power: 15, hours: 22, energy: 330, efficiency: 88.5 },
+    { station: '雨花泵站', pump: '2号泵', power: 15, hours: 18, energy: 270, efficiency: 86.2 },
+    { station: '雨花泵站', pump: '3号泵', power: 15, hours: 20, energy: 300, efficiency: 87.8 },
+    { station: '侯家塘泵站', pump: '1号泵', power: 11, hours: 21, energy: 231, efficiency: 90.1 },
+    { station: '侯家塘泵站', pump: '2号泵', power: 11, hours: 16, energy: 176, efficiency: 89.5 },
+    { station: '黎托泵站', pump: '1号泵', power: 22, hours: 23, energy: 506, efficiency: 85.3 },
+    { station: '黎托泵站', pump: '2号泵', power: 22, hours: 22, energy: 484, efficiency: 84.9 },
 ])
 
 const ratioData = ref([
@@ -47,7 +47,7 @@ const totalToday = computed(() => totalEnergy.value.today)
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <template v-if="activeFunc === 'total'">

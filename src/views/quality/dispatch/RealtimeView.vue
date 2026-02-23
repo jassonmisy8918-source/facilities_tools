@@ -10,34 +10,34 @@ const funcTabs = [
 ]
 
 const levelData = ref([
-    { station: '朝阳路节点A', level: 2.85, max: 3.5, utilization: 81.4, trend: '上升', alert: true },
-    { station: '海淀清河节点', level: 1.65, max: 3.0, utilization: 55.0, trend: '稳定', alert: false },
-    { station: '通州运河节点', level: 3.20, max: 3.5, utilization: 91.4, trend: '上升', alert: true },
-    { station: '丰台南路节点', level: 1.20, max: 2.5, utilization: 48.0, trend: '下降', alert: false },
-    { station: '西城节点B', level: 2.10, max: 3.0, utilization: 70.0, trend: '稳定', alert: false },
+    { station: '韶山路节点A', level: 2.85, max: 3.5, utilization: 81.4, trend: '上升', alert: true },
+    { station: '洞井浏阳河节点', level: 1.65, max: 3.0, utilization: 55.0, trend: '稳定', alert: false },
+    { station: '黎托街道运河节点', level: 3.20, max: 3.5, utilization: 91.4, trend: '上升', alert: true },
+    { station: '左家塘南路节点', level: 1.20, max: 2.5, utilization: 48.0, trend: '下降', alert: false },
+    { station: '侯家塘节点B', level: 2.10, max: 3.0, utilization: 70.0, trend: '稳定', alert: false },
 ])
 
 const flowData = ref([
-    { pipe: '主干管A(朝阳)', flow: 12500, capacity: 15000, velocity: 1.8, trend: '上升' },
-    { pipe: '主干管B(海淀)', flow: 6800, capacity: 12000, velocity: 1.2, trend: '稳定' },
-    { pipe: '分支管C(通州)', flow: 7200, capacity: 8000, velocity: 2.1, trend: '上升' },
-    { pipe: '主干管D(丰台)', flow: 5500, capacity: 10000, velocity: 1.0, trend: '下降' },
+    { pipe: '主干管A(雨花)', flow: 12500, capacity: 15000, velocity: 1.8, trend: '上升' },
+    { pipe: '主干管B(洞井)', flow: 6800, capacity: 12000, velocity: 1.2, trend: '稳定' },
+    { pipe: '分支管C(黎托街道)', flow: 7200, capacity: 8000, velocity: 2.1, trend: '上升' },
+    { pipe: '主干管D(左家塘)', flow: 5500, capacity: 10000, velocity: 1.0, trend: '下降' },
 ])
 
 const remoteDevices = ref([
-    { device: '朝阳泵站-1号泵', type: '水泵', status: '运行中', speed: 85, power: 45.2, control: true },
-    { device: '朝阳泵站-2号泵', type: '水泵', status: '待机', speed: 0, power: 0, control: true },
-    { device: '通州闸门-A', type: '闸门', status: '开启', speed: 100, power: 0, control: true },
-    { device: '海淀调蓄池', type: '调蓄', status: '蓄水中', speed: 65, power: 12.5, control: true },
-    { device: '丰台闸门-B', type: '闸门', status: '半开', speed: 50, power: 0, control: true },
+    { device: '雨花泵站-1号泵', type: '水泵', status: '运行中', speed: 85, power: 45.2, control: true },
+    { device: '雨花泵站-2号泵', type: '水泵', status: '待机', speed: 0, power: 0, control: true },
+    { device: '黎托街道闸门-A', type: '闸门', status: '开启', speed: 100, power: 0, control: true },
+    { device: '洞井调蓄池', type: '调蓄', status: '蓄水中', speed: 65, power: 12.5, control: true },
+    { device: '左家塘闸门-B', type: '闸门', status: '半开', speed: 50, power: 0, control: true },
 ])
 
 const dispatchLogs = ref([
-    { time: '2024-03-15 10:30', type: '自动', action: '启动朝阳泵站-2号泵, 频率50Hz', operator: '系统', trigger: '水位超限', result: '成功' },
-    { time: '2024-03-15 10:25', type: '自动', action: '通州闸门-A开度调至80%', operator: '系统', trigger: '流量超负荷', result: '成功' },
-    { time: '2024-03-15 09:00', type: '手动', action: '海淀调蓄池启动蓄水', operator: '王工', trigger: '预警降雨', result: '成功' },
+    { time: '2024-03-15 10:30', type: '自动', action: '启动雨花泵站-2号泵, 频率50Hz', operator: '系统', trigger: '水位超限', result: '成功' },
+    { time: '2024-03-15 10:25', type: '自动', action: '黎托街道闸门-A开度调至80%', operator: '系统', trigger: '流量超负荷', result: '成功' },
+    { time: '2024-03-15 09:00', type: '手动', action: '洞井调蓄池启动蓄水', operator: '王工', trigger: '预警降雨', result: '成功' },
     { time: '2024-03-14 22:30', type: '自动', action: '全管网切换雨天调度策略', operator: '系统', trigger: '降雨>10mm', result: '成功' },
-    { time: '2024-03-14 18:00', type: '手动', action: '丰台闸门-B开度调至50%', operator: '赵工', trigger: '均衡负荷', result: '成功' },
+    { time: '2024-03-14 18:00', type: '手动', action: '左家塘闸门-B开度调至50%', operator: '赵工', trigger: '均衡负荷', result: '成功' },
 ])
 </script>
 

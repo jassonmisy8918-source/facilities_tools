@@ -16,10 +16,10 @@ const statusOptions = [
 
 const initialAlarms: Alarm[] = [
     { id: 1, level: 'critical', title: '建设大道DN300水位超限', location: '建设大道DN300 监测点#06', time: '2024-03-15 14:23', value: '2.35m (阈值: 2.0m)', status: 'active' },
-    { id: 2, level: 'warning', title: '西城区进水口COD超标', location: '西城区进水口 WQ-302', time: '2024-03-15 13:45', value: '45mg/L (阈值: 40mg/L)', status: 'active' },
+    { id: 2, level: 'warning', title: '侯家塘区进水口COD超标', location: '侯家塘区进水口 WQ-302', time: '2024-03-15 13:45', value: '45mg/L (阈值: 40mg/L)', status: 'active' },
     { id: 3, level: 'warning', title: '民生路DN400水位预警', location: '民生路DN400 监测点#02', time: '2024-03-15 12:30', value: '1.85m (阈值: 1.8m)', status: 'acknowledged' },
     { id: 4, level: 'info', title: '丰台区降雨量增加', location: '丰台区雨量站 RG-051', time: '2024-03-15 11:20', value: '8.5mm/h', status: 'acknowledged' },
-    { id: 5, level: 'notice', title: '朝阳路流量波动提醒', location: '朝阳路DN600 FM-201', time: '2024-03-15 10:15', value: '波动幅度: ±15%', status: 'resolved' },
+    { id: 5, level: 'notice', title: '雨花路流量波动提醒', location: '雨花路DN600 FM-201', time: '2024-03-15 10:15', value: '波动幅度: ±15%', status: 'resolved' },
     { id: 6, level: 'critical', title: '和平路泵站进水位超高', location: '和平路泵站 前池', time: '2024-03-15 09:30', value: '4.1m (阈值: 3.8m)', status: 'active' },
 ];
 

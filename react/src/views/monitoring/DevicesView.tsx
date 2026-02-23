@@ -1,12 +1,12 @@
 import { Wifi, WifiOff, Battery, Eye } from 'lucide-react';
 
 const devices = [
-    { id: 'DEV-001', name: '朝阳路流量计', type: '电磁流量计', location: '朝阳路DN600', status: 'online', battery: 95, signal: 'strong', lastData: '刚刚' },
+    { id: 'DEV-001', name: '雨花路流量计', type: '电磁流量计', location: '雨花路DN600', status: 'online', battery: 95, signal: 'strong', lastData: '刚刚' },
     { id: 'DEV-002', name: '民生路液位计', type: '超声波液位计', location: '民生路DN400', status: 'online', battery: 82, signal: 'medium', lastData: '2分钟前' },
     { id: 'DEV-003', name: '和平路雨量计', type: '翻斗式雨量计', location: '和平路雨量站', status: 'online', battery: 67, signal: 'strong', lastData: '5分钟前' },
     { id: 'DEV-004', name: '新华街流量计', type: '电磁流量计', location: '新华街DN800', status: 'warning', battery: 23, signal: 'weak', lastData: '30分钟前' },
     { id: 'DEV-005', name: '东湖泵站传感器组', type: '多参数传感器', location: '东湖泵站', status: 'online', battery: 100, signal: 'strong', lastData: '刚刚' },
-    { id: 'DEV-006', name: '西城区水质仪', type: '在线水质分析仪', location: '西城区进水口', status: 'offline', battery: 0, signal: 'none', lastData: '3天前' },
+    { id: 'DEV-006', name: '侯家塘区水质仪', type: '在线水质分析仪', location: '侯家塘区进水口', status: 'offline', battery: 0, signal: 'none', lastData: '3天前' },
     { id: 'DEV-007', name: '丰台路液位计', type: '压力式液位计', location: '丰台路DN500', status: 'online', battery: 88, signal: 'strong', lastData: '1分钟前' },
     { id: 'DEV-008', name: '建设大道视频', type: '智能摄像头', location: '建设大道排放口', status: 'online', battery: 100, signal: 'medium', lastData: '刚刚' },
 ];

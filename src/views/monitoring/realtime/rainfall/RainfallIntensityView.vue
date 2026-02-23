@@ -14,12 +14,12 @@ const levels = [
 
 // ===================== 各站点降雨强度 =====================
 const stations = ref([
-    { name: '和平路雨量站', value: 3.2, level: '小雨', trend: 'up' },
-    { name: '丰台区雨量站', value: 8.5, level: '大雨', trend: 'up' },
-    { name: '朝阳区雨量站', value: 1.8, level: '小雨', trend: 'down' },
-    { name: '海淀区雨量站', value: 0.4, level: '小雨', trend: 'stable' },
-    { name: '通州区雨量站', value: 12.6, level: '大雨', trend: 'up' },
-    { name: '大兴区雨量站', value: 5.3, level: '中雨', trend: 'down' },
+    { name: '芙蓉路雨量站', value: 3.2, level: '小雨', trend: 'up' },
+    { name: '左家塘街道雨量站', value: 8.5, level: '大雨', trend: 'up' },
+    { name: '圭塘街道雨量站', value: 1.8, level: '小雨', trend: 'down' },
+    { name: '洞井街道雨量站', value: 0.4, level: '小雨', trend: 'stable' },
+    { name: '黎托街道雨量站', value: 12.6, level: '大雨', trend: 'up' },
+    { name: '侯家塘区雨量站', value: 5.3, level: '中雨', trend: 'down' },
 ])
 
 function getLevelColor(level: string) {

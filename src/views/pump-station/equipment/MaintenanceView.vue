@@ -19,15 +19,15 @@ const templates = ref([
 ])
 
 const plans = ref([
-    { id: 1, device: '1号水泵', station: '朝阳泵站', tpl: '离心泵', date: '2024-03-25', assignee: '王强', auto: true, status: '待执行' },
-    { id: 2, device: '主电机', station: '西城泵站', tpl: '电机', date: '2024-06-15', assignee: '赵刚', auto: true, status: '已排期' },
-    { id: 3, device: '格栅机', station: '丰台泵站', tpl: '格栅机', date: '2024-04-05', assignee: '李明', auto: true, status: '待执行' },
+    { id: 1, device: '1号水泵', station: '雨花泵站', tpl: '离心泵', date: '2024-03-25', assignee: '王强', auto: true, status: '待执行' },
+    { id: 2, device: '主电机', station: '侯家塘泵站', tpl: '电机', date: '2024-06-15', assignee: '赵刚', auto: true, status: '已排期' },
+    { id: 3, device: '格栅机', station: '左家塘泵站', tpl: '格栅机', date: '2024-04-05', assignee: '李明', auto: true, status: '待执行' },
 ])
 
 const records = ref([
-    { id: 1, device: '1号水泵', station: '朝阳泵站', date: '2024-01-10', duration: '3.5h', operator: '王强', items: '轴承润滑/密封检查', parts: '轴承×2, 密封圈×4', result: '正常' },
-    { id: 2, device: '主电机', station: '西城泵站', date: '2023-12-20', duration: '2h', operator: '赵刚', items: '绝缘测量/接线紧固', parts: '-', result: '正常' },
-    { id: 3, device: '格栅机', station: '丰台泵站', date: '2024-02-15', duration: '2.5h', operator: '李明', items: '齿耙清洗/链条润滑', parts: '润滑油5L', result: '链条磨损' },
+    { id: 1, device: '1号水泵', station: '雨花泵站', date: '2024-01-10', duration: '3.5h', operator: '王强', items: '轴承润滑/密封检查', parts: '轴承×2, 密封圈×4', result: '正常' },
+    { id: 2, device: '主电机', station: '侯家塘泵站', date: '2023-12-20', duration: '2h', operator: '赵刚', items: '绝缘测量/接线紧固', parts: '-', result: '正常' },
+    { id: 3, device: '格栅机', station: '左家塘泵站', date: '2024-02-15', duration: '2.5h', operator: '李明', items: '齿耙清洗/链条润滑', parts: '润滑油5L', result: '链条磨损' },
 ])
 </script>
 
@@ -38,7 +38,7 @@ const records = ref([
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <template v-if="activeFunc === 'template'">
@@ -49,7 +49,7 @@ const records = ref([
                 <div v-for="t in templates" :key="t.id"
                     class="bg-card border border-themed rounded-xl shadow-themed p-4">
                     <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-default">{{
-                            t.type }}</span><span class="text-[10px] text-primary font-bold">{{ t.cycle }} · {{ t.hours
+                        t.type }}</span><span class="text-[10px] text-primary font-bold">{{ t.cycle }} · {{ t.hours
                             }}h</span></div>
                     <div class="flex gap-1 flex-wrap"><span v-for="item in t.items" :key="item"
                             class="text-[10px] px-1.5 py-0.5 rounded bg-surface text-dim">{{ item }}</span></div>
@@ -90,11 +90,11 @@ const records = ref([
                             <td class="text-center px-2 py-2.5 text-default">{{ p.assignee }}</td>
                             <td class="text-center px-2 py-2.5"><span class="text-[10px] px-1.5 py-0.5 rounded"
                                     :class="p.auto ? 'bg-info/10 text-info' : 'bg-surface text-dim'">{{ p.auto ? '自动' :
-                                    '手动' }}</span></td>
+                                        '手动' }}</span></td>
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                     :class="p.status === '待执行' ? 'bg-warning/10 text-warning' : 'bg-info/10 text-info'">{{
-                                    p.status }}</span></td>
+                                        p.status }}</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -132,7 +132,7 @@ const records = ref([
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                     :class="r.result === '正常' ? 'bg-success/10 text-success' : 'bg-warning/10 text-warning'">{{
-                                    r.result }}</span></td>
+                                        r.result }}</span></td>
                         </tr>
                     </tbody>
                 </table>

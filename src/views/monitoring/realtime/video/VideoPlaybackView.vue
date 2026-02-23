@@ -5,21 +5,21 @@ import ToastNotify from '@/components/common/ToastNotify.vue'
 
 const toast = ref<InstanceType<typeof ToastNotify>>()
 
-const selectedCamera = ref('朝阳路泵站')
+const selectedCamera = ref('韶山路泵站')
 const playbackDate = ref('2024-03-15')
 const startTime = ref('08:00')
 const endTime = ref('12:00')
 const playbackSpeed = ref('1x')
 
-const cameras = ['朝阳路泵站', '东湖排放口', '和平路节点', '民生路截流井', '丰台区泵站', '通州区排口']
+const cameras = ['韶山路泵站', '圭塘河排放口', '芙蓉路节点', '劳动路截流井', '左家塘街道泵站', '黎托街道排口']
 const speeds = ['0.5x', '1x', '2x', '4x', '8x']
 
 // 回放记录
 const recordings = ref([
-    { id: 1, camera: '朝阳路泵站', date: '2024-03-15', start: '00:00', end: '23:59', duration: '24h', size: '12.8GB', status: '完整' },
-    { id: 2, camera: '东湖排放口', date: '2024-03-15', start: '00:00', end: '23:59', duration: '24h', size: '15.2GB', status: '完整' },
-    { id: 3, camera: '和平路节点', date: '2024-03-15', start: '06:30', end: '18:45', duration: '12h15m', size: '6.1GB', status: '部分' },
-    { id: 4, camera: '民生路截流井', date: '2024-03-14', start: '00:00', end: '23:59', duration: '24h', size: '11.5GB', status: '完整' },
+    { id: 1, camera: '韶山路泵站', date: '2024-03-15', start: '00:00', end: '23:59', duration: '24h', size: '12.8GB', status: '完整' },
+    { id: 2, camera: '圭塘河排放口', date: '2024-03-15', start: '00:00', end: '23:59', duration: '24h', size: '15.2GB', status: '完整' },
+    { id: 3, camera: '芙蓉路节点', date: '2024-03-15', start: '06:30', end: '18:45', duration: '12h15m', size: '6.1GB', status: '部分' },
+    { id: 4, camera: '劳动路截流井', date: '2024-03-14', start: '00:00', end: '23:59', duration: '24h', size: '11.5GB', status: '完整' },
 ])
 
 function handlePlayback() { toast.value?.show(`正在回放: ${selectedCamera.value} ${playbackDate.value} ${startTime.value}-${endTime.value}`, 'info') }

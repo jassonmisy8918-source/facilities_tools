@@ -12,17 +12,17 @@ const funcTabs = [
 // 跟踪
 const trackOrders = ref([
     {
-        id: 'WO-2024-001', title: '建设大道主干管网季度巡查', assignee: '张伟', progress: 65, totalPoints: 15, donePoints: 10, currentPoint: '建设大道MH-11', lastUpdate: '10:25', status: 'inspecting', timeline: [
+        id: 'WO-2024-001', title: '万家丽路主干管网季度巡查', assignee: '张伟', progress: 65, totalPoints: 15, donePoints: 10, currentPoint: '万家丽路MH-11', lastUpdate: '10:25', status: 'inspecting', timeline: [
             { time: '08:05', action: '出发', detail: '从公司出发' },
-            { time: '08:30', action: '开始巡查', detail: '到达建设大道MH-01' },
+            { time: '08:30', action: '开始巡查', detail: '到达万家丽路MH-01' },
             { time: '09:15', action: '发现问题', detail: 'MH-05井盖松动，已拍照上报' },
             { time: '10:25', action: '巡查中', detail: '正在检查MH-11' },
         ]
     },
     {
-        id: 'WO-2024-002', title: '西城区排口月度巡查', assignee: '李明', progress: 40, totalPoints: 10, donePoints: 4, currentPoint: '西城区OUT-05', lastUpdate: '10:10', status: 'inspecting', timeline: [
+        id: 'WO-2024-002', title: '侯家塘街道排口月度巡查', assignee: '李明', progress: 40, totalPoints: 10, donePoints: 4, currentPoint: '侯家塘街道OUT-05', lastUpdate: '10:10', status: 'inspecting', timeline: [
             { time: '08:00', action: '出发', detail: '从公司出发' },
-            { time: '08:45', action: '开始巡查', detail: '到达西城区OUT-01' },
+            { time: '08:45', action: '开始巡查', detail: '到达侯家塘街道OUT-01' },
             { time: '10:10', action: '巡查中', detail: '正在检查OUT-05' },
         ]
     },
@@ -30,19 +30,19 @@ const trackOrders = ref([
 
 // 位置
 const liveLocations = ref([
-    { name: '张伟', team: 'A班', order: 'WO-2024-001', lat: 39.932, lng: 116.468, speed: '步行', lastUpdate: '10:25:30', battery: 85 },
-    { name: '李明', team: 'A班', order: 'WO-2024-002', lat: 39.925, lng: 116.352, speed: '步行', lastUpdate: '10:10:15', battery: 72 },
-    { name: '王强', team: 'B班', order: '', lat: 39.940, lng: 116.480, speed: '静止', lastUpdate: '10:20:00', battery: 90 },
+    { name: '张伟', team: 'A班', order: 'WO-2024-001', lat: 28.150, lng: 113.050, speed: '步行', lastUpdate: '10:25:30', battery: 85 },
+    { name: '李明', team: 'A班', order: 'WO-2024-002', lat: 28.140, lng: 113.020, speed: '步行', lastUpdate: '10:10:15', battery: 72 },
+    { name: '王强', team: 'B班', order: '', lat: 28.160, lng: 113.060, speed: '静止', lastUpdate: '10:20:00', battery: 90 },
 ])
 
 // 进度
 const progressData = ref({
     overview: { total: 5, active: 2, completed: 1, overdue: 0, completionRate: 78 },
     byArea: [
-        { area: '朝阳区', total: 2, done: 1, rate: 65 },
-        { area: '西城区', total: 1, done: 0, rate: 40 },
-        { area: '丰台区', total: 1, done: 0, rate: 0 },
-        { area: '通州区', total: 1, done: 0, rate: 0 },
+        { area: '圭塘街道', total: 2, done: 1, rate: 65 },
+        { area: '侯家塘街道', total: 1, done: 0, rate: 40 },
+        { area: '左家塘街道', total: 1, done: 0, rate: 0 },
+        { area: '黎托街道', total: 1, done: 0, rate: 0 },
     ],
     byType: [
         { type: '例行', count: 2, done: 0, rate: 52 },

@@ -6,22 +6,22 @@ import { toast } from '@/components/common/ToastNotify.store';
 const tabs = [{ key: 'list', label: '设备台账' }, { key: 'inspection', label: '设备巡检' }, { key: 'maintenance', label: '设备保养' }, { key: 'spare', label: '备品备件' }];
 
 const equipment = [
-    { id: 'EQ-001', name: '1号离心泵', station: '朝阳路泵站', model: 'WQ200-15-15', power: '15kW', runtime: 12450, mtbf: 2100, availability: 98.5, lastMaintenance: '2024-02-20', status: 'running' },
-    { id: 'EQ-002', name: '2号离心泵', station: '朝阳路泵站', model: 'WQ200-15-15', power: '15kW', runtime: 11200, mtbf: 2050, availability: 97.8, lastMaintenance: '2024-01-15', status: 'standby' },
-    { id: 'EQ-003', name: '3号离心泵', station: '朝阳路泵站', model: 'WQ200-15-15', power: '15kW', runtime: 8800, mtbf: 2200, availability: 99.1, lastMaintenance: '2024-03-05', status: 'running' },
+    { id: 'EQ-001', name: '1号离心泵', station: '雨花路泵站', model: 'WQ200-15-15', power: '15kW', runtime: 12450, mtbf: 2100, availability: 98.5, lastMaintenance: '2024-02-20', status: 'running' },
+    { id: 'EQ-002', name: '2号离心泵', station: '雨花路泵站', model: 'WQ200-15-15', power: '15kW', runtime: 11200, mtbf: 2050, availability: 97.8, lastMaintenance: '2024-01-15', status: 'standby' },
+    { id: 'EQ-003', name: '3号离心泵', station: '雨花路泵站', model: 'WQ200-15-15', power: '15kW', runtime: 8800, mtbf: 2200, availability: 99.1, lastMaintenance: '2024-03-05', status: 'running' },
     { id: 'EQ-004', name: '1号潜污泵', station: '东湖泵站', model: 'WQ300-25-30', power: '30kW', runtime: 18600, mtbf: 1800, availability: 96.2, lastMaintenance: '2024-02-10', status: 'running' },
     { id: 'EQ-005', name: '2号潜污泵', station: '东湖泵站', model: 'WQ300-25-30', power: '30kW', runtime: 17200, mtbf: 1650, availability: 92.5, lastMaintenance: '2024-01-25', status: 'fault' },
 ];
 
 const inspections = [
-    { id: 'IP-001', device: '1号离心泵', station: '朝阳路泵站', inspector: '张伟', date: '2024-03-15', items: 12, passCount: 12, result: '合格', nextDate: '2024-03-22' },
+    { id: 'IP-001', device: '1号离心泵', station: '雨花路泵站', inspector: '张伟', date: '2024-03-15', items: 12, passCount: 12, result: '合格', nextDate: '2024-03-22' },
     { id: 'IP-002', device: '2号潜污泵', station: '东湖泵站', inspector: '李明', date: '2024-03-14', items: 12, passCount: 10, result: '需关注', nextDate: '2024-03-21' },
     { id: 'IP-003', device: '闸门控制柜', station: '和平路泵站', inspector: '王强', date: '2024-03-13', items: 8, passCount: 8, result: '合格', nextDate: '2024-03-20' },
-    { id: 'IP-004', device: '配电柜', station: '朝阳路泵站', inspector: '赵刚', date: '2024-03-12', items: 10, passCount: 9, result: '需关注', nextDate: '2024-03-19' },
+    { id: 'IP-004', device: '配电柜', station: '雨花路泵站', inspector: '赵刚', date: '2024-03-12', items: 10, passCount: 9, result: '需关注', nextDate: '2024-03-19' },
 ];
 
 const mtRecords = [
-    { id: 'MT-001', device: '1号离心泵', station: '朝阳路泵站', type: '定期保养', date: '2024-02-20', content: '轴承润滑、密封件检查、电气绝缘测试', cost: 3500, nextDate: '2024-05-20' },
+    { id: 'MT-001', device: '1号离心泵', station: '雨花路泵站', type: '定期保养', date: '2024-02-20', content: '轴承润滑、密封件检查、电气绝缘测试', cost: 3500, nextDate: '2024-05-20' },
     { id: 'MT-002', device: '2号潜污泵', station: '东湖泵站', type: '故障维修', date: '2024-03-10', content: '轴承更换、定子绝缘处理、出水口密封更换', cost: 18500, nextDate: '—' },
     { id: 'MT-003', device: '闸阀组', station: '和平路泵站', type: '定期保养', date: '2024-03-05', content: '阀体清洗、密封圈更换、电控系统检测', cost: 5200, nextDate: '2024-06-05' },
 ];

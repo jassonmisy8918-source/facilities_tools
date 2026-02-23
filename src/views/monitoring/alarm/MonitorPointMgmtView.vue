@@ -15,11 +15,11 @@ const funcTabs = [
 
 // 监测点数据
 const points = ref([
-    { id: 'MP-001', name: '建设大道DN300监测点', area: '朝阳区', type: '水位', address: '建设大道与民生路交口东侧50m', lng: 116.468, lat: 39.932, status: 'online', devices: 2, factors: 3, createDate: '2023-06-15' },
-    { id: 'MP-002', name: '西城区进水口监测点', area: '西城区', type: '水质', address: '西城区污水处理厂进水口', lng: 116.352, lat: 39.925, status: 'online', devices: 3, factors: 5, createDate: '2023-07-20' },
-    { id: 'MP-003', name: '丰台区雨量监测点', area: '丰台区', type: '雨量', address: '丰台区气象站旁', lng: 116.285, lat: 39.858, status: 'online', devices: 1, factors: 2, createDate: '2023-08-10' },
-    { id: 'MP-004', name: '通州区主干监测点', area: '通州区', type: '流量', address: '通州区运河大道DN600', lng: 116.658, lat: 39.908, status: 'offline', devices: 2, factors: 3, createDate: '2023-09-01' },
-    { id: 'MP-005', name: '海淀区排口监测点', area: '海淀区', type: '水质', address: '海淀区清河排口', lng: 116.298, lat: 39.982, status: 'warning', devices: 2, factors: 4, createDate: '2023-10-05' },
+    { id: 'MP-001', name: '万家丽路DN300监测点', area: '圭塘街道', type: '水位', address: '万家丽路与劳动路交口东侧50m', lng: 113.050, lat: 28.150, status: 'online', devices: 2, factors: 3, createDate: '2023-06-15' },
+    { id: 'MP-002', name: '侯家塘街道进水口监测点', area: '侯家塘街道', type: '水质', address: '侯家塘街道污水处理厂进水口', lng: 113.020, lat: 28.140, status: 'online', devices: 3, factors: 5, createDate: '2023-07-20' },
+    { id: 'MP-003', name: '左家塘街道雨量监测点', area: '左家塘街道', type: '雨量', address: '左家塘街道气象站旁', lng: 113.01, lat: 28.098, status: 'online', devices: 1, factors: 2, createDate: '2023-08-10' },
+    { id: 'MP-004', name: '黎托街道主干监测点', area: '黎托街道', type: '流量', address: '黎托街道花侯路DN600', lng: 113.07, lat: 28.138, status: 'offline', devices: 2, factors: 3, createDate: '2023-09-01' },
+    { id: 'MP-005', name: '洞井街道排口监测点', area: '洞井街道', type: '水质', address: '洞井街道浏阳河排口', lng: 113.008, lat: 28.172, status: 'warning', devices: 2, factors: 4, createDate: '2023-10-05' },
 ])
 
 // 查询条件
@@ -34,27 +34,35 @@ function viewDetail(p: typeof points.value[0]) { detailPoint.value = p; showDeta
 
 // 指标配置
 const metricsConfig = ref([
-    { pointId: 'MP-001', pointName: '建设大道DN300', metrics: [{ name: '水位', unit: 'm', upper: 2.0, lower: 0.5, interval: 5 }, { name: '流速', unit: 'm/s', upper: 3.0, lower: 0, interval: 10 }] },
-    { pointId: 'MP-002', pointName: '西城区进水口', metrics: [{ name: 'COD', unit: 'mg/L', upper: 40, lower: 0, interval: 30 }, { name: 'pH', unit: '', upper: 9, lower: 6, interval: 30 }, { name: 'SS', unit: 'mg/L', upper: 50, lower: 0, interval: 30 }, { name: '氨氮', unit: 'mg/L', upper: 8, lower: 0, interval: 60 }] },
-    { pointId: 'MP-003', pointName: '丰台区雨量站', metrics: [{ name: '降雨量', unit: 'mm', upper: 999, lower: 0, interval: 5 }, { name: '降雨强度', unit: 'mm/h', upper: 50, lower: 0, interval: 5 }] },
+    { pointId: 'MP-001', pointName: '万家丽路DN300', metrics: [{ name: '水位', unit: 'm', upper: 2.0, lower: 0.5, interval: 5 }, { name: '流速', unit: 'm/s', upper: 3.0, lower: 0, interval: 10 }] },
+    { pointId: 'MP-002', pointName: '侯家塘街道进水口', metrics: [{ name: 'COD', unit: 'mg/L', upper: 40, lower: 0, interval: 30 }, { name: 'pH', unit: '', upper: 9, lower: 6, interval: 30 }, { name: 'SS', unit: 'mg/L', upper: 50, lower: 0, interval: 30 }, { name: '氨氮', unit: 'mg/L', upper: 8, lower: 0, interval: 60 }] },
+    { pointId: 'MP-003', pointName: '左家塘街道雨量站', metrics: [{ name: '降雨量', unit: 'mm', upper: 999, lower: 0, interval: 5 }, { name: '降雨强度', unit: 'mm/h', upper: 50, lower: 0, interval: 5 }] },
 ])
 
 // 关联因子
 const factorLinks = ref([
-    { pointId: 'MP-001', pointName: '建设大道DN300', factors: [{ code: 'W01', name: '水位', category: '水文', method: '压力式', standard: 'GB/T 11826' }, { code: 'W02', name: '流速', category: '水文', method: '多普勒', standard: 'HJ/T 15' }, { code: 'W03', name: '流量', category: '水文', method: '面积流速法', standard: 'GB 50014' }] },
-    { pointId: 'MP-002', pointName: '西城区进水口', factors: [{ code: 'Q01', name: 'COD', category: '水质', method: '重铬酸钾法', standard: 'HJ 828' }, { code: 'Q02', name: 'pH', category: '水质', method: '玻璃电极法', standard: 'GB 6920' }, { code: 'Q03', name: 'SS', category: '水质', method: '重量法', standard: 'GB 11901' }, { code: 'Q04', name: '氨氮', category: '水质', method: '纳氏试剂法', standard: 'HJ 535' }, { code: 'Q05', name: 'BOD5', category: '水质', method: '稀释接种法', standard: 'HJ 505' }] },
+    { pointId: 'MP-001', pointName: '万家丽路DN300', factors: [{ code: 'W01', name: '水位', category: '水文', method: '压力式', standard: 'GB/T 11826' }, { code: 'W02', name: '流速', category: '水文', method: '多普勒', standard: 'HJ/T 15' }, { code: 'W03', name: '流量', category: '水文', method: '面积流速法', standard: 'GB 50014' }] },
+    { pointId: 'MP-002', pointName: '侯家塘街道进水口', factors: [{ code: 'Q01', name: 'COD', category: '水质', method: '重铬酸钾法', standard: 'HJ 828' }, { code: 'Q02', name: 'pH', category: '水质', method: '玻璃电极法', standard: 'GB 6920' }, { code: 'Q03', name: 'SS', category: '水质', method: '重量法', standard: 'GB 11901' }, { code: 'Q04', name: '氨氮', category: '水质', method: '纳氏试剂法', standard: 'HJ 535' }, { code: 'Q05', name: 'BOD5', category: '水质', method: '稀释接种法', standard: 'HJ 505' }] },
 ])
 
 // 关联设备
 const deviceLinks = ref([
-    { pointId: 'MP-001', pointName: '建设大道DN300', devices: [{ sn: 'DEV-2023-0601', name: '压力式液位计', model: 'WL-500A', manufacturer: '海天仪器', installDate: '2023-06-15', status: 'online' }, { sn: 'DEV-2023-0602', name: '多普勒流量计', model: 'DF-800', manufacturer: '博锐仪表', installDate: '2023-06-15', status: 'online' }] },
-    { pointId: 'MP-002', pointName: '西城区进水口', devices: [{ sn: 'DEV-2023-0701', name: 'COD在线分析仪', model: 'COD-3000', manufacturer: '哈希', installDate: '2023-07-20', status: 'online' }, { sn: 'DEV-2023-0702', name: 'pH/SS多参数仪', model: 'MP-4500', manufacturer: '赛莱默', installDate: '2023-07-20', status: 'online' }, { sn: 'DEV-2023-0703', name: '氨氮分析仪', model: 'NH3-200', manufacturer: '哈希', installDate: '2023-07-20', status: 'warning' }] },
+    { pointId: 'MP-001', pointName: '万家丽路DN300', devices: [{ sn: 'DEV-2023-0601', name: '压力式液位计', model: 'WL-500A', manufacturer: '海天仪器', installDate: '2023-06-15', status: 'online' }, { sn: 'DEV-2023-0602', name: '多普勒流量计', model: 'DF-800', manufacturer: '博锐仪表', installDate: '2023-06-15', status: 'online' }] },
+    { pointId: 'MP-002', pointName: '侯家塘街道进水口', devices: [{ sn: 'DEV-2023-0701', name: 'COD在线分析仪', model: 'COD-3000', manufacturer: '哈希', installDate: '2023-07-20', status: 'online' }, { sn: 'DEV-2023-0702', name: 'pH/SS多参数仪', model: 'MP-4500', manufacturer: '赛莱默', installDate: '2023-07-20', status: 'online' }, { sn: 'DEV-2023-0703', name: '氨氮分析仪', model: 'NH3-200', manufacturer: '哈希', installDate: '2023-07-20', status: 'warning' }] },
 ])
 
 function getStatusColor(s: string) { return s === 'online' ? 'text-success' : s === 'offline' ? 'text-dim' : 'text-warning' }
 function getStatusBg(s: string) { return s === 'online' ? 'bg-success/10' : s === 'offline' ? 'bg-surface' : 'bg-warning/10' }
 function getStatusText(s: string) { return s === 'online' ? '在线' : s === 'offline' ? '离线' : '告警' }
 function getStatusDot(s: string) { return s === 'online' ? 'bg-success' : s === 'offline' ? 'bg-gray-400' : 'bg-warning' }
+
+// 新增弹窗
+const toast = ref<InstanceType<typeof ToastNotify>>()
+const showAddModal = ref(false)
+const addForm = ref({ name: '', area: '', type: '', address: '' })
+
+function openAdd() { addForm.value = { name: '', area: '', type: '', address: '' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
 </script>
 
 <template>
@@ -78,7 +86,8 @@ function getStatusDot(s: string) { return s === 'online' ? 'bg-success' : s === 
                             class="text-xs text-muted-themed">({{ points.length }})</span>
                     </div>
                     <button
-                        class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
+                        class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer"
+                        @click="openAdd()">
                         <Plus class="w-3.5 h-3.5" />新增监测点
                     </button>
                 </div>
@@ -137,11 +146,11 @@ function getStatusDot(s: string) { return s === 'online' ? 'bg-success' : s === 
                 <select v-model="areaFilter"
                     class="bg-input border border-themed rounded-lg px-3 py-1.5 text-xs text-default focus:outline-none focus:border-primary">
                     <option value="all">全部区域</option>
-                    <option>朝阳区</option>
-                    <option>西城区</option>
-                    <option>丰台区</option>
-                    <option>通州区</option>
-                    <option>海淀区</option>
+                    <option>圭塘街道</option>
+                    <option>侯家塘街道</option>
+                    <option>左家塘街道</option>
+                    <option>黎托街道</option>
+                    <option>洞井街道</option>
                 </select>
                 <select v-model="typeFilter"
                     class="bg-input border border-themed rounded-lg px-3 py-1.5 text-xs text-default focus:outline-none focus:border-primary">
@@ -272,7 +281,7 @@ function getStatusDot(s: string) { return s === 'online' ? 'bg-success' : s === 
                 <div class="px-4 py-3 border-b border-themed flex items-center justify-between">
                     <div class="flex items-center gap-2">
                         <Cpu class="w-4 h-4 text-primary" /><span class="text-xs font-bold text-default">{{ dl.pointName
-                        }}</span><span class="text-[10px] text-primary font-mono">{{ dl.pointId }}</span>
+                            }}</span><span class="text-[10px] text-primary font-mono">{{ dl.pointId }}</span>
                     </div>
                     <button class="text-[10px] text-primary hover:underline cursor-pointer">+ 绑定设备</button>
                 </div>
@@ -360,6 +369,32 @@ function getStatusDot(s: string) { return s === 'online' ? 'bg-success' : s === 
                 </div>
             </div>
         </ModalDialog>
+        <!-- 新增弹窗 -->
+        <ModalDialog :show="showAddModal" title="新增监测点" @close="showAddModal = false" @confirm="doAdd">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">监测点名称</label>
+                    <input v-model="addForm.name" type="text" placeholder="请输入名称"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">区域</label>
+                    <input v-model="addForm.area" type="text" placeholder="请选择区域"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">监测类型</label>
+                    <input v-model="addForm.type" type="text" placeholder="水位/流量/水质/雨量"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">地址</label>
+                    <input v-model="addForm.address" type="text" placeholder="请输入详细地址"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+            </div>
+        </ModalDialog>
+
         <ToastNotify ref="toast" />
     </div>
 </template>

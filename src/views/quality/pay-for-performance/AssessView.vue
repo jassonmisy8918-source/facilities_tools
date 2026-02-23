@@ -32,19 +32,19 @@ const calcResults = ref([
 const totalScore = ref(96.67)
 
 const queryResults = ref([
-    { period: '2024年3月', plant: '朝阳污水厂', score: 96.67, level: '优秀', payRate: '105%', amount: '325.5万', status: '已审核' },
-    { period: '2024年2月', plant: '朝阳污水厂', score: 88.5, level: '良好', payRate: '100%', amount: '310.0万', status: '已结算' },
-    { period: '2024年1月', plant: '朝阳污水厂', score: 75.2, level: '合格', payRate: '95%', amount: '294.5万', status: '已结算' },
-    { period: '2024年3月', plant: '通州污水厂', score: 82.5, level: '良好', payRate: '100%', amount: '280.0万', status: '已审核' },
-    { period: '2024年3月', plant: '海淀污水厂', score: 91.3, level: '优秀', payRate: '105%', amount: '350.0万', status: '审核中' },
+    { period: '2024年3月', plant: '雨花污水厂', score: 96.67, level: '优秀', payRate: '105%', amount: '325.5万', status: '已审核' },
+    { period: '2024年2月', plant: '雨花污水厂', score: 88.5, level: '良好', payRate: '100%', amount: '310.0万', status: '已结算' },
+    { period: '2024年1月', plant: '雨花污水厂', score: 75.2, level: '合格', payRate: '95%', amount: '294.5万', status: '已结算' },
+    { period: '2024年3月', plant: '黎托街道污水厂', score: 82.5, level: '良好', payRate: '100%', amount: '280.0万', status: '已审核' },
+    { period: '2024年3月', plant: '洞井污水厂', score: 91.3, level: '优秀', payRate: '105%', amount: '350.0万', status: '审核中' },
 ])
 
 const boardData = ref({
     plants: [
-        { name: '海淀污水厂', score: 91.3, rank: 1, trend: '↑' },
-        { name: '朝阳污水厂', score: 96.67, rank: 2, trend: '↑' },
-        { name: '通州污水厂', score: 82.5, rank: 3, trend: '→' },
-        { name: '丰台污水厂', score: 78.0, rank: 4, trend: '↓' },
+        { name: '洞井污水厂', score: 91.3, rank: 1, trend: '↑' },
+        { name: '雨花污水厂', score: 96.67, rank: 2, trend: '↑' },
+        { name: '黎托街道污水厂', score: 82.5, rank: 3, trend: '→' },
+        { name: '左家塘污水厂', score: 78.0, rank: 4, trend: '↓' },
     ],
 })
 
@@ -57,7 +57,7 @@ function levelClass(l: string) { return l === '优秀' ? 'bg-success/10 text-suc
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <template v-if="activeFunc === 'collect'">
@@ -91,7 +91,7 @@ function levelClass(l: string) { return l === '优秀' ? 'bg-success/10 text-suc
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                     :class="d.status === '正常' ? 'bg-success/10 text-success' : 'bg-warning/10 text-warning'">{{
-                                    d.status }}</span></td>
+                                        d.status }}</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -171,7 +171,7 @@ function levelClass(l: string) { return l === '优秀' ? 'bg-success/10 text-suc
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                     :class="r.status === '已结算' ? 'bg-success/10 text-success' : r.status === '已审核' ? 'bg-primary/10 text-primary' : 'bg-warning/10 text-warning'">{{
-                                    r.status }}</span></td>
+                                        r.status }}</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -191,10 +191,10 @@ function levelClass(l: string) { return l === '优秀' ? 'bg-success/10 text-suc
                     <p class="text-xs font-bold text-default mb-1">{{ p.name }}</p>
                     <p class="text-2xl font-bold"
                         :class="p.score >= 90 ? 'text-success' : p.score >= 80 ? 'text-primary' : 'text-warning'">{{
-                        p.score }}</p>
+                            p.score }}</p>
                     <p class="text-[10px] mt-1"
                         :class="p.trend === '↑' ? 'text-success' : p.trend === '↓' ? 'text-danger' : 'text-dim'">{{
-                        p.trend }} 趋势</p>
+                            p.trend }} 趋势</p>
                 </div>
             </div>
             <div class="bg-card border border-themed rounded-xl shadow-themed p-4">
@@ -209,7 +209,7 @@ function levelClass(l: string) { return l === '优秀' ? 'bg-success/10 text-suc
                         </div>
                         <span class="text-xs font-bold w-12 text-right"
                             :class="p.score >= 90 ? 'text-success' : p.score >= 80 ? 'text-primary' : 'text-warning'">{{
-                            p.score }}</span>
+                                p.score }}</span>
                     </div>
                 </div>
             </div>

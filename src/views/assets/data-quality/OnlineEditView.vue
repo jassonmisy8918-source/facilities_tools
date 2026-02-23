@@ -83,7 +83,7 @@ function resolveConflict(id: number) {
 
 // ===================== 属性编辑表单 =====================
 const showAttrForm = ref(false)
-const attrForm = ref({ name: '检查井 MH-003456', material: '球墨铸铁', depth: '2.5', district: '朝阳区' })
+const attrForm = ref({ name: '检查井 MH-003456', material: '球墨铸铁', depth: '2.5', district: '圭塘街道' })
 
 // ===================== 工具切换 =====================
 function selectTool(key: string) {
@@ -124,7 +124,7 @@ function saveAttrs() {
 
 function zoomIn() { map?.getView().animate({ zoom: (map.getView().getZoom() || 13) + 1, duration: 250 }) }
 function zoomOut() { map?.getView().animate({ zoom: (map.getView().getZoom() || 13) - 1, duration: 250 }) }
-function resetView() { map?.getView().animate({ center: fromLonLat([116.397428, 39.90923]), zoom: 14, duration: 500 }) }
+function resetView() { map?.getView().animate({ center: fromLonLat([113.032549, 28.141]), zoom: 14, duration: 500 }) }
 
 function saveAll() { toast.value?.show('所有编辑已保存', 'success') }
 
@@ -137,7 +137,7 @@ onMounted(() => {
                 new TileLayer({ source: new XYZ({ url: 'https://webrd0{1-4}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', crossOrigin: 'anonymous' }) }),
                 new VectorLayer({ source: editSource, style: editStyle }),
             ],
-            view: new View({ center: fromLonLat([116.397428, 39.90923]), zoom: 14 }),
+            view: new View({ center: fromLonLat([113.032549, 28.141]), zoom: 14 }),
             controls: [],
         })
         map.addControl(new ScaleLine({ units: 'metric' }))

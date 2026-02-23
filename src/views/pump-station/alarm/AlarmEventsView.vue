@@ -4,16 +4,16 @@ import { Bell, Search } from 'lucide-vue-next'
 
 const filterStation = ref('全部')
 const filterLevel = ref('全部')
-const stationOptions = ['全部', '朝阳泵站', '西城泵站', '通州泵站', '丰台泵站']
+const stationOptions = ['全部', '雨花泵站', '侯家塘泵站', '黎托泵站', '左家塘泵站']
 const levelOptions = ['全部', '预警', '告警', '严重']
 
 const events = ref([
-    { id: 1, type: '水位超高', station: '通州泵站', device: '前池水位计', level: '告警', time: '2024-03-15 16:20', value: '3.6m', threshold: '3.5m', status: '处理中', count: 1 },
-    { id: 2, type: '流量异常', station: '朝阳泵站', device: '进水流量计', level: '预警', time: '2024-03-15 14:30', value: '波动18%', threshold: '15%', status: '已处理', count: 3 },
-    { id: 3, type: '水泵故障', station: '海淀泵站', device: '2号水泵', level: '严重', time: '2024-03-14 22:15', value: '异常停机', threshold: '-', status: '已闭环', count: 1 },
-    { id: 4, type: '电机过温', station: '西城泵站', device: '主电机', level: '告警', time: '2024-03-14 09:30', value: '82°C', threshold: '80°C', status: '已处理', count: 2 },
-    { id: 5, type: '格栅过载', station: '丰台泵站', device: '格栅除污机', level: '告警', time: '2024-03-13 11:20', value: '电流125%', threshold: '120%', status: '待处理', count: 1 },
-    { id: 6, type: '配电异常', station: '通州泵站', device: '配电柜A', level: '预警', time: '2024-03-12 08:45', value: '电压偏差12%', threshold: '10%', status: '已处理', count: 1 },
+    { id: 1, type: '水位超高', station: '黎托泵站', device: '前池水位计', level: '告警', time: '2024-03-15 16:20', value: '3.6m', threshold: '3.5m', status: '处理中', count: 1 },
+    { id: 2, type: '流量异常', station: '雨花泵站', device: '进水流量计', level: '预警', time: '2024-03-15 14:30', value: '波动18%', threshold: '15%', status: '已处理', count: 3 },
+    { id: 3, type: '水泵故障', station: '洞井泵站', device: '2号水泵', level: '严重', time: '2024-03-14 22:15', value: '异常停机', threshold: '-', status: '已闭环', count: 1 },
+    { id: 4, type: '电机过温', station: '侯家塘泵站', device: '主电机', level: '告警', time: '2024-03-14 09:30', value: '82°C', threshold: '80°C', status: '已处理', count: 2 },
+    { id: 5, type: '格栅过载', station: '左家塘泵站', device: '格栅除污机', level: '告警', time: '2024-03-13 11:20', value: '电流125%', threshold: '120%', status: '待处理', count: 1 },
+    { id: 6, type: '配电异常', station: '黎托泵站', device: '配电柜A', level: '预警', time: '2024-03-12 08:45', value: '电压偏差12%', threshold: '10%', status: '已处理', count: 1 },
 ])
 
 const filteredEvents = computed(() => {

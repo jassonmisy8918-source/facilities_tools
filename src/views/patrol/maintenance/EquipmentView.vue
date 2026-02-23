@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Car, Search as SearchIcon, QrCode, Wrench, TrendingUp, AlertTriangle, Calendar, Trash2, Plus, Pencil, Eye, Download } from 'lucide-vue-next'
+import ToastNotify from '@/components/common/ToastNotify.vue'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 
 const activeFunc = ref('vehicles')
 const funcTabs = [
@@ -49,6 +51,13 @@ const scrapItems = ref([
 
 function getStatusColor(s: string) { return s === 'working' || s === 'active' ? 'text-success' : s === 'idle' ? 'text-info' : s === 'repair' || s === 'maintenance' ? 'text-warning' : 'text-dim' }
 function getStatusText(s: string) { return s === 'working' || s === 'active' ? '使用中' : s === 'idle' ? '空闲' : s === 'repair' || s === 'maintenance' ? '维修中' : '停用' }
+
+// 新增弹窗
+const showAddModal = ref(false)
+const addForm = ref({ name: '', type: '', quantity: '', location: '' })
+const toast = ref<InstanceType<typeof ToastNotify>>()
+function openAdd() { addForm.value = { name: '', type: '', quantity: '', location: '' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
 </script>
 
 <template>
@@ -67,7 +76,7 @@ function getStatusText(s: string) { return s === 'working' || s === 'active' ? '
                 <div class="flex items-center gap-2">
                     <Car class="w-4 h-4 text-primary" /><span class="text-sm font-semibold text-default">巡查车辆台账</span>
                 </div><button
-                    class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light cursor-pointer">
+                    class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light cursor-pointer" @click="openAdd()">
                     <Plus class="w-3.5 h-3.5" />新增
                 </button>
             </div>
@@ -241,8 +250,34 @@ function getStatusText(s: string) { return s === 'working' || s === 'active' ? '
                         </div>
                     </div>
                 </div>
+    <!-- 新增弹窗 -->
+    <ModalDialog :show="showAddModal" title="新增设备/物资" @close="showAddModal = false" @confirm="doAdd">
+        <div class="space-y-3">
+            <div>
+                <label class="text-[10px] text-dim block mb-1">名称</label>
+                <input v-model="addForm.name" type="text" placeholder="请输入名称"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
             </div>
-        </template>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">类型</label>
+                <input v-model="addForm.type" type="text" placeholder="请选择类型"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">数量</label>
+                <input v-model="addForm.quantity" type="text" placeholder="请输入数量"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">存放位置</label>
+                <input v-model="addForm.location" type="text" placeholder="请输入位置"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+        </div>
+    </ModalDialog>
+        <ToastNotify ref="toast" />
+    </div>
+</template>
 
         <!-- 维护计划 + 故障预测 -->
         <div v-if="activeFunc === 'plan'" class="space-y-3">

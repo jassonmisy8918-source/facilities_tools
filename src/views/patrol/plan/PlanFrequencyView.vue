@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Clock, AlertTriangle, Plus, Pencil, Trash2 } from 'lucide-vue-next'
+import ToastNotify from '@/components/common/ToastNotify.vue'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 
 const activeFunc = ref('frequency')
 const funcTabs = [
@@ -25,6 +27,13 @@ const priorities = ref([
     { level: 'B', label: '重要', color: 'bg-info/80 text-white', desc: '计划性重点巡查/设备定期检修等', response: '按计划执行', scenarios: '季度/月度例行巡查、设备定检' },
     { level: 'C', label: '普通', color: 'bg-surface text-dim', desc: '日常巡查/数据抄录/环境检查等', response: '按排班执行', scenarios: '日常巡查、抽检、数据补录' },
 ])
+
+// 新增弹窗
+const showAddModal = ref(false)
+const addForm = ref({ name: '', type: '', frequency: '', scope: '' })
+const toast = ref<InstanceType<typeof ToastNotify>>()
+function openAdd() { addForm.value = { name: '', type: '', frequency: '', scope: '' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
 </script>
 
 <template>
@@ -44,7 +53,7 @@ const priorities = ref([
                     <Clock class="w-4 h-4 text-primary" /><span class="text-sm font-semibold text-default">巡查频率配置</span>
                 </div>
                 <button
-                    class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
+                    class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer" @click="openAdd()">
                     <Plus class="w-3.5 h-3.5" />新增配置
                 </button>
             </div>
@@ -105,5 +114,31 @@ const priorities = ref([
                 </div>
             </div>
         </div>
+    <!-- 新增弹窗 -->
+    <ModalDialog :show="showAddModal" title="新增频次配置" @close="showAddModal = false" @confirm="doAdd">
+        <div class="space-y-3">
+            <div>
+                <label class="text-[10px] text-dim block mb-1">配置名称</label>
+                <input v-model="addForm.name" type="text" placeholder="请输入配置名称"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">巡查类型</label>
+                <input v-model="addForm.type" type="text" placeholder="例行/专项/应急"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">频次</label>
+                <input v-model="addForm.frequency" type="text" placeholder="如 1次/周"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">适用范围</label>
+                <input v-model="addForm.scope" type="text" placeholder="请输入适用范围"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+        </div>
+    </ModalDialog>
+        <ToastNotify ref="toast" />
     </div>
 </template>

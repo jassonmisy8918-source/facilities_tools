@@ -6,15 +6,15 @@ import ToastNotify from '@/components/common/ToastNotify.vue'
 const toast = ref<InstanceType<typeof ToastNotify>>()
 
 const pendingAlarms = ref([
-    { id: 1, level: 'critical', title: '建设大道DN300水位超限', location: '建设大道DN300 监测点#06', time: '2024-03-15 14:23', value: '2.35m (阈值: 2.0m)', type: '水位超限', result: '' },
-    { id: 2, level: 'warning', title: '西城区进水口COD超标', location: '西城区进水口 WQ-302', time: '2024-03-15 13:45', value: '45mg/L (阈值: 40mg/L)', type: '水质超标', result: '' },
-    { id: 6, level: 'critical', title: '和平路泵站进水位超高', location: '和平路泵站 前池', time: '2024-03-15 09:30', value: '4.1m (阈值: 3.8m)', type: '水位超限', result: '' },
-    { id: 7, level: 'warning', title: '通州区雨量站降雨超限', location: '通州区雨量站 RG-2003', time: '2024-03-15 08:45', value: '12.6mm/h (阈值: 10mm/h)', type: '雨量预警', result: '' },
+    { id: 1, level: 'critical', title: '万家丽路DN300水位超限', location: '万家丽路DN300 监测点#06', time: '2024-03-15 14:23', value: '2.35m (阈值: 2.0m)', type: '水位超限', result: '' },
+    { id: 2, level: 'warning', title: '侯家塘街道进水口COD超标', location: '侯家塘街道进水口 WQ-302', time: '2024-03-15 13:45', value: '45mg/L (阈值: 40mg/L)', type: '水质超标', result: '' },
+    { id: 6, level: 'critical', title: '芙蓉路泵站进水位超高', location: '芙蓉路泵站 前池', time: '2024-03-15 09:30', value: '4.1m (阈值: 3.8m)', type: '水位超限', result: '' },
+    { id: 7, level: 'warning', title: '黎托街道雨量站降雨超限', location: '黎托街道雨量站 RG-2003', time: '2024-03-15 08:45', value: '12.6mm/h (阈值: 10mm/h)', type: '雨量预警', result: '' },
 ])
 
 const judgedAlarms = ref([
-    { id: 3, level: 'warning', title: '民生路DN400水位预警', time: '2024-03-15 12:30', result: 'confirmed', judgement: '确认为真实报警，上游来水增大导致', operator: '张工', judgeTime: '2024-03-15 12:35' },
-    { id: 4, level: 'info', title: '丰台区降雨量增加', time: '2024-03-15 11:20', result: 'false', judgement: '误报，传感器数据抖动', operator: '李工', judgeTime: '2024-03-15 11:30' },
+    { id: 3, level: 'warning', title: '劳动路DN400水位预警', time: '2024-03-15 12:30', result: 'confirmed', judgement: '确认为真实报警，上游来水增大导致', operator: '张工', judgeTime: '2024-03-15 12:35' },
+    { id: 4, level: 'info', title: '左家塘街道降雨量增加', time: '2024-03-15 11:20', result: 'false', judgement: '误报，传感器数据抖动', operator: '李工', judgeTime: '2024-03-15 11:30' },
 ])
 
 function getLevelClass(l: string) { return l === 'critical' ? 'bg-danger text-white' : l === 'warning' ? 'bg-warning text-white' : l === 'info' ? 'bg-info/20 text-info' : 'bg-surface text-dim' }

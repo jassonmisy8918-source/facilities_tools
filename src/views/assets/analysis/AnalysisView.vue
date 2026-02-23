@@ -34,10 +34,10 @@ function runIntegrityCheck() {
 
 // ===================== 故障点定位 =====================
 const faultPoints = ref([
-  { id: 1, location: '朝阳区 建国路段', well: 'MH-C007', type: '堵塞', severity: 'high', desc: '管段淤积严重，流量降至设计值20%', lat: 39.9087, lng: 116.4605 },
-  { id: 2, location: '海淀区 中关村段', well: 'MH-E010', type: '断裂', severity: 'high', desc: '管道结构破损，存在渗漏', lat: 39.9842, lng: 116.3160 },
-  { id: 3, location: '西城区 西单段', well: 'MH-F003', type: '错口', severity: 'medium', desc: '管道接口处错位约3cm', lat: 39.9093, lng: 116.3740 },
-  { id: 4, location: '东城区 王府井段', well: 'MH-G015', type: '沉降', severity: 'low', desc: '检查井轻微沉降，功能正常', lat: 39.9145, lng: 116.4105 },
+  { id: 1, location: '圭塘街道 韶山路段', well: 'MH-C007', type: '堵塞', severity: 'high', desc: '管段淤积严重，流量降至设计值20%', lat: 28.1387, lng: 113.045 },
+  { id: 2, location: '洞井街道 中关村段', well: 'MH-E010', type: '断裂', severity: 'high', desc: '管道结构破损，存在渗漏', lat: 28.1742, lng: 113.0160 },
+  { id: 3, location: '侯家塘街道 东塘段', well: 'MH-F003', type: '错口', severity: 'medium', desc: '管道接口处错位约3cm', lat: 28.1413, lng: 113.0440 },
+  { id: 4, location: '雨花亭街道 王府井段', well: 'MH-G015', type: '沉降', severity: 'low', desc: '检查井轻微沉降，功能正常', lat: 28.1345, lng: 113.0505 },
 ])
 
 const selectedFault = ref<number | null>(null)

@@ -10,18 +10,18 @@ const funcTabs = [
 ]
 
 const schemes = ref([
-    { id: 1, area: '朝阳区民生路', plan: '雨污分流改造', tech: '新建污水管DN400、封堵混接口', length: '45m', cost: '约38万元', duration: '15天', priority: '紧急', phase: 'Q2 2024' },
-    { id: 2, area: '通州区运河段', plan: '系统分流改造', tech: '双管分铺、雨水管改建', length: '80m', cost: '约95万元', duration: '30天', priority: '紧急', phase: 'Q2-Q3 2024' },
-    { id: 3, area: '海淀区清河路', plan: '接口封堵+分流', tech: '封堵雨水接入口、增设截流井', length: '30m', cost: '约22万元', duration: '10天', priority: '高', phase: 'Q3 2024' },
-    { id: 4, area: '西城区西单路', plan: '局部改造', tech: '商铺排污管接入污水管', length: '12m', cost: '约5万元', duration: '3天', priority: '中', phase: 'Q4 2024' },
+    { id: 1, area: '圭塘街道劳动路', plan: '雨污分流改造', tech: '新建污水管DN400、封堵混接口', length: '45m', cost: '约38万元', duration: '15天', priority: '紧急', phase: 'Q2 2024' },
+    { id: 2, area: '黎托街道浏阳河段', plan: '系统分流改造', tech: '双管分铺、雨水管改建', length: '80m', cost: '约95万元', duration: '30天', priority: '紧急', phase: 'Q2-Q3 2024' },
+    { id: 3, area: '洞井街道浏阳河路', plan: '接口封堵+分流', tech: '封堵雨水接入口、增设截流井', length: '30m', cost: '约22万元', duration: '10天', priority: '高', phase: 'Q3 2024' },
+    { id: 4, area: '侯家塘街道东塘路', plan: '局部改造', tech: '商铺排污管接入污水管', length: '12m', cost: '约5万元', duration: '3天', priority: '中', phase: 'Q4 2024' },
 ])
 
 const simulations = ref([
-    { area: '朝阳区民生路', metric: '混接量削减', before: '450m³/日', after: '0m³/日', reduction: '100%', benefit: '年节约处理费12.3万元' },
-    { area: '朝阳区民生路', metric: '雨水管COD', before: '185mg/L', after: '<30mg/L', reduction: '84%', benefit: '护城河水质达标' },
-    { area: '通州区运河段', metric: '混接量削减', before: '620m³/日', after: '15m³/日', reduction: '97.6%', benefit: '年节约17万元' },
-    { area: '通州区运河段', metric: '污水厂进水COD', before: '185mg/L', after: '230mg/L', reduction: '+24%恢复', benefit: '脱氮效率提升' },
-    { area: '海淀区清河路', metric: '污水管雨天流量', before: '210m³/h', after: '85m³/h', reduction: '59.5%', benefit: '消除超负荷风险' },
+    { area: '圭塘街道劳动路', metric: '混接量削减', before: '450m³/日', after: '0m³/日', reduction: '100%', benefit: '年节约处理费12.3万元' },
+    { area: '圭塘街道劳动路', metric: '雨水管COD', before: '185mg/L', after: '<30mg/L', reduction: '84%', benefit: '护城河水质达标' },
+    { area: '黎托街道浏阳河段', metric: '混接量削减', before: '620m³/日', after: '15m³/日', reduction: '97.6%', benefit: '年节约17万元' },
+    { area: '黎托街道浏阳河段', metric: '污水厂进水COD', before: '185mg/L', after: '230mg/L', reduction: '+24%恢复', benefit: '脱氮效率提升' },
+    { area: '洞井街道浏阳河路', metric: '污水管雨天流量', before: '210m³/h', after: '85m³/h', reduction: '59.5%', benefit: '消除超负荷风险' },
 ])
 
 const optimizeSuggestions = ref([

@@ -20,12 +20,12 @@ const activeTool = ref('')
 
 // ===================== 图幅列表 =====================
 const tileSheets = ref([
-    { id: 'TS-001', name: '朝阳区-东', neighbor: 'TS-002', status: 'checked', issues: 3, fixed: 2 },
-    { id: 'TS-002', name: '朝阳区-西', neighbor: 'TS-001', status: 'checked', issues: 5, fixed: 5 },
-    { id: 'TS-003', name: '海淀区-北', neighbor: 'TS-004', status: 'pending', issues: 0, fixed: 0 },
-    { id: 'TS-004', name: '海淀区-南', neighbor: 'TS-003', status: 'pending', issues: 0, fixed: 0 },
-    { id: 'TS-005', name: '西城区-东', neighbor: 'TS-006', status: 'checked', issues: 7, fixed: 4 },
-    { id: 'TS-006', name: '西城区-西', neighbor: 'TS-005', status: 'issue', issues: 8, fixed: 2 },
+    { id: 'TS-001', name: '圭塘街道-东', neighbor: 'TS-002', status: 'checked', issues: 3, fixed: 2 },
+    { id: 'TS-002', name: '圭塘街道-西', neighbor: 'TS-001', status: 'checked', issues: 5, fixed: 5 },
+    { id: 'TS-003', name: '洞井街道-北', neighbor: 'TS-004', status: 'pending', issues: 0, fixed: 0 },
+    { id: 'TS-004', name: '洞井街道-南', neighbor: 'TS-003', status: 'pending', issues: 0, fixed: 0 },
+    { id: 'TS-005', name: '侯家塘街道-东', neighbor: 'TS-006', status: 'checked', issues: 7, fixed: 4 },
+    { id: 'TS-006', name: '侯家塘街道-西', neighbor: 'TS-005', status: 'issue', issues: 8, fixed: 2 },
 ])
 
 // ===================== 接边问题详情 =====================

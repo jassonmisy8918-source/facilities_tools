@@ -35,9 +35,9 @@ const trackItems = ref([
 ])
 
 const optimizeSuggestions = ref([
-    { id: 1, area: '管网运行', suggestion: '朝阳区建设大道段降低运行水位0.3m，减少地下水入侵压差', impact: '预计减少入侵30%', priority: '高' },
-    { id: 2, area: '调度优化', suggestion: '汛期对通州运河段实施截流调度，避免雨水入渗高峰', impact: '预计减少雨水入渗50%', priority: '高' },
-    { id: 3, area: '监测加密', suggestion: '丰台南路增设2处流量监测点，提升入侵检测灵敏度', impact: '提前2h发现入侵事件', priority: '中' },
+    { id: 1, area: '管网运行', suggestion: '圭塘街道万家丽路段降低运行水位0.3m，减少地下水入侵压差', impact: '预计减少入侵30%', priority: '高' },
+    { id: 2, area: '调度优化', suggestion: '汛期对黎托街道浏阳河段实施截流调度，避免雨水入渗高峰', impact: '预计减少雨水入渗50%', priority: '高' },
+    { id: 3, area: '监测加密', suggestion: '左家塘南路增设2处流量监测点，提升入侵检测灵敏度', impact: '提前2h发现入侵事件', priority: '中' },
     { id: 4, area: '长效治理', suggestion: '制定年度管道接口密封计划，逐步消除入浸点', impact: '年减少外水3000m³', priority: '中' },
 ])
 </script>

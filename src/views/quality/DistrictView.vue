@@ -5,11 +5,11 @@ import * as echarts from 'echarts'
 
 // 排水分区
 const districts = ref([
-    { id: 'D-001', name: '朝阳分区', area: 12.5, population: 85000, pipeLength: 45.2, pipeType: '合流制', stormDensity: 3.6, outlets: 8, pumpStations: 1, loadRate: 78 },
-    { id: 'D-002', name: '海淀分区', area: 18.3, population: 120000, pipeLength: 62.8, pipeType: '分流制', stormDensity: 3.4, outlets: 12, pumpStations: 2, loadRate: 65 },
-    { id: 'D-003', name: '西城分区', area: 8.2, population: 56000, pipeLength: 28.5, pipeType: '合流制', stormDensity: 3.5, outlets: 5, pumpStations: 1, loadRate: 92 },
+    { id: 'D-001', name: '雨花分区', area: 12.5, population: 85000, pipeLength: 45.2, pipeType: '合流制', stormDensity: 3.6, outlets: 8, pumpStations: 1, loadRate: 78 },
+    { id: 'D-002', name: '洞井分区', area: 18.3, population: 120000, pipeLength: 62.8, pipeType: '分流制', stormDensity: 3.4, outlets: 12, pumpStations: 2, loadRate: 65 },
+    { id: 'D-003', name: '侯家塘分区', area: 8.2, population: 56000, pipeLength: 28.5, pipeType: '合流制', stormDensity: 3.5, outlets: 5, pumpStations: 1, loadRate: 92 },
     { id: 'D-004', name: '东城分区', area: 6.8, population: 48000, pipeLength: 22.3, pipeType: '分流制', stormDensity: 3.3, outlets: 4, pumpStations: 0, loadRate: 55 },
-    { id: 'D-005', name: '丰台分区', area: 22.1, population: 95000, pipeLength: 58.6, pipeType: '混合制', stormDensity: 2.7, outlets: 10, pumpStations: 1, loadRate: 70 },
+    { id: 'D-005', name: '左家塘分区', area: 22.1, population: 95000, pipeLength: 58.6, pipeType: '混合制', stormDensity: 2.7, outlets: 10, pumpStations: 1, loadRate: 70 },
 ])
 
 const chartRef = ref<HTMLElement>()

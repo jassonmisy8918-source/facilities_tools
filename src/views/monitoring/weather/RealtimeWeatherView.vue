@@ -11,7 +11,7 @@ const currentWeather = ref({
 
 const searchArea = ref('')
 const selectedArea = ref('全市')
-const areas = ['全市', '朝阳区', '海淀区', '东城区', '西城区', '丰台区', '通州区']
+const areas = ['全市', '圭塘街道', '洞井街道', '雨花亭街道', '侯家塘街道', '左家塘街道', '黎托街道']
 
 const forecast = ref([
   { day: '今天', high: 17, low: 10, condition: '多云转小雨', rain: 60, icon: '🌦' },

@@ -15,11 +15,11 @@ const funcTabs = [
 const taskStats = ref({
     total: 128, completed: 105, incomplete: 23, completionRate: 82.0,
     byArea: [
-        { area: '朝阳区', total: 42, completed: 38, rate: 90.5 },
-        { area: '西城区', total: 30, completed: 27, rate: 90.0 },
-        { area: '丰台区', total: 28, completed: 20, rate: 71.4 },
-        { area: '通州区', total: 18, completed: 12, rate: 66.7 },
-        { area: '海淀区', total: 10, completed: 8, rate: 80.0 },
+        { area: '圭塘街道', total: 42, completed: 38, rate: 90.5 },
+        { area: '侯家塘街道', total: 30, completed: 27, rate: 90.0 },
+        { area: '左家塘街道', total: 28, completed: 20, rate: 71.4 },
+        { area: '黎托街道', total: 18, completed: 12, rate: 66.7 },
+        { area: '洞井街道', total: 10, completed: 8, rate: 80.0 },
     ],
     byType: [
         { type: '例行巡查', total: 80, completed: 72, rate: 90.0 },
@@ -47,10 +47,10 @@ const timeStats = ref({
     ],
     totalMileage: '332km',
     byArea: [
-        { area: '朝阳区', mileage: '120km' },
-        { area: '西城区', mileage: '85km' },
-        { area: '丰台区', mileage: '72km' },
-        { area: '通州区', mileage: '55km' },
+        { area: '圭塘街道', mileage: '120km' },
+        { area: '侯家塘街道', mileage: '85km' },
+        { area: '左家塘街道', mileage: '72km' },
+        { area: '黎托街道', mileage: '55km' },
     ]
 })
 
@@ -66,11 +66,11 @@ const issueStats = ref({
         { type: '其他', count: 3, pct: 6.7 },
     ],
     byArea: [
-        { area: '朝阳区', count: 15 },
-        { area: '西城区', count: 12 },
-        { area: '丰台区', count: 10 },
-        { area: '通州区', count: 5 },
-        { area: '海淀区', count: 3 },
+        { area: '圭塘街道', count: 15 },
+        { area: '侯家塘街道', count: 12 },
+        { area: '左家塘街道', count: 10 },
+        { area: '黎托街道', count: 5 },
+        { area: '洞井街道', count: 3 },
     ]
 })
 
@@ -85,11 +85,11 @@ const efficiencyData = ref([
 
 // 覆盖
 const coverageData = ref([
-    { area: '朝阳区', totalPipeline: '120km', covered: '108km', rate: 90, lastPatrol: '2024-03-15' },
-    { area: '西城区', totalPipeline: '85km', covered: '72km', rate: 85, lastPatrol: '2024-03-14' },
-    { area: '丰台区', totalPipeline: '95km', covered: '57km', rate: 60, lastPatrol: '2024-03-12' },
-    { area: '通州区', totalPipeline: '110km', covered: '55km', rate: 50, lastPatrol: '2024-03-10' },
-    { area: '海淀区', totalPipeline: '75km', covered: '30km', rate: 40, lastPatrol: '2024-03-08' },
+    { area: '圭塘街道', totalPipeline: '120km', covered: '108km', rate: 90, lastPatrol: '2024-03-15' },
+    { area: '侯家塘街道', totalPipeline: '85km', covered: '72km', rate: 85, lastPatrol: '2024-03-14' },
+    { area: '左家塘街道', totalPipeline: '95km', covered: '57km', rate: 60, lastPatrol: '2024-03-12' },
+    { area: '黎托街道', totalPipeline: '110km', covered: '55km', rate: 50, lastPatrol: '2024-03-10' },
+    { area: '洞井街道', totalPipeline: '75km', covered: '30km', rate: 40, lastPatrol: '2024-03-08' },
 ])
 </script>
 

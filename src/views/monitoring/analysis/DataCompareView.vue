@@ -12,8 +12,8 @@ const funcTabs = [
 ]
 
 const selectedMetric = ref('flow')
-const selectedPoints = ref(['朝阳路DN600', '东湖泵站进水'])
-const allPoints = ['朝阳路DN600', '东湖泵站进水', '丰台路DN500', '民生路DN400', '建设大道DN300', '海淀路DN400']
+const selectedPoints = ref(['韶山路DN600', '圭塘河泵站进水'])
+const allPoints = ['韶山路DN600', '圭塘河泵站进水', '左家塘路DN500', '劳动路DN400', '万家丽路DN300', '洞井路DN400']
 
 // 自定义对比参数
 const customDate1 = ref('2024-03-15')

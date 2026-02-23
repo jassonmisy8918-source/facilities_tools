@@ -2,9 +2,9 @@ import ReactECharts from 'echarts-for-react';
 import { MapPin, Users, Droplets, ArrowUpDown } from 'lucide-react';
 
 const districts = [
-    { id: 1, name: '朝阳排水分区', area: '12.5 km²', pipeLength: '486 km', population: '32万', coverage: 95, type: '分流制' },
+    { id: 1, name: '雨花排水分区', area: '12.5 km²', pipeLength: '486 km', population: '32万', coverage: 95, type: '分流制' },
     { id: 2, name: '海淀排水分区', area: '18.3 km²', pipeLength: '612 km', population: '45万', coverage: 92, type: '分流制' },
-    { id: 3, name: '西城排水分区', area: '8.7 km²', pipeLength: '324 km', population: '28万', coverage: 88, type: '合流制' },
+    { id: 3, name: '侯家塘排水分区', area: '8.7 km²', pipeLength: '324 km', population: '28万', coverage: 88, type: '合流制' },
     { id: 4, name: '东城排水分区', area: '6.2 km²', pipeLength: '256 km', population: '22万', coverage: 91, type: '合流制' },
     { id: 5, name: '丰台排水分区', area: '22.8 km²', pipeLength: '578 km', population: '38万', coverage: 85, type: '混合制' },
     { id: 6, name: '石景山排水分区', area: '15.1 km²', pipeLength: '391 km', population: '25万', coverage: 93, type: '分流制' },

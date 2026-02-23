@@ -6,10 +6,10 @@ import ToastNotify from '@/components/common/ToastNotify.vue'
 const toast = ref<InstanceType<typeof ToastNotify>>()
 
 const loopNetworks = ref([
-    { id: 1, name: '朝阳区环状管网 A', nodes: 45, pipes: 52, loops: 8, status: '正常', flowBalance: 98.2, pressureVariance: 0.12 },
-    { id: 2, name: '海淀区环状管网 B', nodes: 38, pipes: 44, loops: 6, status: '偏差', flowBalance: 89.5, pressureVariance: 0.35 },
-    { id: 3, name: '西城区环状管网 C', nodes: 30, pipes: 35, loops: 5, status: '正常', flowBalance: 96.8, pressureVariance: 0.15 },
-    { id: 4, name: '东城区环状管网 D', nodes: 28, pipes: 32, loops: 4, status: '异常', flowBalance: 72.3, pressureVariance: 0.68 },
+    { id: 1, name: '圭塘街道环状管网 A', nodes: 45, pipes: 52, loops: 8, status: '正常', flowBalance: 98.2, pressureVariance: 0.12 },
+    { id: 2, name: '洞井街道环状管网 B', nodes: 38, pipes: 44, loops: 6, status: '偏差', flowBalance: 89.5, pressureVariance: 0.35 },
+    { id: 3, name: '侯家塘街道环状管网 C', nodes: 30, pipes: 35, loops: 5, status: '正常', flowBalance: 96.8, pressureVariance: 0.15 },
+    { id: 4, name: '雨花亭街道环状管网 D', nodes: 28, pipes: 32, loops: 4, status: '异常', flowBalance: 72.3, pressureVariance: 0.68 },
 ])
 
 const diagnosticItems = ref([

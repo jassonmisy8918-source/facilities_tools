@@ -10,15 +10,15 @@ const funcTabs = [
 ]
 
 const bottlenecks = ref([
-    { id: 1, station: '通州泵站', area: '能耗', desc: '单位水量电耗0.588，超标6.9%', impact: '年多耗电约5.8万kWh', severity: '高', root: '泵组效率下降+运行策略粗放' },
-    { id: 2, station: '海淀泵站', area: '设备', desc: '设备健康指数45，设备老化严重', impact: '故障频发，可用率仅90.5%', severity: '严重', root: '2号泵电机老化、全站设备超龄' },
-    { id: 3, station: '丰台泵站', area: '辅助', desc: '格栅机频繁过载', impact: '影响进水预处理效率', severity: '中', root: '链条材质不适配、缺变频控制' },
+    { id: 1, station: '黎托泵站', area: '能耗', desc: '单位水量电耗0.588，超标6.9%', impact: '年多耗电约5.8万kWh', severity: '高', root: '泵组效率下降+运行策略粗放' },
+    { id: 2, station: '洞井泵站', area: '设备', desc: '设备健康指数45，设备老化严重', impact: '故障频发，可用率仅90.5%', severity: '严重', root: '2号泵电机老化、全站设备超龄' },
+    { id: 3, station: '左家塘泵站', area: '辅助', desc: '格栅机频繁过载', impact: '影响进水预处理效率', severity: '中', root: '链条材质不适配、缺变频控制' },
 ])
 
 const reformSuggestions = ref([
-    { id: 1, station: '海淀泵站', plan: '泵组+电气全面升级改造', investment: '约85万元', payback: '3年', saving: '年节电约9.5万kWh', priority: '紧急' },
-    { id: 2, station: '通州泵站', plan: '变频改造+运行策略优化', investment: '约25万元', payback: '2年', saving: '年节电约5.8万kWh', priority: '高' },
-    { id: 3, station: '丰台泵站', plan: '格栅机变频改造+材质升级', investment: '约12万元', payback: '1.5年', saving: '年节电约2万kWh', priority: '中' },
+    { id: 1, station: '洞井泵站', plan: '泵组+电气全面升级改造', investment: '约85万元', payback: '3年', saving: '年节电约9.5万kWh', priority: '紧急' },
+    { id: 2, station: '黎托泵站', plan: '变频改造+运行策略优化', investment: '约25万元', payback: '2年', saving: '年节电约5.8万kWh', priority: '高' },
+    { id: 3, station: '左家塘泵站', plan: '格栅机变频改造+材质升级', investment: '约12万元', payback: '1.5年', saving: '年节电约2万kWh', priority: '中' },
 ])
 
 const emergencyPlans = ref([

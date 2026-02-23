@@ -8,12 +8,12 @@ const toast = ref<InstanceType<typeof ToastNotify>>()
 
 // ===================== 管段服务面积 =====================
 const serviceResults = ref([
-    { pipe: 'PS-001234', district: '朝阳区', area: '12.5 ha', flowCapacity: '800 L/s', loadRatio: 78, status: '正常' },
-    { pipe: 'PS-002567', district: '海淀区', area: '18.3 ha', flowCapacity: '1200 L/s', loadRatio: 92, status: '接近饱和' },
-    { pipe: 'PS-003891', district: '西城区', area: '8.7 ha', flowCapacity: '600 L/s', loadRatio: 65, status: '正常' },
-    { pipe: 'PS-004123', district: '东城区', area: '22.1 ha', flowCapacity: '1500 L/s', loadRatio: 105, status: '超负荷' },
-    { pipe: 'PS-005456', district: '丰台区', area: '15.6 ha', flowCapacity: '1000 L/s', loadRatio: 45, status: '正常' },
-    { pipe: 'PS-006789', district: '朝阳区', area: '9.2 ha', flowCapacity: '700 L/s', loadRatio: 88, status: '偏高' },
+    { pipe: 'PS-001234', district: '圭塘街道', area: '12.5 ha', flowCapacity: '800 L/s', loadRatio: 78, status: '正常' },
+    { pipe: 'PS-002567', district: '洞井街道', area: '18.3 ha', flowCapacity: '1200 L/s', loadRatio: 92, status: '接近饱和' },
+    { pipe: 'PS-003891', district: '侯家塘街道', area: '8.7 ha', flowCapacity: '600 L/s', loadRatio: 65, status: '正常' },
+    { pipe: 'PS-004123', district: '雨花亭街道', area: '22.1 ha', flowCapacity: '1500 L/s', loadRatio: 105, status: '超负荷' },
+    { pipe: 'PS-005456', district: '左家塘街道', area: '15.6 ha', flowCapacity: '1000 L/s', loadRatio: 45, status: '正常' },
+    { pipe: 'PS-006789', district: '圭塘街道', area: '9.2 ha', flowCapacity: '700 L/s', loadRatio: 88, status: '偏高' },
 ])
 
 // ===================== 图表 =====================

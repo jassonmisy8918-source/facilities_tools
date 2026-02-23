@@ -14,31 +14,31 @@ const funcTabs = [
 
 // ── 巡检计划 ──
 const inspPlans = ref([
-    { id: 1, name: '朝阳泵站周巡检', station: '朝阳泵站', cycle: '每周', items: '水泵/电机/阀门/仪表', route: 'A区→B区→配电室', owner: '张伟', status: '已发布', nextDate: '2024-03-18' },
-    { id: 2, name: '西城泵站月巡检', station: '西城泵站', cycle: '每月', items: '全设备', route: '进水口→泵房→出水口', owner: '李明', status: '已发布', nextDate: '2024-04-01' },
-    { id: 3, name: '通州泵站日巡检', station: '通州泵站', cycle: '每日', items: '水泵运行状态/水位', route: '泵房→前池→后池', owner: '赵刚', status: '待审核', nextDate: '2024-03-16' },
+    { id: 1, name: '雨花泵站周巡检', station: '雨花泵站', cycle: '每周', items: '水泵/电机/阀门/仪表', route: 'A区→B区→配电室', owner: '张伟', status: '已发布', nextDate: '2024-03-18' },
+    { id: 2, name: '侯家塘泵站月巡检', station: '侯家塘泵站', cycle: '每月', items: '全设备', route: '进水口→泵房→出水口', owner: '李明', status: '已发布', nextDate: '2024-04-01' },
+    { id: 3, name: '黎托泵站日巡检', station: '黎托泵站', cycle: '每日', items: '水泵运行状态/水位', route: '泵房→前池→后池', owner: '赵刚', status: '待审核', nextDate: '2024-03-16' },
 ])
 
 // ── 任务分配 ──
 const inspTasks = ref([
-    { id: 1, plan: '朝阳泵站周巡检', assignee: '张伟', skill: '机电', workload: 3, date: '2024-03-18', status: '待执行', method: '自动' },
-    { id: 2, plan: '西城泵站月巡检', assignee: '李明', skill: '综合', workload: 2, date: '2024-04-01', status: '待执行', method: '手动' },
-    { id: 3, plan: '通州泵站日巡检', assignee: '赵刚', skill: '水泵', workload: 5, date: '2024-03-16', status: '执行中', method: '自动' },
-    { id: 4, plan: '朝阳泵站周巡检', assignee: '刘芳', skill: '仪表', workload: 2, date: '2024-03-18', status: '待执行', method: '自动' },
+    { id: 1, plan: '雨花泵站周巡检', assignee: '张伟', skill: '机电', workload: 3, date: '2024-03-18', status: '待执行', method: '自动' },
+    { id: 2, plan: '侯家塘泵站月巡检', assignee: '李明', skill: '综合', workload: 2, date: '2024-04-01', status: '待执行', method: '手动' },
+    { id: 3, plan: '黎托泵站日巡检', assignee: '赵刚', skill: '水泵', workload: 5, date: '2024-03-16', status: '执行中', method: '自动' },
+    { id: 4, plan: '雨花泵站周巡检', assignee: '刘芳', skill: '仪表', workload: 2, date: '2024-03-18', status: '待执行', method: '自动' },
 ])
 
 // ── 巡检结果 ──
 const inspResults = ref([
-    { id: 1, plan: '通州泵站日巡检', inspector: '赵刚', date: '2024-03-15', items: 8, normal: 7, issue: 1, issueDesc: '3号泵异响', photos: 3, status: '已提交' },
-    { id: 2, plan: '朝阳泵站周巡检', inspector: '张伟', date: '2024-03-11', items: 15, normal: 15, issue: 0, issueDesc: '-', photos: 5, status: '已审核' },
-    { id: 3, plan: '西城泵站月巡检', inspector: '李明', date: '2024-03-01', items: 22, normal: 20, issue: 2, issueDesc: '阀门渗漏/仪表偏差', photos: 8, status: '已审核' },
+    { id: 1, plan: '黎托泵站日巡检', inspector: '赵刚', date: '2024-03-15', items: 8, normal: 7, issue: 1, issueDesc: '3号泵异响', photos: 3, status: '已提交' },
+    { id: 2, plan: '雨花泵站周巡检', inspector: '张伟', date: '2024-03-11', items: 15, normal: 15, issue: 0, issueDesc: '-', photos: 5, status: '已审核' },
+    { id: 3, plan: '侯家塘泵站月巡检', inspector: '李明', date: '2024-03-01', items: 22, normal: 20, issue: 2, issueDesc: '阀门渗漏/仪表偏差', photos: 8, status: '已审核' },
 ])
 
 // ── 闭环跟踪 ──
 const trackingItems = ref([
-    { id: 1, source: '通州泵站日巡检', issue: '3号泵异响', level: '一般', findDate: '2024-03-15', measure: '更换轴承', executor: '王强', deadline: '2024-03-20', status: '整改中', progress: 60 },
-    { id: 2, source: '西城泵站月巡检', issue: '阀门渗漏', level: '重要', findDate: '2024-03-01', measure: '更换密封垫', executor: '赵刚', deadline: '2024-03-10', status: '已闭环', progress: 100 },
-    { id: 3, source: '西城泵站月巡检', issue: '仪表偏差', level: '一般', findDate: '2024-03-01', measure: '重新校准', executor: '刘芳', deadline: '2024-03-08', status: '已闭环', progress: 100 },
+    { id: 1, source: '黎托泵站日巡检', issue: '3号泵异响', level: '一般', findDate: '2024-03-15', measure: '更换轴承', executor: '王强', deadline: '2024-03-20', status: '整改中', progress: 60 },
+    { id: 2, source: '侯家塘泵站月巡检', issue: '阀门渗漏', level: '重要', findDate: '2024-03-01', measure: '更换密封垫', executor: '赵刚', deadline: '2024-03-10', status: '已闭环', progress: 100 },
+    { id: 3, source: '侯家塘泵站月巡检', issue: '仪表偏差', level: '一般', findDate: '2024-03-01', measure: '重新校准', executor: '刘芳', deadline: '2024-03-08', status: '已闭环', progress: 100 },
 ])
 
 function planStatusClass(s: string) { return s === '已发布' ? 'bg-success/10 text-success' : s === '待审核' ? 'bg-warning/10 text-warning' : 'bg-surface text-dim' }
@@ -52,7 +52,7 @@ function taskStatusClass(s: string) { return s === '执行中' ? 'bg-primary/10 
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <!-- 巡检计划 -->
@@ -127,7 +127,7 @@ function taskStatusClass(s: string) { return s === '执行中' ? 'bg-primary/10 
                             <td class="text-center px-2 py-2.5 text-dim">{{ t.date }}</td>
                             <td class="text-center px-2 py-2.5"><span class="text-[10px] px-1.5 py-0.5 rounded"
                                     :class="t.method === '自动' ? 'bg-info/10 text-info' : 'bg-surface text-dim'">{{
-                                    t.method }}</span></td>
+                                        t.method }}</span></td>
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                     :class="taskStatusClass(t.status)">{{ t.status }}</span></td>
@@ -172,7 +172,7 @@ function taskStatusClass(s: string) { return s === '执行中' ? 'bg-primary/10 
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                     :class="r.status === '已审核' ? 'bg-success/10 text-success' : 'bg-info/10 text-info'">{{
-                                    r.status }}</span></td>
+                                        r.status }}</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -207,7 +207,7 @@ function taskStatusClass(s: string) { return s === '执行中' ? 'bg-primary/10 
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                     :class="t.level === '重要' ? 'bg-danger/10 text-danger' : 'bg-warning/10 text-warning'">{{
-                                    t.level }}</span></td>
+                                        t.level }}</span></td>
                             <td class="px-2 py-2.5 text-default text-[10px]">{{ t.measure }}</td>
                             <td class="text-center px-2 py-2.5 text-default">{{ t.executor }}</td>
                             <td class="text-center px-2 py-2.5 text-dim">{{ t.deadline }}</td>
@@ -223,7 +223,7 @@ function taskStatusClass(s: string) { return s === '执行中' ? 'bg-primary/10 
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                     :class="t.status === '已闭环' ? 'bg-success/10 text-success' : 'bg-primary/10 text-primary'">{{
-                                    t.status }}</span></td>
+                                        t.status }}</span></td>
                         </tr>
                     </tbody>
                 </table>

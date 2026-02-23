@@ -11,12 +11,12 @@ const modes = [
 
 // 区域分布数据
 const regions = ref([
-    { name: '朝阳区', intensity: 1.8, level: '小雨', color: '#22C55E', area: '46.2 km²' },
-    { name: '海淀区', intensity: 0.4, level: '小雨', color: '#22C55E', area: '43.1 km²' },
-    { name: '东城区', intensity: 5.3, level: '中雨', color: '#3B82F6', area: '25.4 km²' },
-    { name: '西城区', intensity: 3.2, level: '小雨', color: '#22C55E', area: '31.6 km²' },
-    { name: '丰台区', intensity: 8.5, level: '大雨', color: '#F59E0B', area: '30.6 km²' },
-    { name: '通州区', intensity: 12.6, level: '大雨', color: '#EF4444', area: '90.6 km²' },
+    { name: '圭塘街道', intensity: 1.8, level: '小雨', color: '#22C55E', area: '46.2 km²' },
+    { name: '洞井街道', intensity: 0.4, level: '小雨', color: '#22C55E', area: '43.1 km²' },
+    { name: '雨花亭街道', intensity: 5.3, level: '中雨', color: '#3B82F6', area: '25.4 km²' },
+    { name: '侯家塘街道', intensity: 3.2, level: '小雨', color: '#22C55E', area: '31.6 km²' },
+    { name: '左家塘街道', intensity: 8.5, level: '大雨', color: '#F59E0B', area: '30.6 km²' },
+    { name: '黎托街道', intensity: 12.6, level: '大雨', color: '#EF4444', area: '90.6 km²' },
 ])
 </script>
 

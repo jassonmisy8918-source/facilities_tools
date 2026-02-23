@@ -9,11 +9,11 @@ const funcTabs = [
 ]
 
 const disposeItems = ref([
-    { id: 1, alarm: '前池水位超高', station: '通州泵站', level: '告警', time: '2024-03-15 16:20', workOrder: 'WO-2024-0315', assignee: '赵刚', measure: '启动备用泵降低水位', progress: 80, status: '处理中' },
-    { id: 2, alarm: '进水流量异常', station: '朝阳泵站', level: '预警', time: '2024-03-15 14:30', workOrder: 'WO-2024-0314', assignee: '张伟', measure: '排查上游管网堵塞', progress: 100, status: '已闭环' },
-    { id: 3, alarm: '水泵故障停机', station: '海淀泵站', level: '严重', time: '2024-03-14 22:15', workOrder: 'WO-2024-0313', assignee: '王强', measure: '更换电机轴承、电气检修', progress: 100, status: '已闭环' },
-    { id: 4, alarm: '格栅过载', station: '丰台泵站', level: '告警', time: '2024-03-13 11:20', workOrder: '-', assignee: '待指派', measure: '-', progress: 0, status: '待处理' },
-    { id: 5, alarm: '电机过温', station: '西城泵站', level: '告警', time: '2024-03-14 09:30', workOrder: 'WO-2024-0312', assignee: '李明', measure: '清洁散热通道、更换风扇', progress: 100, status: '已闭环' },
+    { id: 1, alarm: '前池水位超高', station: '黎托泵站', level: '告警', time: '2024-03-15 16:20', workOrder: 'WO-2024-0315', assignee: '赵刚', measure: '启动备用泵降低水位', progress: 80, status: '处理中' },
+    { id: 2, alarm: '进水流量异常', station: '雨花泵站', level: '预警', time: '2024-03-15 14:30', workOrder: 'WO-2024-0314', assignee: '张伟', measure: '排查上游管网堵塞', progress: 100, status: '已闭环' },
+    { id: 3, alarm: '水泵故障停机', station: '洞井泵站', level: '严重', time: '2024-03-14 22:15', workOrder: 'WO-2024-0313', assignee: '王强', measure: '更换电机轴承、电气检修', progress: 100, status: '已闭环' },
+    { id: 4, alarm: '格栅过载', station: '左家塘泵站', level: '告警', time: '2024-03-13 11:20', workOrder: '-', assignee: '待指派', measure: '-', progress: 0, status: '待处理' },
+    { id: 5, alarm: '电机过温', station: '侯家塘泵站', level: '告警', time: '2024-03-14 09:30', workOrder: 'WO-2024-0312', assignee: '李明', measure: '清洁散热通道、更换风扇', progress: 100, status: '已闭环' },
 ])
 
 const processRecords = ref([
@@ -26,10 +26,10 @@ const processRecords = ref([
 ])
 
 const assignHistory = ref([
-    { id: 1, alarm: '前池水位超高', station: '通州泵站', assignee: '赵刚', method: '自动', time: '2024-03-15 16:21', reason: '值班人员自动匹配' },
-    { id: 2, alarm: '水泵故障停机', station: '海淀泵站', assignee: '王强', method: '手动', time: '2024-03-14 22:17', reason: '维修主管指定' },
-    { id: 3, alarm: '进水流量异常', station: '朝阳泵站', assignee: '张伟', method: '自动', time: '2024-03-15 14:31', reason: '站长自动匹配' },
-    { id: 4, alarm: '电机过温', station: '西城泵站', assignee: '李明', method: '手动', time: '2024-03-14 09:35', reason: '管理员手动指派' },
+    { id: 1, alarm: '前池水位超高', station: '黎托泵站', assignee: '赵刚', method: '自动', time: '2024-03-15 16:21', reason: '值班人员自动匹配' },
+    { id: 2, alarm: '水泵故障停机', station: '洞井泵站', assignee: '王强', method: '手动', time: '2024-03-14 22:17', reason: '维修主管指定' },
+    { id: 3, alarm: '进水流量异常', station: '雨花泵站', assignee: '张伟', method: '自动', time: '2024-03-15 14:31', reason: '站长自动匹配' },
+    { id: 4, alarm: '电机过温', station: '侯家塘泵站', assignee: '李明', method: '手动', time: '2024-03-14 09:35', reason: '管理员手动指派' },
 ])
 
 function levelClass(l: string) { return l === '严重' ? 'bg-danger/10 text-danger' : l === '告警' ? 'bg-warning/10 text-warning' : 'bg-info/10 text-info' }

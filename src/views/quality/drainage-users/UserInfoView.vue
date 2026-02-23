@@ -13,12 +13,12 @@ const funcTabs = [
 ]
 
 const users = ref([
-    { id: 1, name: '朝阳工业园A厂', type: '工业', category: 'A类', level: '重点', permit: 'PW-2024-001', volume: '800m³/日', quality: 'COD≤500', expiry: '2025-03-01', status: '正常' },
-    { id: 2, name: '海淀科技大厦', type: '商业', category: 'B类', level: '一般', permit: 'PW-2024-015', volume: '120m³/日', quality: 'COD≤300', expiry: '2025-06-15', status: '正常' },
-    { id: 3, name: '通州化工厂', type: '工业', category: 'A类', level: '重点', permit: 'PW-2023-088', volume: '1500m³/日', quality: 'COD≤800', expiry: '2024-12-31', status: '即将到期' },
-    { id: 4, name: '西城美食街', type: '餐饮', category: 'C类', level: '一般', permit: 'PW-2024-032', volume: '50m³/日', quality: 'COD≤400', expiry: '2025-08-01', status: '正常' },
-    { id: 5, name: '丰台医院', type: '医疗', category: 'A类', level: '重点', permit: 'PW-2024-005', volume: '300m³/日', quality: 'COD≤250', expiry: '2025-04-15', status: '正常' },
-    { id: 6, name: '朝阳住宅小区', type: '居民', category: 'D类', level: '普通', permit: '-', volume: '200m³/日', quality: '-', expiry: '-', status: '免许可' },
+    { id: 1, name: '雨花工业园A厂', type: '工业', category: 'A类', level: '重点', permit: 'PW-2024-001', volume: '800m³/日', quality: 'COD≤500', expiry: '2025-03-01', status: '正常' },
+    { id: 2, name: '雨花科技大厦', type: '商业', category: 'B类', level: '一般', permit: 'PW-2024-015', volume: '120m³/日', quality: 'COD≤300', expiry: '2025-06-15', status: '正常' },
+    { id: 3, name: '黎托化工厂', type: '工业', category: 'A类', level: '重点', permit: 'PW-2023-088', volume: '1500m³/日', quality: 'COD≤800', expiry: '2024-12-31', status: '即将到期' },
+    { id: 4, name: '侯家塘美食街', type: '餐饮', category: 'C类', level: '一般', permit: 'PW-2024-032', volume: '50m³/日', quality: 'COD≤400', expiry: '2025-08-01', status: '正常' },
+    { id: 5, name: '左家塘医院', type: '医疗', category: 'A类', level: '重点', permit: 'PW-2024-005', volume: '300m³/日', quality: 'COD≤250', expiry: '2025-04-15', status: '正常' },
+    { id: 6, name: '雨花住宅小区', type: '居民', category: 'D类', level: '普通', permit: '-', volume: '200m³/日', quality: '-', expiry: '-', status: '免许可' },
 ])
 
 const classifyRules = ref([
@@ -44,7 +44,7 @@ function statusClass(s: string) { return s === '正常' ? 'bg-success/10 text-su
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <template v-if="activeFunc === 'ledger'">
@@ -76,7 +76,7 @@ function statusClass(s: string) { return s === '正常' ? 'bg-success/10 text-su
                             <td class="text-center px-1 py-2.5"><span
                                     class="text-[10px] px-1 py-0.5 rounded font-medium"
                                     :class="u.level === '重点' ? 'bg-danger/10 text-danger' : u.level === '一般' ? 'bg-warning/10 text-warning' : 'bg-info/10 text-info'">{{
-                                    u.level }}</span></td>
+                                        u.level }}</span></td>
                             <td class="text-center px-2 py-2.5 text-dim text-[10px] font-mono">{{ u.permit }}</td>
                             <td class="text-center px-2 py-2.5 text-default text-[10px]">{{ u.volume }}</td>
                             <td class="text-center px-2 py-2.5 text-dim text-[10px]">{{ u.quality }}</td>
@@ -98,7 +98,7 @@ function statusClass(s: string) { return s === '正常' ? 'bg-success/10 text-su
                 <div v-for="c in classifyRules" :key="c.level"
                     class="bg-card border border-themed rounded-xl shadow-themed p-4">
                     <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-default">{{
-                            c.level }}</span><span class="text-lg font-bold text-primary">{{ c.count }} 户</span></div>
+                        c.level }}</span><span class="text-lg font-bold text-primary">{{ c.count }} 户</span></div>
                     <p class="text-[10px] text-dim mb-2">📋 {{ c.criteria }}</p>
                     <div class="flex gap-4 text-[10px]"><span class="text-dim">监测: <span
                                 class="text-primary font-bold">{{ c.monitorFreq }}</span></span><span

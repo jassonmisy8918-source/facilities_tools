@@ -10,7 +10,7 @@ const radarInfo = ref({
     updateTime: '2024-03-15 14:30',
     mode: '组合反射率',
     range: '250km',
-    station: '北京南郊站',
+    station: '长沙雨花站',
     elevation: '0.5°',
 })
 

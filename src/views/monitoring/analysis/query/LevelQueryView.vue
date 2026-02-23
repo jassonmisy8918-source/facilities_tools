@@ -6,23 +6,23 @@ import { Waves, Search, RefreshCw } from 'lucide-vue-next'
 const activeFunc = ref('realtime')
 const funcTabs = [{ key: 'realtime', label: '实时数据' }, { key: 'history', label: '历史数据' }, { key: 'chart', label: '图表展示' }]
 const selectedStation = ref('all')
-const stations = ['全部站点', '民生路DN400', '建设大道DN300', '朝阳路DN600', '通州区主干', '海淀路DN600']
+const stations = ['全部站点', '劳动路DN400', '万家丽路DN300', '韶山路DN600', '黎托街道主干', '洞井路DN600']
 const startDate = ref('2024-03-01')
 const endDate = ref('2024-03-15')
 
 const realtimeData = ref([
-    { station: '民生路DN400', value: 1.85, warning: 2.0, status: 'warning', time: '14:30:05' },
-    { station: '建设大道DN300', value: 2.35, warning: 2.0, status: 'danger', time: '14:30:02' },
-    { station: '朝阳路DN600', value: 1.52, warning: 2.5, status: 'normal', time: '14:29:58' },
-    { station: '通州区主干', value: 2.10, warning: 2.5, status: 'normal', time: '14:30:01' },
-    { station: '海淀路DN600', value: 1.35, warning: 2.5, status: 'normal', time: '14:30:03' },
+    { station: '劳动路DN400', value: 1.85, warning: 2.0, status: 'warning', time: '14:30:05' },
+    { station: '万家丽路DN300', value: 2.35, warning: 2.0, status: 'danger', time: '14:30:02' },
+    { station: '韶山路DN600', value: 1.52, warning: 2.5, status: 'normal', time: '14:29:58' },
+    { station: '黎托街道主干', value: 2.10, warning: 2.5, status: 'normal', time: '14:30:01' },
+    { station: '洞井路DN600', value: 1.35, warning: 2.5, status: 'normal', time: '14:30:03' },
 ])
 
 const historyData = ref([
-    { date: '2024-03-15 14:00', station: '民生路DN400', value: 1.85, max: 2.10, min: 1.20, avg: 1.65 },
-    { date: '2024-03-15 13:00', station: '建设大道DN300', value: 2.35, max: 2.40, min: 1.50, avg: 1.95 },
-    { date: '2024-03-14 20:00', station: '朝阳路DN600', value: 1.52, max: 1.80, min: 1.10, avg: 1.40 },
-    { date: '2024-03-13 22:00', station: '通州区主干', value: 2.10, max: 2.30, min: 1.40, avg: 1.85 },
+    { date: '2024-03-15 14:00', station: '劳动路DN400', value: 1.85, max: 2.10, min: 1.20, avg: 1.65 },
+    { date: '2024-03-15 13:00', station: '万家丽路DN300', value: 2.35, max: 2.40, min: 1.50, avg: 1.95 },
+    { date: '2024-03-14 20:00', station: '韶山路DN600', value: 1.52, max: 1.80, min: 1.10, avg: 1.40 },
+    { date: '2024-03-13 22:00', station: '黎托街道主干', value: 2.10, max: 2.30, min: 1.40, avg: 1.85 },
 ])
 
 const chartRef = ref<HTMLElement>()
@@ -41,8 +41,8 @@ function initChart() {
             { type: 'value', name: '水位(m)', nameTextStyle: { color: '#5A6B7C' }, axisLabel: { color: '#5A6B7C', fontSize: 10 }, splitLine: { lineStyle: { color: '#1E3348' } } },
         ],
         series: [
-            { name: '民生路', type: 'line', smooth: true, data: hours.map(() => +(1.5 + Math.random() * 0.8).toFixed(2)), lineStyle: { width: 2 }, symbol: 'none' },
-            { name: '建设大道', type: 'line', smooth: true, data: hours.map(() => +(1.8 + Math.random() * 0.8).toFixed(2)), lineStyle: { width: 2, color: '#EF4444' }, itemStyle: { color: '#EF4444' }, symbol: 'none' },
+            { name: '劳动路', type: 'line', smooth: true, data: hours.map(() => +(1.5 + Math.random() * 0.8).toFixed(2)), lineStyle: { width: 2 }, symbol: 'none' },
+            { name: '万家丽路', type: 'line', smooth: true, data: hours.map(() => +(1.8 + Math.random() * 0.8).toFixed(2)), lineStyle: { width: 2, color: '#EF4444' }, itemStyle: { color: '#EF4444' }, symbol: 'none' },
             { name: '警戒线', type: 'line', data: hours.map(() => 2.0), lineStyle: { width: 1, type: 'dashed', color: '#F59E0B' }, itemStyle: { color: '#F59E0B' }, symbol: 'none' },
         ],
     })

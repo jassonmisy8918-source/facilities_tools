@@ -12,22 +12,22 @@ const funcTabs = [
 ]
 
 const ledger = ref([
-    { id: 1, location: '朝阳区民生路MH-12~MH-15', type: '污水接入雨水管', degree: '严重', diameter: 'DN300→DN400', length: '45m', source: '居民小区排污', status: '已确认', detectDate: '2024-02-15' },
-    { id: 2, location: '海淀区清河路MH-08~MH-10', type: '雨水接入污水管', degree: '中等', diameter: 'DN200→DN500', length: '30m', source: '屋面雨水', status: '已确认', detectDate: '2024-03-01' },
-    { id: 3, location: '通州区运河段MH-22~MH-25', type: '双向混接', degree: '严重', diameter: 'DN400', length: '80m', source: '市政管网交叉', status: '处理中', detectDate: '2024-01-20' },
-    { id: 4, location: '西城区西单路MH-05', type: '污水接入雨水管', degree: '轻微', diameter: 'DN150→DN300', length: '12m', source: '商铺排污', status: '待核实', detectDate: '2024-03-10' },
+    { id: 1, location: '圭塘街道劳动路MH-12~MH-15', type: '污水接入雨水管', degree: '严重', diameter: 'DN300→DN400', length: '45m', source: '居民小区排污', status: '已确认', detectDate: '2024-02-15' },
+    { id: 2, location: '洞井街道浏阳河路MH-08~MH-10', type: '雨水接入污水管', degree: '中等', diameter: 'DN200→DN500', length: '30m', source: '屋面雨水', status: '已确认', detectDate: '2024-03-01' },
+    { id: 3, location: '黎托街道浏阳河段MH-22~MH-25', type: '双向混接', degree: '严重', diameter: 'DN400', length: '80m', source: '市政管网交叉', status: '处理中', detectDate: '2024-01-20' },
+    { id: 4, location: '侯家塘街道东塘路MH-05', type: '污水接入雨水管', degree: '轻微', diameter: 'DN150→DN300', length: '12m', source: '商铺排污', status: '待核实', detectDate: '2024-03-10' },
 ])
 
 const flowData = ref([
-    { station: '民生路-雨水管', dryFlow: 15.2, wetFlow: 85.6, ratio: 5.6, anomaly: '旱天流量偏高', status: '混接特征' },
-    { station: '清河路-污水管', dryFlow: 68.5, wetFlow: 210.3, ratio: 3.1, anomaly: '雨天流量骤增', status: '混接特征' },
-    { station: '运河段-雨水管', dryFlow: 22.0, wetFlow: 120.0, ratio: 5.5, anomaly: '旱天+雨天均异常', status: '双向混接' },
-    { station: '西单路-雨水管', dryFlow: 5.8, wetFlow: 35.0, ratio: 6.0, anomaly: '旱天轻微偏高', status: '疑似' },
+    { station: '劳动路-雨水管', dryFlow: 15.2, wetFlow: 85.6, ratio: 5.6, anomaly: '旱天流量偏高', status: '混接特征' },
+    { station: '浏阳河路-污水管', dryFlow: 68.5, wetFlow: 210.3, ratio: 3.1, anomaly: '雨天流量骤增', status: '混接特征' },
+    { station: '浏阳河段-雨水管', dryFlow: 22.0, wetFlow: 120.0, ratio: 5.5, anomaly: '旱天+雨天均异常', status: '双向混接' },
+    { station: '东塘路-雨水管', dryFlow: 5.8, wetFlow: 35.0, ratio: 6.0, anomaly: '旱天轻微偏高', status: '疑似' },
 ])
 
 const waterQuality = ref([
-    { station: '民生路-雨水管', cod: 185, ss: 120, nh3n: 25, ph: 7.2, baseline_cod: 30, verdict: '明显污染' },
-    { station: '清河路-污水管', cod: 95, ss: 45, nh3n: 8, ph: 6.8, baseline_cod: 250, verdict: '浓度偏低' },
+    { station: '劳动路-雨水管', cod: 185, ss: 120, nh3n: 25, ph: 7.2, baseline_cod: 30, verdict: '明显污染' },
+    { station: '浏阳河路-污水管', cod: 95, ss: 45, nh3n: 8, ph: 6.8, baseline_cod: 250, verdict: '浓度偏低' },
 ])
 
 const algorithms = ref([
@@ -38,17 +38,17 @@ const algorithms = ref([
 ])
 
 const identifiedAreas = ref([
-    { area: '朝阳区民生路段', pipes: 3, points: 2, degree: '严重', mixVolume: '约450m³/日', confidence: 92 },
-    { area: '海淀区清河路段', pipes: 2, points: 1, degree: '中等', mixVolume: '约180m³/日', confidence: 85 },
-    { area: '通州区运河段', pipes: 4, points: 3, degree: '严重', mixVolume: '约620m³/日', confidence: 88 },
-    { area: '西城区西单路段', pipes: 1, points: 1, degree: '轻微', mixVolume: '约35m³/日', confidence: 68 },
+    { area: '圭塘街道劳动路段', pipes: 3, points: 2, degree: '严重', mixVolume: '约450m³/日', confidence: 92 },
+    { area: '洞井街道浏阳河路段', pipes: 2, points: 1, degree: '中等', mixVolume: '约180m³/日', confidence: 85 },
+    { area: '黎托街道浏阳河段', pipes: 4, points: 3, degree: '严重', mixVolume: '约620m³/日', confidence: 88 },
+    { area: '侯家塘街道东塘路段', pipes: 1, points: 1, degree: '轻微', mixVolume: '约35m³/日', confidence: 68 },
 ])
 
 const crossMarkers = [
-    { lng: 116.468, lat: 39.932, title: '朝阳区民生路段', label: '民生路 · 严重 · 450m³/日' },
-    { lng: 116.32, lat: 39.98, title: '海淀区清河路段', label: '清河路 · 中等 · 180m³/日' },
-    { lng: 116.655, lat: 39.905, title: '通州区运河段', label: '运河段 · 严重 · 620m³/日', color: 'red' },
-    { lng: 116.37, lat: 39.913, title: '西城区西单路段', label: '西单 · 轻微 · 35m³/日' },
+    { lng: 113.050, lat: 28.150, title: '圭塘街道劳动路段', label: '劳动路 · 严重 · 450m³/日' },
+    { lng: 113.02, lat: 28.17, title: '洞井街道浏阳河路段', label: '浏阳河路 · 中等 · 180m³/日' },
+    { lng: 113.07, lat: 28.135, title: '黎托街道浏阳河段', label: '浏阳河段 · 严重 · 620m³/日', color: 'red' },
+    { lng: 113.04, lat: 28.133, title: '侯家塘街道东塘路段', label: '东塘 · 轻微 · 35m³/日' },
 ]
 
 function degreeClass(d: string) { return d === '严重' ? 'bg-danger/10 text-danger' : d === '中等' ? 'bg-warning/10 text-warning' : 'bg-info/10 text-info' }

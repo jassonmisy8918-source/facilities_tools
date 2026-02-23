@@ -5,12 +5,12 @@ import { CloudRain, Clock, MapPin, TrendingUp } from 'lucide-vue-next'
 
 // ===================== 降水量分布 =====================
 const areas = ref([
-    { name: '朝阳区', current: 2.4, predicted: 8.6, level: '中雨', risk: 'medium' },
-    { name: '海淀区', current: 1.8, predicted: 5.2, level: '小雨', risk: 'low' },
-    { name: '东城区', current: 3.1, predicted: 12.4, level: '大雨', risk: 'high' },
-    { name: '西城区', current: 2.0, predicted: 6.8, level: '中雨', risk: 'medium' },
-    { name: '丰台区', current: 1.2, predicted: 4.5, level: '小雨', risk: 'low' },
-    { name: '通州区', current: 4.5, predicted: 15.2, level: '大雨', risk: 'high' },
+    { name: '圭塘街道', current: 2.4, predicted: 8.6, level: '中雨', risk: 'medium' },
+    { name: '洞井街道', current: 1.8, predicted: 5.2, level: '小雨', risk: 'low' },
+    { name: '雨花亭街道', current: 3.1, predicted: 12.4, level: '大雨', risk: 'high' },
+    { name: '侯家塘街道', current: 2.0, predicted: 6.8, level: '中雨', risk: 'medium' },
+    { name: '左家塘街道', current: 1.2, predicted: 4.5, level: '小雨', risk: 'low' },
+    { name: '黎托街道', current: 4.5, predicted: 15.2, level: '大雨', risk: 'high' },
 ])
 
 const riskColor: Record<string, string> = {

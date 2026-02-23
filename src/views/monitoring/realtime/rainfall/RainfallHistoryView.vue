@@ -6,21 +6,21 @@ import { Clock, Search, Filter, ChevronLeft, ChevronRight } from 'lucide-vue-nex
 const selectedStation = ref('all')
 const startDate = ref('2024-03-01')
 const endDate = ref('2024-03-15')
-const stations = ['全部站点', '和平路雨量站', '丰台区雨量站', '朝阳区雨量站', '海淀区雨量站', '通州区雨量站', '大兴区雨量站']
+const stations = ['全部站点', '芙蓉路雨量站', '左家塘街道雨量站', '圭塘街道雨量站', '洞井街道雨量站', '黎托街道雨量站', '侯家塘区雨量站']
 
 // ===================== 历史数据 =====================
 const currentPage = ref(1)
 const totalPages = 5
 
 const historyData = ref([
-    { date: '2024-03-15 14:00', station: '和平路雨量站', value: 3.2, level: '小雨', cumulative: 28.5, duration: '6h' },
-    { date: '2024-03-15 13:00', station: '丰台区雨量站', value: 8.5, level: '大雨', cumulative: 45.2, duration: '8h' },
-    { date: '2024-03-15 12:00', station: '通州区雨量站', value: 12.6, level: '大雨', cumulative: 68.4, duration: '10h' },
-    { date: '2024-03-14 20:00', station: '朝阳区雨量站', value: 2.1, level: '小雨', cumulative: 15.8, duration: '4h' },
-    { date: '2024-03-14 16:00', station: '海淀区雨量站', value: 0.8, level: '小雨', cumulative: 5.2, duration: '3h' },
-    { date: '2024-03-13 22:00', station: '大兴区雨量站', value: 5.6, level: '中雨', cumulative: 32.1, duration: '7h' },
-    { date: '2024-03-13 18:00', station: '和平路雨量站', value: 16.2, level: '暴雨', cumulative: 85.6, duration: '5h' },
-    { date: '2024-03-12 08:00', station: '丰台区雨量站', value: 4.3, level: '中雨', cumulative: 22.4, duration: '6h' },
+    { date: '2024-03-15 14:00', station: '芙蓉路雨量站', value: 3.2, level: '小雨', cumulative: 28.5, duration: '6h' },
+    { date: '2024-03-15 13:00', station: '左家塘街道雨量站', value: 8.5, level: '大雨', cumulative: 45.2, duration: '8h' },
+    { date: '2024-03-15 12:00', station: '黎托街道雨量站', value: 12.6, level: '大雨', cumulative: 68.4, duration: '10h' },
+    { date: '2024-03-14 20:00', station: '圭塘街道雨量站', value: 2.1, level: '小雨', cumulative: 15.8, duration: '4h' },
+    { date: '2024-03-14 16:00', station: '洞井街道雨量站', value: 0.8, level: '小雨', cumulative: 5.2, duration: '3h' },
+    { date: '2024-03-13 22:00', station: '侯家塘区雨量站', value: 5.6, level: '中雨', cumulative: 32.1, duration: '7h' },
+    { date: '2024-03-13 18:00', station: '芙蓉路雨量站', value: 16.2, level: '暴雨', cumulative: 85.6, duration: '5h' },
+    { date: '2024-03-12 08:00', station: '左家塘街道雨量站', value: 4.3, level: '中雨', cumulative: 22.4, duration: '6h' },
 ])
 
 function getLevelColor(level: string) {

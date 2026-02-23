@@ -7,7 +7,7 @@ import { toast } from '@/components/common/ToastNotify.store';
 const tabs = [{ key: 'archive', label: '健康档案' }, { key: 'defect', label: '管道缺陷' }, { key: 'repair', label: '修复计划' }];
 
 const healthRecords = [
-    { id: 1, segment: '朝阳路 P01-P05', material: 'HDPE', age: 6, score: 92, grade: 'A', defects: 0 },
+    { id: 1, segment: '雨花路 P01-P05', material: 'HDPE', age: 6, score: 92, grade: 'A', defects: 0 },
     { id: 2, segment: '民生路 P01-P10', material: '钢筋混凝土', age: 12, score: 75, grade: 'B', defects: 3 },
     { id: 3, segment: '和平路 P05-P08', material: 'PVC', age: 15, score: 58, grade: 'C', defects: 5 },
     { id: 4, segment: '新华路 P01-P03', material: '钢筋混凝土', age: 20, score: 42, grade: 'D', defects: 8 },

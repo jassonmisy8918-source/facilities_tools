@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Map, Droplets, Activity, Waves, FlaskConical, Layers } from 'lucide-vue-next'
+import AMapView from '@/components/common/AMapView.vue'
 
 const filterType = ref('all')
 const types = [
@@ -18,20 +19,46 @@ const stats = ref({
 
 // 点位列表
 const points = ref([
-    { id: 1, name: '和平路雨量站', type: 'rainfall', region: '西城区', coords: '116.38°E, 39.92°N', status: 'online' },
-    { id: 2, name: '朝阳路DN600', type: 'flow', region: '朝阳区', coords: '116.43°E, 39.93°N', status: 'online' },
-    { id: 3, name: '民生路DN400', type: 'level', region: '海淀区', coords: '116.30°E, 39.96°N', status: 'warning' },
-    { id: 4, name: '新华街DN800', type: 'quality', region: '东城区', coords: '116.41°E, 39.91°N', status: 'online' },
-    { id: 5, name: '丰台区雨量站', type: 'rainfall', region: '丰台区', coords: '116.29°E, 39.86°N', status: 'online' },
-    { id: 6, name: '通州区雨量站', type: 'rainfall', region: '通州区', coords: '116.66°E, 39.91°N', status: 'alarm' },
-    { id: 7, name: '建设大道DN300', type: 'level', region: '丰台区', coords: '116.31°E, 39.85°N', status: 'alarm' },
-    { id: 8, name: '东湖泵站进水', type: 'flow', region: '东城区', coords: '116.42°E, 39.93°N', status: 'online' },
+    { id: 1, name: '芙蓉路雨量站', type: 'rainfall', region: '侯家塘街道', coords: '113.02°E, 28.14°N', status: 'online' },
+    { id: 2, name: '韶山路DN600', type: 'flow', region: '圭塘街道', coords: '113.05°E, 28.15°N', status: 'online' },
+    { id: 3, name: '劳动路DN400', type: 'level', region: '洞井街道', coords: '113.01°E, 28.17°N', status: 'warning' },
+    { id: 4, name: '香樟路DN800', type: 'quality', region: '雨花亭街道', coords: '113.04°E, 28.13°N', status: 'online' },
+    { id: 5, name: '左家塘街道雨量站', type: 'rainfall', region: '左家塘街道', coords: '113.00°E, 28.10°N', status: 'online' },
+    { id: 6, name: '黎托街道雨量站', type: 'rainfall', region: '黎托街道', coords: '113.08°E, 28.13°N', status: 'alarm' },
+    { id: 7, name: '万家丽路DN300', type: 'level', region: '左家塘街道', coords: '113.01°E, 28.09°N', status: 'alarm' },
+    { id: 8, name: '圭塘河泵站进水', type: 'flow', region: '雨花亭街道', coords: '113.04°E, 28.15°N', status: 'online' },
 ])
 
 function getTypeIcon(t: string) { return t === 'rainfall' ? Droplets : t === 'flow' ? Activity : t === 'level' ? Waves : FlaskConical }
 function getTypeLabel(t: string) { return t === 'rainfall' ? '雨量' : t === 'flow' ? '流量' : t === 'level' ? '水位' : '水质' }
 function getStatusColor(s: string) { return s === 'online' ? 'text-success' : s === 'warning' ? 'text-warning' : 'text-danger' }
 function getStatusText(s: string) { return s === 'online' ? '正常' : s === 'warning' ? '预警' : '报警' }
+
+const filteredPoints = computed(() => {
+    if (filterType.value === 'all') return points.value
+    return points.value.filter(p => p.type === filterType.value)
+})
+
+// 地图标记点
+const mapMarkers = computed(() => {
+    const coordMap: Record<string, { lng: number; lat: number }> = {
+        '芙蓉路雨量站': { lng: 113.02, lat: 28.14 },
+        '韶山路DN600': { lng: 113.05, lat: 28.15 },
+        '劳动路DN400': { lng: 113.01, lat: 28.17 },
+        '香樟路DN800': { lng: 113.04, lat: 28.13 },
+        '左家塘街道雨量站': { lng: 113.00, lat: 28.10 },
+        '黎托街道雨量站': { lng: 113.08, lat: 28.13 },
+        '万家丽路DN300': { lng: 113.01, lat: 28.09 },
+        '圭塘河泵站进水': { lng: 113.04, lat: 28.15 },
+    }
+    return filteredPoints.value.map(p => ({
+        lng: coordMap[p.name]?.lng ?? 113.03,
+        lat: coordMap[p.name]?.lat ?? 28.14,
+        title: p.name,
+        label: `${getTypeLabel(p.type)} · ${p.region} · ${getStatusText(p.status)}`,
+        color: p.status === 'alarm' ? 'red' : undefined,
+    }))
+})
 </script>
 
 <template>
@@ -51,12 +78,8 @@ function getStatusText(s: string) { return s === 'online' ? '正常' : s === 'wa
                         </button>
                     </div>
                 </div>
-                <div class="aspect-16/10 bg-[#0a1929] flex items-center justify-center">
-                    <div class="text-center text-muted-themed">
-                        <Map class="w-16 h-16 mx-auto opacity-20 mb-3" />
-                        <p class="text-sm">GIS 监测点位分布图</p>
-                        <p class="text-[10px] mt-1">雨量 · 流量 · 水位 · 水质 监测点</p>
-                    </div>
+                <div class="h-[440px]">
+                    <AMapView :markers="mapMarkers" height="100%" />
                 </div>
                 <div class="px-4 py-2 border-t border-themed flex items-center gap-4 text-[10px]">
                     <span class="text-dim">图例:</span>
@@ -84,7 +107,7 @@ function getStatusText(s: string) { return s === 'online' ? '正常' : s === 'wa
                     </h4>
                 </div>
                 <div class="flex-1 overflow-y-auto p-2 space-y-1" style="max-height: 480px">
-                    <div v-for="p in points" :key="p.id"
+                    <div v-for="p in filteredPoints" :key="p.id"
                         class="p-2.5 rounded-lg bg-surface hover:bg-hover-themed transition-colors cursor-pointer">
                         <div class="flex items-center justify-between mb-1">
                             <div class="flex items-center gap-1.5">

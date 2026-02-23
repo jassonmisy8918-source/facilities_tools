@@ -15,19 +15,19 @@ const kpiCards = ref([
 ])
 
 const alarmList = ref([
-  { id: 1, type: 'danger', title: '朝阳路泵站#2水泵异常停机', time: '2分钟前', location: '朝阳路泵站' },
-  { id: 2, type: 'warning', title: '民生路管段水位超警戒', time: '15分钟前', location: '民生路D300管段' },
-  { id: 3, type: 'warning', title: '和平路雨量超阈值', time: '32分钟前', location: '和平路监测站' },
-  { id: 4, type: 'info', title: '新华街管段流量异常波动', time: '1小时前', location: '新华街DN600管段' },
-  { id: 5, type: 'info', title: '东湖泵站能耗偏高', time: '2小时前', location: '东湖泵站' },
+  { id: 1, type: 'danger', title: '韶山路泵站#2水泵异常停机', time: '2分钟前', location: '韶山路泵站' },
+  { id: 2, type: 'warning', title: '劳动路管段水位超警戒', time: '15分钟前', location: '劳动路D300管段' },
+  { id: 3, type: 'warning', title: '芙蓉路雨量超阈值', time: '32分钟前', location: '芙蓉路监测站' },
+  { id: 4, type: 'info', title: '香樟路管段流量异常波动', time: '1小时前', location: '香樟路DN600管段' },
+  { id: 5, type: 'info', title: '圭塘河泵站能耗偏高', time: '2小时前', location: '圭塘河泵站' },
 ])
 
 const pumpStations = ref([
-  { name: '朝阳路泵站', status: 'running', flow: 342, power: 78 },
-  { name: '东湖泵站', status: 'running', flow: 518, power: 92 },
-  { name: '民生路泵站', status: 'running', flow: 267, power: 65 },
-  { name: '和平路泵站', status: 'warning', flow: 189, power: 45 },
-  { name: '新华街泵站', status: 'offline', flow: 0, power: 0 },
+  { name: '韶山路泵站', status: 'running', flow: 342, power: 78 },
+  { name: '圭塘河泵站', status: 'running', flow: 518, power: 92 },
+  { name: '劳动路泵站', status: 'running', flow: 267, power: 65 },
+  { name: '芙蓉路泵站', status: 'warning', flow: 189, power: 45 },
+  { name: '香樟路泵站', status: 'offline', flow: 0, power: 0 },
 ])
 
 // ============ ECharts ============
@@ -73,8 +73,8 @@ function createWaterLevelChart(el: HTMLElement) {
     xAxis: { type: 'category', data: hours, axisLabel: { color: '#5A6B7C', fontSize: 10 }, axisLine: { lineStyle: { color: '#2A3F54' } }, interval: 3 },
     yAxis: { type: 'value', name: 'm', nameTextStyle: { color: '#5A6B7C' }, axisLabel: { color: '#5A6B7C', fontSize: 10 }, splitLine: { lineStyle: { color: '#1E3348' } } },
     series: [
-      { name: '朝阳路', type: 'line', smooth: true, data: [1.2, 1.1, 1.0, 0.9, 0.8, 0.8, 0.9, 1.2, 1.5, 1.8, 2.1, 2.3, 2.5, 2.4, 2.2, 2.0, 1.8, 1.6, 1.5, 1.4, 1.3, 1.2, 1.2, 1.1], lineStyle: { color: '#3B82F6' }, itemStyle: { color: '#3B82F6' }, areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: 'rgba(59,130,246,0.3)' }, { offset: 1, color: 'rgba(59,130,246,0)' }]) } },
-      { name: '民生路', type: 'line', smooth: true, data: [0.8, 0.7, 0.7, 0.6, 0.6, 0.5, 0.6, 0.8, 1.1, 1.4, 1.6, 1.8, 1.9, 1.8, 1.7, 1.5, 1.3, 1.2, 1.1, 1.0, 0.9, 0.9, 0.8, 0.8], lineStyle: { color: '#00D4AA' }, itemStyle: { color: '#00D4AA' }, areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: 'rgba(0,212,170,0.3)' }, { offset: 1, color: 'rgba(0,212,170,0)' }]) } },
+      { name: '韶山路', type: 'line', smooth: true, data: [1.2, 1.1, 1.0, 0.9, 0.8, 0.8, 0.9, 1.2, 1.5, 1.8, 2.1, 2.3, 2.5, 2.4, 2.2, 2.0, 1.8, 1.6, 1.5, 1.4, 1.3, 1.2, 1.2, 1.1], lineStyle: { color: '#3B82F6' }, itemStyle: { color: '#3B82F6' }, areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: 'rgba(59,130,246,0.3)' }, { offset: 1, color: 'rgba(59,130,246,0)' }]) } },
+      { name: '劳动路', type: 'line', smooth: true, data: [0.8, 0.7, 0.7, 0.6, 0.6, 0.5, 0.6, 0.8, 1.1, 1.4, 1.6, 1.8, 1.9, 1.8, 1.7, 1.5, 1.3, 1.2, 1.1, 1.0, 0.9, 0.9, 0.8, 0.8], lineStyle: { color: '#00D4AA' }, itemStyle: { color: '#00D4AA' }, areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: 'rgba(0,212,170,0.3)' }, { offset: 1, color: 'rgba(0,212,170,0)' }]) } },
     ]
   })
   return chart
@@ -221,7 +221,7 @@ function getAlarmColor(type: string) {
 </script>
 
 <template>
-  <div class="h-[calc(100vh-56px)] overflow-auto p-4 space-y-4">
+  <div class="space-y-4">
     <!-- KPI 卡片 -->
     <div class="grid grid-cols-4 gap-4">
       <div v-for="kpi in kpiCards" :key="kpi.label"

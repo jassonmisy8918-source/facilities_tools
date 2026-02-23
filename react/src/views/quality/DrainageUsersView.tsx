@@ -6,7 +6,7 @@ import { toast } from '@/components/common/ToastNotify.store';
 const typeOptions = [{ key: 'all', label: '全部' }, { key: 'industrial', label: '工业' }, { key: 'commercial', label: '商业' }, { key: 'catering', label: '餐饮' }, { key: 'medical', label: '医疗' }, { key: 'residential', label: '居民' }];
 
 const initUsers = [
-    { id: 'DU-001', name: '朝阳化工有限公司', type: 'industrial', address: '朝阳路288号', contact: '王经理', permitNo: 'PS-2024-001', waterVolume: 850, pollutant: 'COD,SS,NH3-N', status: 'normal', expireDate: '2025-06-30' },
+    { id: 'DU-001', name: '雨花化工有限公司', type: 'industrial', address: '雨花路288号', contact: '王经理', permitNo: 'PS-2024-001', waterVolume: 850, pollutant: 'COD,SS,NH3-N', status: 'normal', expireDate: '2025-06-30' },
     { id: 'DU-002', name: '翠湖商业广场', type: 'commercial', address: '新华街58号', contact: '李总', permitNo: 'PS-2024-002', waterVolume: 320, pollutant: 'COD,BOD', status: 'normal', expireDate: '2025-08-15' },
     { id: 'DU-003', name: '美味轩酒楼', type: 'catering', address: '民生路120号', contact: '陈店长', permitNo: 'PS-2024-003', waterVolume: 45, pollutant: 'COD,动植物油', status: 'warning', expireDate: '2024-04-30' },
     { id: 'DU-004', name: '和平区人民医院', type: 'medical', address: '和平路800号', contact: '赵主任', permitNo: 'PS-2024-004', waterVolume: 280, pollutant: 'COD,NH3-N,粪大肠', status: 'normal', expireDate: '2025-12-31' },

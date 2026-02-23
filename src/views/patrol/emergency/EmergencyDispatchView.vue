@@ -12,23 +12,23 @@ const funcTabs = [
 const resources = ref([
     {
         type: '人员', items: [
-            { name: 'A班应急组', location: '朝阳区基地', distance: '2.5km', time: '15min', available: true, members: 4, skills: '管网抢修/排水' },
-            { name: 'B班应急组', location: '西城区基地', distance: '5.8km', time: '25min', available: true, members: 3, skills: '管网抢修/水质' },
-            { name: 'C班应急组', location: '丰台区基地', distance: '8.2km', time: '35min', available: false, members: 4, skills: '泵站运维/排水' },
+            { name: 'A班应急组', location: '圭塘街道基地', distance: '2.5km', time: '15min', available: true, members: 4, skills: '管网抢修/排水' },
+            { name: 'B班应急组', location: '侯家塘街道基地', distance: '5.8km', time: '25min', available: true, members: 3, skills: '管网抢修/水质' },
+            { name: 'C班应急组', location: '左家塘街道基地', distance: '8.2km', time: '35min', available: false, members: 4, skills: '泵站运维/排水' },
         ]
     },
     {
         type: '设备', items: [
-            { name: '移动泵车-01', location: '朝阳区仓库', distance: '3km', time: '20min', available: true, members: 0, skills: '排量: 500m³/h' },
-            { name: '移动泵车-02', location: '西城区仓库', distance: '6km', time: '30min', available: true, members: 0, skills: '排量: 300m³/h' },
-            { name: 'CCTV检测车', location: '通州区车库', distance: '12km', time: '45min', available: true, members: 0, skills: 'DN200-1000管道检测' },
+            { name: '移动泵车-01', location: '圭塘街道仓库', distance: '3km', time: '20min', available: true, members: 0, skills: '排量: 500m³/h' },
+            { name: '移动泵车-02', location: '侯家塘街道仓库', distance: '6km', time: '30min', available: true, members: 0, skills: '排量: 300m³/h' },
+            { name: 'CCTV检测车', location: '黎托街道车库', distance: '12km', time: '45min', available: true, members: 0, skills: 'DN200-1000管道检测' },
         ]
     },
     {
         type: '物资', items: [
-            { name: '沙袋(朝阳库)', location: '朝阳区仓库', distance: '3km', time: '20min', available: true, members: 0, skills: '库存: 500袋' },
+            { name: '沙袋(雨花库)', location: '圭塘街道仓库', distance: '3km', time: '20min', available: true, members: 0, skills: '库存: 500袋' },
             { name: '管材(中心库)', location: '中心仓库', distance: '7km', time: '30min', available: true, members: 0, skills: 'DN200-600各规格' },
-            { name: '应急照明', location: '朝阳区仓库', distance: '3km', time: '20min', available: true, members: 0, skills: '库存: 20套' },
+            { name: '应急照明', location: '圭塘街道仓库', distance: '3km', time: '20min', available: true, members: 0, skills: '库存: 20套' },
         ]
     },
 ])
@@ -50,7 +50,7 @@ const avgStats = ref({ reportToDispatch: 8, dispatchToArrive: 23, arriveToResolv
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="flex items-center gap-1 px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <!-- 资源调度 -->
@@ -139,15 +139,15 @@ const avgStats = ref({ reportToDispatch: 8, dispatchToArrive: 23, arriveToResolv
                             <td class="text-center px-2 py-2.5 text-default">{{ s.type }}</td>
                             <td class="text-center px-2 py-2.5"><span class="font-bold"
                                     :class="s.reportToDispatch <= 10 ? 'text-success' : 'text-warning'">{{
-                                    s.reportToDispatch }}min</span></td>
+                                        s.reportToDispatch }}min</span></td>
                             <td class="text-center px-2 py-2.5"><span class="font-bold"
                                     :class="s.dispatchToArrive <= 30 ? 'text-success' : 'text-warning'">{{
-                                    s.dispatchToArrive }}min</span></td>
+                                        s.dispatchToArrive }}min</span></td>
                             <td class="text-center px-2 py-2.5"><span class="font-bold text-default">{{
-                                    s.arriveToResolve }}min</span></td>
+                                s.arriveToResolve }}min</span></td>
                             <td class="text-center px-3 py-2.5"><span class="font-bold"
                                     :class="s.total <= 120 ? 'text-success' : s.total <= 180 ? 'text-warning' : 'text-danger'">{{
-                                    s.total }}min</span></td>
+                                        s.total }}min</span></td>
                         </tr>
                     </tbody>
                 </table>

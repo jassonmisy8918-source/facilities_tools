@@ -13,10 +13,10 @@ const funcTabs = [
 ]
 
 const detections = ref([
-    { id: 1, pipe: 'P-CD-001', method: 'CCTV', location: '朝阳区建设大道', length: '320m', defects: 8, date: '2024-03-15', operator: '张伟', status: '已完成' },
-    { id: 2, pipe: 'P-HD-003', method: '声呐', location: '海淀区清河路', length: '180m', defects: 3, date: '2024-03-14', operator: '李明', status: '已完成' },
-    { id: 3, pipe: 'P-TZ-002', method: 'CCTV', location: '通州区运河段', length: '450m', defects: 12, date: '2024-03-12', operator: '赵刚', status: '已完成' },
-    { id: 4, pipe: 'P-FT-005', method: 'CCTV', location: '丰台区南三环', length: '200m', defects: 0, date: '2024-03-10', operator: '王强', status: '检测中' },
+    { id: 1, pipe: 'P-CD-001', method: 'CCTV', location: '圭塘街道万家丽路', length: '320m', defects: 8, date: '2024-03-15', operator: '张伟', status: '已完成' },
+    { id: 2, pipe: 'P-HD-003', method: '声呐', location: '洞井街道浏阳河路', length: '180m', defects: 3, date: '2024-03-14', operator: '李明', status: '已完成' },
+    { id: 3, pipe: 'P-TZ-002', method: 'CCTV', location: '黎托街道浏阳河段', length: '450m', defects: 12, date: '2024-03-12', operator: '赵刚', status: '已完成' },
+    { id: 4, pipe: 'P-FT-005', method: 'CCTV', location: '左家塘街道南三环', length: '200m', defects: 0, date: '2024-03-10', operator: '王强', status: '检测中' },
 ])
 
 const defectList = ref([

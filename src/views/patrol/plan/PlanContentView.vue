@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { FileText, Plus, Pencil, Trash2, CheckCircle, Circle } from 'lucide-vue-next'
+import ToastNotify from '@/components/common/ToastNotify.vue'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 
 // 巡查内容标准化配置
 const categories = ref([
@@ -38,6 +40,13 @@ const categories = ref([
         ]
     },
 ])
+
+// 新增弹窗
+const showAddModal = ref(false)
+const addForm = ref({ name: '', category: '', method: '', standard: '' })
+const toast = ref<InstanceType<typeof ToastNotify>>()
+function openAdd() { addForm.value = { name: '', category: '', method: '', standard: '' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
 </script>
 
 <template>
@@ -49,7 +58,7 @@ const categories = ref([
                     {{categories.reduce((s, c) => s + c.items.length, 0)}} 项</span>
             </div>
             <button
-                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
+                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer" @click="openAdd()">
                 <Plus class="w-3.5 h-3.5" />新增检查项
             </button>
         </div>
@@ -94,5 +103,31 @@ const categories = ref([
                 </tbody>
             </table>
         </div>
+    <!-- 新增弹窗 -->
+    <ModalDialog :show="showAddModal" title="新增检查项" @close="showAddModal = false" @confirm="doAdd">
+        <div class="space-y-3">
+            <div>
+                <label class="text-[10px] text-dim block mb-1">检查项名称</label>
+                <input v-model="addForm.name" type="text" placeholder="请输入检查项名称"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">分类</label>
+                <input v-model="addForm.category" type="text" placeholder="管道/检查井/排口"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">检查方法</label>
+                <input v-model="addForm.method" type="text" placeholder="请输入检查方法"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">合格标准</label>
+                <input v-model="addForm.standard" type="text" placeholder="请输入合格标准"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+        </div>
+    </ModalDialog>
+        <ToastNotify ref="toast" />
     </div>
 </template>

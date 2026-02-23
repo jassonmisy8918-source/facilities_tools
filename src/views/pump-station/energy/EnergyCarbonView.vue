@@ -9,11 +9,11 @@ const funcTabs = [
 ]
 
 const carbonData = ref([
-    { station: '朝阳泵站', energy: 24500, factor: 0.5810, carbon: 14.24, monthPrev: 13.89, trend: '+2.5%' },
-    { station: '西城泵站', energy: 16800, factor: 0.5810, carbon: 9.76, monthPrev: 10.12, trend: '-3.6%' },
-    { station: '通州泵站', energy: 28200, factor: 0.5810, carbon: 16.38, monthPrev: 15.52, trend: '+5.5%' },
-    { station: '丰台泵站', energy: 5200, factor: 0.5810, carbon: 3.02, monthPrev: 3.35, trend: '-9.9%' },
-    { station: '海淀泵站', energy: 3800, factor: 0.5810, carbon: 2.21, monthPrev: 2.20, trend: '+0.5%' },
+    { station: '雨花泵站', energy: 24500, factor: 0.5810, carbon: 14.24, monthPrev: 13.89, trend: '+2.5%' },
+    { station: '侯家塘泵站', energy: 16800, factor: 0.5810, carbon: 9.76, monthPrev: 10.12, trend: '-3.6%' },
+    { station: '黎托泵站', energy: 28200, factor: 0.5810, carbon: 16.38, monthPrev: 15.52, trend: '+5.5%' },
+    { station: '左家塘泵站', energy: 5200, factor: 0.5810, carbon: 3.02, monthPrev: 3.35, trend: '-9.9%' },
+    { station: '洞井泵站', energy: 3800, factor: 0.5810, carbon: 2.21, monthPrev: 2.20, trend: '+0.5%' },
 ])
 
 const totalCarbon = ref({ today: 1.66, month: 45.61, year: 520.8, yearTarget: 500 })
@@ -33,7 +33,7 @@ const calcPeriods = ref([
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <template v-if="activeFunc === 'ledger'">
@@ -51,7 +51,7 @@ const calcPeriods = ref([
                 <div class="bg-card border border-themed rounded-xl p-4 shadow-themed text-center">
                     <p class="text-2xl font-bold"
                         :class="totalCarbon.year <= totalCarbon.yearTarget ? 'text-success' : 'text-danger'">{{
-                        totalCarbon.year }}<span class="text-xs text-dim">tCO₂</span></p>
+                            totalCarbon.year }}<span class="text-xs text-dim">tCO₂</span></p>
                     <p class="text-[10px] text-dim">年度累计</p>
                 </div>
                 <div class="bg-card border border-themed rounded-xl p-4 shadow-themed text-center">

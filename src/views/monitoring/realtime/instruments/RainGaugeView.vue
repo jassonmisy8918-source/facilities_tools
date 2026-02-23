@@ -13,35 +13,35 @@ const funcTabs = [
 
 // ===================== 运行信息 =====================
 const devices = ref([
-    { id: 'RG-2001', name: '和平路雨量站', location: '西城区', value: 3.2, battery: 85, signal: '良好', online: true, lastUpdate: '2024-03-15 14:30' },
-    { id: 'RG-2002', name: '丰台区雨量站', location: '丰台区', value: 8.5, battery: 72, signal: '良好', online: true, lastUpdate: '2024-03-15 14:30' },
-    { id: 'RG-2003', name: '通州区雨量站', location: '通州区', value: 12.6, battery: 45, signal: '一般', online: true, lastUpdate: '2024-03-15 14:30' },
-    { id: 'RG-2004', name: '朝阳区雨量站', location: '朝阳区', value: 1.8, battery: 90, signal: '良好', online: true, lastUpdate: '2024-03-15 14:29' },
-    { id: 'RG-2005', name: '海淀区雨量站', location: '海淀区', value: 0, battery: 15, signal: '差', online: false, lastUpdate: '2024-03-15 10:15' },
-    { id: 'RG-2006', name: '大兴区雨量站', location: '大兴区', value: 5.3, battery: 68, signal: '良好', online: true, lastUpdate: '2024-03-15 14:30' },
+    { id: 'RG-2001', name: '芙蓉路雨量站', location: '侯家塘街道', value: 3.2, battery: 85, signal: '良好', online: true, lastUpdate: '2024-03-15 14:30' },
+    { id: 'RG-2002', name: '左家塘街道雨量站', location: '左家塘街道', value: 8.5, battery: 72, signal: '良好', online: true, lastUpdate: '2024-03-15 14:30' },
+    { id: 'RG-2003', name: '黎托街道雨量站', location: '黎托街道', value: 12.6, battery: 45, signal: '一般', online: true, lastUpdate: '2024-03-15 14:30' },
+    { id: 'RG-2004', name: '圭塘街道雨量站', location: '圭塘街道', value: 1.8, battery: 90, signal: '良好', online: true, lastUpdate: '2024-03-15 14:29' },
+    { id: 'RG-2005', name: '洞井街道雨量站', location: '洞井街道', value: 0, battery: 15, signal: '差', online: false, lastUpdate: '2024-03-15 10:15' },
+    { id: 'RG-2006', name: '侯家塘区雨量站', location: '侯家塘区', value: 5.3, battery: 68, signal: '良好', online: true, lastUpdate: '2024-03-15 14:30' },
 ])
 
 // ===================== 故障信息 =====================
 const faults = ref([
-    { id: 'F001', device: 'RG-2005', name: '海淀区雨量站', type: '通信故障', time: '2024-03-15 10:15', status: '未修复', desc: '设备无法连接通信网络' },
-    { id: 'F002', device: 'RG-2003', name: '通州区雨量站', type: '电池低电量', time: '2024-03-14 08:30', status: '处理中', desc: '电池电量低于50%告警阈值' },
-    { id: 'F003', device: 'RG-2001', name: '和平路雨量站', type: '翻斗卡滞', time: '2024-03-10 16:20', status: '已修复', desc: '翻斗机构异物卡滞' },
+    { id: 'F001', device: 'RG-2005', name: '洞井街道雨量站', type: '通信故障', time: '2024-03-15 10:15', status: '未修复', desc: '设备无法连接通信网络' },
+    { id: 'F002', device: 'RG-2003', name: '黎托街道雨量站', type: '电池低电量', time: '2024-03-14 08:30', status: '处理中', desc: '电池电量低于50%告警阈值' },
+    { id: 'F003', device: 'RG-2001', name: '芙蓉路雨量站', type: '翻斗卡滞', time: '2024-03-10 16:20', status: '已修复', desc: '翻斗机构异物卡滞' },
 ])
 
 // ===================== 预警记录 =====================
 const alarms = ref([
-    { id: 'A001', device: 'RG-2003', name: '通州区雨量站', type: '降雨量超限', value: '12.6mm/h', threshold: '10mm/h', time: '2024-03-15 13:45', level: 'high' },
-    { id: 'A002', device: 'RG-2002', name: '丰台区雨量站', type: '降雨量超限', value: '8.5mm/h', threshold: '8mm/h', time: '2024-03-15 12:30', level: 'medium' },
-    { id: 'A003', device: 'RG-2005', name: '海淀区雨量站', type: '设备离线', value: '-', threshold: '-', time: '2024-03-15 10:15', level: 'high' },
-    { id: 'A004', device: 'RG-2003', name: '通州区雨量站', type: '电池低电量', value: '45%', threshold: '50%', time: '2024-03-14 08:30', level: 'low' },
+    { id: 'A001', device: 'RG-2003', name: '黎托街道雨量站', type: '降雨量超限', value: '12.6mm/h', threshold: '10mm/h', time: '2024-03-15 13:45', level: 'high' },
+    { id: 'A002', device: 'RG-2002', name: '左家塘街道雨量站', type: '降雨量超限', value: '8.5mm/h', threshold: '8mm/h', time: '2024-03-15 12:30', level: 'medium' },
+    { id: 'A003', device: 'RG-2005', name: '洞井街道雨量站', type: '设备离线', value: '-', threshold: '-', time: '2024-03-15 10:15', level: 'high' },
+    { id: 'A004', device: 'RG-2003', name: '黎托街道雨量站', type: '电池低电量', value: '45%', threshold: '50%', time: '2024-03-14 08:30', level: 'low' },
 ])
 
 // ===================== 维护记录 =====================
 const maintenances = ref([
-    { id: 'M001', device: 'RG-2001', name: '和平路雨量站', type: '定期校准', date: '2024-03-10', operator: '张工', result: '合格', next: '2024-06-10' },
-    { id: 'M002', device: 'RG-2003', name: '通州区雨量站', type: '更换电池', date: '2024-03-08', operator: '李工', result: '完成', next: '2024-09-08' },
-    { id: 'M003', device: 'RG-2005', name: '海淀区雨量站', type: '故障维修', date: '2024-03-05', operator: '王工', result: '待复检', next: '2024-03-20' },
-    { id: 'M004', device: 'RG-2004', name: '朝阳区雨量站', type: '巡检', date: '2024-03-01', operator: '张工', result: '正常', next: '2024-04-01' },
+    { id: 'M001', device: 'RG-2001', name: '芙蓉路雨量站', type: '定期校准', date: '2024-03-10', operator: '张工', result: '合格', next: '2024-06-10' },
+    { id: 'M002', device: 'RG-2003', name: '黎托街道雨量站', type: '更换电池', date: '2024-03-08', operator: '李工', result: '完成', next: '2024-09-08' },
+    { id: 'M003', device: 'RG-2005', name: '洞井街道雨量站', type: '故障维修', date: '2024-03-05', operator: '王工', result: '待复检', next: '2024-03-20' },
+    { id: 'M004', device: 'RG-2004', name: '圭塘街道雨量站', type: '巡检', date: '2024-03-01', operator: '张工', result: '正常', next: '2024-04-01' },
 ])
 
 function getAlarmLevelColor(l: string) { return l === 'high' ? 'text-danger' : l === 'medium' ? 'text-warning' : 'text-info' }
@@ -95,7 +95,7 @@ function getFaultStatusColor(s: string) { return s === '已修复' ? 'text-succe
                             <td class="text-center px-4 py-2.5">
                                 <span
                                     :class="d.battery < 30 ? 'text-danger' : d.battery < 60 ? 'text-warning' : 'text-success'">{{
-                                    d.battery }}%</span>
+                                        d.battery }}%</span>
                             </td>
                             <td class="text-center px-4 py-2.5 text-default">{{ d.signal }}</td>
                             <td class="text-center px-4 py-2.5">
@@ -103,7 +103,7 @@ function getFaultStatusColor(s: string) { return s === '已修复' ? 'text-succe
                                     <span class="w-1.5 h-1.5 rounded-full"
                                         :class="d.online ? 'bg-success' : 'bg-danger'"></span>
                                     <span :class="d.online ? 'text-success' : 'text-danger'">{{ d.online ? '在线' : '离线'
-                                        }}</span>
+                                    }}</span>
                                 </span>
                             </td>
                             <td class="text-center px-4 py-2.5 text-dim">{{ d.lastUpdate }}</td>
@@ -134,7 +134,7 @@ function getFaultStatusColor(s: string) { return s === '已修复' ? 'text-succe
                             <span class="text-[10px] text-dim font-mono">{{ f.device }}</span>
                         </div>
                         <span class="text-[10px] font-medium" :class="getFaultStatusColor(f.status)">{{ f.status
-                            }}</span>
+                        }}</span>
                     </div>
                     <p class="text-xs text-default ml-5.5">{{ f.type }}: {{ f.desc }}</p>
                     <p class="text-[10px] text-muted-themed ml-5.5 mt-1">发生时间: {{ f.time }}</p>
@@ -167,7 +167,7 @@ function getFaultStatusColor(s: string) { return s === '已修复' ? 'text-succe
                             <td class="text-center px-4 py-2.5">
                                 <span class="text-[10px] px-2 py-0.5 rounded font-medium"
                                     :class="[getAlarmLevelColor(a.level), getAlarmLevelBg(a.level)]">{{
-                                    getAlarmLevelText(a.level) }}</span>
+                                        getAlarmLevelText(a.level) }}</span>
                             </td>
                             <td class="text-center px-4 py-2.5 text-dim">{{ a.time }}</td>
                         </tr>
@@ -201,7 +201,7 @@ function getFaultStatusColor(s: string) { return s === '已修复' ? 'text-succe
                             <td class="text-center px-4 py-2.5">
                                 <span class="text-[10px] font-medium"
                                     :class="m.result === '合格' || m.result === '完成' || m.result === '正常' ? 'text-success' : 'text-warning'">{{
-                                    m.result }}</span>
+                                        m.result }}</span>
                             </td>
                             <td class="text-center px-4 py-2.5 text-dim">{{ m.next }}</td>
                         </tr>

@@ -22,17 +22,17 @@ const activeTool = ref('')
 
 // ===================== 修复任务队列 =====================
 const repairTasks = ref([
-    { id: 1, type: '图形冲突', target: '朝阳区 管段重叠 12 处', status: 'completed', time: '2024-03-15 09:45', fixed: 12 },
-    { id: 2, type: '断连管线', target: '海淀区 断连管线 8 段', status: 'completed', time: '2024-03-15 10:12', fixed: 7 },
-    { id: 3, type: '孤立要素', target: '西城区 孤立检查井 5 座', status: 'running', time: '2024-03-15 11:00', fixed: 3 },
+    { id: 1, type: '图形冲突', target: '圭塘街道 管段重叠 12 处', status: 'completed', time: '2024-03-15 09:45', fixed: 12 },
+    { id: 2, type: '断连管线', target: '洞井街道 断连管线 8 段', status: 'completed', time: '2024-03-15 10:12', fixed: 7 },
+    { id: 3, type: '孤立要素', target: '侯家塘街道 孤立检查井 5 座', status: 'running', time: '2024-03-15 11:00', fixed: 3 },
     { id: 4, type: '拓扑修正', target: '全域 节点连接错误 23 处', status: 'pending', time: '-', fixed: 0 },
 ])
 
 // ===================== 版本历史 =====================
 const versionHistory = ref([
-    { version: 'v2024.03.15.002', time: '2024-03-15 10:30', author: '张三', changes: '修复朝阳区管网拓扑 +12', type: 'auto' },
+    { version: 'v2024.03.15.002', time: '2024-03-15 10:30', author: '张三', changes: '修复圭塘街道管网拓扑 +12', type: 'auto' },
     { version: 'v2024.03.15.001', time: '2024-03-15 09:50', author: '系统', changes: '批量修复图形冲突 +12', type: 'auto' },
-    { version: 'v2024.03.14.003', time: '2024-03-14 16:20', author: '李四', changes: '手动编辑海淀区管线 +3', type: 'manual' },
+    { version: 'v2024.03.14.003', time: '2024-03-14 16:20', author: '李四', changes: '手动编辑洞井街道管线 +3', type: 'manual' },
     { version: 'v2024.03.14.002', time: '2024-03-14 14:30', author: '系统', changes: '断连管线自动修复 +7', type: 'auto' },
     { version: 'v2024.03.14.001', time: '2024-03-14 10:00', author: '王五', changes: '孤立设施关联 +5', type: 'manual' },
 ])

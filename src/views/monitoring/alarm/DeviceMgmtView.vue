@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Search, Pencil, Trash2, Plus, CheckSquare } from 'lucide-vue-next'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
 
 const toast = ref<InstanceType<typeof ToastNotify>>()
@@ -13,12 +14,12 @@ const funcTabs = [
 ]
 
 const devices = ref([
-    { id: 'DEV-001', name: '压力式液位计', model: 'WL-500A', type: '液位计', sn: 'SN20230601', manufacturer: '海天仪器', area: '朝阳区', point: '建设大道DN300', installDate: '2023-06-15', status: 'online', selected: false },
-    { id: 'DEV-002', name: '多普勒流量计', model: 'DF-800', type: '流量计', sn: 'SN20230602', manufacturer: '博锐仪表', area: '朝阳区', point: '建设大道DN300', installDate: '2023-06-15', status: 'online', selected: false },
-    { id: 'DEV-003', name: 'COD在线分析仪', model: 'COD-3000', type: '水质计', sn: 'SN20230701', manufacturer: '哈希', area: '西城区', point: '西城区进水口', installDate: '2023-07-20', status: 'online', selected: false },
-    { id: 'DEV-004', name: '翻斗式雨量计', model: 'JDZ-1', type: '雨量计', sn: 'SN20230801', manufacturer: '锦州阳光', area: '丰台区', point: '丰台区雨量站', installDate: '2023-08-10', status: 'online', selected: false },
-    { id: 'DEV-005', name: '超声波液位计', model: 'UL-300', type: '液位计', sn: 'SN20230901', manufacturer: '西门子', area: '通州区', point: '通州区主干', installDate: '2023-09-01', status: 'offline', selected: false },
-    { id: 'DEV-006', name: 'pH/SS多参数仪', model: 'MP-4500', type: '水质计', sn: 'SN20230702', manufacturer: '赛莱默', area: '西城区', point: '西城区进水口', installDate: '2023-07-20', status: 'warning', selected: false },
+    { id: 'DEV-001', name: '压力式液位计', model: 'WL-500A', type: '液位计', sn: 'SN20230601', manufacturer: '海天仪器', area: '圭塘街道', point: '万家丽路DN300', installDate: '2023-06-15', status: 'online', selected: false },
+    { id: 'DEV-002', name: '多普勒流量计', model: 'DF-800', type: '流量计', sn: 'SN20230602', manufacturer: '博锐仪表', area: '圭塘街道', point: '万家丽路DN300', installDate: '2023-06-15', status: 'online', selected: false },
+    { id: 'DEV-003', name: 'COD在线分析仪', model: 'COD-3000', type: '水质计', sn: 'SN20230701', manufacturer: '哈希', area: '侯家塘街道', point: '侯家塘街道进水口', installDate: '2023-07-20', status: 'online', selected: false },
+    { id: 'DEV-004', name: '翻斗式雨量计', model: 'JDZ-1', type: '雨量计', sn: 'SN20230801', manufacturer: '锦州阳光', area: '左家塘街道', point: '左家塘街道雨量站', installDate: '2023-08-10', status: 'online', selected: false },
+    { id: 'DEV-005', name: '超声波液位计', model: 'UL-300', type: '液位计', sn: 'SN20230901', manufacturer: '西门子', area: '黎托街道', point: '黎托街道主干', installDate: '2023-09-01', status: 'offline', selected: false },
+    { id: 'DEV-006', name: 'pH/SS多参数仪', model: 'MP-4500', type: '水质计', sn: 'SN20230702', manufacturer: '赛莱默', area: '侯家塘街道', point: '侯家塘街道进水口', installDate: '2023-07-20', status: 'warning', selected: false },
 ])
 
 // 查询
@@ -41,6 +42,13 @@ function batchUpdate() {
 function getStatusColor(s: string) { return s === 'online' ? 'text-success' : s === 'offline' ? 'text-dim' : 'text-warning' }
 function getStatusBg(s: string) { return s === 'online' ? 'bg-success/10' : s === 'offline' ? 'bg-surface' : 'bg-warning/10' }
 function getStatusText(s: string) { return s === 'online' ? '在线' : s === 'offline' ? '离线' : '告警' }
+
+// 新增弹窗
+const showAddModal = ref(false)
+const addForm = ref({ name: '', type: '', model: '', area: '' })
+
+function openAdd() { addForm.value = { name: '', type: '', model: '', area: '' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
 </script>
 
 <template>
@@ -53,7 +61,7 @@ function getStatusText(s: string) { return s === 'online' ? '在线' : s === 'of
                         ft.label }}</button>
             </div>
             <button v-if="activeFunc === 'info'"
-                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
+                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer" @click="openAdd()">
                 <Plus class="w-3.5 h-3.5" />新增设备
             </button>
         </div>
@@ -119,10 +127,10 @@ function getStatusText(s: string) { return s === 'online' ? '在线' : s === 'of
                 <select v-model="areaFilter"
                     class="bg-input border border-themed rounded-lg px-3 py-1.5 text-xs text-default focus:outline-none focus:border-primary">
                     <option value="all">全部区域</option>
-                    <option>朝阳区</option>
-                    <option>西城区</option>
-                    <option>丰台区</option>
-                    <option>通州区</option>
+                    <option>圭塘街道</option>
+                    <option>侯家塘街道</option>
+                    <option>左家塘街道</option>
+                    <option>黎托街道</option>
                 </select>
                 <select v-model="statusFilterQ"
                     class="bg-input border border-themed rounded-lg px-3 py-1.5 text-xs text-default focus:outline-none focus:border-primary">
@@ -214,6 +222,32 @@ function getStatusText(s: string) { return s === 'online' ? '在线' : s === 'of
                 </table>
             </div>
         </template>
+    <!-- 新增弹窗 -->
+    <ModalDialog :show="showAddModal" title="新增监测设备" @close="showAddModal = false" @confirm="doAdd">
+        <div class="space-y-3">
+            <div>
+                <label class="text-[10px] text-dim block mb-1">设备名称</label>
+                <input v-model="addForm.name" type="text" placeholder="请输入设备名称"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">设备类型</label>
+                <input v-model="addForm.type" type="text" placeholder="雨量计/流量计/液位计"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">型号</label>
+                <input v-model="addForm.model" type="text" placeholder="请输入设备型号"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+            <div>
+                <label class="text-[10px] text-dim block mb-1">安装区域</label>
+                <input v-model="addForm.area" type="text" placeholder="请选择区域"
+                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+            </div>
+        </div>
+    </ModalDialog>
+    
         <ToastNotify ref="toast" />
     </div>
 </template>

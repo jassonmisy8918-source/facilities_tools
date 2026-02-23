@@ -12,12 +12,12 @@ const funcTabs = [
 
 // ── 实时视频 ──
 const cameras = ref([
-    { id: 1, station: '朝阳泵站', name: '进水口摄像头', status: '在线', resolution: '1080P', ptz: true },
-    { id: 2, station: '朝阳泵站', name: '泵房内部', status: '在线', resolution: '1080P', ptz: false },
-    { id: 3, station: '西城泵站', name: '前池监控', status: '在线', resolution: '720P', ptz: true },
-    { id: 4, station: '通州泵站', name: '配电室', status: '离线', resolution: '1080P', ptz: false },
-    { id: 5, station: '通州泵站', name: '出水口摄像头', status: '在线', resolution: '1080P', ptz: true },
-    { id: 6, station: '丰台泵站', name: '泵房全景', status: '在线', resolution: '4K', ptz: true },
+    { id: 1, station: '雨花泵站', name: '进水口摄像头', status: '在线', resolution: '1080P', ptz: true },
+    { id: 2, station: '雨花泵站', name: '泵房内部', status: '在线', resolution: '1080P', ptz: false },
+    { id: 3, station: '侯家塘泵站', name: '前池监控', status: '在线', resolution: '720P', ptz: true },
+    { id: 4, station: '黎托泵站', name: '配电室', status: '离线', resolution: '1080P', ptz: false },
+    { id: 5, station: '黎托泵站', name: '出水口摄像头', status: '在线', resolution: '1080P', ptz: true },
+    { id: 6, station: '左家塘泵站', name: '泵房全景', status: '在线', resolution: '4K', ptz: true },
 ])
 
 const selectedCamera = ref(1)
@@ -25,18 +25,18 @@ const isPlaying = ref(true)
 
 // ── 录像 ──
 const recordings = ref([
-    { id: 1, camera: '进水口摄像头', station: '朝阳泵站', start: '2024-03-15 00:00', end: '2024-03-15 23:59', size: '12.5GB', status: '可用' },
-    { id: 2, camera: '泵房内部', station: '朝阳泵站', start: '2024-03-15 00:00', end: '2024-03-15 23:59', size: '11.2GB', status: '可用' },
-    { id: 3, camera: '前池监控', station: '西城泵站', start: '2024-03-14 00:00', end: '2024-03-14 23:59', size: '8.6GB', status: '可用' },
-    { id: 4, camera: '配电室', station: '通州泵站', start: '2024-03-13 00:00', end: '2024-03-13 12:30', size: '5.1GB', status: '已归档' },
+    { id: 1, camera: '进水口摄像头', station: '雨花泵站', start: '2024-03-15 00:00', end: '2024-03-15 23:59', size: '12.5GB', status: '可用' },
+    { id: 2, camera: '泵房内部', station: '雨花泵站', start: '2024-03-15 00:00', end: '2024-03-15 23:59', size: '11.2GB', status: '可用' },
+    { id: 3, camera: '前池监控', station: '侯家塘泵站', start: '2024-03-14 00:00', end: '2024-03-14 23:59', size: '8.6GB', status: '可用' },
+    { id: 4, camera: '配电室', station: '黎托泵站', start: '2024-03-13 00:00', end: '2024-03-13 12:30', size: '5.1GB', status: '已归档' },
 ])
 
 // ── 关键帧 ──
 const keyframes = ref([
-    { id: 1, camera: '进水口摄像头', station: '朝阳泵站', time: '2024-03-15 14:32:15', tag: '设备启动', desc: '3号泵开机', creator: '张伟' },
-    { id: 2, camera: '泵房内部', station: '朝阳泵站', time: '2024-03-15 16:20:05', tag: '异常事件', desc: '水位告警触发', creator: '系统' },
-    { id: 3, camera: '前池监控', station: '西城泵站', time: '2024-03-14 09:15:30', tag: '设备停机', desc: '2号泵计划停机', creator: '李明' },
-    { id: 4, camera: '出水口摄像头', station: '通州泵站', time: '2024-03-13 22:00:10', tag: '异常事件', desc: '流量异常', creator: '系统' },
+    { id: 1, camera: '进水口摄像头', station: '雨花泵站', time: '2024-03-15 14:32:15', tag: '设备启动', desc: '3号泵开机', creator: '张伟' },
+    { id: 2, camera: '泵房内部', station: '雨花泵站', time: '2024-03-15 16:20:05', tag: '异常事件', desc: '水位告警触发', creator: '系统' },
+    { id: 3, camera: '前池监控', station: '侯家塘泵站', time: '2024-03-14 09:15:30', tag: '设备停机', desc: '2号泵计划停机', creator: '李明' },
+    { id: 4, camera: '出水口摄像头', station: '黎托泵站', time: '2024-03-13 22:00:10', tag: '异常事件', desc: '流量异常', creator: '系统' },
 ])
 
 // ── 存储 ──
@@ -44,11 +44,11 @@ const storageInfo = ref({
     total: '50TB', used: '32.5TB', free: '17.5TB', usedPct: 65,
     policy: { retentionDays: 90, autoDelete: true, archiveAfter: 30 },
     byStation: [
-        { station: '朝阳泵站', cameras: 2, used: '12.8TB', pct: 25.6 },
-        { station: '西城泵站', cameras: 1, used: '6.2TB', pct: 12.4 },
-        { station: '通州泵站', cameras: 2, used: '8.5TB', pct: 17.0 },
-        { station: '丰台泵站', cameras: 1, used: '3.2TB', pct: 6.4 },
-        { station: '海淀泵站', cameras: 0, used: '1.8TB', pct: 3.6 },
+        { station: '雨花泵站', cameras: 2, used: '12.8TB', pct: 25.6 },
+        { station: '侯家塘泵站', cameras: 1, used: '6.2TB', pct: 12.4 },
+        { station: '黎托泵站', cameras: 2, used: '8.5TB', pct: 17.0 },
+        { station: '左家塘泵站', cameras: 1, used: '3.2TB', pct: 6.4 },
+        { station: '洞井泵站', cameras: 0, used: '1.8TB', pct: 3.6 },
     ]
 })
 </script>
@@ -59,7 +59,7 @@ const storageInfo = ref({
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <!-- 实时调阅 -->
@@ -70,8 +70,8 @@ const storageInfo = ref({
                         <Video class="w-10 h-10 text-white/30" />
                         <span
                             class="absolute bottom-3 left-3 text-[10px] text-white/50 bg-black/50 px-2 py-1 rounded">{{
-                                cameras.find(c => c.id === selectedCamera)?.station }} — {{cameras.find(c => c.id ===
-                            selectedCamera)?.name }}</span>
+                                cameras.find(c => c.id === selectedCamera)?.station}} — {{cameras.find(c => c.id ===
+                                selectedCamera)?.name}}</span>
                         <div class="absolute bottom-3 right-3 flex gap-2">
                             <button @click="isPlaying = !isPlaying"
                                 class="p-1.5 bg-black/50 rounded-full text-white/70 hover:text-white cursor-pointer">
@@ -87,7 +87,7 @@ const storageInfo = ref({
                             class="w-full text-left p-2 rounded-lg text-[10px] cursor-pointer transition-colors"
                             :class="selectedCamera === cam.id ? 'bg-primary/10 border border-primary/30' : 'hover:bg-hover-themed'">
                             <div class="flex items-center justify-between"><span class="text-default font-medium">{{
-                                    cam.name }}</span><span class="w-1.5 h-1.5 rounded-full"
+                                cam.name }}</span><span class="w-1.5 h-1.5 rounded-full"
                                     :class="cam.status === '在线' ? 'bg-success' : 'bg-danger'"></span></div>
                             <span class="text-dim">{{ cam.station }} · {{ cam.resolution }}</span>
                         </button>
@@ -133,7 +133,7 @@ const storageInfo = ref({
                             <td class="text-center px-2 py-2.5"><span
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                     :class="r.status === '可用' ? 'bg-success/10 text-success' : 'bg-surface text-dim'">{{
-                                    r.status }}</span></td>
+                                        r.status }}</span></td>
                             <td class="text-center px-2 py-2.5"><button
                                     class="text-[10px] text-primary hover:underline cursor-pointer">播放</button></td>
                         </tr>
@@ -207,7 +207,7 @@ const storageInfo = ref({
                                 stroke-width="3" :stroke-dasharray="storageInfo.usedPct + ', 100'" />
                         </svg><span
                             class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-default">{{
-                            storageInfo.usedPct }}%</span></div>
+                                storageInfo.usedPct }}%</span></div>
                     <p class="text-[10px] text-dim">使用率</p>
                 </div>
             </div>

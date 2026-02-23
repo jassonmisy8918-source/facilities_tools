@@ -14,14 +14,14 @@ const funcTabs = [
 ]
 
 const orders = ref([
-    { id: 'MO-001', title: '建设大道DN400清淤', type: '清淤', priority: 'B', area: '朝阳区', facility: 'DN400雨水管', assignee: '张伟', status: 'in_progress', progress: 70, hours: 4.5, cost: 2800 },
-    { id: 'MO-002', title: '民生路MH-05井盖修复', type: '修复', priority: 'A', area: '朝阳区', facility: 'MH-05检查井', assignee: '王强', status: 'review', progress: 0, hours: 0, cost: 0 },
-    { id: 'MO-003', title: '西城区排口格栅更换', type: '更换', priority: 'B', area: '西城区', facility: 'OUT-03排口', assignee: '李明', status: 'completed', progress: 100, hours: 3, cost: 1500 },
-    { id: 'MO-004', title: '丰台区DN600管道检测', type: 'CCTV检测', priority: 'B', area: '丰台区', facility: 'DN600污水管', assignee: '', status: 'pending', progress: 0, hours: 0, cost: 0 },
+    { id: 'MO-001', title: '万家丽路DN400清淤', type: '清淤', priority: 'B', area: '圭塘街道', facility: 'DN400雨水管', assignee: '张伟', status: 'in_progress', progress: 70, hours: 4.5, cost: 2800 },
+    { id: 'MO-002', title: '劳动路MH-05井盖修复', type: '修复', priority: 'A', area: '圭塘街道', facility: 'MH-05检查井', assignee: '王强', status: 'review', progress: 0, hours: 0, cost: 0 },
+    { id: 'MO-003', title: '侯家塘街道排口格栅更换', type: '更换', priority: 'B', area: '侯家塘街道', facility: 'OUT-03排口', assignee: '李明', status: 'completed', progress: 100, hours: 3, cost: 1500 },
+    { id: 'MO-004', title: '左家塘街道DN600管道检测', type: 'CCTV检测', priority: 'B', area: '左家塘街道', facility: 'DN600污水管', assignee: '', status: 'pending', progress: 0, hours: 0, cost: 0 },
 ])
 
 const autoTasks = ref([
-    { order: 'MO-004', title: '丰台区DN600管道检测', skill: 'CCTV操作', candidates: [{ name: '王强', load: 2, skill: '✓', distance: '5km', score: 92 }, { name: '张伟', load: 3, skill: '✓', distance: '8km', score: 78 }, { name: '赵刚', load: 1, skill: '✗', distance: '3km', score: 45 }] },
+    { order: 'MO-004', title: '左家塘街道DN600管道检测', skill: 'CCTV操作', candidates: [{ name: '王强', load: 2, skill: '✓', distance: '5km', score: 92 }, { name: '张伟', load: 3, skill: '✓', distance: '8km', score: 78 }, { name: '赵刚', load: 1, skill: '✗', distance: '3km', score: 45 }] },
 ])
 
 const issues = ref([
@@ -32,9 +32,9 @@ const issues = ref([
 const costData = ref({ totalCost: 4300, laborCost: 2600, materialCost: 1200, equipmentCost: 500, orders: 3 })
 
 const deviceStatus = ref([
-    { name: '高压清洗车-01', type: '清洗车', status: 'working', location: '建设大道', order: 'MO-001', runtime: '4.5h' },
+    { name: '高压清洗车-01', type: '清洗车', status: 'working', location: '万家丽路', order: 'MO-001', runtime: '4.5h' },
     { name: 'CCTV检测车-01', type: '检测车', status: 'idle', location: '中心车库', order: '', runtime: '0h' },
-    { name: '抽水泵-03', type: '水泵', status: 'working', location: '丰台区', order: 'MO-004', runtime: '2h' },
+    { name: '抽水泵-03', type: '水泵', status: 'working', location: '左家塘街道', order: 'MO-004', runtime: '2h' },
 ])
 
 function getStatusText(s: string) { return s === 'in_progress' ? '执行中' : s === 'completed' ? '已完成' : s === 'review' ? '待审核' : '待分配' }

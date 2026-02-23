@@ -10,10 +10,10 @@ const funcTabs = [
 ]
 
 const events = ref([
-    { id: 'EM-2024-001', name: '丰台区暴雨内涝', type: '自然灾害', level: 'I级', startTime: '2024-03-15 06:00', endTime: '2024-03-15 09:30', duration: '3.5小时', status: 'resolved', location: '丰台区南苑路', handler: '应急组A', result: '排水完成，道路恢复通行', measures: '启动3台泵车排水，设置10处沙袋围挡', casualties: 0, loss: '轻微' },
-    { id: 'EM-2024-002', name: '通州区管网冒溢', type: '设施故障', level: 'II级', startTime: '2024-03-10 14:30', endTime: '2024-03-10 16:20', duration: '1.8小时', status: 'resolved', location: '通州区运河大道', handler: '抢修组B', result: '管道疏通，恢复正常排水', measures: '现场围挡+高压清洗+管道检测', casualties: 0, loss: '无' },
-    { id: 'EM-2024-003', name: '西城区水质异常', type: '环境事件', level: 'II级', startTime: '2024-03-05 10:00', endTime: '2024-03-05 14:00', duration: '4小时', status: 'resolved', location: '西城区清河段', handler: '检测组C', result: '确认混接源头，临时封堵', measures: '水质采样+溯源排查+临时封堵混接管', casualties: 0, loss: '无' },
-    { id: 'EM-2024-004', name: '海淀区泵站停电', type: '设施故障', level: 'III级', startTime: '2024-02-28 22:00', endTime: '2024-02-28 23:15', duration: '1.3小时', status: 'resolved', location: '海淀区中关村泵站', handler: '运维组D', result: '发电机启动，供电恢复后切回', measures: '发电机应急供电+电力部门协调', casualties: 0, loss: '无' },
+    { id: 'EM-2024-001', name: '左家塘街道暴雨内涝', type: '自然灾害', level: 'I级', startTime: '2024-03-15 06:00', endTime: '2024-03-15 09:30', duration: '3.5小时', status: 'resolved', location: '左家塘街道南苑路', handler: '应急组A', result: '排水完成，道路恢复通行', measures: '启动3台泵车排水，设置10处沙袋围挡', casualties: 0, loss: '轻微' },
+    { id: 'EM-2024-002', name: '黎托街道管网冒溢', type: '设施故障', level: 'II级', startTime: '2024-03-10 14:30', endTime: '2024-03-10 16:20', duration: '1.8小时', status: 'resolved', location: '黎托街道花侯路', handler: '抢修组B', result: '管道疏通，恢复正常排水', measures: '现场围挡+高压清洗+管道检测', casualties: 0, loss: '无' },
+    { id: 'EM-2024-003', name: '侯家塘街道水质异常', type: '环境事件', level: 'II级', startTime: '2024-03-05 10:00', endTime: '2024-03-05 14:00', duration: '4小时', status: 'resolved', location: '侯家塘街道浏阳河段', handler: '检测组C', result: '确认混接源头，临时封堵', measures: '水质采样+溯源排查+临时封堵混接管', casualties: 0, loss: '无' },
+    { id: 'EM-2024-004', name: '洞井街道泵站停电', type: '设施故障', level: 'III级', startTime: '2024-02-28 22:00', endTime: '2024-02-28 23:15', duration: '1.3小时', status: 'resolved', location: '洞井街道中关村泵站', handler: '运维组D', result: '发电机启动，供电恢复后切回', measures: '发电机应急供电+电力部门协调', casualties: 0, loss: '无' },
 ])
 
 const searchKeyword = ref('')
@@ -26,10 +26,10 @@ function viewEvent(e: typeof events.value[0]) { detailEvent.value = e; showDetai
 
 // 报告
 const reportEvents = ref([
-    { id: 'EM-2024-001', name: '丰台区暴雨内涝', generated: true, reportDate: '2024-03-16' },
-    { id: 'EM-2024-002', name: '通州区管网冒溢', generated: true, reportDate: '2024-03-11' },
-    { id: 'EM-2024-003', name: '西城区水质异常', generated: false, reportDate: '' },
-    { id: 'EM-2024-004', name: '海淀区泵站停电', generated: true, reportDate: '2024-03-01' },
+    { id: 'EM-2024-001', name: '左家塘街道暴雨内涝', generated: true, reportDate: '2024-03-16' },
+    { id: 'EM-2024-002', name: '黎托街道管网冒溢', generated: true, reportDate: '2024-03-11' },
+    { id: 'EM-2024-003', name: '侯家塘街道水质异常', generated: false, reportDate: '' },
+    { id: 'EM-2024-004', name: '洞井街道泵站停电', generated: true, reportDate: '2024-03-01' },
 ])
 
 function getLevelColor(l: string) { return l === 'I级' ? 'bg-danger/10 text-danger' : l === 'II级' ? 'bg-warning/10 text-warning' : 'bg-info/10 text-info' }

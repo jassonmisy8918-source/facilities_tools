@@ -186,7 +186,7 @@ function handleExport() { toast.value?.show('标注数据导出中...', 'info') 
 
 function zoomIn() { map?.getView().animate({ zoom: (map.getView().getZoom() || 13) + 1, duration: 250 }) }
 function zoomOut() { map?.getView().animate({ zoom: (map.getView().getZoom() || 13) - 1, duration: 250 }) }
-function resetView() { map?.getView().animate({ center: fromLonLat([116.397428, 39.90923]), zoom: 14, duration: 500 }) }
+function resetView() { map?.getView().animate({ center: fromLonLat([113.032549, 28.141]), zoom: 14, duration: 500 }) }
 
 // ===================== 初始化 =====================
 onMounted(() => {
@@ -200,7 +200,7 @@ onMounted(() => {
                 new VectorLayer({ source: measureSource, style: measureStyle }),
                 new VectorLayer({ source: annotateSource, style: annotateStyle }),
             ],
-            view: new View({ center: fromLonLat([116.397428, 39.90923]), zoom: 14 }),
+            view: new View({ center: fromLonLat([113.032549, 28.141]), zoom: 14 }),
             controls: [],
         })
         map.addControl(new ScaleLine({ units: 'metric' }))
