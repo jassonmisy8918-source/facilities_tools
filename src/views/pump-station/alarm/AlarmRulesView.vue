@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Plus, Shield, Search, ToggleLeft, ToggleRight } from 'lucide-vue-next'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
 
 const toast = ref<InstanceType<typeof ToastNotify>>()
@@ -45,6 +46,11 @@ const categories = ref([
 ])
 
 function levelClass(l: string) { return l === '严重' ? 'bg-danger/10 text-danger' : l === '告警' ? 'bg-warning/10 text-warning' : 'bg-info/10 text-info' }
+
+const showAddRule = ref(false)
+const addRuleForm = ref({ name: '', device: '', metric: '', condition: '', level: '预警', notify: 'APP' })
+function openAddRule() { addRuleForm.value = { name: '', device: '', metric: '', condition: '', level: '预警', notify: 'APP' }; showAddRule.value = true }
+function doAddRule() { showAddRule.value = false; toast.value?.show('规则新增成功', 'success') }
 </script>
 
 <template>
@@ -54,7 +60,7 @@ function levelClass(l: string) { return l === '严重' ? 'bg-danger/10 text-dang
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <template v-if="activeFunc === 'list'">
@@ -64,9 +70,9 @@ function levelClass(l: string) { return l === '严重' ? 'bg-danger/10 text-dang
                     <div class="flex gap-1 ml-2"><button v-for="l in levelOptions" :key="l" @click="filterByLevel(l)"
                             class="px-2 py-0.5 rounded text-[10px] cursor-pointer"
                             :class="filterLevel === l ? 'bg-primary text-white' : 'bg-surface text-dim hover:text-default'">{{
-                            l }}</button></div>
+                                l }}</button></div>
                 </div>
-                <button @click="toast?.show('新增规则功能开发中', 'info')"
+                <button @click="openAddRule()"
                     class="flex items-center gap-1 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light cursor-pointer">
                     <Plus class="w-3.5 h-3.5" />新增规则
                 </button>
@@ -113,12 +119,60 @@ function levelClass(l: string) { return l === '严重' ? 'bg-danger/10 text-dang
                 <div v-for="c in categories" :key="c.type"
                     class="bg-card border border-themed rounded-xl shadow-themed p-4">
                     <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-default">{{
-                            c.type }}</span><span class="text-[10px] text-primary font-bold">{{ c.count }} 条规则</span>
+                        c.type }}</span><span class="text-[10px] text-primary font-bold">{{ c.count }} 条规则</span>
                     </div>
                     <div class="flex gap-1 flex-wrap"><span v-for="r in c.rules" :key="r"
                             class="text-[10px] px-1.5 py-0.5 rounded bg-surface text-dim">{{ r }}</span></div>
                 </div>
             </div>
         </template>
+
+        <!-- 新增规则弹窗 -->
+        <ModalDialog :show="showAddRule" title="新增报警规则" @close="showAddRule = false" @confirm="doAddRule">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">规则名称</label>
+                    <input v-model="addRuleForm.name" type="text" placeholder="如 后池水位超高"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">设备类型</label>
+                        <input v-model="addRuleForm.device" type="text" placeholder="如 水位计"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">监测指标</label>
+                        <input v-model="addRuleForm.metric" type="text" placeholder="如 后池水位"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">触发条件</label>
+                    <input v-model="addRuleForm.condition" type="text" placeholder="如 > 2.0m"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">报警等级</label>
+                        <select v-model="addRuleForm.level"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary">
+                            <option>预警</option>
+                            <option>告警</option>
+                            <option>严重</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">通知方式</label>
+                        <select v-model="addRuleForm.notify"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary">
+                            <option>APP</option>
+                            <option>短信+APP</option>
+                            <option>短信+电话+APP</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </ModalDialog>
     </div>
 </template>

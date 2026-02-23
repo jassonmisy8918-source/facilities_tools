@@ -44,6 +44,11 @@ function getStatusColor(s: string) { return s === 'in_progress' ? 'text-primary'
 function getStatusBg(s: string) { return s === 'in_progress' ? 'bg-primary/10' : s === 'completed' ? 'bg-success/10' : s === 'pending_review' ? 'bg-warning/10' : s === 'pending_dispatch' ? 'bg-info/10' : 'bg-surface' }
 function getStatusText(s: string) { return s === 'in_progress' ? '执行中' : s === 'completed' ? '已完成' : s === 'pending_review' ? '待审核' : s === 'pending_dispatch' ? '待派发' : '已关闭' }
 function getPriorityColor(p: string) { return p === 'S' ? 'bg-danger text-white' : p === 'A' ? 'bg-warning text-white' : p === 'B' ? 'bg-info/80 text-white' : 'bg-surface text-dim' }
+
+const showAddModal = ref(false)
+const addForm = ref({ title: '', type: '例行', priority: 'B', area: '', deadline: '', points: '' })
+function openAdd() { addForm.value = { title: '', type: '例行', priority: 'B', area: '', deadline: '', points: '' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('工单创建成功', 'success') }
 </script>
 
 <template>
@@ -62,7 +67,7 @@ function getPriorityColor(p: string) { return p === 'S' ? 'bg-danger text-white'
                             dispatchOrders.length }}</span>
                 </button>
             </div>
-            <button v-if="activeFunc === 'list'"
+            <button v-if="activeFunc === 'list'" @click="openAdd()"
                 class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
                 <Plus class="w-3.5 h-3.5" />新建工单
             </button>
@@ -77,7 +82,7 @@ function getPriorityColor(p: string) { return p === 'S' ? 'bg-danger text-white'
                 </div>
                 <div class="bg-card border border-themed rounded-xl p-3 shadow-themed text-center">
                     <p class="text-2xl font-bold text-primary">{{orders.filter(o => o.status === 'in_progress').length
-                    }}</p>
+                        }}</p>
                     <p class="text-[10px] text-dim mt-0.5">执行中</p>
                 </div>
                 <div class="bg-card border border-themed rounded-xl p-3 shadow-themed text-center">
@@ -157,7 +162,7 @@ function getPriorityColor(p: string) { return p === 'S' ? 'bg-danger text-white'
                                 class="text-[10px] px-2 py-0.5 rounded bg-primary/10 text-primary font-medium">{{ o.type
                                 }}</span></div>
                         <div class="flex items-center gap-3 text-[10px] text-dim"><span>申请人: {{ o.applicant
-                        }}</span><span>时间: {{ o.time }}</span><span>巡查点: {{ o.points }}个</span><span>检查项: {{
+                                }}</span><span>时间: {{ o.time }}</span><span>巡查点: {{ o.points }}个</span><span>检查项: {{
                                     o.items }}项</span></div>
                         <p class="text-[10px] text-default mt-1.5">📝 {{ o.remark }}</p>
                     </div>
@@ -186,7 +191,7 @@ function getPriorityColor(p: string) { return p === 'S' ? 'bg-danger text-white'
                 class="bg-card border border-themed rounded-xl shadow-themed p-4">
                 <div class="flex items-center justify-between mb-3">
                     <div class="flex items-center gap-2"><span class="text-xs font-bold text-default">{{ o.title
-                    }}</span><span class="text-[10px] text-primary font-mono">{{ o.id }}</span><span
+                            }}</span><span class="text-[10px] text-primary font-mono">{{ o.id }}</span><span
                             class="text-[9px] px-1.5 py-0.5 rounded font-bold" :class="getPriorityColor(o.priority)">{{
                                 o.priority }}</span></div>
                     <span class="text-[10px] text-dim">截止: {{ o.deadline }}</span>
@@ -237,6 +242,57 @@ function getPriorityColor(p: string) { return p === 'S' ? 'bg-danger text-white'
                     <div class="p-3 rounded-lg bg-surface">
                         <p class="text-dim">截止日期</p>
                         <p class="text-default mt-0.5">{{ detailOrder.deadline }}</p>
+                    </div>
+                </div>
+            </div>
+        </ModalDialog>
+
+        <!-- 新建工单弹窗 -->
+        <ModalDialog :show="showAddModal" title="新建工单" @close="showAddModal = false" @confirm="doAdd">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">工单标题</label>
+                    <input v-model="addForm.title" type="text" placeholder="请输入工单标题"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">工单类型</label>
+                        <select v-model="addForm.type"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary">
+                            <option>例行</option>
+                            <option>应急</option>
+                            <option>临时</option>
+                            <option>复查</option>
+                            <option>专项</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">优先级</label>
+                        <select v-model="addForm.priority"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary">
+                            <option value="S">S-紧急</option>
+                            <option value="A">A-重要</option>
+                            <option value="B">B-普通</option>
+                            <option value="C">C-低</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">巡查区域</label>
+                        <input v-model="addForm.area" type="text" placeholder="如 圭塘街道"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">截止日期</label>
+                        <input v-model="addForm.deadline" type="date"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">巡查点数</label>
+                        <input v-model="addForm.points" type="number" placeholder="如 15"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
                     </div>
                 </div>
             </div>

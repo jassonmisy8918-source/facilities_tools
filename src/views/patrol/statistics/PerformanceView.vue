@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Settings, Sliders, FileText, PlusCircle, TrendingUp, Archive, Printer, Cpu } from 'lucide-vue-next'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
 
 const toast = ref<InstanceType<typeof ToastNotify>>()
@@ -24,6 +25,9 @@ const indicators = ref([
     { id: 6, name: '客户满意度', category: '综合', weight: 15, formula: '满意评价数/总数×100%', threshold: 90, scoring: '≥90%满分,每降5%扣5分', isSystem: false },
 ])
 const showAddIndicator = ref(false)
+const addIndicatorForm = ref({ name: '', category: '巡查', weight: '', formula: '', threshold: '', scoring: '' })
+function openAddIndicator() { addIndicatorForm.value = { name: '', category: '巡查', weight: '', formula: '', threshold: '', scoring: '' }; showAddIndicator.value = true }
+function doAddIndicator() { showAddIndicator.value = false; toast.value?.show('自定义指标添加成功', 'success') }
 
 // 报告模板
 const templates = ref([
@@ -77,7 +81,7 @@ function scoreClass(v: number) { return v >= 90 ? 'text-success' : v >= 80 ? 'te
                     <Settings class="w-4 h-4 text-primary" /><span
                         class="text-sm font-semibold text-default">评估指标信息管理</span>
                 </div>
-                <button @click="showAddIndicator = !showAddIndicator; toast?.show('指标配置面板已打开', 'info')"
+                <button @click="openAddIndicator()"
                     class="flex items-center gap-1 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light cursor-pointer">
                     <PlusCircle class="w-3.5 h-3.5" />自定义指标
                 </button>
@@ -281,5 +285,49 @@ function scoreClass(v: number) { return v >= 90 ? 'text-success' : v >= 80 ? 'te
                 </table>
             </div>
         </template>
+        <!-- 自定义指标弹窗 -->
+        <ModalDialog :show="showAddIndicator" title="自定义评估指标" @close="showAddIndicator = false"
+            @confirm="doAddIndicator">
+            <div class="space-y-3">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">指标名称</label>
+                        <input v-model="addIndicatorForm.name" type="text" placeholder="如 巡查准时率"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">指标类别</label>
+                        <select v-model="addIndicatorForm.category"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary">
+                            <option>巡查</option>
+                            <option>养护</option>
+                            <option>综合</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">权重(%)</label>
+                        <input v-model="addIndicatorForm.weight" type="number" placeholder="如 15"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">达标值</label>
+                        <input v-model="addIndicatorForm.threshold" type="text" placeholder="如 85"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">计算公式</label>
+                    <input v-model="addIndicatorForm.formula" type="text" placeholder="如 准时到达数/总巡查数×100%"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">评分标准</label>
+                    <input v-model="addIndicatorForm.scoring" type="text" placeholder="如 ≥85%满分,每降5%扣5分"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+            </div>
+        </ModalDialog>
     </div>
 </template>

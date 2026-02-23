@@ -54,6 +54,12 @@ const addForm = ref({ name: '', type: '', area: '', assignee: '' })
 
 function openAdd() { addForm.value = { name: '', type: '', area: '', assignee: '' }; showAddModal.value = true }
 function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
+
+// 入库弹窗
+const showStockInModal = ref(false)
+const stockInForm = ref({ materialId: '', quantity: '', supplier: '', remark: '' })
+function openStockIn() { stockInForm.value = { materialId: '', quantity: '', supplier: '', remark: '' }; showStockInModal.value = true }
+function doStockIn() { showStockInModal.value = false; toast.value?.show('入库成功', 'success') }
 </script>
 
 <template>
@@ -63,10 +69,11 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                     class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer"
                     :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                    ft.label }}</button>
+                        ft.label }}</button>
             </div>
             <button v-if="activeFunc === 'plans'"
-                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer" @click="openAdd()">
+                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer"
+                @click="openAdd()">
                 <Plus class="w-3.5 h-3.5" />新增计划
             </button>
         </div>
@@ -141,7 +148,7 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 <div class="flex items-center gap-2">
                     <Package class="w-4 h-4 text-primary" /><span
                         class="text-sm font-semibold text-default">养护材料库存</span>
-                </div><button
+                </div><button @click="openStockIn()"
                     class="flex items-center gap-1 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
                     <Plus class="w-3.5 h-3.5" />入库
                 </button>
@@ -248,32 +255,63 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 </table>
             </div>
         </template>
-    <!-- 新增弹窗 -->
-    <ModalDialog :show="showAddModal" title="新增养护计划" @close="showAddModal = false" @confirm="doAdd">
-        <div class="space-y-3">
-            <div>
-                <label class="text-[10px] text-dim block mb-1">计划名称</label>
-                <input v-model="addForm.name" type="text" placeholder="请输入计划名称"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+        <!-- 新增弹窗 -->
+        <ModalDialog :show="showAddModal" title="新增养护计划" @close="showAddModal = false" @confirm="doAdd">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">计划名称</label>
+                    <input v-model="addForm.name" type="text" placeholder="请输入计划名称"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">养护类型</label>
+                    <input v-model="addForm.type" type="text" placeholder="日常/专项/应急"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">区域</label>
+                    <input v-model="addForm.area" type="text" placeholder="请选择区域"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">责任人</label>
+                    <input v-model="addForm.assignee" type="text" placeholder="请输入负责人"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
             </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">养护类型</label>
-                <input v-model="addForm.type" type="text" placeholder="日常/专项/应急"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+        </ModalDialog>
+
+        <!-- 入库弹窗 -->
+        <ModalDialog :show="showStockInModal" title="材料入库" @close="showStockInModal = false" @confirm="doStockIn">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">选择材料</label>
+                    <select v-model="stockInForm.materialId"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary">
+                        <option value="">请选择材料</option>
+                        <option v-for="m in materials" :key="m.id" :value="m.id">{{ m.name }} ({{ m.spec }})</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">入库数量</label>
+                        <input v-model="stockInForm.quantity" type="number" placeholder="请输入数量"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">供应商</label>
+                        <input v-model="stockInForm.supplier" type="text" placeholder="请输入供应商名称"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">备注</label>
+                    <input v-model="stockInForm.remark" type="text" placeholder="可选"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
             </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">区域</label>
-                <input v-model="addForm.area" type="text" placeholder="请选择区域"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">责任人</label>
-                <input v-model="addForm.assignee" type="text" placeholder="请输入负责人"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-        </div>
-    </ModalDialog>
-    
+        </ModalDialog>
+
         <ToastNotify ref="toast" />
     </div>
 </template>

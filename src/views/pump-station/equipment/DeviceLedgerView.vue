@@ -60,6 +60,24 @@ function statusClass(s: string) {
     const m: Record<string, string> = { '运行': 'bg-success/10 text-success', '备用': 'bg-info/10 text-info', '检修': 'bg-warning/10 text-warning', '报废': 'bg-danger/10 text-danger', '已审批': 'bg-success/10 text-success', '待审批': 'bg-warning/10 text-warning', '已完成': 'bg-success/10 text-success', '运输中': 'bg-primary/10 text-primary', '待出库': 'bg-warning/10 text-warning' }
     return m[s] || 'bg-surface text-dim'
 }
+
+// 新增设备弹窗
+const showAddDevice = ref(false)
+const addDeviceForm = ref({ name: '', type: '', station: '', model: '', power: '', location: '' })
+function openAddDevice() { addDeviceForm.value = { name: '', type: '', station: '', model: '', power: '', location: '' }; showAddDevice.value = true }
+function doAddDevice() { showAddDevice.value = false; toast.value?.show('设备新增成功', 'success') }
+
+// 新增类别弹窗
+const showAddCategory = ref(false)
+const addCategoryForm = ref({ name: '', attrs: '' })
+function openAddCategory() { addCategoryForm.value = { name: '', attrs: '' }; showAddCategory.value = true }
+function doAddCategory() { showAddCategory.value = false; toast.value?.show('类别新增成功', 'success') }
+
+// 报废申请弹窗
+const showScrapApply = ref(false)
+const scrapForm = ref({ device: '', station: '', reason: '' })
+function openScrapApply() { scrapForm.value = { device: '', station: '', reason: '' }; showScrapApply.value = true }
+function doScrapApply() { showScrapApply.value = false; toast.value?.show('报废申请已提交', 'success') }
 </script>
 
 <template>
@@ -86,7 +104,7 @@ function statusClass(s: string) {
         <template v-if="activeFunc === 'info'">
             <div class="flex items-center justify-between">
                 <span class="text-sm font-semibold text-default">设备台账</span>
-                <button @click="toast?.show('新增设备功能开发中', 'info')"
+                <button @click="openAddDevice()"
                     class="flex items-center gap-1 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light cursor-pointer">
                     <Plus class="w-3.5 h-3.5" />新增设备
                 </button>
@@ -131,7 +149,7 @@ function statusClass(s: string) {
         <template v-if="activeFunc === 'category'">
             <div class="flex items-center justify-between">
                 <span class="text-sm font-semibold text-default">设备类别管理</span>
-                <button @click="toast?.show('新增类别功能开发中', 'info')"
+                <button @click="openAddCategory()"
                     class="flex items-center gap-1 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light cursor-pointer">
                     <Plus class="w-3.5 h-3.5" />新增类别
                 </button>
@@ -159,7 +177,7 @@ function statusClass(s: string) {
         <template v-if="activeFunc === 'scrap'">
             <div class="flex items-center justify-between">
                 <span class="text-sm font-semibold text-default">设备报废管理</span>
-                <button @click="toast?.show('报废申请功能开发中', 'info')"
+                <button @click="openScrapApply()"
                     class="flex items-center gap-1 px-3 py-1.5 bg-danger text-white rounded-lg text-xs font-medium hover:bg-red-600 cursor-pointer">
                     <Trash2 class="w-3.5 h-3.5" />报废申请
                 </button>
@@ -261,5 +279,87 @@ function statusClass(s: string) {
                 </table>
             </div>
         </template>
+
+        <!-- 新增设备弹窗 -->
+        <ModalDialog :show="showAddDevice" title="新增设备" @close="showAddDevice = false" @confirm="doAddDevice">
+            <div class="space-y-3">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">设备名称</label>
+                        <input v-model="addDeviceForm.name" type="text" placeholder="如 3号水泵"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">设备类型</label>
+                        <select v-model="addDeviceForm.type"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary">
+                            <option value="">请选择</option>
+                            <option v-for="c in categories" :key="c.id" :value="c.name">{{ c.name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">所属泵站</label>
+                        <input v-model="addDeviceForm.station" type="text" placeholder="如 雨花泵站"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">型号</label>
+                        <input v-model="addDeviceForm.model" type="text" placeholder="如 QW200-300-15"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">功率</label>
+                        <input v-model="addDeviceForm.power" type="text" placeholder="如 15kW"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">安装位置</label>
+                        <input v-model="addDeviceForm.location" type="text" placeholder="如 泵房A区"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                </div>
+            </div>
+        </ModalDialog>
+
+        <!-- 新增类别弹窗 -->
+        <ModalDialog :show="showAddCategory" title="新增设备类别" @close="showAddCategory = false" @confirm="doAddCategory">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">类别名称</label>
+                    <input v-model="addCategoryForm.name" type="text" placeholder="如 变频器"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">属性字段（逗号分隔）</label>
+                    <input v-model="addCategoryForm.attrs" type="text" placeholder="如 功率,输入电压,输出频率"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+            </div>
+        </ModalDialog>
+
+        <!-- 报废申请弹窗 -->
+        <ModalDialog :show="showScrapApply" title="报废申请" @close="showScrapApply = false" @confirm="doScrapApply">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">设备名称</label>
+                    <input v-model="scrapForm.device" type="text" placeholder="请输入设备名称"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">所属泵站</label>
+                    <input v-model="scrapForm.station" type="text" placeholder="请输入泵站名称"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">报废原因</label>
+                    <textarea v-model="scrapForm.reason" rows="3" placeholder="请详细说明报废原因"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary resize-none"></textarea>
+                </div>
+            </div>
+        </ModalDialog>
     </div>
 </template>

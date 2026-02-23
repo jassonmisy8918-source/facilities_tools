@@ -172,7 +172,7 @@ function showError(msg: string) {
 
                 <!-- 底部提示 -->
                 <p class="text-xs text-muted-themed text-center mt-8">
-                    测试账号：admin / admin123 或 operator / 123456
+                    测试账号：admin / admin123
                 </p>
             </div>
         </div>

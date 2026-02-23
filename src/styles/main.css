@@ -46,8 +46,14 @@
   --text-muted: #5A6B7C;
   --text-inverse: #0F1923;
 
+  --nav-text: #E8EDF3;
+  --nav-text-dim: #94A3B8;
+  --nav-hover-bg: rgba(255,255,255,0.08);
+  --nav-active-bg: rgba(255,255,255,0.12);
+
   --border-default: #2A3F54;
   --border-light: #1E3348;
+  --border-nav: rgba(255,255,255,0.1);
 
   --shadow-base: 0 1px 3px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -61,16 +67,22 @@
   --bg-card: #FFFFFF;
   --bg-hover: #E8EEF4;
   --bg-input: #F5F7FA;
-  --bg-sidebar: #1E293B;
-  --bg-topnav: #1E293B;
+  --bg-sidebar: #FFFFFF;
+  --bg-topnav: #FFFFFF;
 
   --text-primary: #1E293B;
   --text-secondary: #64748B;
   --text-muted: #94A3B8;
   --text-inverse: #FFFFFF;
 
+  --nav-text: #1E293B;
+  --nav-text-dim: #64748B;
+  --nav-hover-bg: rgba(0,0,0,0.04);
+  --nav-active-bg: rgba(27,101,185,0.08);
+
   --border-default: #E2E8F0;
   --border-light: #F1F5F9;
+  --border-nav: #E2E8F0;
 
   --shadow-base: 0 1px 3px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);

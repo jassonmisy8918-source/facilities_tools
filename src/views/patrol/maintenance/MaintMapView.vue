@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Users, Play, Pause, AlertTriangle, TrendingUp } from 'lucide-vue-next'
+import AMapView from '@/components/common/AMapView.vue'
 
 const activeFunc = ref('personnel')
 const funcTabs = [
@@ -44,6 +45,12 @@ const overdueOrders = ref([
 
 const playingId = ref('')
 function togglePlay(w: string) { playingId.value = playingId.value === w ? '' : w }
+
+// 养护轨迹地图 polylines
+const maintPolylines = computed(() => [
+    { path: [[113.045, 28.130], [113.048, 28.133], [113.052, 28.135], [113.055, 28.132], [113.058, 28.128]] as [number, number][], color: '#3B82F6', weight: 4, label: '万家丽路清淤段' },
+    { path: [[113.025, 28.148], [113.028, 28.150], [113.030, 28.152], [113.032, 28.149]] as [number, number][], color: '#10B981', weight: 4, label: '侯家塘街道排口段' },
+])
 </script>
 
 <template>
@@ -107,7 +114,7 @@ function togglePlay(w: string) { playingId.value = playingId.value === w ? '' : 
         <!-- 轨迹 -->
         <template v-if="activeFunc === 'trajectory'">
             <div class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
-                <div class="h-40 bg-surface flex items-center justify-center text-xs text-dim">📍 GIS 地图 — 养护轨迹展示</div>
+                <AMapView :polylines="maintPolylines" :center="[113.045, 28.135]" :zoom="14" height="280px" />
             </div>
             <div class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
                 <table class="w-full text-xs">

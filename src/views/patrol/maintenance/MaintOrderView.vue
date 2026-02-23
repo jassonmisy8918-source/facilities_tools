@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Plus, Eye, AlertTriangle, Radio } from 'lucide-vue-next'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
 
 const toast = ref<InstanceType<typeof ToastNotify>>()
@@ -40,6 +41,11 @@ const deviceStatus = ref([
 function getStatusText(s: string) { return s === 'in_progress' ? '执行中' : s === 'completed' ? '已完成' : s === 'review' ? '待审核' : '待分配' }
 function getStatusColor(s: string) { return s === 'in_progress' ? 'text-primary bg-primary/10' : s === 'completed' ? 'text-success bg-success/10' : s === 'review' ? 'text-warning bg-warning/10' : 'text-info bg-info/10' }
 function assignTask(c: { name: string }) { toast.value?.show(`已分配给 ${c.name}`, 'success') }
+
+const showAddModal = ref(false)
+const addForm = ref({ title: '', type: '清淤', facility: '', area: '', priority: 'B' })
+function openAdd() { addForm.value = { title: '', type: '清淤', facility: '', area: '', priority: 'B' }; showAddModal.value = true }
+function doAdd() { showAddModal.value = false; toast.value?.show('工单创建成功', 'success') }
 </script>
 
 <template>
@@ -54,7 +60,7 @@ function assignTask(c: { name: string }) { toast.value?.show(`已分配给 ${c.n
         <!-- 工单列表 -->
         <div v-if="activeFunc === 'list'" class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
             <div class="px-4 py-3 border-b border-themed flex items-center justify-between"><span
-                    class="text-sm font-semibold text-default">养护工单</span><button
+                    class="text-sm font-semibold text-default">养护工单</span><button @click="openAdd()"
                     class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
                     <Plus class="w-3.5 h-3.5" />新建
                 </button></div>
@@ -106,13 +112,13 @@ function assignTask(c: { name: string }) { toast.value?.show(`已分配给 ${c.n
             <div v-for="t in autoTasks" :key="t.order"
                 class="bg-card border border-themed rounded-xl shadow-themed p-4">
                 <div class="flex items-center gap-2 mb-3"><span class="text-xs font-bold text-default">{{ t.title
-                }}</span><span class="text-[10px] text-primary font-mono">{{ t.order }}</span><span
+                        }}</span><span class="text-[10px] text-primary font-mono">{{ t.order }}</span><span
                         class="text-[10px] text-dim">需求技能: {{ t.skill }}</span></div>
                 <div class="space-y-2">
                     <div v-for="c in t.candidates" :key="c.name"
                         class="flex items-center justify-between p-3 rounded-lg bg-surface">
                         <div class="flex items-center gap-3"><span class="text-xs font-medium text-default">{{ c.name
-                        }}</span><span class="text-[10px] text-dim">负载: {{ c.load }}单</span><span
+                                }}</span><span class="text-[10px] text-dim">负载: {{ c.load }}单</span><span
                                 class="text-[10px]" :class="c.skill === '✓' ? 'text-success' : 'text-danger'">技能: {{
                                     c.skill }}</span><span class="text-[10px] text-dim">距离: {{ c.distance }}</span></div>
                         <div class="flex items-center gap-2"><span class="text-xs font-bold"
@@ -134,7 +140,7 @@ function assignTask(c: { name: string }) { toast.value?.show(`已分配给 ${c.n
                 </div>
                 <div class="bg-card border border-themed rounded-xl p-3 shadow-themed text-center">
                     <p class="text-2xl font-bold text-primary">{{orders.filter(o => o.status === 'in_progress').length
-                    }}</p>
+                        }}</p>
                     <p class="text-[10px] text-dim">执行中</p>
                 </div>
                 <div class="bg-card border border-themed rounded-xl p-3 shadow-themed text-center">
@@ -153,13 +159,13 @@ function assignTask(c: { name: string }) { toast.value?.show(`已分配给 ${c.n
                 class="bg-card border border-themed rounded-xl shadow-themed p-4">
                 <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-default">{{
                     o.title
-                }}</span><span class="text-[10px] text-dim">{{ o.assignee }} · {{ o.hours }}h</span></div>
+                        }}</span><span class="text-[10px] text-dim">{{ o.assignee }} · {{ o.hours }}h</span></div>
                 <div class="h-2.5 bg-surface rounded-full overflow-hidden">
                     <div class="h-full bg-primary rounded-full transition-all" :style="{ width: o.progress + '%' }">
                     </div>
                 </div>
                 <div class="flex items-center justify-between mt-1 text-[10px]"><span class="text-dim">{{ o.facility
-                }}</span><span class="text-primary font-bold">{{ o.progress }}%</span></div>
+                        }}</span><span class="text-primary font-bold">{{ o.progress }}%</span></div>
             </div>
         </div>
 
@@ -232,5 +238,48 @@ function assignTask(c: { name: string }) { toast.value?.show(`已分配给 ${c.n
             </div>
         </template>
         <ToastNotify ref="toast" />
+
+        <!-- 新建工单弹窗 -->
+        <ModalDialog :show="showAddModal" title="新建养护工单" @close="showAddModal = false" @confirm="doAdd">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">工单标题</label>
+                    <input v-model="addForm.title" type="text" placeholder="请输入工单标题"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">养护类型</label>
+                        <select v-model="addForm.type"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary">
+                            <option>清淤</option>
+                            <option>修复</option>
+                            <option>更换</option>
+                            <option>CCTV检测</option>
+                            <option>保养</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">优先级</label>
+                        <select v-model="addForm.priority"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary">
+                            <option value="A">A-紧急</option>
+                            <option value="B">B-普通</option>
+                            <option value="C">C-低</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">区域</label>
+                        <input v-model="addForm.area" type="text" placeholder="如 圭塘街道"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">设施名称</label>
+                    <input v-model="addForm.facility" type="text" placeholder="如 DN400雨水管"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+            </div>
+        </ModalDialog>
     </div>
 </template>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ClipboardCheck, Send, Users, Camera, CheckCircle } from 'lucide-vue-next'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
 
 const toast = ref<InstanceType<typeof ToastNotify>>()
@@ -43,6 +44,11 @@ const trackingItems = ref([
 
 function planStatusClass(s: string) { return s === '已发布' ? 'bg-success/10 text-success' : s === '待审核' ? 'bg-warning/10 text-warning' : 'bg-surface text-dim' }
 function taskStatusClass(s: string) { return s === '执行中' ? 'bg-primary/10 text-primary' : s === '待执行' ? 'bg-warning/10 text-warning' : 'bg-success/10 text-success' }
+
+const showPublishPlan = ref(false)
+const publishForm = ref({ name: '', station: '', cycle: '每周', items: '', owner: '' })
+function openPublishPlan() { publishForm.value = { name: '', station: '', cycle: '每周', items: '', owner: '' }; showPublishPlan.value = true }
+function doPublishPlan() { showPublishPlan.value = false; toast.value?.show('巡检计划已发布', 'success') }
 </script>
 
 <template>
@@ -62,7 +68,7 @@ function taskStatusClass(s: string) { return s === '执行中' ? 'bg-primary/10 
                     <ClipboardCheck class="w-4 h-4 text-primary" /><span
                         class="text-sm font-semibold text-default">巡检计划管理</span>
                 </div>
-                <button @click="toast?.show('发布至巡检终端', 'success')"
+                <button @click="openPublishPlan()"
                     class="flex items-center gap-1 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light cursor-pointer">
                     <Send class="w-3.5 h-3.5" />发布计划
                 </button>
@@ -123,7 +129,7 @@ function taskStatusClass(s: string) { return s === '执行中' ? 'bg-primary/10 
                             <td class="text-center px-2 py-2.5 text-default">{{ t.assignee }}</td>
                             <td class="text-center px-2 py-2.5 text-dim">{{ t.skill }}</td>
                             <td class="text-center px-2 py-2.5"><span class="text-primary font-bold">{{ t.workload
-                                    }}</span> 任务</td>
+                            }}</span> 任务</td>
                             <td class="text-center px-2 py-2.5 text-dim">{{ t.date }}</td>
                             <td class="text-center px-2 py-2.5"><span class="text-[10px] px-1.5 py-0.5 rounded"
                                     :class="t.method === '自动' ? 'bg-info/10 text-info' : 'bg-surface text-dim'">{{
@@ -229,5 +235,43 @@ function taskStatusClass(s: string) { return s === '执行中' ? 'bg-primary/10 
                 </table>
             </div>
         </template>
+
+        <!-- 发布计划弹窗 -->
+        <ModalDialog :show="showPublishPlan" title="发布巡检计划" @close="showPublishPlan = false" @confirm="doPublishPlan">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">计划名称</label>
+                    <input v-model="publishForm.name" type="text" placeholder="如 雨花泵站周巡检"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">泵站</label>
+                        <input v-model="publishForm.station" type="text" placeholder="如 雨花泵站"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-dim block mb-1">巡检周期</label>
+                        <select v-model="publishForm.cycle"
+                            class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary">
+                            <option>每日</option>
+                            <option>每周</option>
+                            <option>每月</option>
+                            <option>每季</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">巡检内容</label>
+                    <input v-model="publishForm.items" type="text" placeholder="如 水泵/电机/阀门/仪表"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">责任人</label>
+                    <input v-model="publishForm.owner" type="text" placeholder="请输入责任人"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+            </div>
+        </ModalDialog>
     </div>
 </template>

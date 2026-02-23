@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Clock, Navigation, AlertTriangle, Users, Map } from 'lucide-vue-next'
+import { ref, onBeforeUnmount, watch, nextTick } from 'vue'
+import { Clock, Navigation, AlertTriangle, Users } from 'lucide-vue-next'
 
 const activeFunc = ref('overview')
 const funcTabs = [
@@ -10,6 +10,102 @@ const funcTabs = [
     { key: 'efficiency', label: '效率评估' },
     { key: 'coverage', label: '覆盖分析' },
 ]
+
+// AMap 热力图
+const AMAP_KEY = '2831a4407f599a6815d9fa2608676c9e'
+const AMAP_SECURITY_CODE = '01051b2c2a2b850b592d80160a115710'
+const heatmapContainer = ref<HTMLDivElement>()
+let mapInstance: any = null
+
+function loadAMapSDK(): Promise<void> {
+    return new Promise((resolve, reject) => {
+        if ((window as any).AMap) { resolve(); return }
+        if (AMAP_SECURITY_CODE) {
+            (window as any)._AMapSecurityConfig = { securityJsCode: AMAP_SECURITY_CODE }
+        }
+        const existing = document.getElementById('amap-sdk')
+        if (existing) { existing.addEventListener('load', () => resolve()); existing.addEventListener('error', () => reject()); return }
+        const script = document.createElement('script')
+        script.id = 'amap-sdk'
+        script.src = `https://webapi.amap.com/maps?v=2.0&key=${AMAP_KEY}`
+        script.onload = () => resolve()
+        script.onerror = () => reject(new Error('AMap SDK load failed'))
+        document.head.appendChild(script)
+    })
+}
+
+// 基于覆盖率数据生成热力点
+function generateHeatData() {
+    const areaCoords: Record<string, [number, number]> = {
+        '圭塘街道': [113.045, 28.130],
+        '侯家塘街道': [113.025, 28.148],
+        '左家塘街道': [113.035, 28.155],
+        '黎托街道': [113.060, 28.115],
+        '欢乐街道': [113.050, 28.100],
+        '洞井街道': [113.070, 28.095],
+    }
+    const heatData: { lng: number; lat: number; count: number }[] = []
+    coverageData.value.forEach(c => {
+        const base = areaCoords[c.area]
+        if (!base) return
+        // 在区域中心周围播撞多个点
+        const density = Math.round(c.rate / 5)
+        for (let i = 0; i < density; i++) {
+            heatData.push({
+                lng: base[0] + (Math.random() - 0.5) * 0.02,
+                lat: base[1] + (Math.random() - 0.5) * 0.015,
+                count: c.rate
+            })
+        }
+    })
+    return heatData
+}
+
+async function initHeatmap() {
+    if (!heatmapContainer.value || mapInstance) return
+    try {
+        await loadAMapSDK()
+        const AMap = (window as any).AMap
+        mapInstance = new AMap.Map(heatmapContainer.value, {
+            zoom: 13,
+            center: [113.045, 28.130],
+            mapStyle: 'amap://styles/normal',
+            resizeEnable: true,
+        })
+        AMap.plugin(['AMap.HeatMap', 'AMap.Scale'], () => {
+            mapInstance.addControl(new AMap.Scale())
+            const heatData = generateHeatData()
+            const heatmap = new AMap.HeatMap(mapInstance, {
+                radius: 30,
+                opacity: [0, 0.8],
+                gradient: {
+                    0.2: '#0033FF',
+                    0.4: '#00BFFF',
+                    0.6: '#7CFC00',
+                    0.8: '#FFD700',
+                    1.0: '#FF4500',
+                },
+            })
+            heatmap.setDataSet({
+                data: heatData.map(d => ({ lng: d.lng, lat: d.lat, count: d.count })),
+                max: 100,
+            })
+        })
+    } catch (e) {
+        console.error('Heatmap init failed:', e)
+    }
+}
+
+watch(() => activeFunc.value, async (val) => {
+    if (val === 'coverage') {
+        await nextTick()
+        initHeatmap()
+    }
+})
+
+onBeforeUnmount(() => {
+    if (mapInstance) { mapInstance.destroy(); mapInstance = null }
+})
 
 // 任务统计
 const taskStats = ref({
@@ -305,8 +401,7 @@ const coverageData = ref([
         <!-- 覆盖分析 -->
         <template v-if="activeFunc === 'coverage'">
             <div class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
-                <div class="h-40 bg-surface flex items-center justify-center text-xs text-dim"><Map
-                        class="w-5 h-5 mr-2" />GIS 覆盖率热力图（需接入地图 SDK）</div>
+                <div ref="heatmapContainer" class="w-full rounded-lg" style="height: 340px;"></div>
             </div>
             <div class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
                 <table class="w-full text-xs">

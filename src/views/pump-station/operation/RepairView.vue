@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Plus, Save, Edit, Monitor, Smartphone } from 'lucide-vue-next'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
 
 const toast = ref<InstanceType<typeof ToastNotify>>()
@@ -27,6 +28,22 @@ function statusClass(s: string) {
     const m: Record<string, string> = { '待审核': 'bg-warning/10 text-warning', '已派发': 'bg-info/10 text-info', '处理中': 'bg-primary/10 text-primary', '已完成': 'bg-success/10 text-success' }
     return m[s] || 'bg-surface text-dim'
 }
+
+// 提交报修表单
+const submitForm = ref({ device: '', station: '', fault: '' })
+
+// 编辑草稿：填充表单并跳转到提交页
+function editDraft(d: typeof drafts.value[0]) {
+    submitForm.value = { device: d.device, station: d.station, fault: d.fault }
+    activeFunc.value = 'submit'
+    toast.value?.show('已加载草稿，请编辑后提交', 'info')
+}
+
+// 提交草稿确认弹窗
+const showSubmitConfirm = ref(false)
+const pendingDraft = ref<typeof drafts.value[0] | null>(null)
+function confirmSubmitDraft(d: typeof drafts.value[0]) { pendingDraft.value = d; showSubmitConfirm.value = true }
+function doSubmitDraft() { showSubmitConfirm.value = false; toast.value?.show('草稿已提交报修', 'success') }
 </script>
 
 <template>
@@ -80,21 +97,21 @@ function statusClass(s: string) {
             <div class="bg-card border border-themed rounded-xl shadow-themed p-6">
                 <span class="text-sm font-semibold text-default block mb-4">提交报修申请</span>
                 <div class="grid grid-cols-2 gap-4">
-                    <div><label class="text-[10px] text-dim block mb-1">故障设备</label><select
+                    <div><label class="text-[10px] text-dim block mb-1">故障设备</label><select v-model="submitForm.device"
                             class="w-full px-3 py-2 bg-surface border border-themed rounded-lg text-xs text-default outline-none">
                             <option>请选择设备</option>
                             <option>1号水泵</option>
                             <option>2号水泵</option>
                             <option>主电机</option>
                         </select></div>
-                    <div><label class="text-[10px] text-dim block mb-1">所属泵站</label><select
+                    <div><label class="text-[10px] text-dim block mb-1">所属泵站</label><select v-model="submitForm.station"
                             class="w-full px-3 py-2 bg-surface border border-themed rounded-lg text-xs text-default outline-none">
                             <option>请选择泵站</option>
                             <option>雨花泵站</option>
                             <option>侯家塘泵站</option>
                         </select></div>
                     <div class="col-span-2"><label class="text-[10px] text-dim block mb-1">故障描述</label><textarea
-                            rows="3"
+                            v-model="submitForm.fault" rows="3"
                             class="w-full px-3 py-2 bg-surface border border-themed rounded-lg text-xs text-default outline-none resize-none"
                             placeholder="请描述故障现象..."></textarea></div>
                     <div class="col-span-2"><label class="text-[10px] text-dim block mb-1">上传照片</label>
@@ -125,15 +142,31 @@ function statusClass(s: string) {
                         <p class="text-xs font-bold text-default">{{ d.device }} — {{ d.station }}</p>
                         <p class="text-[10px] text-dim">{{ d.fault }} · 暂存于 {{ d.savedTime }}</p>
                     </div>
-                    <div class="flex gap-2"><button @click="toast?.show('编辑草稿', 'info')"
+                    <div class="flex gap-2"><button @click="editDraft(d)"
                             class="flex items-center gap-1 px-2 py-1 bg-primary text-white rounded text-[10px] cursor-pointer">
                             <Edit class="w-3 h-3" />编辑
-                        </button><button @click="toast?.show('草稿已提交', 'success')"
+                        </button><button @click="confirmSubmitDraft(d)"
                             class="flex items-center gap-1 px-2 py-1 bg-success text-white rounded text-[10px] cursor-pointer">
                             <Plus class="w-3 h-3" />提交
                         </button></div>
                 </div>
             </div>
         </template>
+
+        <!-- 提交草稿确认弹窗 -->
+        <ModalDialog :show="showSubmitConfirm" title="确认提交草稿" @close="showSubmitConfirm = false"
+            @confirm="doSubmitDraft">
+            <div v-if="pendingDraft" class="space-y-2 text-xs">
+                <p class="text-dim">确认提交以下报修草稿？</p>
+                <div class="bg-surface rounded-lg p-3 space-y-1">
+                    <div class="flex gap-2"><span class="text-dim w-16 shrink-0">设备</span><span
+                            class="text-default font-medium">{{ pendingDraft.device }}</span></div>
+                    <div class="flex gap-2"><span class="text-dim w-16 shrink-0">泵站</span><span
+                            class="text-default font-medium">{{ pendingDraft.station }}</span></div>
+                    <div class="flex gap-2"><span class="text-dim w-16 shrink-0">故障</span><span class="text-default">{{
+                            pendingDraft.fault }}</span></div>
+                </div>
+            </div>
+        </ModalDialog>
     </div>
 </template>

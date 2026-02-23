@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Activity, Gauge, Droplets, TrendingUp, AlertTriangle, BarChart3 } from 'lucide-vue-next'
+import { ref, watch, nextTick, onBeforeUnmount } from 'vue'
+import { Activity, Gauge, Droplets, TrendingUp, AlertTriangle } from 'lucide-vue-next'
+import * as echarts from 'echarts'
 
 const activeFunc = ref('status')
 const funcTabs = [
@@ -100,6 +101,67 @@ const anomalyAlerts = ref([
 
 function alertLevelClass(l: string) { return l === '严重' ? 'bg-danger/10 text-danger' : l === '告警' ? 'bg-warning/10 text-warning' : 'bg-info/10 text-info' }
 function alertStatusClass(s: string) { return s === '已处理' ? 'bg-success/10 text-success' : s === '处理中' ? 'bg-primary/10 text-primary' : 'bg-danger/10 text-danger' }
+
+// ECharts 多指标趋势曲线
+const trendChartRef = ref<HTMLDivElement>()
+let trendChart: echarts.ECharts | null = null
+
+function initTrendChart() {
+    if (!trendChartRef.value || trendChart) return
+    if (historyMetrics.value.length < 3) return
+    const m0 = historyMetrics.value[0]!
+    const m1 = historyMetrics.value[1]!
+    const m2 = historyMetrics.value[2]!
+    trendChart = echarts.init(trendChartRef.value)
+    const days = m0.values.map((_: number, i: number) => `D${i + 1}`)
+    trendChart.setOption({
+        tooltip: { trigger: 'axis', backgroundColor: 'rgba(0,0,0,0.75)', borderColor: 'transparent', textStyle: { color: '#fff', fontSize: 11 } },
+        legend: { data: historyMetrics.value.map(m => m.metric), bottom: 0, textStyle: { fontSize: 10, color: '#94A3B8' }, itemWidth: 14, itemHeight: 8 },
+        grid: { left: 50, right: 50, top: 20, bottom: 40 },
+        xAxis: { type: 'category', data: days, axisLine: { lineStyle: { color: '#E2E8F0' } }, axisLabel: { fontSize: 10, color: '#94A3B8' } },
+        yAxis: [
+            { type: 'value', name: '流量(m³/h)', nameTextStyle: { fontSize: 10, color: '#94A3B8' }, axisLabel: { fontSize: 10, color: '#94A3B8' }, splitLine: { lineStyle: { color: '#F1F5F9' } } },
+            { type: 'value', name: '水位(m)', nameTextStyle: { fontSize: 10, color: '#94A3B8' }, axisLabel: { fontSize: 10, color: '#94A3B8' }, splitLine: { show: false } },
+        ],
+        series: [
+            {
+                name: m0.metric,
+                type: 'line', yAxisIndex: 0, smooth: true, symbol: 'circle', symbolSize: 6,
+                data: m0.values,
+                lineStyle: { color: '#3B82F6', width: 2 },
+                itemStyle: { color: '#3B82F6' },
+                areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: 'rgba(59,130,246,0.25)' }, { offset: 1, color: 'rgba(59,130,246,0.02)' }]) },
+            },
+            {
+                name: m1.metric,
+                type: 'line', yAxisIndex: 0, smooth: true, symbol: 'circle', symbolSize: 6,
+                data: m1.values,
+                lineStyle: { color: '#10B981', width: 2 },
+                itemStyle: { color: '#10B981' },
+                areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: 'rgba(16,185,129,0.20)' }, { offset: 1, color: 'rgba(16,185,129,0.02)' }]) },
+            },
+            {
+                name: m2.metric,
+                type: 'line', yAxisIndex: 1, smooth: true, symbol: 'diamond', symbolSize: 6,
+                data: m2.values,
+                lineStyle: { color: '#F59E0B', width: 2, type: 'dashed' },
+                itemStyle: { color: '#F59E0B' },
+            },
+        ],
+    })
+    window.addEventListener('resize', () => trendChart?.resize())
+}
+
+watch(() => activeFunc.value, async (val) => {
+    if (val === 'history') {
+        await nextTick()
+        initTrendChart()
+    }
+})
+
+onBeforeUnmount(() => {
+    if (trendChart) { trendChart.dispose(); trendChart = null }
+})
 </script>
 
 <template>
@@ -177,9 +239,7 @@ function alertStatusClass(s: string) { return s === '已处理' ? 'bg-success/10
                 </div>
             </div>
             <div class="bg-card border border-themed rounded-xl shadow-themed p-4">
-                <div class="h-36 bg-surface rounded-lg flex items-center justify-center text-xs text-dim">
-                    <BarChart3 class="w-5 h-5 mr-2" />多指标趋势曲线（需接入 ECharts）
-                </div>
+                <div ref="trendChartRef" style="height: 280px;"></div>
             </div>
             <div class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
                 <table class="w-full text-xs">
@@ -332,7 +392,7 @@ function alertStatusClass(s: string) { return s === '已处理' ? 'bg-success/10
                             <td class="text-center px-2 py-2.5 text-info font-bold">{{ s.inFlow.toLocaleString() }}m³
                             </td>
                             <td class="text-center px-2 py-2.5 text-success font-bold">{{ s.outFlow.toLocaleString()
-                            }}m³</td>
+                                }}m³</td>
                             <td class="text-center px-2 py-2.5 text-warning">{{ s.power.toLocaleString() }}kWh</td>
                             <td class="text-center px-2 py-2.5"><span class="font-bold"
                                     :class="s.efficiency >= 98 ? 'text-success' : 'text-primary'">{{ s.efficiency

@@ -16,9 +16,9 @@ const funcTabs = [
 ]
 
 const vehicles = ref([
-    { id: 'VH-001', name: '高压清洗车-01', type: '清洗车', plate: '京A-12345', model: '东风DFL-5160', status: 'working', mileage: '45000km', nextMaint: '2024-04-01' },
-    { id: 'VH-002', name: 'CCTV检测车-01', type: '检测车', plate: '京A-12346', model: '依维柯NJ-6600', status: 'idle', mileage: '32000km', nextMaint: '2024-05-15' },
-    { id: 'VH-003', name: '抢修车-01', type: '抢修车', plate: '京A-12347', model: '江铃JX-5040', status: 'repair', mileage: '68000km', nextMaint: '2024-03-20' },
+    { id: 'VH-001', name: '高压清洗车-01', type: '清洗车', plate: '湘A-12345', model: '东风DFL-5160', status: 'working', mileage: '45000km', nextMaint: '2024-04-01' },
+    { id: 'VH-002', name: 'CCTV检测车-01', type: '检测车', plate: '湘A-12346', model: '依维柯NJ-6600', status: 'idle', mileage: '32000km', nextMaint: '2024-05-15' },
+    { id: 'VH-003', name: '抢修车-01', type: '抢修车', plate: '湘A-12347', model: '江铃JX-5040', status: 'repair', mileage: '68000km', nextMaint: '2024-03-20' },
 ])
 
 const instruments = ref([
@@ -66,7 +66,7 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
             <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                 class="px-2 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer whitespace-nowrap"
                 :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                ft.label }}</button>
+                    ft.label }}</button>
         </div>
 
         <!-- 车辆 -->
@@ -76,7 +76,8 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 <div class="flex items-center gap-2">
                     <Car class="w-4 h-4 text-primary" /><span class="text-sm font-semibold text-default">巡查车辆台账</span>
                 </div><button
-                    class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light cursor-pointer" @click="openAdd()">
+                    class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light cursor-pointer"
+                    @click="openAdd()">
                     <Plus class="w-3.5 h-3.5" />新增
                 </button>
             </div>
@@ -124,7 +125,7 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 <div class="flex items-center gap-2">
                     <SearchIcon class="w-4 h-4 text-info" /><span
                         class="text-sm font-semibold text-default">检测仪器台账</span>
-                </div><button
+                </div><button @click="openAdd()"
                     class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light cursor-pointer">
                     <Plus class="w-3.5 h-3.5" />新增
                 </button>
@@ -179,7 +180,7 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                     <Wrench class="w-4 h-4 text-warning" /><span
                         class="text-sm font-semibold text-default">保养维修记录</span>
                 </div>
-                <div class="flex gap-2"><button
+                <div class="flex gap-2"><button @click="openAdd()"
                         class="flex items-center gap-1 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light cursor-pointer">
                         <Plus class="w-3.5 h-3.5" />新增
                     </button><button
@@ -206,7 +207,7 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                         <td class="px-3 py-2 text-default font-medium">{{ r.device }}</td>
                         <td class="text-center px-2 py-2"><span class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                 :class="r.type === '故障维修' ? 'bg-danger/10 text-danger' : 'bg-info/10 text-info'">{{
-                                r.type }}</span></td>
+                                    r.type }}</span></td>
                         <td class="text-center px-2 py-2 text-default">{{ r.date }}</td>
                         <td class="px-3 py-2 text-dim">{{ r.content }}</td>
                         <td class="text-center px-2 py-2 text-primary font-bold">¥{{ r.cost }}</td>
@@ -243,41 +244,15 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                     <div class="space-y-2">
                         <div v-for="f in statsData.faults" :key="f.device">
                             <div class="flex items-center justify-between text-[10px]"><span class="text-default">{{
-                                    f.device }}</span><span class="font-bold"
+                                f.device }}</span><span class="font-bold"
                                     :class="f.faultCount > 2 ? 'text-danger' : f.faultCount > 0 ? 'text-warning' : 'text-success'">{{
-                                    f.faultCount }}次</span></div>
+                                        f.faultCount }}次</span></div>
                             <div class="text-[10px] text-dim">停机: {{ f.downtime }} · MTBF: {{ f.mtbf }}</div>
                         </div>
                     </div>
                 </div>
-    <!-- 新增弹窗 -->
-    <ModalDialog :show="showAddModal" title="新增设备/物资" @close="showAddModal = false" @confirm="doAdd">
-        <div class="space-y-3">
-            <div>
-                <label class="text-[10px] text-dim block mb-1">名称</label>
-                <input v-model="addForm.name" type="text" placeholder="请输入名称"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
             </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">类型</label>
-                <input v-model="addForm.type" type="text" placeholder="请选择类型"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">数量</label>
-                <input v-model="addForm.quantity" type="text" placeholder="请输入数量"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">存放位置</label>
-                <input v-model="addForm.location" type="text" placeholder="请输入位置"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-        </div>
-    </ModalDialog>
-        <ToastNotify ref="toast" />
-    </div>
-</template>
+        </template>
 
         <!-- 维护计划 + 故障预测 -->
         <div v-if="activeFunc === 'plan'" class="space-y-3">
@@ -334,5 +309,32 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 </tbody>
             </table>
         </div>
+
+        <!-- 新增弹窗 -->
+        <ModalDialog :show="showAddModal" title="新增设备/物资" @close="showAddModal = false" @confirm="doAdd">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">名称</label>
+                    <input v-model="addForm.name" type="text" placeholder="请输入名称"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">类型</label>
+                    <input v-model="addForm.type" type="text" placeholder="请选择类型"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">数量</label>
+                    <input v-model="addForm.quantity" type="text" placeholder="请输入数量"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">存放位置</label>
+                    <input v-model="addForm.location" type="text" placeholder="请输入位置"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+            </div>
+        </ModalDialog>
+        <ToastNotify ref="toast" />
     </div>
 </template>
