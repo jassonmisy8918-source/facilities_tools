@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Navigation, Radio, TrendingUp } from 'lucide-vue-next'
+import AMapView from '@/components/common/AMapView.vue'
 
 const activeFunc = ref('track')
 const funcTabs = [
@@ -51,6 +52,15 @@ const progressData = ref({
         { type: '复查', count: 1, done: 1, rate: 100 },
     ],
 })
+
+// 实时位置 markers
+const locationMarkers = computed(() =>
+    liveLocations.value.map(l => ({
+        lng: l.lng, lat: l.lat,
+        title: l.name,
+        label: `${l.name} (${l.order || '空闲'})`,
+    }))
+)
 </script>
 
 <template>
@@ -68,12 +78,12 @@ const progressData = ref({
                 <div class="flex items-center justify-between mb-3">
                     <div>
                         <div class="flex items-center gap-2"><span class="text-xs font-bold text-default">{{ o.title
-                        }}</span><span class="text-[10px] text-primary font-mono">{{ o.id }}</span></div>
+                                }}</span><span class="text-[10px] text-primary font-mono">{{ o.id }}</span></div>
                         <div class="text-[10px] text-dim mt-0.5">执行人: {{ o.assignee }} · 当前: {{ o.currentPoint }} · 更新于
                             {{ o.lastUpdate }}</div>
                     </div>
                     <div class="flex items-center gap-2"><span class="text-xs font-bold text-primary">{{ o.donePoints
-                    }}/{{ o.totalPoints }}</span><span class="text-[10px] text-dim">巡查点</span></div>
+                            }}/{{ o.totalPoints }}</span><span class="text-[10px] text-dim">巡查点</span></div>
                 </div>
                 <div class="h-2 bg-surface rounded-full overflow-hidden mb-3">
                     <div class="h-full bg-primary rounded-full transition-all" :style="{ width: o.progress + '%' }">
@@ -104,8 +114,7 @@ const progressData = ref({
         <!-- 实时位置 -->
         <template v-if="activeFunc === 'location'">
             <div class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
-                <div class="h-48 bg-surface flex items-center justify-center text-xs text-dim">📍 GIS 地图实时位置展示（需接入地图
-                    SDK）</div>
+                <AMapView :markers="locationMarkers" :center="[113.045, 28.150]" :zoom="14" height="280px" />
             </div>
             <div class="grid grid-cols-3 gap-3">
                 <div v-for="l in liveLocations" :key="l.name"
@@ -122,10 +131,10 @@ const progressData = ref({
                     </div>
                     <div class="grid grid-cols-2 gap-y-1 text-[10px]">
                         <div><span class="text-dim">工单: </span><span class="text-primary font-mono">{{ l.order || '—'
-                        }}</span></div>
+                                }}</span></div>
                         <div><span class="text-dim">状态: </span><span class="text-default">{{ l.speed }}</span></div>
                         <div><span class="text-dim">坐标: </span><span class="text-default">{{ l.lat }}, {{ l.lng
-                        }}</span></div>
+                                }}</span></div>
                         <div><span class="text-dim">电量: </span><span
                                 :class="l.battery > 50 ? 'text-success' : 'text-warning'" class="font-bold">{{ l.battery
                                 }}%</span></div>

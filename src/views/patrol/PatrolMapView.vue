@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Layers, Navigation, Eye, EyeOff, Play, Pause } from 'lucide-vue-next'
+import AMapView from '@/components/common/AMapView.vue'
 
 const activeFunc = ref('layers')
 const funcTabs = [
@@ -27,6 +28,23 @@ const trajectories = ref([
 
 const playingId = ref('')
 function togglePlay(id: string) { playingId.value = playingId.value === id ? '' : id }
+
+// 图层地图 markers（巡查点+关键检查点+问题点位）
+const layerMarkers = computed(() => [
+    { lng: 113.045, lat: 28.130, title: '巡查点 CP-01', label: 'CP-01' },
+    { lng: 113.048, lat: 28.135, title: '巡查点 CP-02', label: 'CP-02' },
+    { lng: 113.035, lat: 28.155, title: '关键点 KP-01', label: 'KP-01', color: '#ef4444' },
+    { lng: 113.060, lat: 28.115, title: '问题点 IP-01', label: 'IP-01', color: '#f59e0b' },
+    { lng: 113.025, lat: 28.148, title: '巡查点 CP-03', label: 'CP-03' },
+    { lng: 113.050, lat: 28.100, title: '关键点 KP-02', label: 'KP-02', color: '#ef4444' },
+])
+
+// 轨迹回放 polylines
+const trajectoryPolylines = computed(() => [
+    { path: [[113.045, 28.130], [113.048, 28.133], [113.052, 28.136], [113.055, 28.138], [113.058, 28.135]] as [number, number][], color: '#3B82F6', weight: 4, label: '圈塘街道A线' },
+    { path: [[113.025, 28.148], [113.028, 28.150], [113.031, 28.152], [113.034, 28.150]] as [number, number][], color: '#10B981', weight: 4, label: '侯家塘街道排口线' },
+    { path: [[113.048, 28.133], [113.050, 28.130], [113.053, 28.128], [113.055, 28.125]] as [number, number][], color: '#8B5CF6', weight: 4, label: '圈塘街道B线' },
+])
 </script>
 
 <template>
@@ -41,8 +59,7 @@ function togglePlay(id: string) { playingId.value = playingId.value === id ? '' 
         <!-- 图层 -->
         <template v-if="activeFunc === 'layers'">
             <div class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
-                <div class="h-48 bg-surface flex items-center justify-center text-xs text-dim">📍 GIS 地图 — 图层叠加展示（需接入地图
-                    SDK）</div>
+                <AMapView :markers="layerMarkers" :center="[113.045, 28.130]" :zoom="13" height="280px" />
             </div>
             <div class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
                 <div class="px-4 py-3 border-b border-themed flex items-center gap-2">
@@ -72,8 +89,7 @@ function togglePlay(id: string) { playingId.value = playingId.value === id ? '' 
         <!-- 轨迹 -->
         <template v-if="activeFunc === 'trajectory'">
             <div class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
-                <div class="h-48 bg-surface flex items-center justify-center text-xs text-dim">📍 GIS 地图 — 轨迹回放展示（需接入地图
-                    SDK）</div>
+                <AMapView :polylines="trajectoryPolylines" :center="[113.045, 28.135]" :zoom="13" height="280px" />
             </div>
             <div class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
                 <div class="px-4 py-3 border-b border-themed flex items-center gap-2">
