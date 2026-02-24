@@ -31,6 +31,9 @@ const routes: RouteRecordRaw[] = [
                     { path: 'pump-ops', name: 'DashboardPumpOps', component: () => import('@/views/dashboard/PumpOpsView.vue'), meta: { title: '泵站运维' } },
                     { path: 'efficiency', name: 'DashboardEfficiency', component: () => import('@/views/dashboard/EfficiencyView.vue'), meta: { title: '提质增效' } },
                     { path: 'alarms', name: 'DashboardAlarms', component: () => import('@/views/dashboard/AlarmsView.vue'), meta: { title: '信息报警' } },
+                    { path: 'facility-map', name: 'DashboardFacilityMap', component: () => import('@/views/dashboard/FacilityMapView.vue'), meta: { title: '排水设施一张图' } },
+                    { path: 'drain-user-map', name: 'DashboardDrainUserMap', component: () => import('@/views/dashboard/DrainUserMapView.vue'), meta: { title: '排水户一张图' } },
+                    { path: 'device-map', name: 'DashboardDeviceMap', component: () => import('@/views/dashboard/DeviceMapView.vue'), meta: { title: '监测设备一张图' } },
                 ]
             },
             // 排水设施资产管理

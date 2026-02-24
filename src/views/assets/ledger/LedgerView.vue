@@ -141,6 +141,11 @@ const filteredData = computed(() => {
   if (q) list = list.filter(f => f.name.toLowerCase().includes(q) || f.code.toLowerCase().includes(q))
   if (filterDistrict.value) list = list.filter(f => f.district === filterDistrict.value)
   if (filterStatus.value) list = list.filter(f => f.status === filterStatus.value)
+  // 额外筛选条件
+  for (const ef of activeExtraFilters.value) {
+    const val = extraFilterValues.value[ef.key]
+    if (val) list = list.filter(f => String(f[ef.key]) === val)
+  }
   return list
 })
 
@@ -154,6 +159,9 @@ function switchTab(key: string) {
   activeTab.value = key
   currentPage.value = 1
   searchQuery.value = ''
+  extraFilterValues.value = {}
+  filterDistrict.value = ''
+  filterStatus.value = ''
 }
 
 function getStatusClass(status: string) {
@@ -247,6 +255,48 @@ const showAdvFilter = ref(false)
 const filterDistrict = ref('')
 const filterStatus = ref('')
 
+// 每种 tab 的额外筛选字段
+const tabExtraFilters: Record<string, { key: string; label: string; options: string[] }[]> = {
+  pipe: [
+    { key: 'type', label: '管道类型', options: ['雨水管', '污水管', '合流管'] },
+    { key: 'material', label: '材质', options: ['PE', 'HDPE', '钢筋混凝土'] },
+    { key: 'diameter', label: '管径', options: ['DN300', 'DN400', 'DN600'] },
+  ],
+  well: [
+    { key: 'wellType', label: '井类型', options: ['圆形检查井', '矩形检查井', '跌水井'] },
+    { key: 'material', label: '井盖材质', options: ['球墨铸铁', '复合材料', '混凝土'] },
+  ],
+  rainInlet: [
+    { key: 'inletType', label: '雨水口类型', options: ['平箅式', '立箅式', '联合式'] },
+    { key: 'road', label: '所在道路', options: ['韶山路', '劳动路', '和平街'] },
+  ],
+  user: [
+    { key: 'userType', label: '类型', options: ['工业', '商业', '餐饮', '医疗'] },
+  ],
+  pump: [
+    { key: 'capacity', label: '设计流量', options: ['200', '350', '500'] },
+  ],
+  sewagePlant: [
+    { key: 'process', label: '处理工艺', options: ['AAO', 'MBR', 'SBR'] },
+  ],
+  gate: [
+    { key: 'gateType', label: '类型', options: ['平板闸门', '拍门', '蝶阀'] },
+  ],
+  interceptor: [
+    { key: 'intType', label: '类型', options: ['截流井', '截流闸', '调蓄池'] },
+  ],
+  outlet: [
+    { key: 'outletType', label: '类型', options: ['雨水排放口', '溢流排放口', '合流排放口'] },
+    { key: 'receiver', label: '受纳水体', options: ['圭塘河', '北河', '南溪'] },
+  ],
+  device: [
+    { key: 'devType', label: '设备类型', options: ['流量计', '液位计', '雨量计', '水质分析仪'] },
+  ],
+}
+
+const extraFilterValues = ref<Record<string, string>>({})
+const activeExtraFilters = computed(() => tabExtraFilters[activeTab.value] || [])
+
 // 生命周期状态变更
 const lifecycleStages = ['建档', '运行', '检修', '维修', '改造', '停用', '报废']
 const newLifecycleStage = ref('')
@@ -323,7 +373,8 @@ function handleExport() { toast.value?.show('数据导出中，请稍候...', 'i
     </div>
 
     <!-- 高级筛选面板 -->
-    <div v-if="showAdvFilter" class="bg-card border border-themed rounded-xl shadow-themed p-3 flex items-center gap-3">
+    <div v-if="showAdvFilter"
+      class="bg-card border border-themed rounded-xl shadow-themed p-3 flex items-end gap-3 flex-wrap">
       <div><label class="text-[10px] text-dim block mb-1">区域</label><select v-model="filterDistrict"
           class="bg-input border border-themed rounded-md px-2 py-1.5 text-xs text-default">
           <option value="">全部</option>
@@ -340,8 +391,18 @@ function handleExport() { toast.value?.show('数据导出中，请稍候...', 'i
           <option>轻微缺陷</option>
           <option>需维修</option>
         </select></div>
+      <div v-for="ef in activeExtraFilters" :key="ef.key">
+        <label class="text-[10px] text-dim block mb-1">{{ ef.label }}</label>
+        <select v-model="extraFilterValues[ef.key]"
+          class="bg-input border border-themed rounded-md px-2 py-1.5 text-xs text-default">
+          <option value="">全部</option>
+          <option v-for="opt in ef.options" :key="opt">{{ opt }}</option>
+        </select>
+      </div>
+      <button @click="extraFilterValues = {}; filterDistrict = ''; filterStatus = ''"
+        class="px-3 py-1.5 bg-card border border-themed rounded-md text-xs text-dim hover:text-default cursor-pointer">重置</button>
       <button @click="showAdvFilter = false"
-        class="mt-4 px-3 py-1.5 bg-primary text-white rounded-md text-xs cursor-pointer">应用筛选</button>
+        class="px-3 py-1.5 bg-primary text-white rounded-md text-xs cursor-pointer">应用筛选</button>
     </div>
 
     <!-- 数据表格 -->
@@ -483,7 +544,7 @@ function handleExport() { toast.value?.show('数据导出中，请稍候...', 'i
             </div>
             <div class="pb-3 flex-1">
               <div class="flex items-center gap-2"><span class="text-xs font-bold text-default">{{ evt.event
-                  }}</span><span class="text-[10px] text-dim">{{ evt.date }}</span></div>
+              }}</span><span class="text-[10px] text-dim">{{ evt.date }}</span></div>
               <p class="text-[10px] text-dim">{{ evt.operator }} · {{ evt.desc }}</p>
             </div>
           </div>

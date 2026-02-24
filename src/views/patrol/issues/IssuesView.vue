@@ -13,19 +13,33 @@ const funcTabs = [
 ]
 
 const issues = ref([
-    { id: 'ISS-2024-001', title: '万家丽路MH-05井盖松动', type: '井盖问题', level: 'medium', location: '万家丽路200号', facility: 'DN400雨水检查井', reporter: '张伟', reportTime: '2024-03-15 09:15', status: 'processing', photos: 2, desc: '井盖翘动，行人通过有安全隐患，需紧急处理' },
-    { id: 'ISS-2024-002', title: '侯家塘街道OUT-03排口堵塞', type: '排口问题', level: 'high', location: '侯家塘街道浏阳河段', facility: 'DN800排口', reporter: '李明', reportTime: '2024-03-14 10:30', status: 'pending', photos: 3, desc: '排口被大量垃圾堵塞，水流受阻，有溢流风险' },
-    { id: 'ISS-2024-003', title: '劳动路路面沉降', type: '管道问题', level: 'high', location: '劳动路150号', facility: 'DN600污水管', reporter: '王强', reportTime: '2024-03-13 14:00', status: 'resolved', photos: 4, desc: '管线上方路面出现明显沉降约3cm，疑似管道破损' },
-    { id: 'ISS-2024-004', title: '芙蓉路泵站格栅堵塞', type: '泵站问题', level: 'medium', location: '芙蓉路200号', facility: '芙蓉路泵站', reporter: '赵刚', reportTime: '2024-03-12 16:00', status: 'resolved', photos: 1, desc: '进水格栅被树枝杂物堵塞，已清理' },
-    { id: 'ISS-2024-005', title: '黎托街道雨污混接疑似点', type: '混接问题', level: 'critical', location: '黎托街道花侯路', facility: 'DN400雨水管', reporter: '刘芳', reportTime: '2024-03-11 11:00', status: 'processing', photos: 5, desc: '雨水管内发现异味污水，疑似存在雨污混接' },
+    { id: 'ISS-2024-001', title: '万家丽路MH-05井盖松动', type: '井盖问题', level: 'medium', location: '万家丽路200号', facility: 'DN400雨水检查井', reporter: '张伟', reportTime: '2024-03-15 09:15', status: 'processing', photos: 2, desc: '井盖翘动，行人通过有安全隐患，需紧急处理', statusHistory: [{ status: '已上报', date: '2024-03-15 09:15', note: '巡检员张伟现场上报' }, { status: '已受理', date: '2024-03-15 10:00', note: '调度中心已受理，派单至维修一组' }, { status: '处置中', date: '2024-03-15 14:30', note: '维修一组到达现场，正在更换井盖' }] },
+    { id: 'ISS-2024-002', title: '侯家塘街道OUT-03排口堵塞', type: '排口问题', level: 'high', location: '侯家塘街道浏阳河段', facility: 'DN800排口', reporter: '李明', reportTime: '2024-03-14 10:30', status: 'pending', photos: 3, desc: '排口被大量垃圾堵塞，水流受阻，有溢流风险', statusHistory: [{ status: '已上报', date: '2024-03-14 10:30', note: '巡检员李明现场上报' }] },
+    { id: 'ISS-2024-003', title: '劳动路路面沉降', type: '管道问题', level: 'high', location: '劳动路150号', facility: 'DN600污水管', reporter: '王强', reportTime: '2024-03-13 14:00', status: 'resolved', photos: 4, desc: '管线上方路面出现明显沉降约3cm，疑似管道破损', statusHistory: [{ status: '已上报', date: '2024-03-13 14:00', note: '巡检员王强现场上报' }, { status: '已受理', date: '2024-03-13 15:20', note: '调度中心审核通过' }, { status: '处置中', date: '2024-03-14 08:00', note: '施工队到达现场开挖检查' }, { status: '已闭环', date: '2024-03-15 17:00', note: '管道修复完成，路面恢复，验收合格' }] },
+    { id: 'ISS-2024-004', title: '芙蓉路泵站格栅堵塞', type: '泵站问题', level: 'medium', location: '芙蓉路200号', facility: '芙蓉路泵站', reporter: '赵刚', reportTime: '2024-03-12 16:00', status: 'resolved', photos: 1, desc: '进水格栅被树枝杂物堵塞，已清理', statusHistory: [{ status: '已上报', date: '2024-03-12 16:00', note: '巡检员赵刚现场上报' }, { status: '已受理', date: '2024-03-12 16:30', note: '泵站值班人员确认' }, { status: '处置中', date: '2024-03-12 17:00', note: '清理格栅杂物中' }, { status: '已闭环', date: '2024-03-12 18:00', note: '格栅清理完毕，泵站运行恢复正常' }] },
+    { id: 'ISS-2024-005', title: '黎托街道雨污混接疑似点', type: '混接问题', level: 'critical', location: '黎托街道花侯路', facility: 'DN400雨水管', reporter: '刘芳', reportTime: '2024-03-11 11:00', status: 'processing', photos: 5, desc: '雨水管内发现异味污水，疑似存在雨污混接', statusHistory: [{ status: '已上报', date: '2024-03-11 11:00', note: '巡检员刘芳现场上报' }, { status: '已受理', date: '2024-03-11 13:00', note: '混接排查专项组介入' }, { status: '处置中', date: '2024-03-12 09:00', note: 'CCTV检测中，已定位2处疑似混接点' }] },
 ])
 
 // 提交表单
 const submitForm = ref({ title: '', type: '井盖问题', level: 'medium', location: '', facility: '', desc: '' })
+const showSubmitConfirm = ref(false)
 function submitIssue() {
     if (!submitForm.value.title || !submitForm.value.location) { toast.value?.show('请填写必填项', 'warning'); return }
-    toast.value?.show('问题上报成功！', 'success')
+    showSubmitConfirm.value = true
+}
+function confirmSubmit() {
+    const newId = `ISS-2024-${String(issues.value.length + 1).padStart(3, '0')}`
+    issues.value.unshift({
+        id: newId, title: submitForm.value.title, type: submitForm.value.type, level: submitForm.value.level,
+        location: submitForm.value.location, facility: submitForm.value.facility || '-', reporter: '当前用户',
+        reportTime: new Date().toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-'),
+        status: 'pending', photos: 0, desc: submitForm.value.desc || '-',
+        statusHistory: [{ status: '已上报', date: new Date().toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-'), note: '现场上报提交' }],
+    } as any)
+    showSubmitConfirm.value = false
     submitForm.value = { title: '', type: '井盖问题', level: 'medium', location: '', facility: '', desc: '' }
+    toast.value?.show('问题上报成功！', 'success')
+    activeFunc.value = 'list'
 }
 
 // 详情
@@ -219,27 +233,38 @@ function getStatusText(s: string) { return s === 'processing' ? '处理中' : s 
                     <p class="text-[10px] text-default mb-2">{{ i.desc }}</p>
                     <div class="flex items-center gap-3 text-[10px] text-dim"><span>📍 {{ i.location }}</span><span>🏗
                             {{ i.facility }}</span><span>📷 {{ i.photos }}张</span></div>
-                    <div class="mt-2 pt-2 border-t border-themed/30 flex items-center gap-2">
-                        <div class="flex items-center gap-1" v-if="i.status !== 'pending'">
-                            <div class="w-1.5 h-1.5 rounded-full bg-success"></div><span
-                                class="text-[10px] text-dim">已受理</span>
-                        </div>
-                        <div class="w-4 h-0.5 bg-themed/30" v-if="i.status !== 'pending'"></div>
-                        <div class="flex items-center gap-1"
-                            v-if="i.status === 'processing' || i.status === 'resolved'">
-                            <div class="w-1.5 h-1.5 rounded-full"
-                                :class="i.status === 'resolved' ? 'bg-success' : 'bg-primary animate-pulse'"></div><span
-                                class="text-[10px] text-dim">{{ i.status === 'resolved' ? '已处置' : '处置中' }}</span>
-                        </div>
-                        <div class="w-4 h-0.5 bg-themed/30" v-if="i.status === 'resolved'"></div>
-                        <div class="flex items-center gap-1" v-if="i.status === 'resolved'">
-                            <div class="w-1.5 h-1.5 rounded-full bg-success"></div><span
-                                class="text-[10px] text-dim">已闭环</span>
+                    <div class="mt-3 pt-3 border-t border-themed/30">
+                        <p class="text-[10px] text-dim font-medium mb-2">状态追踪</p>
+                        <div class="relative pl-4">
+                            <div class="absolute left-[5px] top-1 bottom-1 w-0.5 bg-themed/20 rounded"></div>
+                            <div v-for="(h, hi) in i.statusHistory" :key="hi" class="relative mb-2.5 last:mb-0">
+                                <div class="absolute -left-4 top-0.5 w-2.5 h-2.5 rounded-full border-2 border-card"
+                                    :class="hi === i.statusHistory.length - 1 && i.status !== 'resolved' ? 'bg-primary animate-pulse' : 'bg-success'"></div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[10px] font-semibold" :class="hi === i.statusHistory.length - 1 && i.status !== 'resolved' ? 'text-primary' : 'text-success'">{{ h.status }}</span>
+                                    <span class="text-[9px] text-dim">{{ h.date }}</span>
+                                </div>
+                                <p class="text-[10px] text-default mt-0.5">{{ h.note }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </template>
+
+        <!-- 上报确认弹窗 -->
+        <ModalDialog :show="showSubmitConfirm" title="确认上报" @close="showSubmitConfirm = false" @confirm="confirmSubmit">
+            <div class="space-y-2 text-xs">
+                <p class="text-default">确认提交以下问题上报？</p>
+                <div class="p-3 rounded-lg bg-surface space-y-1">
+                    <p><span class="text-dim">标题：</span><span class="text-default font-medium">{{ submitForm.title }}</span></p>
+                    <p><span class="text-dim">类型：</span><span class="text-default">{{ submitForm.type }}</span></p>
+                    <p><span class="text-dim">位置：</span><span class="text-default">{{ submitForm.location }}</span></p>
+                    <p v-if="submitForm.facility"><span class="text-dim">设施：</span><span class="text-default">{{ submitForm.facility }}</span></p>
+                    <p v-if="submitForm.desc"><span class="text-dim">描述：</span><span class="text-default">{{ submitForm.desc }}</span></p>
+                </div>
+            </div>
+        </ModalDialog>
 
         <ModalDialog :show="showDetail" title="问题详情" @close="showDetail = false" @confirm="showDetail = false">
             <div v-if="detailIssue" class="space-y-3 text-xs">

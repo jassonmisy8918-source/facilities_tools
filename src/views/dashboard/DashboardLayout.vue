@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { Layers, Info, Building2, CloudRain, Radio, AlertTriangle, ClipboardList, Wrench, TrendingUp, Bell } from 'lucide-vue-next'
+import { Layers, Info, Building2, CloudRain, Radio, AlertTriangle, ClipboardList, Wrench, TrendingUp, Bell, MapPin, Users, Radar } from 'lucide-vue-next'
 
 const route = useRoute()
 const router = useRouter()
@@ -18,6 +18,9 @@ const tabs = [
     { key: 'pump-ops', label: '泵站运维', icon: Wrench, path: '/dashboard/pump-ops' },
     { key: 'efficiency', label: '提质增效', icon: TrendingUp, path: '/dashboard/efficiency' },
     { key: 'alarms', label: '信息报警', icon: Bell, path: '/dashboard/alarms' },
+    { key: 'facility-map', label: '设施一张图', icon: MapPin, path: '/dashboard/facility-map' },
+    { key: 'drain-user-map', label: '排水户一张图', icon: Users, path: '/dashboard/drain-user-map' },
+    { key: 'device-map', label: '设备一张图', icon: Radar, path: '/dashboard/device-map' },
 ]
 
 const activeTab = computed(() => {
