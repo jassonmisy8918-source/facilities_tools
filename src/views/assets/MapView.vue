@@ -6,11 +6,13 @@ import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
 import XYZ from 'ol/source/XYZ'
 import VectorSource from 'ol/source/Vector'
+import Feature from 'ol/Feature'
+import Point from 'ol/geom/Point'
 import { fromLonLat, toLonLat } from 'ol/proj'
 import ScaleLine from 'ol/control/ScaleLine'
 import Draw from 'ol/interaction/Draw'
 import { getLength, getArea } from 'ol/sphere'
-import { Style, Stroke, Fill, Circle as CircleStyle } from 'ol/style'
+import { Style, Stroke, Fill, Circle as CircleStyle, Text } from 'ol/style'
 import Overlay from 'ol/Overlay'
 import type { Geometry } from 'ol/geom'
 import {
@@ -87,6 +89,94 @@ const visibleCount = computed(() => allLayers.value.filter(l => l.visible).lengt
 
 function toggleGroupAll(group: typeof layerGroups.value[0], val: boolean) {
   group.layers.forEach(l => l.visible = val)
+}
+
+// ===================== 图层标注点 Mock 数据 =====================
+const layerMockPoints: Record<string, { lng: number; lat: number; name: string }[]> = {
+  rainPipe: [
+    { lng: 113.025, lat: 28.145, name: '雨水管-韶山路DN800' }, { lng: 113.040, lat: 28.155, name: '雨水管-劳动路DN600' },
+    { lng: 113.055, lat: 28.130, name: '雨水管-万家丽路DN500' }, { lng: 113.015, lat: 28.160, name: '雨水管-洞井街道DN400' },
+    { lng: 113.070, lat: 28.140, name: '雨水管-花侯路DN700' },
+  ],
+  sewagePipe: [
+    { lng: 113.030, lat: 28.138, name: '污水管-韶山路DN600' }, { lng: 113.045, lat: 28.148, name: '污水管-苙蓉路DN500' },
+    { lng: 113.020, lat: 28.155, name: '污水管-侯家塘DN400' }, { lng: 113.060, lat: 28.135, name: '污水管-黎托街道DN500' },
+  ],
+  combinedPipe: [
+    { lng: 113.035, lat: 28.142, name: '合流管-左家塘DN800' }, { lng: 113.050, lat: 28.150, name: '合流管-东塘DN600' },
+    { lng: 113.028, lat: 28.158, name: '合流管-桃花路DN500' },
+  ],
+  outlet: [
+    { lng: 113.022, lat: 28.165, name: '排放口-圭塘河A' }, { lng: 113.038, lat: 28.125, name: '排放口-浏阳河B' },
+    { lng: 113.055, lat: 28.145, name: '排放口-苙蓉河C' },
+  ],
+  pump: [
+    { lng: 113.032, lat: 28.130, name: '韶山路泵站' }, { lng: 113.020, lat: 28.170, name: '洞井泵站' },
+    { lng: 113.050, lat: 28.140, name: '雨花泵站' }, { lng: 113.065, lat: 28.150, name: '左家塘泵站' },
+  ],
+  monitor: [
+    { lng: 113.040, lat: 28.140, name: '雨量计-CD01' }, { lng: 113.020, lat: 28.160, name: '流量计-HD03' },
+    { lng: 113.080, lat: 28.130, name: '液位计-TZ02' }, { lng: 113.030, lat: 28.090, name: '水质站-FT01' },
+    { lng: 113.045, lat: 28.155, name: '雨量计-CD05' }, { lng: 113.060, lat: 28.145, name: '流量计-HD08' },
+  ],
+  patrol: [
+    { lng: 113.033, lat: 28.135, name: '巡查点-A01' }, { lng: 113.042, lat: 28.152, name: '巡查点-A02' },
+    { lng: 113.025, lat: 28.148, name: '养护点-B01' },
+  ],
+  alarm: [
+    { lng: 113.040, lat: 28.150, name: '雨量超限-红色' }, { lng: 113.020, lat: 28.170, name: '水位超标-橙色' },
+    { lng: 113.070, lat: 28.130, name: '泵站故障-黄色' },
+  ],
+  defect: [
+    { lng: 113.050, lat: 28.140, name: '缺陷-淤积中等' }, { lng: 113.030, lat: 28.170, name: '缺陷-破裂严重' },
+    { lng: 113.050, lat: 28.120, name: '缺陷-堵塞轻微' }, { lng: 113.042, lat: 28.155, name: '缺陷-变形中等' },
+  ],
+  crossConn: [
+    { lng: 113.038, lat: 28.148, name: '混接-雨混污严重' }, { lng: 113.022, lat: 28.152, name: '混接-污混雨中度' },
+    { lng: 113.048, lat: 28.112, name: '混接-雨混污轻微' },
+  ],
+  intrusion: [
+    { lng: 113.042, lat: 28.152, name: '入侵-地下水大量' }, { lng: 113.028, lat: 28.162, name: '入侵-河水少量' },
+  ],
+  planning: [
+    { lng: 113.058, lat: 28.148, name: '规划-新建管网A' }, { lng: 113.052, lat: 28.155, name: '规划-改造区域B' },
+  ],
+}
+
+const olLayerMap: Record<string, VectorLayer> = {}
+
+function createLayerStyle(color: string, name: string) {
+  return new Style({
+    image: new CircleStyle({
+      radius: 6,
+      fill: new Fill({ color }),
+      stroke: new Stroke({ color: '#fff', width: 2 }),
+    }),
+    text: new Text({
+      text: name,
+      font: '11px sans-serif',
+      offsetY: -16,
+      fill: new Fill({ color }),
+      stroke: new Stroke({ color: '#fff', width: 3 }),
+    }),
+  })
+}
+
+function createOlLayers() {
+  if (!map) return
+  const allL = allLayers.value
+  allL.forEach(layer => {
+    const points = layerMockPoints[layer.key] || []
+    const features = points.map(p => {
+      const f = new Feature({ geometry: new Point(fromLonLat([p.lng, p.lat])), name: p.name })
+      f.setStyle(createLayerStyle(layer.color, p.name))
+      return f
+    })
+    const source = new VectorSource({ features })
+    const vl = new VectorLayer({ source, visible: layer.visible, opacity: layer.opacity })
+    map!.addLayer(vl)
+    olLayerMap[layer.key] = vl
+  })
 }
 
 // ===================== 面板控制 =====================
@@ -397,8 +487,20 @@ onMounted(() => {
       controls: []
     })
     map.addControl(new ScaleLine({ units: 'metric' }))
+    createOlLayers()
   }
 })
+
+// 监听图层显隐和透明度变化
+watch(layerGroups, () => {
+  allLayers.value.forEach(layer => {
+    const vl = olLayerMap[layer.key]
+    if (vl) {
+      vl.setVisible(layer.visible)
+      vl.setOpacity(layer.opacity)
+    }
+  })
+}, { deep: true })
 
 onUnmounted(() => {
   map?.setTarget(undefined); map = null
@@ -595,7 +697,7 @@ onUnmounted(() => {
           <div class="flex justify-between"><span class="text-dim">编号</span><span class="text-primary font-mono">{{
             popupInfo.code }}</span></div>
           <div class="flex justify-between"><span class="text-dim">类型</span><span class="text-default">{{ popupInfo.type
-              }}</span></div>
+          }}</span></div>
           <div class="flex justify-between"><span class="text-dim">材质</span><span class="text-default">{{
             popupInfo.material }}</span></div>
           <div class="flex justify-between"><span class="text-dim">管径</span><span class="text-default">{{
@@ -625,7 +727,7 @@ onUnmounted(() => {
               <component :is="bm.icon" class="w-4 h-4"
                 :class="activeBaseMap === bm.key ? 'text-primary' : 'text-dim'" />
               <span class="text-[9px]" :class="activeBaseMap === bm.key ? 'text-primary' : 'text-dim'">{{ bm.label
-                }}</span>
+              }}</span>
             </button>
           </div>
         </div>

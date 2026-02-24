@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { FlaskConical, Plus, Pencil, Trash2, ToggleLeft, ToggleRight, Search } from 'lucide-vue-next'
 import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
@@ -29,6 +29,12 @@ const factors = ref([
 const searchKeyword = ref('')
 const categoryFilter = ref('all')
 
+const filteredFactors = computed(() => factors.value.filter(f => {
+    if (searchKeyword.value && !f.name.includes(searchKeyword.value) && !f.code.includes(searchKeyword.value) && !f.desc.includes(searchKeyword.value)) return false
+    if (categoryFilter.value !== 'all' && f.category !== categoryFilter.value) return false
+    return true
+}))
+
 function toggleFactor(f: typeof factors.value[0]) {
     f.enabled = !f.enabled
     toast.value?.show(`因子 "${f.name}" 已${f.enabled ? '启用' : '停用'}`, f.enabled ? 'success' : 'warning')
@@ -49,10 +55,11 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 <button v-for="ft in funcTabs" :key="ft.key" @click="activeFunc = ft.key"
                     class="px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer"
                     :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
-                    ft.label }}</button>
+                        ft.label }}</button>
             </div>
             <button v-if="activeFunc === 'maintain'"
-                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer" @click="openAdd()">
+                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer"
+                @click="openAdd()">
                 <Plus class="w-3.5 h-3.5" />新增因子
             </button>
         </div>
@@ -80,7 +87,7 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                         <td class="px-4 py-2.5 text-default font-medium">{{ f.name }}</td>
                         <td class="text-center px-4 py-2.5"><span class="text-[10px] px-2 py-0.5 rounded font-medium"
                                 :class="f.category === '水质' ? 'bg-success/10 text-success' : f.category === '水文' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'">{{
-                                f.category }}</span></td>
+                                    f.category }}</span></td>
                         <td class="text-center px-4 py-2.5 text-default">{{ f.unit || '—' }}</td>
                         <td class="px-4 py-2.5 text-default">{{ f.method }}</td>
                         <td class="px-4 py-2.5 text-dim">{{ f.standard }}</td>
@@ -113,7 +120,7 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                     <div class="flex items-center gap-2">
                         <span class="text-[10px] px-2 py-0.5 rounded font-medium"
                             :class="f.category === '水质' ? 'bg-success/10 text-success' : f.category === '水文' ? 'bg-info/10 text-info' : 'bg-warning/10 text-warning'">{{
-                            f.category }}</span>
+                                f.category }}</span>
                         <div>
                             <p class="text-xs font-medium text-default">{{ f.name }} <span
                                     class="text-dim font-mono">({{ f.code }})</span></p>
@@ -145,7 +152,8 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 </select>
             </div>
             <div class="grid grid-cols-2 gap-3">
-                <div v-for="f in factors" :key="f.id" class="bg-card border border-themed rounded-xl shadow-themed p-4">
+                <div v-for="f in filteredFactors" :key="f.id"
+                    class="bg-card border border-themed rounded-xl shadow-themed p-4">
                     <div class="flex items-center justify-between mb-2">
                         <div class="flex items-center gap-2">
                             <span class="text-xs font-bold text-default">{{ f.name }}</span>
@@ -167,32 +175,32 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 </div>
             </div>
         </template>
-    <!-- 新增弹窗 -->
-    <ModalDialog :show="showAddModal" title="新增监测因子" @close="showAddModal = false" @confirm="doAdd">
-        <div class="space-y-3">
-            <div>
-                <label class="text-[10px] text-dim block mb-1">因子名称</label>
-                <input v-model="addForm.name" type="text" placeholder="请输入因子名称"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+        <!-- 新增弹窗 -->
+        <ModalDialog :show="showAddModal" title="新增监测因子" @close="showAddModal = false" @confirm="doAdd">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">因子名称</label>
+                    <input v-model="addForm.name" type="text" placeholder="请输入因子名称"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">单位</label>
+                    <input v-model="addForm.unit" type="text" placeholder="mg/L、m、mm/h"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">量程范围</label>
+                    <input v-model="addForm.range" type="text" placeholder="如 0-10m"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">报警阈值</label>
+                    <input v-model="addForm.threshold" type="text" placeholder="请输入阈值"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
             </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">单位</label>
-                <input v-model="addForm.unit" type="text" placeholder="mg/L、m、mm/h"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">量程范围</label>
-                <input v-model="addForm.range" type="text" placeholder="如 0-10m"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">报警阈值</label>
-                <input v-model="addForm.threshold" type="text" placeholder="请输入阈值"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-        </div>
-    </ModalDialog>
-    
+        </ModalDialog>
+
         <ToastNotify ref="toast" />
     </div>
 </template>

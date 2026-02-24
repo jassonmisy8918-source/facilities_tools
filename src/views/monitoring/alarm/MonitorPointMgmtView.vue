@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { MapPin, Search, Settings, Link, Cpu, Plus, Pencil, Trash2, Eye } from 'lucide-vue-next'
 import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
@@ -26,6 +26,13 @@ const points = ref([
 const searchKeyword = ref('')
 const areaFilter = ref('all')
 const typeFilter = ref('all')
+
+const filteredPoints = computed(() => points.value.filter(p => {
+    if (searchKeyword.value && !p.name.includes(searchKeyword.value) && !p.id.includes(searchKeyword.value) && !p.address.includes(searchKeyword.value)) return false
+    if (areaFilter.value !== 'all' && p.area !== areaFilter.value) return false
+    if (typeFilter.value !== 'all' && p.type !== typeFilter.value) return false
+    return true
+}))
 
 // 详情
 const showDetail = ref(false)
@@ -166,7 +173,7 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 </button>
             </div>
             <div class="grid grid-cols-3 gap-3">
-                <div v-for="p in points" :key="p.id" @click="viewDetail(p)"
+                <div v-for="p in filteredPoints" :key="p.id" @click="viewDetail(p)"
                     class="bg-card border border-themed rounded-xl shadow-themed p-4 hover:shadow-themed-md transition-shadow cursor-pointer">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs font-bold text-default">{{ p.name }}</span>
@@ -281,7 +288,7 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 <div class="px-4 py-3 border-b border-themed flex items-center justify-between">
                     <div class="flex items-center gap-2">
                         <Cpu class="w-4 h-4 text-primary" /><span class="text-xs font-bold text-default">{{ dl.pointName
-                            }}</span><span class="text-[10px] text-primary font-mono">{{ dl.pointId }}</span>
+                        }}</span><span class="text-[10px] text-primary font-mono">{{ dl.pointId }}</span>
                     </div>
                     <button class="text-[10px] text-primary hover:underline cursor-pointer">+ 绑定设备</button>
                 </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Archive, Calendar, Filter, Search } from 'lucide-vue-next'
 
 const activeFunc = ref('lifecycle')
@@ -46,6 +46,19 @@ const allRecords = ref([
     { device: '1号水泵', station: '雨花泵站', date: '2023-12-05', type: '故障维修', desc: '叶轮更换', duration: '6h', cost: 5200 },
     { device: '主电机', station: '侯家塘泵站', date: '2023-06-15', type: '故障维修', desc: '轴承更换', duration: '4h', cost: 1800 },
 ])
+
+const searchText = ref('')
+const startDate = ref('')
+const endDate = ref('')
+
+const filteredRecords = computed(() => allRecords.value.filter(r => {
+    if (searchText.value && !r.device.includes(searchText.value) && !r.station.includes(searchText.value) && !r.desc.includes(searchText.value)) return false
+    if (queryType.value === 'type') return true // 按类型分组展示时不过滤
+    if (startDate.value && r.date < startDate.value) return false
+    if (endDate.value && r.date > endDate.value + ' 23:59') return false
+    if (queryType.value === 'device' && searchText.value && !r.device.includes(searchText.value)) return false
+    return true
+}))
 </script>
 
 <template>
@@ -115,17 +128,16 @@ const allRecords = ref([
                             :class="queryType === q.key ? 'bg-primary text-white' : 'bg-surface text-dim hover:text-default'">{{
                                 q.label }}</button></div>
                     <div class="flex items-center gap-1 px-2 py-1 bg-surface rounded border border-themed">
-                        <Search class="w-3 h-3 text-dim" /><input type="text" placeholder="搜索..."
+                        <Search class="w-3 h-3 text-dim" /><input v-model="searchText" type="text" placeholder="搜索..."
                             class="bg-transparent outline-none text-[10px] text-default w-20" />
                     </div>
                 </div>
             </div>
             <div v-if="queryType === 'time'" class="flex items-center gap-2 text-[10px]">
-                <Calendar class="w-3.5 h-3.5 text-dim" /><input type="date"
+                <Calendar class="w-3.5 h-3.5 text-dim" /><input v-model="startDate" type="date"
                     class="px-2 py-1 bg-surface border border-themed rounded text-default outline-none" /><span
-                    class="text-dim">至</span><input type="date"
-                    class="px-2 py-1 bg-surface border border-themed rounded text-default outline-none" /><button
-                    class="px-3 py-1 bg-primary text-white rounded cursor-pointer">查询</button>
+                    class="text-dim">至</span><input v-model="endDate" type="date"
+                    class="px-2 py-1 bg-surface border border-themed rounded text-default outline-none" />
             </div>
             <div class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
                 <table class="w-full text-xs">
@@ -141,7 +153,7 @@ const allRecords = ref([
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(r, i) in allRecords" :key="i"
+                        <tr v-for="(r, i) in filteredRecords" :key="i"
                             class="border-b border-themed/30 hover:bg-hover-themed">
                             <td class="px-3 py-2.5 text-default font-medium">{{ r.device }}</td>
                             <td class="text-center px-2 py-2.5 text-dim">{{ r.station }}</td>

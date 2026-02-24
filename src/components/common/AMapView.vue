@@ -139,7 +139,9 @@ async function initMap() {
             resizeEnable: true,
         })
         AMap.plugin(['AMap.Scale'], () => {
-            mapInstance.addControl(new AMap.Scale())
+            if (mapInstance) {
+                mapInstance.addControl(new AMap.Scale())
+            }
         })
         updateMarkers()
         updatePolylines()

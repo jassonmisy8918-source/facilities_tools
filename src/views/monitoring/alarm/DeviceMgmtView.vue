@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Search, Pencil, Trash2, Plus, CheckSquare } from 'lucide-vue-next'
 import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
@@ -27,6 +27,14 @@ const searchKeyword = ref('')
 const typeFilter = ref('all')
 const areaFilter = ref('all')
 const statusFilterQ = ref('all')
+
+const filteredDevices = computed(() => devices.value.filter(d => {
+    if (searchKeyword.value && !d.name.includes(searchKeyword.value) && !d.id.includes(searchKeyword.value) && !d.model.includes(searchKeyword.value)) return false
+    if (typeFilter.value !== 'all' && d.type !== typeFilter.value) return false
+    if (areaFilter.value !== 'all' && d.area !== areaFilter.value) return false
+    if (statusFilterQ.value !== 'all' && d.status !== statusFilterQ.value) return false
+    return true
+}))
 
 // 批量修改
 const batchField = ref('status')
@@ -61,7 +69,8 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                         ft.label }}</button>
             </div>
             <button v-if="activeFunc === 'info'"
-                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer" @click="openAdd()">
+                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer"
+                @click="openAdd()">
                 <Plus class="w-3.5 h-3.5" />新增设备
             </button>
         </div>
@@ -143,7 +152,7 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                     class="px-4 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">查询</button>
             </div>
             <div class="grid grid-cols-3 gap-3">
-                <div v-for="d in devices" :key="d.id"
+                <div v-for="d in filteredDevices" :key="d.id"
                     class="bg-card border border-themed rounded-xl shadow-themed p-4 hover:shadow-themed-md transition-shadow">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs font-bold text-default">{{ d.name }}</span>
@@ -186,7 +195,7 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 <button @click="batchUpdate"
                     class="px-4 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">批量修改</button>
                 <span class="text-[10px] text-dim">已选 {{devices.filter(d => d.selected).length}} / {{ devices.length
-                }}</span>
+                    }}</span>
             </div>
             <div class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
                 <table class="w-full text-xs">
@@ -222,32 +231,32 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 </table>
             </div>
         </template>
-    <!-- 新增弹窗 -->
-    <ModalDialog :show="showAddModal" title="新增监测设备" @close="showAddModal = false" @confirm="doAdd">
-        <div class="space-y-3">
-            <div>
-                <label class="text-[10px] text-dim block mb-1">设备名称</label>
-                <input v-model="addForm.name" type="text" placeholder="请输入设备名称"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+        <!-- 新增弹窗 -->
+        <ModalDialog :show="showAddModal" title="新增监测设备" @close="showAddModal = false" @confirm="doAdd">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">设备名称</label>
+                    <input v-model="addForm.name" type="text" placeholder="请输入设备名称"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">设备类型</label>
+                    <input v-model="addForm.type" type="text" placeholder="雨量计/流量计/液位计"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">型号</label>
+                    <input v-model="addForm.model" type="text" placeholder="请输入设备型号"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">安装区域</label>
+                    <input v-model="addForm.area" type="text" placeholder="请选择区域"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
             </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">设备类型</label>
-                <input v-model="addForm.type" type="text" placeholder="雨量计/流量计/液位计"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">型号</label>
-                <input v-model="addForm.model" type="text" placeholder="请输入设备型号"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">安装区域</label>
-                <input v-model="addForm.area" type="text" placeholder="请选择区域"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-        </div>
-    </ModalDialog>
-    
+        </ModalDialog>
+
         <ToastNotify ref="toast" />
     </div>
 </template>

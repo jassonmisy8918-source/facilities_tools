@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Clock, Search, Filter, ChevronLeft, ChevronRight } from 'lucide-vue-next'
 
 // ===================== 筛选条件 =====================
@@ -30,7 +30,16 @@ function getLevelBg(level: string) {
     return level === '暴雨' ? 'bg-danger/10' : level === '大雨' ? 'bg-warning/10' : level === '中雨' ? 'bg-info/10' : 'bg-success/10'
 }
 
-function handleSearch() { /* 查询 */ }
+const filteredData = computed(() => historyData.value.filter(d => {
+    if (selectedStation.value !== 'all' && selectedStation.value !== '全部站点' && d.station !== selectedStation.value) return false
+    if (startDate.value && d.date < startDate.value) return false
+    if (endDate.value && d.date > endDate.value + ' 23:59') return false
+    return true
+}))
+
+function handleSearch() {
+    currentPage.value = 1
+}
 </script>
 
 <template>
@@ -79,7 +88,7 @@ function handleSearch() { /* 查询 */ }
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="d in historyData" :key="d.date + d.station"
+                        <tr v-for="d in filteredData" :key="d.date + d.station"
                             class="border-b border-themed/30 hover:bg-hover-themed transition-colors">
                             <td class="px-4 py-2.5 text-dim">{{ d.date }}</td>
                             <td class="px-4 py-2.5 text-default font-medium">{{ d.station }}</td>
