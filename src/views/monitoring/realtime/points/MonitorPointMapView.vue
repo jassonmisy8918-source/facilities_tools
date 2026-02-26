@@ -4,7 +4,7 @@ import { Map, Droplets, Activity, Waves, FlaskConical, Layers, LayoutDashboard }
 import AMapView from '@/components/common/AMapView.vue'
 
 const filterType = ref('all')
-function openCockpit() { window.open('https://adabibi.com/demo/drainage/monitor-equip', '_blank') }
+function openCockpit() { window.open('https://app.yyinfo168.top/monitor-equip', '_blank') }
 const types = [
     { key: 'all', label: '全部', icon: Map },
     { key: 'rainfall', label: '雨量', icon: Droplets },

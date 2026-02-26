@@ -27,7 +27,7 @@ function navigateSystem(basePath: string) {
   }
 
   if (menu?.key == 'dashboard') {
-    window.open('https://adabibi.com/demo/drainage/monitor-equip', '_blank')
+    window.open('https://app.yyinfo168.top', '_blank')
     return
   }
   router.push(basePath)

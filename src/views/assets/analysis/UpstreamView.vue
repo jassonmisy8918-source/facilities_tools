@@ -47,7 +47,7 @@ function toggleFlow() {
                     <h3 class="text-sm font-semibold text-default flex items-center gap-2">
                         <ArrowDownUp class="w-4 h-4 text-primary" />上下游影响范围分析
                     </h3>
-                    <a href="https://adabibi.com/demo/drainage/analysis/upstream" target="_blank"
+                    <a href="https://app.yyinfo168.top/analysis/upstream" target="_blank"
                         class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium bg-primary text-white hover:bg-primary-light transition-colors cursor-pointer no-underline">
                         <MapPin class="w-3.5 h-3.5" />地图查看
                     </a>

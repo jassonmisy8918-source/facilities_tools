@@ -24,7 +24,7 @@ const riskStats = ref([
 
 function runCollisionCheck() { toast.value?.show('管线碰撞检测执行中...', 'info') }
 function exportReport() { toast.value?.show('碰撞分析报告导出中...', 'info') }
-function openMapView() { window.open('https://adabibi.com/demo/drainage/analysis/collision', '_blank') }
+function openMapView() { window.open('https://app.yyinfo168.top/analysis/collision', '_blank') }
 
 // 搜索和过滤
 const searchText = ref('')

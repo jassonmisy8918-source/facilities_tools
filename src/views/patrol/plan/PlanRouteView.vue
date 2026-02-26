@@ -50,8 +50,8 @@ const showAddModal = ref(false)
 const addForm = ref({ name: '', area: '', distance: '', estimateTime: '' })
 const toast = ref<InstanceType<typeof ToastNotify>>()
 function openAdd() { addForm.value = { name: '', area: '', distance: '', estimateTime: '' }; showAddModal.value = true }
-function openMapView() { window.open('https://adabibi.com/demo/drainage/monitoring/patrol', '_blank') }
-function openCoverage() { window.open('https://adabibi.com/demo/drainage/monitoring/coverage', '_blank') }
+function openMapView() { window.open('https://app.yyinfo168.top/monitoring/patrol', '_blank') }
+function openCoverage() { window.open('https://app.yyinfo168.top/monitoring/coverage', '_blank') }
 function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
 </script>
 
