@@ -3,7 +3,8 @@ import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { User, Lock, Eye, EyeOff } from 'lucide-vue-next'
-import logoUrl from '@/static/logo.jpg'
+import logoUrl from '@/static/shuidi.jpg'
+import ModalDialog from '@/components/common/ModalDialog.vue'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -18,6 +19,15 @@ const showPassword = ref(false)
 const loading = ref(false)
 const error = ref('')
 const shakeError = ref(false)
+const showDingDing = ref(false)
+
+function handleDingDingLogin() {
+    showDingDing.value = true
+}
+function confirmDingDing() {
+    showDingDing.value = false
+    window.open('https://login.dingtalk.com/oauth2/auth', '_blank')
+}
 
 async function handleLogin() {
     if (!form.username.trim()) {
@@ -75,9 +85,9 @@ function showError(msg: string) {
                 <div class="relative z-10 flex flex-col items-center text-center">
                     <!-- Logo 大尺寸展示 -->
                     <div class="w-32 h-32 rounded-2xl bg-white p-3 shadow-lg shadow-black/30 mb-6">
-                        <img :src="logoUrl" alt="长沙水业 Logo" class="w-full h-full object-contain" />
+                        <img :src="logoUrl" alt="XX水业 Logo" class="w-full h-full object-contain" />
                     </div>
-                    <h1 class="text-3xl font-bold text-white tracking-wide mb-2">长沙水业</h1>
+                    <h1 class="text-3xl font-bold text-white tracking-wide mb-2">XX水业</h1>
                     <h2 class="text-base font-medium text-white/80 mb-6">城市排水设施管理平台</h2>
                     <div class="w-12 h-px bg-white/30 mb-6"></div>
                     <p class="text-sm text-white/55 leading-relaxed mb-8 max-w-xs">
@@ -101,7 +111,10 @@ function showError(msg: string) {
             </div>
 
             <!-- 右侧表单区 -->
-            <div class="w-full lg:w-1/2 p-8 sm:p-12 flex flex-col justify-center">
+            <div class="w-full lg:w-1/2 p-8 sm:p-12 flex flex-col justify-center relative">
+                <img src="@/static/dingding.webp" alt="钉钉登录"
+                    class="absolute top-4 right-4 w-12 h-12 rounded-lg shadow-md object-contain cursor-pointer hover:shadow-lg hover:scale-105 transition-all"
+                    @click="handleDingDingLogin" />
                 <div class="mb-8">
                     <div class="flex items-center gap-3 mb-4 lg:hidden">
                         <img :src="logoUrl" alt="Logo" class="w-10 h-10 rounded-lg" />
@@ -169,14 +182,18 @@ function showError(msg: string) {
                         <span v-else>登 录</span>
                     </button>
                 </form>
-
-                <!-- 底部提示 -->
-                <p class="text-xs text-muted-themed text-center mt-8">
-                    测试账号：admin / admin123
-                </p>
             </div>
         </div>
     </div>
+
+    <!-- 钉钉登录弹窗 -->
+    <ModalDialog :show="showDingDing" title="钉钉授权登录" @close="showDingDing = false" @confirm="confirmDingDing">
+        <div class="text-center py-4">
+            <img src="@/static/dingding.webp" alt="钉钉" class="w-16 h-16 mx-auto mb-4 rounded-xl" />
+            <p class="text-sm text-default font-medium mb-2">即将跳转钉钉授权登录</p>
+            <p class="text-xs text-dim">点击确定后将打开钉钉授权页面，授权后自动登录系统</p>
+        </div>
+    </ModalDialog>
 </template>
 
 <style scoped>

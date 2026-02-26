@@ -5,7 +5,7 @@ import { systemMenus } from '@/stores/menu'
 import { useThemeStore } from '@/stores/theme'
 import { useUserStore } from '@/stores/user'
 import { Sun, Moon, Bell, Search, LogOut, User } from 'lucide-vue-next'
-import logoUrl from '@/static/logo.png'
+import logoUrl from '@/static/shuidi.jpg'
 import { ref } from 'vue'
 
 const route = useRoute()
@@ -23,6 +23,11 @@ function navigateSystem(basePath: string) {
   const menu = systemMenus.find(m => m.basePath === basePath)
   if (menu?.externalUrl) {
     window.open(menu.externalUrl, '_blank')
+    return
+  }
+
+  if (menu?.key == 'dashboard') {
+    window.open('https://adabibi.com/demo/drainage/monitor-equip', '_blank')
     return
   }
   router.push(basePath)

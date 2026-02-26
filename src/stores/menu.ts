@@ -115,7 +115,7 @@ export const systemMenus: SystemMenu[] = [
         label: '数据中台',
         icon: Database,
         basePath: '/data-center',
-        externalUrl: 'http://10.81.32.88/#/login',
+        externalUrl: 'http://182.254.194.12:888',
         children: []
     }
 ]
