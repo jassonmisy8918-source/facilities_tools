@@ -337,6 +337,24 @@ watch(measureType, () => {
   }
 })
 
+// 比例尺预设
+const scalePresets = [
+  { label: '1:500', zoom: 19 },
+  { label: '1:1,000', zoom: 18 },
+  { label: '1:2,000', zoom: 17 },
+  { label: '1:5,000', zoom: 15 },
+  { label: '1:10,000', zoom: 14 },
+  { label: '1:25,000', zoom: 13 },
+  { label: '1:50,000', zoom: 12 },
+]
+const activeScaleZoom = ref(13)
+function updateScale() {
+  if (!map) return
+  activeScaleZoom.value = Math.round(map.getView().getZoom() || 13)
+}
+function zoomToScale(zoom: number) {
+  map?.getView().animate({ zoom, duration: 400 })
+}
 // 放大
 function zoomIn() { map?.getView().animate({ zoom: (map.getView().getZoom() || 13) + 1, duration: 250 }) }
 // 缩小
@@ -488,6 +506,9 @@ onMounted(() => {
     })
     map.addControl(new ScaleLine({ units: 'metric' }))
     createOlLayers()
+    // 监听 zoom 变化更新比例尺
+    map.getView().on('change:resolution', updateScale)
+    updateScale()
   }
 })
 
@@ -823,6 +844,16 @@ onUnmounted(() => {
         <button @click="resetView" title="全屏适配"
           class="p-2 bg-card border border-themed rounded-lg shadow-themed hover:bg-hover-themed transition-colors cursor-pointer">
           <Maximize2 class="w-4 h-4 text-default" />
+        </button>
+      </div>
+
+      <!-- 动态比例尺按钮组 -->
+      <div
+        class="absolute bottom-3 right-40 z-10 flex items-center gap-0.5 bg-card/90 border border-themed rounded-lg shadow-themed backdrop-blur-sm p-0.5">
+        <button v-for="s in scalePresets" :key="s.zoom" @click="zoomToScale(s.zoom)"
+          class="px-2 py-1 rounded-md text-[10px] font-mono font-medium transition-colors cursor-pointer whitespace-nowrap"
+          :class="activeScaleZoom === s.zoom ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">
+          {{ s.label }}
         </button>
       </div>
 

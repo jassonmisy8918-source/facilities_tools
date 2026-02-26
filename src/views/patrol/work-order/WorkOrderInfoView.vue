@@ -196,12 +196,12 @@ function doAdd() {
                                 o.status === 'approved' ? '已通过' : o.status === 'rejected' ? '已驳回' : '待审核' }}</span>
                         <template v-if="o.status === 'pending'">
                             <button @click="openReviewConfirm(o, 'approve')"
-                                class="p-1.5 rounded-md bg-success/10 text-success hover:bg-success/20 cursor-pointer">
-                                <CheckCircle class="w-3.5 h-3.5" />
+                                class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-success/10 text-success hover:bg-success/20 cursor-pointer text-xs font-semibold">
+                                <CheckCircle class="w-4 h-4" />通过
                             </button>
                             <button @click="openReviewConfirm(o, 'reject')"
-                                class="p-1.5 rounded-md bg-danger/10 text-danger hover:bg-danger/20 cursor-pointer">
-                                <XCircle class="w-3.5 h-3.5" />
+                                class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-danger/10 text-danger hover:bg-danger/20 cursor-pointer text-xs font-semibold">
+                                <XCircle class="w-4 h-4" />驳回
                             </button>
                         </template>
                     </div>
@@ -249,10 +249,10 @@ function doAdd() {
                             }}</span>
                     </p>
                     <p class="mt-1"><span class="text-dim">编号：</span><span class="text-primary font-mono">{{
-                            reviewTarget.id
+                        reviewTarget.id
                             }}</span></p>
                     <p class="mt-1"><span class="text-dim">申请人：</span><span class="text-default">{{
-                            reviewTarget.applicant
+                        reviewTarget.applicant
                             }}</span></p>
                 </div>
                 <div>
@@ -314,7 +314,7 @@ function doAdd() {
                         <div class="flex items-center justify-between mb-1"><span class="text-dim">执行进度</span><span
                                 class="font-bold"
                                 :class="detailOrder.progress === 100 ? 'text-success' : 'text-primary'">{{
-                                detailOrder.progress }}%</span></div>
+                                    detailOrder.progress }}%</span></div>
                         <div class="h-2 bg-card rounded-full overflow-hidden">
                             <div class="h-full rounded-full transition-all"
                                 :class="detailOrder.progress === 100 ? 'bg-success' : 'bg-primary'"

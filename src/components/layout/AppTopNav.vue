@@ -20,6 +20,11 @@ const currentSystem = computed(() => {
 const showUserMenu = ref(false)
 
 function navigateSystem(basePath: string) {
+  const menu = systemMenus.find(m => m.basePath === basePath)
+  if (menu?.externalUrl) {
+    window.open(menu.externalUrl, '_blank')
+    return
+  }
   router.push(basePath)
 }
 

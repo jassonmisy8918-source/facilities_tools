@@ -174,6 +174,7 @@ const showDetailModal = ref(false)
 const detailItem = ref<any>({})
 const detailTab = ref<'info' | 'bindFac' | 'bizData'>('info')
 function handleView(d: any) { detailItem.value = d; detailTab.value = 'info'; showDetailModal.value = true }
+function viewTab(d: any, tab: 'info' | 'bindFac' | 'bizData') { detailItem.value = d; detailTab.value = tab; showDetailModal.value = true }
 
 // ===================== 设施绑定 =====================
 const facilityPool = ref([
@@ -261,6 +262,8 @@ function doDelete() {
             <th class="text-left px-4 py-3 text-xs font-semibold text-dim bg-surface">管道</th>
             <th class="text-left px-4 py-3 text-xs font-semibold text-dim bg-surface">检查井</th>
             <th class="text-left px-4 py-3 text-xs font-semibold text-dim bg-surface">泵站</th>
+            <th class="text-center px-4 py-3 text-xs font-semibold text-dim bg-surface">设施关联</th>
+            <th class="text-center px-4 py-3 text-xs font-semibold text-dim bg-surface">业务关联</th>
             <th class="text-left px-4 py-3 text-xs font-semibold text-dim bg-surface">覆盖率</th>
             <th class="text-left px-4 py-3 text-xs font-semibold text-dim bg-surface">状态</th>
             <th class="text-left px-4 py-3 text-xs font-semibold text-dim bg-surface">操作</th>
@@ -277,6 +280,16 @@ function doDelete() {
             <td class="px-4 py-2.5 text-xs text-default">{{ d.facilities.pipes.toLocaleString() }}</td>
             <td class="px-4 py-2.5 text-xs text-default">{{ d.facilities.wells.toLocaleString() }}</td>
             <td class="px-4 py-2.5 text-xs text-default">{{ d.facilities.pumps }}</td>
+            <td class="text-center px-4 py-2.5">
+              <button @click="viewTab(d, 'bindFac')"
+                class="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary font-medium hover:bg-primary/20 cursor-pointer">{{
+                  d.facilities.pipes + d.facilities.wells + d.facilities.pumps }} 个</button>
+            </td>
+            <td class="text-center px-4 py-2.5">
+              <button @click="viewTab(d, 'bizData')"
+                class="text-[10px] px-1.5 py-0.5 rounded bg-info/10 text-info font-medium hover:bg-info/20 cursor-pointer">巡查
+                3 / 监测 3</button>
+            </td>
             <td class="px-4 py-2.5">
               <div class="flex items-center gap-2">
                 <div class="w-16 h-1.5 bg-surface rounded-full overflow-hidden">
@@ -296,6 +309,11 @@ function doDelete() {
             </td>
             <td class="px-4 py-2.5">
               <div class="flex items-center gap-1">
+                <button @click="viewTab(d, 'bindFac')"
+                  class="flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors cursor-pointer"
+                  title="查看关联数据">
+                  <Link class="w-3 h-3" />关联
+                </button>
                 <button @click="handleView(d)"
                   class="p-1 rounded hover:bg-hover-themed transition-colors cursor-pointer" title="查看">
                   <Eye class="w-3.5 h-3.5 text-primary" />

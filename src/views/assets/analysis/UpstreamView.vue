@@ -43,10 +43,14 @@ function toggleFlow() {
         <div class="grid grid-cols-2 gap-4">
             <!-- 影响范围分析 -->
             <div class="bg-card border border-themed rounded-xl shadow-themed overflow-hidden">
-                <div class="px-4 py-3 border-b border-themed">
+                <div class="px-4 py-3 border-b border-themed flex items-center justify-between">
                     <h3 class="text-sm font-semibold text-default flex items-center gap-2">
                         <ArrowDownUp class="w-4 h-4 text-primary" />上下游影响范围分析
                     </h3>
+                    <a href="https://adabibi.com/demo/drainage/analysis/upstream" target="_blank"
+                        class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium bg-primary text-white hover:bg-primary-light transition-colors cursor-pointer no-underline">
+                        <MapPin class="w-3.5 h-3.5" />地图查看
+                    </a>
                 </div>
                 <div class="p-4 space-y-3">
                     <!-- 参数设置 -->

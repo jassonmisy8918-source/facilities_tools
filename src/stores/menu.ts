@@ -21,6 +21,7 @@ export interface SystemMenu {
     icon: Component
     basePath: string
     children: SubMenuItem[]
+    externalUrl?: string
 }
 
 export const systemMenus: SystemMenu[] = [
@@ -108,5 +109,13 @@ export const systemMenus: SystemMenu[] = [
             { key: 'efficiency', label: '提质增效', icon: TrendingUp, path: '/dashboard/efficiency' },
             { key: 'alarms', label: '信息报警', icon: Bell, path: '/dashboard/alarms' },
         ]
+    },
+    {
+        key: 'data-center',
+        label: '数据中台',
+        icon: Database,
+        basePath: '/data-center',
+        externalUrl: 'http://10.81.32.88/#/login',
+        children: []
     }
 ]

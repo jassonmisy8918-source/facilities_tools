@@ -197,6 +197,10 @@
             background: radial-gradient(ellipse at 50% 0%, var(--glow-unicom), transparent 70%);
         }
 
+        .card--cockpit::before {
+            background: radial-gradient(ellipse at 50% 0%, rgba(14, 165, 233, 0.25), transparent 70%);
+        }
+
         .card:hover {
             transform: translateY(-8px);
             border-color: var(--border-hover);
@@ -210,6 +214,11 @@
         .card--unicom:hover {
             box-shadow: 0 20px 60px -15px rgba(220, 50, 50, 0.2);
             border-color: rgba(220, 50, 50, 0.3);
+        }
+
+        .card--cockpit:hover {
+            box-shadow: 0 20px 60px -15px rgba(14, 165, 233, 0.2);
+            border-color: rgba(14, 165, 233, 0.3);
         }
 
         .card:hover::before {
@@ -239,6 +248,10 @@
 
         .card--unicom:hover .card__logo-wrap {
             box-shadow: 0 8px 30px rgba(220, 50, 50, 0.25);
+        }
+
+        .card--cockpit:hover .card__logo-wrap {
+            box-shadow: 0 8px 30px rgba(14, 165, 233, 0.25);
         }
 
         .card__logo-wrap img {
@@ -293,6 +306,15 @@
             box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
         }
 
+        .card--cockpit .card__btn {
+            background: linear-gradient(135deg, #0284c7, #0ea5e9);
+            color: white;
+        }
+
+        .card--cockpit .card__btn:hover {
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
+        }
+
         .card__btn-arrow {
             transition: transform 0.3s;
         }
@@ -337,8 +359,12 @@
             animation: fadeUp 0.7s ease-out 0.3s both;
         }
 
-        .footer {
+        .card:nth-child(3) {
             animation: fadeUp 0.7s ease-out 0.45s both;
+        }
+
+        .footer {
+            animation: fadeUp 0.7s ease-out 0.6s both;
         }
 
         /* ====== 响应式 ====== */
@@ -404,6 +430,32 @@
             </div>
             <h2 class="card__name">中国联通</h2>
             <p class="card__desc">智慧城市运营管理平台<br>数据中心 · 网络运维 · 云服务</p>
+            <button class="card__btn">
+                进入系统
+                <svg class="card__btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                </svg>
+            </button>
+        </a>
+
+        <!-- 运行驾驶舱 -->
+        <a href="https://adabibi.com/demo/drainage/" target="_blank" rel="noopener" class="card card--cockpit">
+            <div class="card__logo-wrap"
+                style="background: linear-gradient(135deg, #0c4a6e, #0284c7); display: flex; align-items: center; justify-content: center;">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1" />
+                    <rect x="14" y="3" width="7" height="4" rx="1" />
+                    <rect x="14" y="10" width="7" height="7" rx="1" />
+                    <rect x="3" y="13" width="7" height="4" rx="1" />
+                    <path d="M3 20h18" />
+                    <circle cx="12" cy="20" r="1" />
+                </svg>
+            </div>
+            <h2 class="card__name">运行驾驶舱</h2>
+            <p class="card__desc">排水系统可视化指挥中枢<br>态势感知 · 数据大屏 · 智能决策</p>
             <button class="card__btn">
                 进入系统
                 <svg class="card__btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"

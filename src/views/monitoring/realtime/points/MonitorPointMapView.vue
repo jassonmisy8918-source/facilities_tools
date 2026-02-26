@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { Map, Droplets, Activity, Waves, FlaskConical, Layers } from 'lucide-vue-next'
+import { Map, Droplets, Activity, Waves, FlaskConical, Layers, LayoutDashboard } from 'lucide-vue-next'
 import AMapView from '@/components/common/AMapView.vue'
 
 const filterType = ref('all')
+function openCockpit() { window.open('https://adabibi.com/demo/drainage/monitor-equip', '_blank') }
 const types = [
     { key: 'all', label: '全部', icon: Map },
     { key: 'rainfall', label: '雨量', icon: Droplets },
@@ -71,6 +72,11 @@ const mapMarkers = computed(() => {
                         <Map class="w-4 h-4 text-primary" /> 监测点位空间分布
                     </h4>
                     <div class="flex items-center gap-0.5 bg-surface rounded-md p-0.5">
+                        <button @click="openCockpit"
+                            class="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium transition-colors cursor-pointer"
+                            :class="'text-dim hover:text-default'">
+                            <LayoutDashboard class="w-3 h-3" />驾驶舱查看
+                        </button>
                         <button v-for="t in types" :key="t.key" @click="filterType = t.key"
                             class="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium transition-colors cursor-pointer"
                             :class="filterType === t.key ? 'bg-primary text-white' : 'text-dim hover:text-default'">

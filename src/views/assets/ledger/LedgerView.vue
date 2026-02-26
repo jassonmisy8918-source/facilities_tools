@@ -26,12 +26,12 @@ const tabColumns: Record<string, { key: string; label: string }[]> = {
   pipe: [
     { key: 'code', label: '编号' }, { key: 'name', label: '管段名称' }, { key: 'type', label: '管道类型' },
     { key: 'material', label: '材质' }, { key: 'diameter', label: '管径' }, { key: 'length', label: '长度(m)' },
-    { key: 'district', label: '区域' }, { key: 'buildYear', label: '建设年份' }, { key: 'status', label: '状态' },
+    { key: 'district', label: '区域' }, { key: 'partition', label: '所属分区' }, { key: 'buildYear', label: '建设年份' }, { key: 'status', label: '状态' },
   ],
   well: [
     { key: 'code', label: '编号' }, { key: 'name', label: '井名称' }, { key: 'wellType', label: '井类型' },
     { key: 'depth', label: '井深(m)' }, { key: 'material', label: '井盖材质' }, { key: 'district', label: '区域' },
-    { key: 'buildYear', label: '建设年份' }, { key: 'status', label: '状态' },
+    { key: 'partition', label: '所属分区' }, { key: 'buildYear', label: '建设年份' }, { key: 'status', label: '状态' },
   ],
   rainInlet: [
     { key: 'code', label: '编号' }, { key: 'name', label: '名称' }, { key: 'inletType', label: '雨水口类型' },
@@ -108,6 +108,7 @@ function generateData(tab: string) {
       code: `${prefix[tab]}-${String(i + 1).padStart(6, '0')}`,
       name: `${districts[i % 5]}${ledgerTabs.find(t => t.key === tab)?.label}${i + 1}`,
       district: districts[i % 5],
+      partition: ['雨花污水分区 A', '洞井污水分区 B', '侯家塘污水分区 C', '东城污水分区 D', '雨花雨水汇水区 1'][i % 5],
       status: statuses[i % 5],
       buildYear: 2010 + (i % 14),
     }
@@ -425,6 +426,17 @@ function handleExport() { toast.value?.show('数据导出中，请稍候...', 'i
                 :class="col.key === 'code' ? 'font-mono text-primary' : col.key === 'status' ? '' : col.key === 'name' ? 'text-default' : 'text-dim'">
                 <span v-if="col.key === 'status'" class="text-[10px] px-2 py-0.5 rounded-md"
                   :class="getStatusClass(item[col.key])">{{ item[col.key] }}</span>
+                <select v-else-if="col.key === 'partition'" v-model="item[col.key]"
+                  class="bg-transparent border border-themed rounded px-1.5 py-0.5 text-[10px] text-primary font-medium cursor-pointer focus:outline-none focus:border-primary w-full max-w-[140px]"
+                  @change="toast?.show(`已关联到 ${item[col.key]}`, 'success')">
+                  <option value="">未关联</option>
+                  <option>雨花污水分区 A</option>
+                  <option>洞井污水分区 B</option>
+                  <option>侯家塘污水分区 C</option>
+                  <option>东城污水分区 D</option>
+                  <option>雨花雨水汇水区 1</option>
+                  <option>洞井雨水汇水区 2</option>
+                </select>
                 <span v-else>{{ item[col.key] }}</span>
               </td>
               <td class="px-4 py-2.5">

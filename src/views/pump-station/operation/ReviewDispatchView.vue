@@ -74,16 +74,16 @@ function orderStatusClass(s: string) { return s === '已完成' ? 'bg-success/10
                                     class="text-[10px] px-1.5 py-0.5 rounded font-medium"
                                     :class="reviewStatusClass(r.status)">{{ r.status }}</span></td>
                             <td class="text-center px-2 py-2.5">
-                                <div v-if="r.status === '待审核'" class="flex gap-1 justify-center"><button
+                                <div v-if="r.status === '待审核'" class="flex gap-1.5 justify-center"><button
                                         @click="toast?.show('已通过', 'success')"
-                                        class="p-1 text-success hover:bg-success/10 rounded cursor-pointer">
-                                        <CheckCircle class="w-3.5 h-3.5" />
+                                        class="flex items-center gap-1.5 px-3 py-1.5 text-success bg-success/10 hover:bg-success/20 rounded-lg cursor-pointer text-xs font-semibold">
+                                        <CheckCircle class="w-4 h-4" />通过
                                     </button><button @click="toast?.show('已退回', 'warning')"
-                                        class="p-1 text-danger hover:bg-danger/10 rounded cursor-pointer">
-                                        <XCircle class="w-3.5 h-3.5" />
+                                        class="flex items-center gap-1.5 px-3 py-1.5 text-danger bg-danger/10 hover:bg-danger/20 rounded-lg cursor-pointer text-xs font-semibold">
+                                        <XCircle class="w-4 h-4" />驳回
                                     </button><button
-                                        class="p-1 text-primary hover:bg-primary/10 rounded cursor-pointer">
-                                        <Eye class="w-3.5 h-3.5" />
+                                        class="p-1.5 text-primary hover:bg-primary/10 rounded-lg cursor-pointer">
+                                        <Eye class="w-4 h-4" />
                                     </button></div><span v-else class="text-[10px] text-dim">-</span>
                             </td>
                         </tr>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { Zap, PlayCircle, AlertTriangle, Download, Search, Eye } from 'lucide-vue-next'
+import { Zap, PlayCircle, AlertTriangle, Download, Search, Eye, Map } from 'lucide-vue-next'
 import ModalDialog from '@/components/common/ModalDialog.vue'
 import ToastNotify from '@/components/common/ToastNotify.vue'
 
@@ -24,6 +24,7 @@ const riskStats = ref([
 
 function runCollisionCheck() { toast.value?.show('管线碰撞检测执行中...', 'info') }
 function exportReport() { toast.value?.show('碰撞分析报告导出中...', 'info') }
+function openMapView() { window.open('https://adabibi.com/demo/drainage/analysis/collision', '_blank') }
 
 // 搜索和过滤
 const searchText = ref('')
@@ -59,6 +60,10 @@ function viewDetail(c: any) { detailItem.value = c; showDetail.value = true }
                 </div>
             </div>
             <div class="flex items-center gap-2">
+                <button @click="openMapView"
+                    class="flex items-center gap-1.5 px-4 py-2 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
+                    <Map class="w-3.5 h-3.5" />地图查看
+                </button>
                 <button @click="runCollisionCheck"
                     class="flex items-center gap-1.5 px-4 py-2 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
                     <PlayCircle class="w-3.5 h-3.5" />重新检测

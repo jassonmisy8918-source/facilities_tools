@@ -22,7 +22,7 @@ const hasSubMenu = computed(() => {
 })
 
 function isActive(path: string): boolean {
-    return route.path === path
+    return route.path === path || route.path.startsWith(path + '/')
 }
 
 function navigate(path: string) {

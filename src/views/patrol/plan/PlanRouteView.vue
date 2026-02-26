@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Navigation, AlertTriangle, Plus, Pencil, Trash2, Eye } from 'lucide-vue-next'
+import { Navigation, AlertTriangle, Plus, Pencil, Trash2, Eye, Map, Radar } from 'lucide-vue-next'
 import ToastNotify from '@/components/common/ToastNotify.vue'
 import ModalDialog from '@/components/common/ModalDialog.vue'
 import AMapView from '@/components/common/AMapView.vue'
@@ -50,6 +50,8 @@ const showAddModal = ref(false)
 const addForm = ref({ name: '', area: '', distance: '', estimateTime: '' })
 const toast = ref<InstanceType<typeof ToastNotify>>()
 function openAdd() { addForm.value = { name: '', area: '', distance: '', estimateTime: '' }; showAddModal.value = true }
+function openMapView() { window.open('https://adabibi.com/demo/drainage/monitoring/patrol', '_blank') }
+function openCoverage() { window.open('https://adabibi.com/demo/drainage/monitoring/coverage', '_blank') }
 function doAdd() { showAddModal.value = false; toast.value?.show('新增成功', 'success') }
 </script>
 
@@ -62,10 +64,21 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                     :class="activeFunc === ft.key ? 'bg-primary text-white' : 'text-dim hover:text-default hover:bg-hover-themed'">{{
                         ft.label }}</button>
             </div>
-            <button
-                class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer" @click="openAdd()">
-                <Plus class="w-3.5 h-3.5" />新增
-            </button>
+            <div class="flex items-center gap-2">
+                <button @click="openMapView"
+                    class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
+                    <Map class="w-3.5 h-3.5" />地图查看
+                </button>
+                <button @click="openCoverage"
+                    class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer">
+                    <Radar class="w-3.5 h-3.5" />区域覆盖分析
+                </button>
+                <button
+                    class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-light transition-colors cursor-pointer"
+                    @click="openAdd()">
+                    <Plus class="w-3.5 h-3.5" />新增
+                </button>
+            </div>
         </div>
 
         <!-- 路线 -->
@@ -86,7 +99,7 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                     </div>
                     <div><span class="text-dim">巡查点: </span><span class="text-default">{{ r.points }}个</span></div>
                     <div><span class="text-dim">关键点: </span><span class="text-danger font-bold">{{ r.keyPoints
-                    }}个</span></div>
+                            }}个</span></div>
                     <div class="col-span-2"><span class="text-dim">预计耗时: </span><span class="text-default">{{
                         r.estimateTime }}</span></div>
                 </div>
@@ -121,7 +134,7 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                                     class="text-[10px] text-muted-themed">{{ kp.type }}</span></div>
                             <p class="text-[10px] text-default mb-1">检查要求: {{ kp.requirement }}</p>
                             <div class="flex items-center gap-3 text-[10px] text-dim"><span>坐标: {{ kp.lat }}, {{ kp.lng
-                            }}</span><span>最近问题: {{ kp.lastIssue }}</span></div>
+                                    }}</span><span>最近问题: {{ kp.lastIssue }}</span></div>
                         </div>
                     </div>
                     <div class="flex items-center gap-1 shrink-0">
@@ -174,31 +187,31 @@ function doAdd() { showAddModal.value = false; toast.value?.show('新增成功',
                 </tbody>
             </table>
         </div>
-    <!-- 新增弹窗 -->
-    <ModalDialog :show="showAddModal" title="新增巡查路线" @close="showAddModal = false" @confirm="doAdd">
-        <div class="space-y-3">
-            <div>
-                <label class="text-[10px] text-dim block mb-1">路线名称</label>
-                <input v-model="addForm.name" type="text" placeholder="请输入路线名称"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+        <!-- 新增弹窗 -->
+        <ModalDialog :show="showAddModal" title="新增巡查路线" @close="showAddModal = false" @confirm="doAdd">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">路线名称</label>
+                    <input v-model="addForm.name" type="text" placeholder="请输入路线名称"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">区域</label>
+                    <input v-model="addForm.area" type="text" placeholder="请选择区域"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">里程</label>
+                    <input v-model="addForm.distance" type="text" placeholder="如 8.5km"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="text-[10px] text-dim block mb-1">预计耗时</label>
+                    <input v-model="addForm.estimateTime" type="text" placeholder="如 3.5小时"
+                        class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
+                </div>
             </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">区域</label>
-                <input v-model="addForm.area" type="text" placeholder="请选择区域"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">里程</label>
-                <input v-model="addForm.distance" type="text" placeholder="如 8.5km"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-            <div>
-                <label class="text-[10px] text-dim block mb-1">预计耗时</label>
-                <input v-model="addForm.estimateTime" type="text" placeholder="如 3.5小时"
-                    class="w-full px-3 py-2 bg-input border border-themed rounded-lg text-xs text-default focus:outline-none focus:border-primary" />
-            </div>
-        </div>
-    </ModalDialog>
+        </ModalDialog>
         <ToastNotify ref="toast" />
     </div>
 </template>
